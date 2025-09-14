@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
-            $table->foreignId('reviewer_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('reviewed_id')->constrained('users')->onDelete('cascade');
+            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('reviewer_id');
+            $table->unsignedInteger('reviewed_id');
             $table->integer('rating')->comment('Rating from 1 to 5');
             $table->text('comment')->nullable();
             $table->enum('trade_type', ['buy', 'sell'])->comment('Trade type from vendor perspective');
@@ -23,12 +23,12 @@ return new class extends Migration
             $table->decimal('fiat_amount', 20, 2)->nullable();
             $table->boolean('is_anonymous')->default(false);
             $table->timestamps();
-            
+
             // Indexes
             $table->index('reviewed_id');
             $table->index('reviewer_id');
             $table->index('order_id');
-            
+
             // Ensure one review per order
             $table->unique('order_id');
         });
