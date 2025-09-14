@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Bash(php artisan make:migration:*)",
+      "Bash(php:*)",
+      "WebSearch",
+      "Bash(composer show:*)",
+      "Bash(find:*)",
+      "Bash(sed:*)",
+      "Bash(sqlite3:*)",
+      "WebFetch(domain:localcoinswap.com)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
