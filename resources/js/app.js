@@ -21,6 +21,49 @@ const updateSW = registerSW({
     },
 });
 
+// Dynamic theme-color for PWA status bar
+function updateThemeColor() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]:not([media])');
+    const lightMeta = document.querySelector('meta[name="theme-color"][media="(prefers-color-scheme: light)"]');
+    const darkMeta = document.querySelector('meta[name="theme-color"][media="(prefers-color-scheme: dark)"]');
+
+    // Remove existing theme-color meta tag without media query
+    if (themeColorMeta) {
+        themeColorMeta.remove();
+    }
+
+    // Add new theme-color meta tag based on current theme
+    const newThemeColor = document.createElement('meta');
+    newThemeColor.name = 'theme-color';
+    newThemeColor.content = isDark ? '#0f172a' : '#ffffff';
+    document.head.appendChild(newThemeColor);
+
+    // Also update Apple status bar style
+    const statusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+    if (statusBarMeta) {
+        statusBarMeta.content = isDark ? 'black-translucent' : 'default';
+    }
+}
+
+// Watch for theme changes
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+            updateThemeColor();
+        }
+    });
+});
+
+// Start observing the document element for class changes
+observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+});
+
+// Initial theme color update
+updateThemeColor();
+
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
