@@ -165,37 +165,5 @@ return [
             'currency' => 'PHP',
             'language' => 'en-PH'
         ]
-    ],
-    
-    /**
-     * Get country by code
-     */
-    'get' => function($code) {
-        return config("countries.supported.{$code}");
-    },
-    
-    /**
-     * Get all countries as array
-     */
-    'all' => function() {
-        return array_values(config('countries.supported'));
-    },
-    
-    /**
-     * Get countries for select options (with flag)
-     */
-    'options' => function($locale = 'en') {
-        $countries = config('countries.supported');
-        $options = [];
-        
-        foreach ($countries as $country) {
-            $name = $locale === 'zh' ? $country['name_zh'] : $country['name'];
-            $options[] = [
-                'value' => $country['code'],
-                'label' => $country['flag'] . ' ' . $name
-            ];
-        }
-        
-        return $options;
-    }
+    ]
 ];

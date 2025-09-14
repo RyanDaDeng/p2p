@@ -65,19 +65,5 @@ return [
             'chain_label' => 'Ethereum Network',
             'network' => 'Ethereum'
         ]
-    ],
-
-    /**
-     * Get cryptocurrency by key
-     */
-    'get' => function($key) {
-        return config("cryptocurrencies.supported.{$key}");
-    },
-
-    /**
-     * Get all cryptocurrencies as array
-     */
-    'all' => function() {
-        return array_values(config('cryptocurrencies.supported'));
-    }
+    ]
 ];

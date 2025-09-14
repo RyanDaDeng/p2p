@@ -157,37 +157,5 @@ return [
             'label' => 'د.إ AED',
             'decimal_places' => 2
         ]
-    ],
-    
-    /**
-     * Get fiat currency by code
-     */
-    'get' => function($code) {
-        return config("fiat_currencies.supported.{$code}");
-    },
-    
-    /**
-     * Get all fiat currencies as array
-     */
-    'all' => function() {
-        return array_values(config('fiat_currencies.supported'));
-    },
-    
-    /**
-     * Get fiat currencies for select options
-     */
-    'options' => function() {
-        $currencies = config('fiat_currencies.supported');
-        $options = [];
-        
-        foreach ($currencies as $currency) {
-            $options[] = [
-                'value' => $currency['code'],
-                'label' => $currency['label'],
-                'symbol' => $currency['symbol']
-            ];
-        }
-        
-        return $options;
-    }
+    ]
 ];

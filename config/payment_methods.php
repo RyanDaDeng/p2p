@@ -91,22 +91,5 @@ return [
                 ['value' => 'tusd', 'label' => 'TUSD', 'popular' => false],
             ]
         ]
-    ],
-
-    /**
-     * Helper function to get all payment methods as key-value pairs
-     * @return array ['payment_value' => 'Payment Label', ...]
-     */
-    'key_value' => function() {
-        $keyValue = [];
-        $categories = config('payment_methods.categories', []);
-
-        foreach ($categories as $category) {
-            foreach ($category['methods'] as $method) {
-                $keyValue[$method['value']] = $method['label'];
-            }
-        }
-
-        return $keyValue;
-    }
+    ]
 ];
