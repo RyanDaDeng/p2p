@@ -45,6 +45,7 @@ export default defineConfig({
                 display: 'standalone',
                 orientation: 'portrait',
                 start_url: '/market',
+                scope: '/',
                 icons: [
                     {
                         src: '/logo.png',
