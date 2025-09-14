@@ -30,11 +30,12 @@
 
         <!-- Navigation -->
         <nav v-if="!hideNavigation" :class="[
-                 'sticky top-0 z-40 w-full border-b border-gray-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl pt-safe',
+                 'fixed top-0 left-0 right-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl',
                  hideNav ? 'hidden md:block' : ''
              ]">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="flex h-14 md:h-16 items-center justify-between">
+            <div class="pt-safe border-b border-gray-200 dark:border-slate-800">
+                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="flex h-14 md:h-16 items-center justify-between">
                     <!-- Logo & Navigation Links -->
                     <div class="flex items-center">
                         <!-- Logo -->
@@ -178,6 +179,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </nav>
 
         <!-- Desktop Breadcrumbs -->
@@ -220,7 +222,10 @@
         </div>
 
         <!-- Main Content -->
-        <main :class="showMobileBottomNav ? 'pb-20 md:pb-0' : ''">
+        <main :class="[
+            showMobileBottomNav ? 'pb-20 md:pb-0' : '',
+            !hideNavigation ? 'pt-[calc(3.5rem+env(safe-area-inset-top))] md:pt-[calc(4rem+env(safe-area-inset-top))]' : ''
+        ]">
             <slot />
         </main>
 
