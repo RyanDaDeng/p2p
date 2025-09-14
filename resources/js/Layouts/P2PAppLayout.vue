@@ -30,10 +30,10 @@
 
         <!-- Navigation -->
         <nav v-if="!hideNavigation" :class="[
-                 'sticky top-0 z-40 w-full border-b border-gray-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl',
+                 'sticky top-0 z-40 w-full border-b border-gray-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl pt-safe',
                  hideNav ? 'hidden md:block' : ''
              ]">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-safe">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-14 md:h-16 items-center justify-between">
                     <!-- Logo & Navigation Links -->
                     <div class="flex items-center">
