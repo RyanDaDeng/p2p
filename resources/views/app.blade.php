@@ -13,7 +13,12 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="apple-mobile-web-app-title" content="P2PCoinSwap">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="application-name" content="P2PCoinSwap">
+        <meta name="msapplication-TileColor" content="#10b981">
+        <meta name="msapplication-starturl" content="/market">
         <link rel="apple-touch-icon" href="/logo.png">
+        <link rel="manifest" href="/build/manifest.webmanifest">
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 

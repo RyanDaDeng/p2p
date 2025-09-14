@@ -36,16 +36,20 @@ export default defineConfig({
                 skipWaiting: true,
                 clientsClaim: true,
             },
+            includeAssets: ['logo.png'],
             manifest: {
+                id: '/',
                 name: 'P2PCoinSwap.com',
                 short_name: 'P2PCoinSwap',
                 description: 'P2P Cryptocurrency Trading Platform',
                 theme_color: '#10b981',
                 background_color: '#ffffff',
                 display: 'standalone',
-                orientation: 'portrait',
+                display_override: ['standalone', 'minimal-ui'],
+                orientation: 'portrait-primary',
                 start_url: '/market',
                 scope: '/',
+                lang: 'en',
                 icons: [
                     {
                         src: '/logo.png',
@@ -64,6 +68,9 @@ export default defineConfig({
                         purpose: 'any maskable'
                     }
                 ]
+            },
+            devOptions: {
+                enabled: true
             }
         })
     ],
