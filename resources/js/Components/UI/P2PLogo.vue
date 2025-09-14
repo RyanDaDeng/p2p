@@ -1,7 +1,7 @@
 <template>
     <a :href="href" class="flex items-center space-x-2 hover:opacity-90 transition-opacity">
         <img src="/logo.png" alt="Logo" :class="logoClasses" />
-        <div :class="textContainerClasses">
+        <div :class="[textContainerClasses, hideTextOnMobile ? 'hidden md:flex' : '']">
             <span :class="titleClasses">{{ title }}</span>
             <p :class="taglineClasses" v-if="showTagline">{{ tagline }}</p>
         </div>
@@ -25,6 +25,10 @@ const props = defineProps({
         type: Boolean,
         default: true
     },
+    hideTextOnMobile: {
+        type: Boolean,
+        default: false
+    },
     title: {
         type: String,
         default: 'P2PCoinSwap'
@@ -38,8 +42,8 @@ const props = defineProps({
 const logoClasses = computed(() => {
     const sizes = {
         sm: 'h-8 w-auto',
-        md: 'h-10 w-auto',
-        lg: 'h-12 w-auto'
+        md: 'h-8 md:h-10 w-auto',
+        lg: 'h-10 md:h-12 w-auto'
     };
     return sizes[props.size] || sizes.md;
 });

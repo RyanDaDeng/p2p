@@ -32,20 +32,54 @@
                             </div>
                         </div>
 
-                        <!-- 右侧：价格显示 -->
-                        <div class="flex items-center gap-3 sm:gap-4">
-                            <div class="flex items-center gap-1">
-                                <span class="text-xs text-gray-600 dark:text-slate-400">USDT·{{ selectedFiatCurrency || 'USD' }}</span>
-                                <span class="font-semibold text-sm text-emerald-600 dark:text-emerald-400">{{ formatCryptoPrice('USDT', selectedFiatCurrency || 'USD') }}</span>
+                        <!-- 右侧：价格显示 - 移动端使用横向滚动容器 -->
+                        <div class="relative flex-1 sm:flex-initial overflow-hidden">
+                            <!-- 移动端：可横向滚动的价格容器 -->
+                            <div class="sm:hidden overflow-x-auto scrollbar-hide">
+                                <div class="flex items-center gap-3 min-w-max pr-2">
+                                    <div class="flex items-center gap-1 whitespace-nowrap">
+                                        <span class="text-[10px] text-gray-500 dark:text-slate-500">USDT</span>
+                                        <span class="font-semibold text-xs text-emerald-600 dark:text-emerald-400">
+                                            {{ formatCryptoPrice('USDT', selectedFiatCurrency || 'USD') }}
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center gap-1 whitespace-nowrap">
+                                        <span class="text-[10px] text-gray-500 dark:text-slate-500">BTC</span>
+                                        <span class="font-semibold text-xs text-orange-600 dark:text-orange-400">
+                                            {{ formatCryptoPrice('BTC', selectedFiatCurrency || 'USD') }}
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center gap-1 whitespace-nowrap">
+                                        <span class="text-[10px] text-gray-500 dark:text-slate-500">ETH</span>
+                                        <span class="font-semibold text-xs text-blue-600 dark:text-blue-400">
+                                            {{ formatCryptoPrice('ETH', selectedFiatCurrency || 'USD') }}
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-1">
-                                <span class="text-xs text-gray-600 dark:text-slate-400">BTC·{{ selectedFiatCurrency || 'USD' }}</span>
-                                <span class="font-semibold text-sm text-orange-600 dark:text-orange-400">{{ formatCryptoPrice('BTC', selectedFiatCurrency || 'USD') }}</span>
+
+                            <!-- 桌面端：正常显示 -->
+                            <div class="hidden sm:flex items-center gap-3 md:gap-4">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-xs text-gray-600 dark:text-slate-400">USDT·{{ selectedFiatCurrency || 'USD' }}</span>
+                                    <span class="font-semibold text-sm text-emerald-600 dark:text-emerald-400">
+                                        {{ formatCryptoPrice('USDT', selectedFiatCurrency || 'USD') }}
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-xs text-gray-600 dark:text-slate-400">BTC·{{ selectedFiatCurrency || 'USD' }}</span>
+                                    <span class="font-semibold text-sm text-orange-600 dark:text-orange-400">
+                                        {{ formatCryptoPrice('BTC', selectedFiatCurrency || 'USD') }}
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-xs text-gray-600 dark:text-slate-400">ETH·{{ selectedFiatCurrency || 'USD' }}</span>
+                                    <span class="font-semibold text-sm text-blue-600 dark:text-blue-400">
+                                        {{ formatCryptoPrice('ETH', selectedFiatCurrency || 'USD') }}
+                                    </span>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-1">
-                                <span class="text-xs text-gray-600 dark:text-slate-400">ETH·{{ selectedFiatCurrency || 'USD' }}</span>
-                                <span class="font-semibold text-sm text-blue-600 dark:text-blue-400">{{ formatCryptoPrice('ETH', selectedFiatCurrency || 'USD') }}</span>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -123,9 +157,10 @@
                     />
 
                     <P2PSelect
-                        v-model="filters.location"
-                        :options="locationOptions"
-                        placeholder="选择国家"
+                        v-model="filters.sortBy"
+                        :options="sortOptions"
+                        placeholder="排序方式"
+                        :default-value="'recent'"
                         size="md"
                         class="w-36"
                     />
@@ -205,9 +240,10 @@
                         />
 
                         <P2PSelect
-                            v-model="filters.location"
-                            :options="locationOptions"
-                            placeholder="选择国家"
+                            v-model="filters.sortBy"
+                            :options="sortOptions"
+                            placeholder="排序方式"
+                            :default-value="'recent'"
                             size="md"
                             class="w-full"
                         />
@@ -220,32 +256,19 @@
         <div class="min-h-screen bg-white dark:bg-slate-950">
             <div class="mx-auto max-w-7xl px-2 sm:px-4 py-4 lg:px-8">
                 <!-- 卡片列表控制栏 -->
-                <div class="flex items-center justify-between gap-2 mb-4">
-                    <!-- 左侧：筛选复选框 -->
-                    <div class="flex items-center gap-1 sm:gap-2">
-                        <!-- 认证商家 -->
-                        <label class="flex items-center gap-1.5 sm:gap-2 px-3 py-2.5 sm:py-2 bg-white dark:bg-slate-900/50 rounded-lg border border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600 cursor-pointer transition-colors">
-                            <input
-                                type="checkbox"
-                                v-model="filters.onlyVerified"
-                                class="w-4 h-4 sm:w-4 sm:h-4 text-amber-600 bg-gray-100 border-gray-300 rounded focus:ring-amber-500 dark:focus:ring-amber-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer"
-                            />
-                            <svg class="w-4 h-4 sm:w-4 sm:h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                            <span class="text-xs sm:text-sm text-gray-700 dark:text-slate-200 whitespace-nowrap">认证商家</span>
-                        </label>
-                    </div>
-
-                    <!-- 右侧：排序选择器 -->
-                    <P2PSelect
-                        v-model="filters.sortBy"
-                        :options="sortOptions"
-                        placeholder="排序方式"
-                        :default-value="'recent'"
-                        size="md"
-                        class="w-36 sm:w-44"
-                    />
+                <div class="mb-4">
+                    <!-- 认证商家筛选 -->
+                    <label class="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2.5 sm:py-2 bg-white dark:bg-slate-900/50 rounded-lg border border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600 cursor-pointer transition-colors">
+                        <input
+                            type="checkbox"
+                            v-model="filters.onlyVerified"
+                            class="w-4 h-4 sm:w-4 sm:h-4 text-amber-600 bg-gray-100 border-gray-300 rounded focus:ring-amber-500 dark:focus:ring-amber-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer"
+                        />
+                        <svg class="w-4 h-4 sm:w-4 sm:h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="text-xs sm:text-sm text-gray-700 dark:text-slate-200 whitespace-nowrap">认证商家</span>
+                    </label>
                 </div>
 
                 <!-- 加载状态 -->
@@ -350,9 +373,6 @@
                                             <span class="px-2 py-0.5 bg-blue-500/10 border border-blue-500/20 dark:border-blue-500/30 rounded text-xs font-medium text-blue-600 dark:text-blue-400">
                                                 {{ getPaymentMethodDetails(listing.paymentMethod)?.label || listing.paymentMethod }}
                                             </span>
-                                            <span class="px-2 py-0.5 bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded text-xs text-gray-700 dark:text-slate-400">
-                                                📍 {{ getCountryName(listing.location) }}
-                                            </span>
                                         </div>
                                         <div v-if="listing.notes" class="text-xs text-gray-600 dark:text-slate-400 italic line-clamp-2">
                                             {{ listing.notes }}
@@ -395,7 +415,7 @@
                                             size="md"
                                             class="group">
                                             <span class="flex items-center gap-2 justify-center">
-                                                购买 {{ getCryptoLabel(listing.cryptocurrency) }}
+                                                购买 {{ getCryptocurrencyByKey(listing.cryptocurrency)?.label || getCryptoLabel(listing.cryptocurrency) }}
                                                 <span class="inline-flex items-center justify-center w-6 h-6 bg-white rounded-full">
                                                     <component :is="getCryptoIcon(listing.cryptocurrency)" :size="20" />
                                                 </span>
@@ -408,7 +428,7 @@
                                             size="md"
                                             class="group">
                                             <span class="flex items-center gap-2 justify-center">
-                                                出售 {{ getCryptoLabel(listing.cryptocurrency) }}
+                                                出售 {{ getCryptocurrencyByKey(listing.cryptocurrency)?.label || getCryptoLabel(listing.cryptocurrency) }}
                                                 <span class="inline-flex items-center justify-center w-6 h-6 bg-white rounded-full">
                                                     <component :is="getCryptoIcon(listing.cryptocurrency)" :size="20" />
                                                 </span>
@@ -569,9 +589,6 @@
                                     <span class="px-2 py-0.5 bg-blue-500/10 border border-blue-500/20 dark:border-blue-500/30 rounded text-xs font-medium text-blue-600 dark:text-blue-400">
                                         {{ getPaymentMethodDetails(listing.paymentMethod)?.label || listing.paymentMethod }}
                                     </span>
-                                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded text-xs text-gray-700 dark:text-slate-400">
-                                        📍 {{ getCountryName(listing.location) }}
-                                    </span>
                                 </div>
                                 <div v-if="listing.notes" class="text-xs text-gray-600 dark:text-slate-400 italic">
                                     {{ listing.notes }}
@@ -587,7 +604,7 @@
                                     size="md"
                                     class="flex-1">
                                     <span class="flex items-center gap-1.5 justify-center">
-                                        购买 {{ getCryptoLabel(listing.cryptocurrency) }}
+                                        购买 {{ getCryptocurrencyByKey(listing.cryptocurrency)?.label || getCryptoLabel(listing.cryptocurrency) }}
                                         <span class="inline-flex items-center justify-center w-5 h-5 bg-white rounded-full">
                                             <component :is="getCryptoIcon(listing.cryptocurrency)" :size="16" />
                                         </span>
@@ -600,7 +617,7 @@
                                     size="md"
                                     class="flex-1">
                                     <span class="flex items-center gap-1.5 justify-center">
-                                        出售 {{ getCryptoLabel(listing.cryptocurrency) }}
+                                        出售 {{ getCryptocurrencyByKey(listing.cryptocurrency)?.label || getCryptoLabel(listing.cryptocurrency) }}
                                         <span class="inline-flex items-center justify-center w-5 h-5 bg-white rounded-full">
                                             <component :is="getCryptoIcon(listing.cryptocurrency)" :size="16" />
                                         </span>
@@ -621,13 +638,83 @@
                 </div>
             </div>
         </div>
-        <!-- Trade Warning Dialog -->
-        <TradeWarningDialog
+        <!-- Trade Confirmation Dialog -->
+        <P2PDialog
             :show="showWarningDialog"
-            :trade-type="selectedTradeType"
+            title="交易安全提醒"
+            subtitle="请仔细阅读以下重要提示"
+            icon-color="amber"
+            cancel-text="取消"
+            confirm-text="确认了解"
             @close="showWarningDialog = false"
             @confirm="handleTradeConfirm"
-        />
+        >
+            <div class="space-y-4 text-sm">
+                <!-- Warning 1 -->
+                <div class="flex gap-2">
+                    <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-slate-100 mb-1">
+                            资金安全警告
+                        </p>
+                        <p class="text-gray-600 dark:text-slate-300">
+                            <span class="font-bold text-red-600 dark:text-red-400">切勿在资金到达托管前进行任何转账！</span>
+                            请等待系统确认后再进行支付。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Warning 2 -->
+                <div class="flex gap-2">
+                    <svg class="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                    </svg>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-slate-100 mb-1">
+                            沟通凭证提醒
+                        </p>
+                        <p class="text-gray-600 dark:text-slate-300">
+                            只有在本平台内的聊天记录才能作为交易凭证。站外沟通内容无法作为争议处理依据。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Terms -->
+                <div class="flex gap-2">
+                    <svg class="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-slate-100 mb-1">
+                            交易条款确认
+                        </p>
+                        <p class="text-gray-600 dark:text-slate-300">
+                            点击确认即表示您同意：
+                        </p>
+                        <ul class="mt-1 space-y-1 text-gray-600 dark:text-slate-300">
+                            <li class="flex items-start gap-1">
+                                <span class="text-gray-400">•</span>
+                                <span>遵守商家的交易条款</span>
+                            </li>
+                            <li class="flex items-start gap-1">
+                                <span class="text-gray-400">•</span>
+                                <span>在规定时间内完成交易</span>
+                            </li>
+                            <li class="flex items-start gap-1">
+                                <span class="text-gray-400">•</span>
+                                <span>使用实名账户进行支付</span>
+                            </li>
+                            <li class="flex items-start gap-1">
+                                <span class="text-gray-400">•</span>
+                                <span>诚信交易，不进行欺诈行为</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </P2PDialog>
     </P2PAppLayout>
 </template>
 
@@ -640,7 +727,7 @@ import P2PBadge from '@/Components/UI/P2PBadge.vue';
 import P2PSelect from '@/Components/UI/P2PSelect.vue';
 import P2PPagination from '@/Components/UI/P2PPagination.vue';
 import P2PPaymentMethodPicker from '@/Components/UI/P2PPaymentMethodPicker.vue';
-import TradeWarningDialog from '@/Components/Market/TradeWarningDialog.vue';
+import P2PDialog from '@/Components/UI/P2PDialog.vue';
 import { useConfig } from '@/composables/useConfig';
 import axios from 'axios';
 
@@ -657,8 +744,6 @@ const {
     getCryptocurrencyOptions,
     getPaymentMethodOptions,
     getFiatCurrencyOptions,
-    getCountryOptions,
-    getCountryByCode,
     getCryptocurrencyByKey,
     getPaymentMethodDetails,
     getFiatCurrencyByCode,
@@ -685,7 +770,6 @@ const filters = ref({
     tradeType: 'buy', // 新增交易类型：buy 或 sell
     cryptocurrency: null,
     paymentMethod: null,
-    location: null,
     sortBy: 'recent', // 默认按最新发布排序
     onlyVerified: false, // 只看认证商家，默认不勾选
 });
@@ -742,9 +826,6 @@ const fetchAds = async () => {
             params.append('payment_method', filters.value.paymentMethod);
         }
 
-        if (filters.value.location) {
-            params.append('country', filters.value.location);
-        }
 
 
         // Map frontend sort values to backend parameters
@@ -778,7 +859,6 @@ const fetchAds = async () => {
                     max: ad.max_limit || 10000
                 },
                 paymentMethod: ad.payment_method,
-                location: ad.country,
                 paymentWindow: ad.payment_time_limit || 15,
                 notes: ad.notes,
                 seller: {
@@ -870,6 +950,7 @@ const formatCryptoPrice = (crypto, currency) => {
 
     return symbol + price.toFixed(decimalPlaces);
 };
+
 
 // 获取市场价格（某个法币下的加密货币价格）
 const getMarketPrice = (cryptocurrency, fiatCurrency) => {
@@ -988,17 +1069,6 @@ const cryptocurrencyOptions = computed(() => {
 });
 
 
-// 地区选项 - 从统一的常量获取
-const locationOptions = computed(() => {
-    return getCountryOptions();
-});
-
-// Helper function to get country name from code
-const getCountryName = (code) => {
-    if (!code) return '全球';
-    const country = getCountryByCode(code);
-    return country ? country.name : code;
-};
 
 // Helper function to get cryptocurrency label from key
 
@@ -1054,3 +1124,15 @@ watch(filters, () => {
     currentPage.value = 1;
 }, { deep: true });
 </script>
+
+<style scoped>
+/* 隐藏滚动条但保持滚动功能 */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+}
+</style>

@@ -154,6 +154,7 @@
                                         <div>
                                             <div class="font-semibold text-gray-900 dark:text-slate-100">
                                                 {{ offer?.currency_label || offer?.currency || 'USDT' }}
+                                                <span class="text-xs text-gray-500 dark:text-slate-500 ml-2">#{{ offer?.id }}</span>
                                             </div>
                                             <div class="flex items-center gap-1.5">
                                                 <span :class="[
@@ -188,7 +189,6 @@
 
                             <!-- 资产与价格 - Col 8-9 -->
                             <div class="col-span-2 text-right">
-                                <div class="text-xs font-medium text-gray-500 dark:text-slate-500 mb-1">{{ offer?.currency }} 单价</div>
                                 <p v-if="offer?.price_model === 'fixed'" class="text-xl lg:text-2xl text-emerald-500 font-bold leading-none">
                                     ¥{{ offer?.price?.toLocaleString() || '0' }}
                                 </p>
@@ -268,6 +268,7 @@
                                 <div>
                                     <div class="font-medium text-sm text-gray-900 dark:text-slate-100">
                                         {{ offer?.currency_label || offer?.currency || 'USDT' }}
+                                        <span class="text-xs text-gray-500 dark:text-slate-500 ml-1">#{{ offer?.id }}</span>
                                     </div>
                                     <div class="flex items-center gap-1">
                                         <span :class="[

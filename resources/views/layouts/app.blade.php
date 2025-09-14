@@ -7,6 +7,11 @@
 
     <title>{{ $title ?? 'P2PCoinSwap - Peer-to-Peer Cryptocurrency Trading Platform' }}</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/logo.png">
+    <link rel="apple-touch-icon" href="/logo.png">
+
     <!-- SEO Meta Tags -->
     <meta name="description" content="{{ $description ?? 'Trade cryptocurrencies directly with other users on our secure P2P platform. Buy and sell Bitcoin, Ethereum, USDT and more with escrow protection.' }}">
     <meta name="keywords" content="p2p crypto, cryptocurrency trading, bitcoin exchange, peer to peer, escrow, USDT, BTC, ETH">

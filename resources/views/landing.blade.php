@@ -6,6 +6,8 @@
     <title>P2PCoinSwap - Secure · Trusted · Fast</title>
     <meta name="description" content="P2PCoinSwap is a peer-to-peer cryptocurrency trading platform. Trade Bitcoin, USDT, Ethereum directly with users worldwide using 300+ payment methods.">
     <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/logo.png">
+    <link rel="apple-touch-icon" href="/logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {

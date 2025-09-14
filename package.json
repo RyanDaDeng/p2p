@@ -20,7 +20,9 @@
         "pusher-js": "^8.4.0",
         "tailwindcss": "^4.1.12",
         "vite": "^7.0.4",
-        "vue": "^3.3.13"
+        "vite-plugin-pwa": "^1.0.3",
+        "vue": "^3.3.13",
+        "workbox-window": "^7.3.0"
     },
     "dependencies": {
         "@vueuse/core": "^13.9.0"

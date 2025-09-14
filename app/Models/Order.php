@@ -130,7 +130,8 @@ class Order extends Model
     public function isParticipant($userId, $checkAdmin = false)
     {
         // 检查是否是管理员
-        if ($checkAdmin && in_array($userId, config('admin.admin_user_ids', []))) {
+        $user = \App\Models\User::find($userId);
+        if ($checkAdmin && $user && $user->is_admin) {
             return true;
         }
 
@@ -222,7 +223,8 @@ class Order extends Model
     public function canResolveDispute($userId)
     {
         // 发起争议的用户或管理员可以解除
-        $isAdmin = in_array($userId, config('admin.admin_user_ids', []));
+        $user = \App\Models\User::find($userId);
+        $isAdmin = $user && $user->is_admin;
         return $this->is_disputed && ($this->disputed_by === $userId || $isAdmin);
     }
 

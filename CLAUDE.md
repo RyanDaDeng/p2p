@@ -333,6 +333,7 @@ const {
 8. **API Routes**: ALL API routes MUST be in `routes/web.php` with `/web/api/` prefix, NOT in `routes/api.php`. This project uses session-based authentication
 9. **Config Loading**: Load config once at parent level and pass via props to avoid multiple API calls
 10. **Database Fields**: Use `currency_key` not `cryptocurrency`, use `network` not `chain`
+11. **No Fallback Data**: NEVER display fallback, placeholder, or default content. Only show actual data from backend. Don't add your own text or values.
 
 ## 🚀 Best Practices
 

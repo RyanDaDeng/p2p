@@ -1,7 +1,7 @@
 <template>
     <P2PPublishDialog
         v-model="show"
-        :title="offer ? '编辑广告' : '创建广告'"
+        :title="offer ? `编辑广告 #${offer.id}` : '创建广告'"
         :subtitle="offer ? '修改您的交易广告信息' : '创建新的交易广告，开始接受订单'"
         :confirm-text="offer ? '保存修改' : '创建广告'"
         :confirm-disabled="!canSubmit"

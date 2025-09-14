@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->decimal('avg_rating', 3, 2)->default(5.00)->after('trades_count')
+            $table->decimal('avg_rating', 3, 2)->default(0)->after('trades_count')
                 ->comment('Average rating from reviews');
             $table->integer('total_reviews')->default(0)->after('avg_rating')
                 ->comment('Total number of reviews received');

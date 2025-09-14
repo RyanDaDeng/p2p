@@ -375,7 +375,7 @@ class AppRouteController extends Controller
             return redirect()->route('login');
         }
 
-        $isAdmin = in_array($user->id, config('admin.admin_user_ids', []));
+        $isAdmin = $user->is_admin ?? false;
 
         // Calculate active ads count
         $activeAdsCount = \App\Models\Ad::where('user_id', $user->id)

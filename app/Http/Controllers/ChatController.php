@@ -75,6 +75,7 @@ class ChatController extends Controller
                     'user' => [
                         'id' => $message->user->id,
                         'name' => $message->user->name,
+                        'profile_photo_url' => $message->user->profile_photo_url,
                     ],
                     'created_at' => $message->created_at->toISOString(),
                 ];
@@ -215,15 +216,21 @@ class ChatController extends Controller
             ], 403);
         }
 
-        // 检查是否是管理员
-        $isAdmin = in_array(auth()->id(), config('admin.admin_user_ids', []));
+        // 检查是否是管理员介入争议
+        $isAdminIntervention = false;
+        if (auth()->user()->is_admin && $order->is_disputed) {
+            // 管理员且订单有争议，并且管理员不是订单的原始参与者
+            if (auth()->id() !== $order->vendor_id && auth()->id() !== $order->client_id) {
+                $isAdminIntervention = true;
+            }
+        }
 
         $message = ChatMessage::create([
             'order_id' => $order->id,
             'user_id' => auth()->id(),
             'message' => $request->message ?? '',
             'attachment' => $request->attachment,
-            'type' => $isAdmin ? 'admin' : 'text',
+            'type' => $isAdminIntervention ? 'admin' : 'text',
         ]);
 
         // 如果对方不在线，处理通知
@@ -246,6 +253,7 @@ class ChatController extends Controller
             'user' => [
                 'id' => auth()->id(),
                 'name' => auth()->user()->name,
+                'profile_photo_url' => auth()->user()->profile_photo_url,
             ],
             'created_at' => $message->created_at->toISOString(),
         ]);

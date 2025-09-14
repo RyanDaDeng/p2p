@@ -21,7 +21,7 @@ class IsAdmin
         }
         
         // 检查用户是否是管理员
-        if (!in_array(auth()->id(), config('admin.admin_user_ids', []))) {
+        if (!auth()->user()->is_admin) {
             abort(403, '无权访问此页面');
         }
         

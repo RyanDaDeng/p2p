@@ -48,6 +48,10 @@ Route::get('/kyc-verification', function () {
     return view('kyc-verification');
 });
 
+Route::get('/app-download', function () {
+    return view('app-download');
+});
+
 Route::middleware([])->namespace('App\Http\Controllers\Web')->name('web.')->group(function () {
     Route::get('/market', 'AppRouteController@market')->name('market');
     Route::get('/orders', 'AppRouteController@orders')->name('orders')->middleware('auth');

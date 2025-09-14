@@ -5,7 +5,7 @@
             <div class="flex items-center">
                 <a href="/" class="flex items-center group">
                     <img src="/logo.png" alt="P2PCoinSwap" class="h-8 w-8 group-hover:scale-110 transition-transform duration-200" />
-                    <span class="ml-3 text-white font-semibold text-lg">P2PCoinSwap</span>
+                    <span class="hidden md:block ml-3 text-white font-semibold text-lg">P2PCoinSwap</span>
                 </a>
 
                 <!-- Desktop Navigation -->
@@ -41,15 +41,28 @@
                     <span>P2P</span>
                 </div>
 
-                <!-- Enter App Button -->
+                <!-- Download App Button -->
+                <a href="/app-download" class="flex items-center gap-1 px-2.5 py-1 bg-gray-700/40 backdrop-blur-sm border border-gray-500/40 hover:bg-gray-600/50 hover:border-pink-500/30 text-gray-300 hover:text-pink-300 rounded-lg transition-all cursor-pointer" title="Install APP">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="text-xs font-medium">APP</span>
+                </a>
+
+                <!-- Start Trading Button -->
                 <a href="/market" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white text-sm font-medium rounded-lg transition-all duration-200 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40">
-                    Enter App
+                    Start Trading
                 </a>
 
                 <!-- Mobile Menu Button -->
                 <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Hamburger Icon -->
+                    <svg id="menuIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <!-- Close Icon -->
+                    <svg id="closeIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
@@ -70,6 +83,11 @@
                 <a href="/contact-support" class="block px-3 py-2 text-sm text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-200">
                     Contact Us
                 </a>
+                <div class="pt-2 mt-2 border-t border-slate-800/50">
+                    <a href="/app-download" class="block px-3 py-2 text-sm text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition-all duration-200">
+                        Download App
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -78,10 +96,19 @@
 <script>
 function toggleMobileMenu() {
     const mobileMenu = document.getElementById('mobileMenu');
+    const menuIcon = document.getElementById('menuIcon');
+    const closeIcon = document.getElementById('closeIcon');
+
     if (mobileMenu.classList.contains('hidden')) {
+        // Open menu
         mobileMenu.classList.remove('hidden');
+        menuIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
     } else {
+        // Close menu
         mobileMenu.classList.add('hidden');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
     }
 }
 </script>

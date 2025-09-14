@@ -58,7 +58,7 @@ const verificationStatus = ref('unverified'); // unverified, pending, verified
 
 <template>
     <Head title="资料设置" />
-    
+
     <P2PAppLayout>
         <div class="min-h-screen bg-gray-50 dark:bg-slate-950">
             <!-- Settings Header -->
@@ -72,9 +72,9 @@ const verificationStatus = ref('unverified'); // unverified, pending, verified
                     </div>
                 </div>
             </div>
-            
+
             <!-- Tabs Navigation -->
-            <div class="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 sticky top-16 z-30">
+            <div class="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 sticky top-14 z-30">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex overflow-x-auto no-scrollbar">
                         <button
@@ -83,8 +83,8 @@ const verificationStatus = ref('unverified'); // unverified, pending, verified
                             @click="activeTab = tab.id"
                             :class="[
                                 'flex items-center gap-2 px-4 py-3 border-b-2 font-medium text-sm whitespace-nowrap transition-all cursor-pointer',
-                                activeTab === tab.id 
-                                    ? 'border-emerald-600 text-emerald-600 dark:text-emerald-400' 
+                                activeTab === tab.id
+                                    ? 'border-emerald-600 text-emerald-600 dark:text-emerald-400'
                                     : 'border-transparent text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:border-gray-300 dark:hover:border-slate-600'
                             ]"
                         >
@@ -96,7 +96,7 @@ const verificationStatus = ref('unverified'); // unverified, pending, verified
                     </div>
                 </div>
             </div>
-            
+
             <!-- Content Area -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <!-- Profile Tab -->
@@ -105,23 +105,23 @@ const verificationStatus = ref('unverified'); // unverified, pending, verified
                         <UpdateProfileInformationForm :user="$page.props.auth?.user || {}" />
                     </div>
                 </div>
-                
+
                 <!-- Password Tab -->
                 <div v-else-if="activeTab === 'tab-password'" class="space-y-8">
                     <div v-if="$page.props.jetstream?.canUpdatePassword">
                         <UpdatePasswordForm />
                     </div>
                 </div>
-                
+
                 <!-- 2FA Tab -->
                 <div v-else-if="activeTab === 'tab-2fa'" class="space-y-8">
                     <div v-if="$page.props.jetstream?.canManageTwoFactorAuthentication">
-                        <TwoFactorAuthenticationForm 
+                        <TwoFactorAuthenticationForm
                             :requires-confirmation="confirmsTwoFactorAuthentication || false"
                         />
                     </div>
                 </div>
-                
+
                 <!-- KYC Tab -->
                 <div v-else-if="activeTab === 'tab-kyc'" class="space-y-6">
                     <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-gray-200 dark:border-slate-800">
@@ -150,7 +150,7 @@ const verificationStatus = ref('unverified'); // unverified, pending, verified
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Devices Tab -->
                 <div v-else-if="activeTab === 'tab-devices'" class="space-y-8">
                     <LogoutOtherBrowserSessionsForm :sessions="sessions || []" />

@@ -1,7 +1,7 @@
 <template>
     <P2PAppLayout>
         <Head :title="`${tradeType === 'buy' ? '购买' : '出售'} ${getCryptoInfo.label}`" />
-        
+
         <div class="mx-auto max-w-5xl px-4 py-4 sm:px-6 lg:px-8">
             <!-- 加载状态 -->
             <div v-if="loading && !ad" class="flex items-center justify-center py-12">
@@ -13,22 +13,22 @@
                     <p class="text-gray-600 dark:text-slate-400">加载广告信息...</p>
                 </div>
             </div>
-            
+
             <div v-else>
             <!-- 页面标题 -->
             <div class="mb-4">
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100">
-                    {{ tradeType === 'buy' ? '购买' : '出售' }} {{ getCryptoInfo.label }} 
-                    使用 {{ getPaymentMethodDetails(ad?.payment_method)?.label || ad?.payment_method || '银行转账' }} 
+                    {{ tradeType === 'buy' ? '购买' : '出售' }} {{ getCryptoInfo.label }}
+                    使用 {{ getPaymentMethodDetails(ad?.payment_method)?.label || ad?.payment_method || '银行转账' }}
                     来自 {{ ad?.user?.name || '商家' }}
                 </h1>
                 <p class="mt-2 text-sm text-gray-600 dark:text-slate-400">
-                    {{ tradeType === 'buy' ? '购买' : '出售' }} {{ getCryptoInfo.label }} 
-                    价格 {{ getFiatInfo.symbol }}{{ getCurrentPrice ? (ad?.price_model === 'dynamic' ? getCurrentPrice.toFixed(6) : getCurrentPrice.toFixed(2)) : '0.00' }} 
+                    {{ tradeType === 'buy' ? '购买' : '出售' }} {{ getCryptoInfo.label }}
+                    价格 {{ getFiatInfo.symbol }}{{ getCurrentPrice ? (ad?.price_model === 'dynamic' ? getCurrentPrice.toFixed(6) : getCurrentPrice.toFixed(2)) : '0.00' }}
                     使用 {{ getPaymentMethodDetails(ad?.payment_method)?.label || ad?.payment_method || '银行转账' }}
                 </p>
             </div>
-            
+
             <!-- 自己广告的警告 -->
             <div v-if="isOwnAd" class="mb-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
                 <div class="flex items-start gap-3">
@@ -50,7 +50,7 @@
                         <h2 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">
                             输入要{{ tradeType === 'buy' ? '购买' : '出售' }}的金额
                         </h2>
-                        
+
                         <!-- 动态价格警告 -->
                         <div v-if="ad?.price_model === 'dynamic'" class="mb-4 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
                             <div class="flex items-start gap-2">
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- 价格显示 -->
                         <div class="mb-4 p-3 bg-gray-50 dark:bg-slate-800 rounded-lg">
                             <div class="flex items-center justify-between">
@@ -122,23 +122,14 @@
 
                             <!-- 验证地址选择 -->
                             <div class="space-y-2">
-                                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                     {{ tradeType === 'sell' ? '发款地址' : '收款地址' }} <span class="text-red-500">*</span>
                                 </label>
-                                <P2PSelect
+                                <P2PAddressPicker
                                     v-model="selectedAddress"
-                                    :options="filteredAddresses"
-                                    :placeholder="`选择${tradeType === 'sell' ? '发款' : '收款'}地址`"
+                                    :addresses="filteredAddresses"
                                 />
-                                <div v-if="filteredAddresses.length === 0" class="p-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
-                                    <p class="text-sm text-amber-700 dark:text-amber-300">
-                                        您还没有添加任何地址。
-                                        <a href="/wallet/address-verification" class="underline hover:text-amber-800 dark:hover:text-amber-200">
-                                            前往添加地址 →
-                                        </a>
-                                    </p>
-                                </div>
-                                <div v-if="!selectedAddress && fiatAmount" class="text-sm text-red-600 dark:text-red-400">
+                                <div v-if="!selectedAddress && fiatAmount" class="mt-2 text-sm text-red-600 dark:text-red-400">
                                     请选择{{ tradeType === 'sell' ? '发款' : '收款' }}地址
                                 </div>
                             </div>
@@ -155,12 +146,12 @@
 
                             <!-- 提交按钮 -->
                             <button
-                                @click="createOrder"
+                                @click="showConfirmDialog"
                                 :disabled="!canSubmit || submitting"
                                 :class="[
                                     'w-full py-3 px-6 rounded-lg font-semibold text-white transition-all',
                                     canSubmit && !submitting
-                                        ? tradeType === 'buy' 
+                                        ? tradeType === 'buy'
                                             ? 'bg-orange-500 hover:bg-orange-600 cursor-pointer'
                                             : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
                                         : 'bg-gray-300 dark:bg-slate-700 cursor-not-allowed'
@@ -174,11 +165,11 @@
                     <!-- 广告详情 -->
                     <div class="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-800 p-5">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">广告详情</h3>
-                        
+
                         <div class="space-y-3">
                             <div class="flex justify-between py-2 border-b border-gray-100 dark:border-slate-800">
-                                <span class="text-sm text-gray-600 dark:text-slate-400">国家</span>
-                                <span class="text-sm font-medium text-gray-900 dark:text-slate-100">{{ ad?.country_name || ad?.country || '中国' }}</span>
+                                <span class="text-sm text-gray-600 dark:text-slate-400">法币</span>
+                                <span class="text-sm font-medium text-gray-900 dark:text-slate-100">{{ getFiatInfo.code || ad?.fiat_currency || 'CNY' }}</span>
                             </div>
                             <div class="flex justify-between py-2 border-b border-gray-100 dark:border-slate-800">
                                 <span class="text-sm text-gray-600 dark:text-slate-400">网络</span>
@@ -203,7 +194,7 @@
                                     </template>
                                 </span>
                             </div>
-                            
+
                             <div class="flex justify-between py-2">
                                 <span class="text-sm text-gray-600 dark:text-slate-400">交易类型</span>
                                 <span class="text-sm font-medium text-gray-900 dark:text-slate-100">{{ ad?.trade_type === 'buy' ? '客户购买' : '客户出售' }}</span>
@@ -250,12 +241,12 @@
                         </div>
                     </div>
 
-                    <!-- 交易条款 -->
-                    <div class="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-800 p-5">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">交易条款和条件</h3>
-                        
+                    <!-- 商家条款 -->
+                    <div v-if="ad?.vendor_toc" class="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-800 p-5">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">商家条款</h3>
+
                         <div class="prose prose-sm dark:prose-invert max-w-none">
-                            <p class="text-sm text-gray-700 dark:text-slate-300 whitespace-pre-wrap">{{ ad?.vendor_toc || ad?.welcome_message || '快速安全的交易，专业服务。' }}</p>
+                            <p class="text-sm text-gray-700 dark:text-slate-300 whitespace-pre-wrap">{{ ad.vendor_toc }}</p>
                         </div>
                     </div>
 
@@ -267,7 +258,7 @@
                             </svg>
                             交易提示
                         </h3>
-                        
+
                         <p class="text-sm mb-4 leading-relaxed text-gray-200">
                             请仔细检查价格并认真阅读条款。汇率和价格波动可能会改变最终金额。您输入的法币金额很重要，加密货币金额将在请求时计算。如果线下交易，请选择安全的公共场所进行交易。
                         </p>
@@ -292,6 +283,20 @@
             </div>
             </div>
         </div>
+
+        <!-- 商家条款确认弹窗 -->
+        <P2PDialog
+            :show="showWarningDialog"
+            title="商家条款确认"
+            subtitle="请确认同意商家的交易条款"
+            :terms="ad?.vendor_toc"
+            :requires-agreement="true"
+            :agreement-text="`我已阅读并同意商家条款，确认继续${tradeType === 'buy' ? '购买' : '出售'}`"
+            cancel-text="取消"
+            :confirm-text="`确认${tradeType === 'buy' ? '购买' : '出售'}`"
+            @close="showWarningDialog = false"
+            @confirm="handleConfirm"
+        />
     </P2PAppLayout>
 </template>
 
@@ -300,6 +305,8 @@ import { ref, computed, onMounted, watch } from 'vue';
 import { Head, router, usePage } from '@inertiajs/vue3';
 import P2PAppLayout from '@/Layouts/P2PAppLayout.vue';
 import P2PSelect from '@/Components/UI/P2PSelect.vue';
+import P2PAddressPicker from '@/Components/UI/P2PAddressPicker.vue';
+import P2PDialog from '@/Components/UI/P2PDialog.vue';
 import { getCurrencyByValue, FIAT_CURRENCIES } from '@/Constants/currencies';
 import { getPaymentMethodDetails } from '@/Constants/paymentMethods';
 import axios from 'axios';
@@ -334,6 +341,9 @@ const selectedAddress = ref('');
 const fiatError = ref('');
 const isOwnAd = ref(false);
 
+// 弹窗状态
+const showWarningDialog = ref(false);
+
 // 实时价格数据
 const cryptoPrices = ref({
     crypto_prices_usd: {},
@@ -354,25 +364,25 @@ const getCryptoBaseSymbol = (cryptocurrency) => {
 // 获取当前显示价格
 const getCurrentPrice = computed(() => {
     if (!ad.value) return 0;
-    
+
     if (ad.value.price_model === 'fixed') {
         return Number(ad.value.price) || 0;
     } else {
         // 动态价格：使用市场价格 * (1 + margin%)
         const baseSymbol = getCryptoBaseSymbol(ad.value.cryptocurrency);
         let usdPrice = cryptoPrices.value.crypto_prices_usd?.[baseSymbol];
-        
+
         // 如果是稳定币（USDC, USDT等），默认价格为1
         if (!usdPrice && (baseSymbol === 'USDC' || baseSymbol === 'USDT')) {
             usdPrice = 1;
         }
-        
+
         // 如果是USD，汇率为1；如果是CNY，使用CNY汇率
         let exchangeRate = 1;
         if (ad.value.fiat_currency !== 'USD') {
             exchangeRate = cryptoPrices.value.exchange_rates?.[ad.value.fiat_currency] || 1;
         }
-        
+
         console.log('Dynamic price debug:', {
             baseSymbol,
             usdPrice,
@@ -380,9 +390,9 @@ const getCurrentPrice = computed(() => {
             exchangeRate,
             availableCryptos: Object.keys(cryptoPrices.value.crypto_prices_usd || {})
         });
-        
+
         if (!usdPrice) return Number(ad.value.price) || 0;
-        
+
         // USD价格 * 汇率 = 目标货币价格
         const marketPrice = usdPrice * exchangeRate;
         const margin = Number(ad.value.margin) || 0;
@@ -400,7 +410,7 @@ const getFiatInfo = computed(() => {
 // 获取加密货币信息
 const getCryptoInfo = computed(() => {
     if (!ad.value?.currency_key) return { symbol: 'USDT', label: 'USDT', network: '' };
-    
+
     // 从 crypto_info 获取（后端会返回从 config 获取的信息）
     if (ad.value.crypto_info) {
         return {
@@ -409,7 +419,7 @@ const getCryptoInfo = computed(() => {
             network: ad.value.crypto_info.network
         };
     }
-    
+
     // 如果没有 crypto_info，尝试从 currency_key 解析
     const baseSymbol = getCryptoBaseSymbol(ad.value.currency_key);
     return {
@@ -421,17 +431,26 @@ const getCryptoInfo = computed(() => {
 
 // 处理用户地址，标记不匹配的地址为禁用
 const filteredAddresses = computed(() => {
-    if (!props.userAddresses || !ad.value) return [];
+    if (!props.userAddresses) return [];
+
+    if (!ad.value) return props.userAddresses.map(address => ({
+        id: address.value,  // 后端返回的ID在value字段
+        address: address.address,
+        currency: address.currency || 'USDT',
+        network: address.chain || address.network || 'TRC20',
+        disabled: false
+    }));
 
     return props.userAddresses.map(address => {
         // 检查currency_key是否匹配
         const isMatching = address.currency_key === ad.value.currency_key;
 
         return {
-            ...address,
-            disabled: !isMatching,
-            // 保持原始的label格式
-            label: address.label || `${address.currency} (${address.network}) - ${address.address}`
+            id: address.value,  // 后端返回的ID在value字段
+            address: address.address,
+            currency: address.currency || address.currency_key?.split('-')[1]?.toUpperCase() || 'USDT',
+            network: address.chain || address.network || 'TRC20',
+            disabled: !isMatching
         };
     });
 });
@@ -468,10 +487,10 @@ const calculateFiatAmount = () => {
         fiatAmount.value = '';
         return;
     }
-    
+
     const amount = parseFloat(cryptoAmount.value) * price;
     fiatAmount.value = amount.toFixed(2);
-    
+
     // 验证限额
     if (ad.value) {
         if (amount < ad.value.min_limit) {
@@ -498,10 +517,10 @@ const canSubmit = computed(() => {
 // 格式化日期
 const formatDate = (date) => {
     if (!date) return 'Feb 25, 2021';
-    return new Date(date).toLocaleDateString('en-US', { 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric' 
+    return new Date(date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
     });
 };
 
@@ -510,12 +529,12 @@ const fetchCryptoPrices = async () => {
     try {
         pricesLoading.value = true;
         const response = await axios.get('/web/api/market/prices');
-        
+
         console.log('Fetched price data:', response.data);
-        
+
         if (response.data) {
             cryptoPrices.value = response.data;
-            
+
             // 价格更新后，如果有输入值，重新计算
             if (fiatAmount.value) {
                 calculateCryptoAmount();
@@ -528,27 +547,39 @@ const fetchCryptoPrices = async () => {
     }
 };
 
+// 显示确认弹窗
+const showConfirmDialog = () => {
+    if (!canSubmit.value) return;
+    showWarningDialog.value = true;
+};
+
+// 确认创建订单
+const handleConfirm = () => {
+    showWarningDialog.value = false;
+    createOrder();
+};
+
 // 创建订单
 const createOrder = async () => {
     if (!canSubmit.value) return;
-    
+
     try {
         submitting.value = true;
-        
+
         // 准备请求数据
         const requestData = {
             ad_id: props.adId,
             fiat_amount: parseFloat(fiatAmount.value) // API接收的是法币金额
         };
-        
-        // 添加地址ID（买币和卖币都需要）
+
+        // 添加地址（买币和卖币都需要）
         if (selectedAddress.value) {
             requestData.address_id = selectedAddress.value;
         }
-        
+
         // 调用新的订单创建API
         const response = await axios.post('/web/api/orders', requestData);
-        
+
         if (response.data.success) {
             // 跳转到订单聊天页面，使用订单编号
             router.visit(`/trade/${response.data.data.order_no}/chat`);
@@ -574,18 +605,18 @@ const fetchAdDetails = async () => {
     try {
         loading.value = true;
         const response = await axios.get(`/web/api/ads/${props.adId}`);
-        
+
         if (response.data.success) {
             ad.value = response.data.data.ad;
             console.log('Ad details loaded:', ad.value);
-            
+
             // 检查当前用户是否是广告发布者
             const currentUser = usePage().props.auth?.user;
             if (currentUser && ad.value.user_id === currentUser.id) {
                 isOwnAd.value = true;
                 fiatError.value = '您不能在自己的广告上创建订单';
             }
-            
+
             // 如果是动态价格，获取实时价格
             if (ad.value.price_model === 'dynamic') {
                 await fetchCryptoPrices();

@@ -158,44 +158,58 @@
                 </div>
 
                 <!-- Address Input -->
-                <div v-if="selectedCurrency" class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
-                        钱包地址
-                    </label>
-                    <input v-model="addressInput"
-                           type="text"
-                           :placeholder="getAddressPlaceholder()"
-                           class="w-full px-3 py-2 border border-gray-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-mono text-sm">
-                    <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">
-                        请确保地址正确，错误的地址可能导致资金损失
-                    </p>
-                </div>
+                <Transition
+                    enter-active-class="transition-all duration-300 ease-out"
+                    enter-from-class="opacity-0 transform translate-y-2"
+                    enter-to-class="opacity-100 transform translate-y-0"
+                >
+                    <div v-if="selectedCurrency" class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                            钱包地址
+                        </label>
+                        <input v-model="addressInput"
+                               type="text"
+                               :placeholder="getAddressPlaceholder()"
+                               class="w-full px-3 py-2 border border-gray-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-mono text-sm">
+                        <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">
+                            请确保地址正确，错误的地址可能导致资金损失
+                        </p>
+                    </div>
+                </Transition>
 
-                <!-- Preview -->
-                <div v-if="canSave" class="mb-4 p-4 bg-gray-50 dark:bg-slate-800 rounded-lg">
-                    <div class="text-xs text-gray-500 dark:text-slate-400 mb-2">预览</div>
-                    <div class="space-y-2">
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs text-gray-500 dark:text-slate-400">币种:</span>
-                            <span class="text-sm text-gray-900 dark:text-slate-100 flex items-center gap-1">
-                                <component :is="getCryptoIcon(selectedCurrency?.key)" :size="16" />
-                                {{ selectedCurrency?.label }}
-                            </span>
+                <!-- Address Preview -->
+                <Transition
+                    enter-active-class="transition-all duration-300 ease-out delay-150"
+                    enter-from-class="opacity-0 transform translate-y-2"
+                    enter-to-class="opacity-100 transform translate-y-0"
+                >
+                    <div v-if="canSave" class="mb-4 p-4 bg-gray-50 dark:bg-slate-900/50 rounded-lg border border-gray-200 dark:border-slate-700">
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <div class="w-12 text-xs text-gray-500 dark:text-slate-400 pt-0.5">币种:</div>
+                            <div class="flex-1 text-sm text-gray-900 dark:text-slate-100 flex items-center gap-2">
+                                <component :is="getCryptoIcon(selectedCurrency?.key)" :size="18" />
+                                <span class="font-medium">{{ selectedCurrency?.label }}</span>
+                                <span class="text-xs text-gray-500 dark:text-slate-400">({{ selectedCurrency?.network }})</span>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs text-gray-500 dark:text-slate-400">网络:</span>
-                            <span class="text-sm text-gray-900 dark:text-slate-100">
+                        <div class="flex items-start">
+                            <div class="w-12 text-xs text-gray-500 dark:text-slate-400 pt-0.5">网络:</div>
+                            <div class="flex-1 text-sm text-gray-900 dark:text-slate-100 font-medium">
                                 {{ selectedCurrency?.network }}
-                            </span>
+                            </div>
                         </div>
-                        <div>
-                            <span class="text-xs text-gray-500 dark:text-slate-400">地址:</span>
-                            <div class="text-sm text-gray-900 dark:text-slate-100 font-mono break-all mt-1">
-                                {{ addressInput }}
+                        <div class="flex items-start">
+                            <div class="w-12 text-xs text-gray-500 dark:text-slate-400 pt-0.5 flex-shrink-0">地址:</div>
+                            <div class="flex-1 min-w-0">
+                                <div class="text-sm text-gray-900 dark:text-slate-100 font-mono break-all bg-gray-100 dark:bg-slate-800 p-2 rounded border border-gray-200 dark:border-slate-600">
+                                    {{ addressInput }}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    </div>
+                </Transition>
             </div>
 
             <!-- Modal Footer -->
@@ -302,6 +316,21 @@ const getCryptoIcon = (key) => {
 const selectCurrency = (crypto) => {
     selectedCurrency.value = crypto;
     addressInput.value = '';
+
+    // 自动滚动到地址输入区域
+    setTimeout(() => {
+        const addressInput = document.querySelector('input[type="text"]');
+        if (addressInput) {
+            addressInput.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+            // 延迟聚焦以确保滚动完成
+            setTimeout(() => {
+                addressInput.focus();
+            }, 300);
+        }
+    }, 100);
 };
 
 const getChainLabel = (chain) => {

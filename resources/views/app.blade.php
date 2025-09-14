@@ -4,6 +4,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="/logo.png">
+        <link rel="shortcut icon" type="image/png" href="/logo.png">
+
+        <!-- PWA Meta Tags -->
+        <meta name="theme-color" content="#10b981">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-title" content="P2PCoinSwap">
+        <link rel="apple-touch-icon" href="/logo.png">
+
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->

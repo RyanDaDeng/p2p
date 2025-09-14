@@ -2,6 +2,7 @@
     <P2PAppLayout
         :hide-nav="true"
         :hide-footer="true"
+        :show-mobile-bottom-nav="false"
         :show-breadcrumbs="true"
         :breadcrumbs="[
             { label: '订单', url: '/orders' },
@@ -17,7 +18,18 @@
                     <div class="flex -space-x-2">
                         <template v-for="(participant, index) in participants" :key="participant.id">
                             <div class="relative" :style="`z-index: ${participants.length - index}`">
-                                <div :class="[
+                                <!-- 使用profile photo if available -->
+                                <img
+                                    v-if="participant.profile_photo_url"
+                                    :src="participant.profile_photo_url"
+                                    :alt="participant.name"
+                                    :class="[
+                                        'h-8 w-8 rounded-full object-cover ring-2',
+                                        participant.is_online ? 'ring-emerald-500' : 'ring-gray-400 dark:ring-slate-600'
+                                    ]"
+                                />
+                                <!-- Fallback to initial -->
+                                <div v-else :class="[
                                     'h-8 w-8 rounded-full flex items-center justify-center ring-2 ring-white dark:ring-slate-950',
                                     participant.is_online ? 'bg-gradient-to-br from-emerald-500 to-emerald-600' : 'bg-gray-400 dark:bg-slate-600'
                                 ]">
@@ -37,6 +49,11 @@
                 </div>
             </template>
             <template #actions>
+                <button @click="showTradeTerms = !showTradeTerms" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                    <svg class="w-5 h-5 text-gray-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                </button>
                 <button @click="showMobileInfo = !showMobileInfo" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
                     <svg class="w-5 h-5 text-gray-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -491,6 +508,7 @@
                 </div>
             </P2PMobileDrawer>
 
+
             <!-- 桌面端原有布局 -->
             <div class="mx-auto max-w-7xl">
                 <div class="hidden lg:grid lg:grid-cols-3 gap-4 p-4">
@@ -895,11 +913,19 @@
                                         <!-- 参与者头像组 -->
                                         <div class="flex -space-x-2">
                                             <template v-for="(participant, index) in participants" :key="participant.id">
-                                                <a :href="`/trader/profile/${participant.id}`" 
-                                                   target="_blank" 
+                                                <a :href="`/trader/profile/${participant.id}`"
+                                                   target="_blank"
                                                    class="relative hover:opacity-80 transition-opacity cursor-pointer"
                                                    :style="`z-index: ${participants.length - index}`">
-                                                    <div class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-white dark:ring-slate-900">
+                                                    <!-- 使用profile photo if available -->
+                                                    <img
+                                                        v-if="participant.profile_photo_url"
+                                                        :src="participant.profile_photo_url"
+                                                        :alt="participant.name"
+                                                        class="h-10 w-10 rounded-full object-cover ring-2 ring-white dark:ring-slate-900"
+                                                    />
+                                                    <!-- Fallback to initial -->
+                                                    <div v-else class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-white dark:ring-slate-900">
                                                         <span class="text-white font-bold">{{ participant.name?.[0]?.toUpperCase() || 'U' }}</span>
                                                     </div>
                                                     <div v-if="participant.is_online" class="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 bg-emerald-500 rounded-full ring-2 ring-white dark:ring-slate-900"></div>
@@ -974,8 +1000,18 @@
 
                                 <!-- 对方消息 -->
                                 <template v-else-if="msg.user?.id !== $page.props.auth.user?.id">
-                                    <a :href="`/trader/profile/${msg.user.id}`" target="_blank" class="h-8 w-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0 hover:opacity-80 transition-opacity cursor-pointer">
-                                        <span class="text-white text-sm font-bold">{{ msg.user.name.charAt(0) }}</span>
+                                    <a :href="`/trader/profile/${msg.user.id}`" target="_blank" class="h-8 w-8 rounded-full flex-shrink-0 hover:opacity-80 transition-opacity cursor-pointer">
+                                        <!-- 使用profile photo if available -->
+                                        <img
+                                            v-if="msg.user.profile_photo_url"
+                                            :src="msg.user.profile_photo_url"
+                                            :alt="msg.user.name"
+                                            class="h-8 w-8 rounded-full object-cover border border-gray-200 dark:border-slate-700"
+                                        />
+                                        <!-- Fallback to initial -->
+                                        <div v-else class="h-8 w-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                                            <span class="text-white text-sm font-bold">{{ msg.user.name.charAt(0) }}</span>
+                                        </div>
                                     </a>
                                     <div class="max-w-md">
                                         <p class="text-xs font-medium text-gray-600 dark:text-slate-400 mb-1 px-1">
@@ -985,28 +1021,11 @@
                                         <div class="bg-gray-100 dark:bg-slate-800 rounded-2xl rounded-tl-none px-4 py-3">
                                             <!-- 附件显示 -->
                                             <div v-if="msg.attachment" class="mb-2">
-                                                <!-- 图片显示 -->
-                                                <img v-if="msg.attachment.type && msg.attachment.type.startsWith('image/')"
-                                                     :src="msg.attachment.url"
-                                                     :alt="msg.attachment.name"
-                                                     class="max-w-full rounded-lg cursor-pointer"
-                                                     @click="window.open(msg.attachment.url, '_blank')"
+                                                <P2PAttachment
+                                                    :attachment="msg.attachment"
+                                                    variant="default"
+                                                    thumbnail-size="md"
                                                 />
-                                                <!-- PDF显示 -->
-                                                <a v-else-if="msg.attachment.type === 'application/pdf'"
-                                                   :href="msg.attachment.url"
-                                                   target="_blank"
-                                                   class="flex items-center gap-2 p-2 bg-white dark:bg-slate-700 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors">
-                                                    <div class="w-10 h-12 bg-red-100 dark:bg-red-900/30 rounded flex items-center justify-center">
-                                                        <svg class="w-6 h-6 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-5L9 2H4z" clip-rule="evenodd" />
-                                                        </svg>
-                                                    </div>
-                                                    <div class="flex-1">
-                                                        <p class="text-xs font-medium text-gray-900 dark:text-slate-200">{{ msg.attachment.name }}</p>
-                                                        <p class="text-xs text-gray-500 dark:text-slate-400">{{ formatFileSize(msg.attachment.size) }}</p>
-                                                    </div>
-                                                </a>
                                             </div>
                                             <p v-if="msg.message" class="text-sm text-gray-900 dark:text-slate-200">{{ msg.message }}</p>
                                         </div>
@@ -1024,35 +1043,26 @@
                                         <div class="bg-emerald-600 text-white rounded-2xl rounded-tr-none px-4 py-3">
                                             <!-- 附件显示 -->
                                             <div v-if="msg.attachment" class="mb-2">
-                                                <!-- 图片显示 -->
-                                                <img v-if="msg.attachment.type && msg.attachment.type.startsWith('image/')"
-                                                     :src="msg.attachment.url"
-                                                     :alt="msg.attachment.name"
-                                                     class="max-w-full rounded-lg cursor-pointer"
-                                                     @click="window.open(msg.attachment.url, '_blank')"
+                                                <P2PAttachment
+                                                    :attachment="msg.attachment"
+                                                    variant="primary"
+                                                    thumbnail-size="md"
                                                 />
-                                                <!-- PDF显示 -->
-                                                <a v-else-if="msg.attachment.type === 'application/pdf'"
-                                                   :href="msg.attachment.url"
-                                                   target="_blank"
-                                                   class="flex items-center gap-2 p-2 bg-emerald-500 rounded-lg hover:bg-emerald-400 transition-colors">
-                                                    <div class="w-10 h-12 bg-white/20 rounded flex items-center justify-center">
-                                                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-5L9 2H4z" clip-rule="evenodd" />
-                                                        </svg>
-                                                    </div>
-                                                    <div class="flex-1">
-                                                        <p class="text-xs font-medium text-white">{{ msg.attachment.name }}</p>
-                                                        <p class="text-xs text-emerald-100">{{ formatFileSize(msg.attachment.size) }}</p>
-                                                    </div>
-                                                </a>
                                             </div>
                                             <p v-if="msg.message" class="text-sm">{{ msg.message }}</p>
                                         </div>
                                         <p class="text-xs text-gray-400 dark:text-slate-500 mt-1 px-1 text-right">{{ formatTime(msg.created_at) }}</p>
                                     </div>
-                                    <div class="h-8 w-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
-                                        <span class="text-white text-sm font-bold">我</span>
+                                    <!-- 当前用户头像 -->
+                                    <img
+                                        v-if="$page.props.auth.user?.profile_photo_url"
+                                        :src="$page.props.auth.user.profile_photo_url"
+                                        :alt="$page.props.auth.user.name"
+                                        class="h-8 w-8 rounded-full object-cover border border-gray-200 dark:border-slate-700 flex-shrink-0"
+                                    />
+                                    <!-- Fallback to initial -->
+                                    <div v-else class="h-8 w-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
+                                        <span class="text-white text-sm font-bold">{{ $page.props.auth.user?.name?.charAt(0).toUpperCase() || 'U' }}</span>
                                     </div>
                                 </template>
                             </div>
@@ -1283,8 +1293,8 @@
             </div>
 
             <!-- 移动端：聊天区域（全屏） -->
-            <!-- 计算高度：100vh - 顶部导航(3.5rem) - 底部导航(4rem) = calc(100vh-7.5rem) -->
-            <div class="lg:hidden fixed inset-x-0 top-14 bottom-16 flex flex-col bg-white dark:bg-slate-950">
+            <!-- 计算高度：100vh - 顶部导航(3.5rem) -->
+            <div class="lg:hidden fixed inset-x-0 top-14 bottom-0 flex flex-col bg-white dark:bg-slate-950">
                     <!-- 移动端评价提示 -->
                     <div v-if="currentOrder.escrow_status === 'escrow_released' && currentUserId === currentOrder.client_id && !currentOrder.has_review" 
                          class="bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800 p-3">
@@ -1338,8 +1348,18 @@
 
                                 <!-- 对方消息 -->
                                 <template v-else-if="msg.user?.id !== $page.props.auth.user?.id">
-                                    <a :href="`/trader/profile/${msg.user.id}`" target="_blank" class="h-7 w-7 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0 hover:opacity-80 transition-opacity cursor-pointer">
-                                        <span class="text-white text-xs font-bold">{{ msg.user.name.charAt(0) }}</span>
+                                    <a :href="`/trader/profile/${msg.user.id}`" target="_blank" class="h-7 w-7 rounded-full flex-shrink-0 hover:opacity-80 transition-opacity cursor-pointer">
+                                        <!-- 使用profile photo if available -->
+                                        <img
+                                            v-if="msg.user.profile_photo_url"
+                                            :src="msg.user.profile_photo_url"
+                                            :alt="msg.user.name"
+                                            class="h-7 w-7 rounded-full object-cover border border-gray-200 dark:border-slate-700"
+                                        />
+                                        <!-- Fallback to initial -->
+                                        <div v-else class="h-7 w-7 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                                            <span class="text-white text-xs font-bold">{{ msg.user.name.charAt(0) }}</span>
+                                        </div>
                                     </a>
                                     <div class="max-w-[70%]">
                                         <p class="text-xs font-medium text-gray-600 dark:text-slate-400 mb-0.5 px-1">
@@ -1349,28 +1369,11 @@
                                         <div class="bg-gray-100 dark:bg-slate-800 rounded-2xl rounded-tl-none px-3 py-2">
                                             <!-- 附件显示 -->
                                             <div v-if="msg.attachment" class="mb-2">
-                                                <!-- 图片显示 -->
-                                                <img v-if="msg.attachment.type && msg.attachment.type.startsWith('image/')"
-                                                     :src="msg.attachment.url"
-                                                     :alt="msg.attachment.name"
-                                                     class="max-w-full rounded-lg cursor-pointer"
-                                                     @click="window.open(msg.attachment.url, '_blank')"
+                                                <P2PAttachment
+                                                    :attachment="msg.attachment"
+                                                    variant="default"
+                                                    thumbnail-size="sm"
                                                 />
-                                                <!-- PDF显示 -->
-                                                <a v-else-if="msg.attachment.type === 'application/pdf'"
-                                                   :href="msg.attachment.url"
-                                                   target="_blank"
-                                                   class="flex items-center gap-2 p-2 bg-white dark:bg-slate-700 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-600 transition-colors">
-                                                    <div class="w-8 h-10 bg-red-100 dark:bg-red-900/30 rounded flex items-center justify-center">
-                                                        <svg class="w-4 h-4 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-5L9 2H4z" clip-rule="evenodd" />
-                                                        </svg>
-                                                    </div>
-                                                    <div class="flex-1">
-                                                        <p class="text-xs font-medium text-gray-900 dark:text-slate-200">{{ msg.attachment.name }}</p>
-                                                        <p class="text-xs text-gray-500 dark:text-slate-400">{{ formatFileSize(msg.attachment.size) }}</p>
-                                                    </div>
-                                                </a>
                                             </div>
                                             <p v-if="msg.message" class="text-sm text-gray-900 dark:text-slate-200">{{ msg.message }}</p>
                                         </div>
@@ -1388,35 +1391,26 @@
                                         <div class="bg-emerald-600 text-white rounded-2xl rounded-tr-none px-3 py-2">
                                             <!-- 附件显示 -->
                                             <div v-if="msg.attachment" class="mb-2">
-                                                <!-- 图片显示 -->
-                                                <img v-if="msg.attachment.type && msg.attachment.type.startsWith('image/')"
-                                                     :src="msg.attachment.url"
-                                                     :alt="msg.attachment.name"
-                                                     class="max-w-full rounded-lg cursor-pointer"
-                                                     @click="window.open(msg.attachment.url, '_blank')"
+                                                <P2PAttachment
+                                                    :attachment="msg.attachment"
+                                                    variant="primary"
+                                                    thumbnail-size="sm"
                                                 />
-                                                <!-- PDF显示 -->
-                                                <a v-else-if="msg.attachment.type === 'application/pdf'"
-                                                   :href="msg.attachment.url"
-                                                   target="_blank"
-                                                   class="flex items-center gap-2 p-2 bg-emerald-500 rounded-lg hover:bg-emerald-400 transition-colors">
-                                                    <div class="w-8 h-10 bg-white/20 rounded flex items-center justify-center">
-                                                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-5L9 2H4z" clip-rule="evenodd" />
-                                                        </svg>
-                                                    </div>
-                                                    <div class="flex-1">
-                                                        <p class="text-xs font-medium text-white">{{ msg.attachment.name }}</p>
-                                                        <p class="text-xs text-emerald-100">{{ formatFileSize(msg.attachment.size) }}</p>
-                                                    </div>
-                                                </a>
                                             </div>
                                             <p v-if="msg.message" class="text-sm">{{ msg.message }}</p>
                                         </div>
                                         <p class="text-xs text-gray-400 dark:text-slate-500 mt-1 px-1 text-right">{{ formatTime(msg.created_at) }}</p>
                                     </div>
-                                    <div class="h-7 w-7 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
-                                        <span class="text-white text-xs font-bold">我</span>
+                                    <!-- 当前用户头像 -->
+                                    <img
+                                        v-if="$page.props.auth.user?.profile_photo_url"
+                                        :src="$page.props.auth.user.profile_photo_url"
+                                        :alt="$page.props.auth.user.name"
+                                        class="h-7 w-7 rounded-full object-cover border border-gray-200 dark:border-slate-700 flex-shrink-0"
+                                    />
+                                    <!-- Fallback to initial -->
+                                    <div v-else class="h-7 w-7 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
+                                        <span class="text-white text-xs font-bold">{{ $page.props.auth.user?.name?.charAt(0).toUpperCase() || 'U' }}</span>
                                     </div>
                                 </template>
                             </div>
@@ -2121,8 +2115,46 @@
                 </P2PButton>
             </div>
         </Modal>
+        <!-- 移动端：交易条款弹出面板 -->
+        <P2PMobileDrawer
+            v-model="showTradeTerms"
+            title="商家交易条款"
+            :subtitle="`订单 #${order.order_no}`"
+            position="bottom"
+            size="default"
+            :icon-color="'purple'"
+        >
+            <template #header-icon>
+                <div class="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30">
+                    <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+            </template>
+            <div class="p-4">
+                <!-- 条款内容 -->
+                <div v-if="order.ad_snapshot?.vendor_toc" class="bg-gray-50 dark:bg-slate-800/50 rounded-lg p-4 max-h-80 overflow-y-auto">
+                    <p class="text-sm text-gray-700 dark:text-slate-300 whitespace-pre-wrap">{{ order.ad_snapshot?.vendor_toc }}</p>
+                </div>
+                <div v-else class="bg-gray-50 dark:bg-slate-800/50 rounded-lg p-4">
+                    <p class="text-sm text-gray-500 dark:text-slate-400 text-center">商家未设置交易条款</p>
+                </div>
+
+                <!-- 提醒 -->
+                <div class="mt-4 p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
+                    <div class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <p class="text-xs text-amber-700 dark:text-amber-300">
+                            请仔细阅读并遵守以上交易条款，违反条款可能导致交易取消
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </P2PMobileDrawer>
     </P2PAppLayout>
-    
+
     <!-- 评价弹窗 -->
     <ReviewModal
         v-model="showReviewModal"
@@ -2145,6 +2177,7 @@ import P2PMobileHeader from '@/Components/UI/P2PMobileHeader.vue';
 import P2PButton from '@/Components/UI/P2PButton.vue';
 import P2PDialog from '@/Components/UI/P2PDialog.vue';
 import P2PTwoFactorInput from '@/Components/UI/P2PTwoFactorInput.vue';
+import P2PAttachment from '@/Components/UI/P2PAttachment.vue';
 import ConfirmationModal from '@/Components/ConfirmationModal.vue';
 import Modal from '@/Components/Modal.vue';
 import ReviewModal from '@/Components/Trade/ReviewModal.vue';
@@ -2191,6 +2224,7 @@ const props = defineProps({
 // 移动端状态
 const showMobileInfo = ref(false);
 const showReviewModal = ref(false);
+const showTradeTerms = ref(false);
 
 // 响应式订单状态（用于实时更新）
 const currentOrder = ref({ ...props.order });
@@ -2226,12 +2260,13 @@ const initParticipants = () => {
             name: currentOrder.value.vendor.name,
             role: '商家',
             avatar: currentOrder.value.vendor.avatar,
+            profile_photo_url: currentOrder.value.vendor.avatar, // avatar field contains profile_photo_url
             is_self: currentOrder.value.vendor.id === props.currentUserId,
             is_online: currentOrder.value.vendor.id === props.currentUserId, // 自己肯定在线
             is_admin: false
         });
     }
-    
+
     // 添加客户
     if (currentOrder.value.client) {
         list.push({
@@ -2239,6 +2274,7 @@ const initParticipants = () => {
             name: currentOrder.value.client.name,
             role: '客户',
             avatar: currentOrder.value.client.avatar,
+            profile_photo_url: currentOrder.value.client.avatar, // avatar field contains profile_photo_url
             is_self: currentOrder.value.client.id === props.currentUserId,
             is_online: currentOrder.value.client.id === props.currentUserId, // 自己肯定在线
             is_admin: false
@@ -2569,7 +2605,8 @@ const formatTime = (timestamp) => {
     const date = new Date(timestamp);
     return date.toLocaleTimeString('zh-CN', {
         hour: '2-digit',
-        minute: '2-digit'
+        minute: '2-digit',
+        second: '2-digit'
     });
 };
 
@@ -2622,6 +2659,15 @@ const formatFileSize = (bytes) => {
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+};
+
+// 格式化法币金额
+const formatFiatAmount = (amount) => {
+    if (!amount) return '0.00';
+    return Number(amount).toLocaleString('zh-CN', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 };
 
 // 处理文件选择

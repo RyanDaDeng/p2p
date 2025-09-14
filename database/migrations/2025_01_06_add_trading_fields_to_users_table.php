@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('is_verified')->default(false)->after('email_verified_at');
-            $table->decimal('rating', 3, 2)->default(5.00)->after('is_verified');
+            $table->decimal('rating', 3, 2)->default(0)->after('is_verified');
             $table->integer('trades_count')->default(0)->after('rating');
             $table->boolean('is_online')->default(true)->after('trades_count');
         });

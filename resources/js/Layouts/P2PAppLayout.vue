@@ -1,6 +1,13 @@
 <template>
+    <!-- App Loading Screen -->
+    <P2PLoadingScreen
+        v-if="showAppLoading"
+        @complete="handleLoadingComplete"
+        :duration="1200"
+    />
+
     <!-- <P2PNotificationContainer ref="notificationContainer"> -->
-    <div class="min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-200">
+    <div v-show="!showAppLoading" class="min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-200">
         <!-- Loading Overlay -->
         <Transition
             enter-active-class="transition ease-out duration-200"
@@ -23,16 +30,16 @@
 
         <!-- Navigation -->
         <nav v-if="!hideNavigation" :class="[
-                 'sticky top-0 z-40 w-full border-b border-gray-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl',
+                 'sticky top-0 z-40 w-full border-b border-gray-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl pt-safe',
                  hideNav ? 'hidden md:block' : ''
              ]">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="flex h-16 items-center justify-between">
+                <div class="flex h-14 md:h-16 items-center justify-between">
                     <!-- Logo & Navigation Links -->
                     <div class="flex items-center">
                         <!-- Logo -->
                         <div class="flex-shrink-0">
-                            <P2PLogo size="md" :show-tagline="true" />
+                            <P2PLogo size="md" :show-tagline="true" :hide-text-on-mobile="true" />
                         </div>
 
                         <!-- Desktop Navigation -->
@@ -96,11 +103,24 @@
                     </div>
 
                     <!-- Right Side -->
-                    <div class="flex items-center space-x-1.5 sm:space-x-3">
+                    <div class="flex items-center space-x-1 sm:space-x-3">
+                        <!-- APP Download Button (only show if not running as PWA) -->
+                        <a
+                            v-if="!isPWA"
+                            @click="handleAppClick"
+                            class="flex items-center gap-1 px-2.5 py-1 bg-gray-700/40 backdrop-blur-sm border border-gray-500/40 hover:bg-gray-600/50 hover:border-pink-500/30 text-gray-300 hover:text-pink-300 rounded-lg transition-all cursor-pointer"
+                            title="安装 APP"
+                        >
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                            </svg>
+                            <span class="text-xs font-medium">APP</span>
+                        </a>
+
                         <!-- Dark/Light Mode Toggle -->
                         <button
                             @click="toggleDark()"
-                            class="p-2 rounded-lg text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
+                            class="p-1.5 md:p-2 rounded-lg text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                             :aria-label="isDark ? '切换到浅色模式' : '切换到深色模式'"
                         >
                             <svg v-if="isDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,15 +132,15 @@
                         </button>
 
                         <!-- Notifications -->
-                        <Link href="/notifications" class="relative p-2 rounded-lg text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                        <Link href="/notifications" class="relative p-1.5 md:p-2 rounded-lg text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                             </svg>
-                            <span v-if="$page.props.auth?.user?.unread" class="absolute top-1.5 right-1.5 h-2 w-2 bg-red-500 rounded-full animate-pulse"></span>
+                            <span v-if="$page.props.auth?.user?.unread" class="absolute top-1 md:top-1.5 right-1 md:right-1.5 h-2 w-2 bg-red-500 rounded-full animate-pulse"></span>
                         </Link>
-                        
+
                         <!-- Wallet -->
-                        <Link href="/wallet/address-verification" class="p-2 rounded-lg text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                        <Link href="/wallet/address-verification" class="p-1.5 md:p-2 rounded-lg text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                             </svg>
@@ -128,27 +148,27 @@
 
                         <!-- User Profile Link (Desktop & Mobile) -->
                         <div v-if="$page.props.auth?.user" class="block">
-                            <Link :href="route('web.profile')" class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+                            <Link :href="route('web.profile')" class="flex items-center gap-2 rounded-lg px-2 md:px-3 py-1.5 md:py-2 text-sm font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
                                 <div class="relative">
                                     <!-- Use profile photo if available, otherwise show initial -->
                                     <img
                                         v-if="$page.props.auth.user.profile_photo_url"
                                         :src="$page.props.auth.user.profile_photo_url"
                                         :alt="$page.props.auth.user.name"
-                                        class="h-8 w-8 rounded-full object-cover border-2 border-gray-200 dark:border-slate-700"
+                                        class="h-7 w-7 md:h-8 md:w-8 rounded-full object-cover border-2 border-gray-200 dark:border-slate-700"
                                     />
-                                    <div v-else class="h-8 w-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                                        <span class="text-white font-bold">{{ $page.props.auth.user.name[0].toUpperCase() }}</span>
+                                    <div v-else class="h-7 w-7 md:h-8 md:w-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                                        <span class="text-white font-bold text-xs md:text-sm">{{ $page.props.auth.user.name[0].toUpperCase() }}</span>
                                     </div>
-                                    <div class="absolute -bottom-0.5 -right-0.5 h-3 w-3 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-900"></div>
+                                    <div class="absolute -bottom-0.5 -right-0.5 h-2.5 md:h-3 w-2.5 md:w-3 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-900"></div>
                                 </div>
                                 <span class="hidden sm:inline">{{ $page.props.auth.user.name }}</span>
                             </Link>
                         </div>
 
                         <!-- Login/Register -->
-                        <div v-else class="flex items-center space-x-2">
-                            <Link href="/login" class="rounded-lg px-3 md:px-4 py-2 text-sm font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                        <div v-else class="flex items-center space-x-1 md:space-x-2">
+                            <Link href="/login" class="rounded-lg px-2.5 md:px-4 py-1.5 md:py-2 text-sm font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
                                 登录
                             </Link>
                             <Link href="/register" class="hidden md:block rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 transition-all">
@@ -200,12 +220,12 @@
         </div>
 
         <!-- Main Content -->
-        <main class="pb-16 md:pb-0">
+        <main :class="showMobileBottomNav ? 'pb-16 md:pb-0' : ''">
             <slot />
         </main>
 
         <!-- Mobile Bottom Navigation -->
-        <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-gray-200 dark:border-slate-800 shadow-lg">
+        <nav v-if="showMobileBottomNav" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-gray-200 dark:border-slate-800 shadow-lg">
             <div class="grid grid-cols-5 h-16">
                 <!-- Market -->
                 <Link
@@ -328,6 +348,8 @@ import { Link, usePage, router } from '@inertiajs/vue3';
 import { useDark, useToggle } from '@vueuse/core';
 import P2PFooter from '@/Components/UI/P2PFooter.vue';
 import P2PLogo from '@/Components/UI/P2PLogo.vue';
+import P2PLoadingScreen from '@/Components/UI/P2PLoadingScreen.vue';
+import { usePWA } from '@/composables/usePWA';
 // import P2PNotificationContainer from '@/Components/UI/P2PNotificationContainer.vue';
 
 // Props
@@ -344,6 +366,10 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    showMobileBottomNav: {
+        type: Boolean,
+        default: true
+    },
     showBreadcrumbs: {
         type: Boolean,
         default: false
@@ -358,6 +384,30 @@ const props = defineProps({
 const loading = ref(false);
 const $page = usePage();
 const notificationContainer = ref(null);
+
+// App Loading Screen State
+const showAppLoading = ref(false);
+
+// PWA Detection
+const { isPWA, shouldShowAppButton, canInstallPWA, promptInstall } = usePWA();
+
+// Check if should show loading screen (once per day)
+const checkShouldShowLoading = () => {
+    const storageKey = 'p2p_app_loading_shown';
+    const lastShown = localStorage.getItem(storageKey);
+    const today = new Date().toDateString();
+
+    if (lastShown !== today) {
+        localStorage.setItem(storageKey, today);
+        return true;
+    }
+    return false;
+};
+
+// Handle loading complete
+const handleLoadingComplete = () => {
+    showAppLoading.value = false;
+};
 
 // 计算是否是管理员
 const isAdmin = computed(() => {
@@ -380,10 +430,28 @@ const toggleDark = () => {
     localStorage.setItem('vueuse-color-scheme', isDark.value ? 'dark' : 'light');
 };
 
+// Handle APP button click
+const handleAppClick = async () => {
+    // If browser supports PWA installation prompt
+    if (canInstallPWA.value) {
+        const installed = await promptInstall();
+        if (installed) {
+            console.log('PWA installed successfully');
+        }
+    } else {
+        // Fallback to app download page
+        window.location.href = '/app-download';
+    }
+};
+
 // Handle currency selection from onboarding
 
 // Initialize on mount
 onMounted(() => {
+    // Check if should show loading screen
+    showAppLoading.value = checkShouldShowLoading();
+
+    // Initialize theme
     const savedTheme = localStorage.getItem('vueuse-color-scheme');
     if (savedTheme === 'dark') {
         isDark.value = true;
@@ -392,7 +460,6 @@ onMounted(() => {
         isDark.value = false;
         document.documentElement.classList.remove('dark');
     }
-    
 });
 
 // Route helper that also supports Ziggy routes
