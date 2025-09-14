@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('ads', function (Blueprint $table) {
-            $table->string('payment_method')->nullable()->after('max_limit');
+//            $table->string('payment_method')->nullable()->after('max_limit');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('ads', function (Blueprint $table) {
-            $table->dropColumn('payment_method');
+//            $table->dropColumn('payment_method');
         });
     }
 };
