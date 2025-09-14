@@ -11,8 +11,18 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('order.{orderId}', function ($user, $orderId) {
     $order = Order::find($orderId);
 
-    return [
-        'id' => $user->id,
-        'name' => $user->name,
-    ];
+    if (!$order) {
+        return false;
+    }
+
+    // 只有vendor和client可以访问
+    if ($order->isParticipant($user->id, true)) {
+        // 返回用户信息用于 presence channel
+        return [
+            'id' => $user->id,
+            'name' => $user->name,
+        ];
+    }
+
+    return false;
 });
