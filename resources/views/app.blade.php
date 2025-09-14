@@ -9,10 +9,10 @@
         <link rel="shortcut icon" type="image/png" href="/logo.png">
 
         <!-- PWA Meta Tags -->
-        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-        <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+        <meta name="theme-color" content="rgba(255, 255, 255, 0.95)" media="(prefers-color-scheme: light)">
+        <meta name="theme-color" content="rgba(15, 23, 42, 0.95)" media="(prefers-color-scheme: dark)">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="apple-mobile-web-app-title" content="P2PCoinSwap">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="application-name" content="P2PCoinSwap">

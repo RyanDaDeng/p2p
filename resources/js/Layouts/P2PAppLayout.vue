@@ -30,10 +30,10 @@
 
         <!-- Navigation -->
         <nav v-if="!hideNavigation" :class="[
-                 'sticky top-0 z-40 w-full border-b border-gray-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl pt-safe',
+                 'sticky top-0 z-40 w-full border-b border-gray-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl',
                  hideNav ? 'hidden md:block' : ''
              ]">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-safe">
                 <div class="flex h-14 md:h-16 items-center justify-between">
                     <!-- Logo & Navigation Links -->
                     <div class="flex items-center">
@@ -220,13 +220,13 @@
         </div>
 
         <!-- Main Content -->
-        <main :class="showMobileBottomNav ? 'pb-16 md:pb-0' : ''">
+        <main :class="showMobileBottomNav ? 'pb-20 md:pb-0' : ''">
             <slot />
         </main>
 
         <!-- Mobile Bottom Navigation -->
-        <nav v-if="showMobileBottomNav" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-gray-200 dark:border-slate-800 shadow-lg">
-            <div class="grid grid-cols-5 h-16">
+        <nav v-if="showMobileBottomNav" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-gray-200 dark:border-slate-800 shadow-lg pb-safe">
+            <div class="grid grid-cols-5 h-20">
                 <!-- Market -->
                 <Link
                     href="/market"
