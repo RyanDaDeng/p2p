@@ -47,15 +47,44 @@
                 </a>
 
                 <!-- Mobile Menu Button -->
-                <button class="md:hidden p-2 text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors">
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
             </div>
         </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-slate-800/50">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="/market" class="block px-3 py-2 text-sm text-slate-300 hover:text-emerald-400 hover:bg-slate-800/50 rounded-lg transition-all duration-200">
+                    Buy Crypto
+                </a>
+                <a href="/market?type=sell" class="block px-3 py-2 text-sm text-slate-300 hover:text-blue-400 hover:bg-slate-800/50 rounded-lg transition-all duration-200">
+                    Sell Crypto
+                </a>
+                <a href="/trade-flow-guide" class="block px-3 py-2 text-sm text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-200">
+                    How it Works
+                </a>
+                <a href="/contact-support" class="block px-3 py-2 text-sm text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-200">
+                    Contact Us
+                </a>
+            </div>
+        </div>
     </div>
 </nav>
+
+<script>
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+    } else {
+        mobileMenu.classList.add('hidden');
+    }
+}
+</script>
 
 <!-- Spacer for fixed nav -->
 <div class="h-16"></div>
