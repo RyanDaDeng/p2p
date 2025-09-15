@@ -3,6 +3,7 @@ import { nextTick, ref } from 'vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import P2PAppLayout from '@/Layouts/P2PAppLayout.vue';
 import P2PButton from '@/Components/UI/P2PButton.vue';
+import P2PBrandText from '@/Components/UI/P2PBrandText.vue';
 import BitcoinIcon from '@/Components/Icons/BitcoinIcon.vue';
 import EthereumIcon from '@/Components/Icons/EthereumIcon.vue';
 import UsdtIcon from '@/Components/Icons/UsdtIcon.vue';
@@ -58,7 +59,9 @@ const submit = () => {
                     </a>
                     <a href="/" class="flex items-center gap-2 cursor-pointer">
                         <img src="/logo.png" alt="Logo" class="h-8 w-8">
-                        <span class="hidden sm:inline text-gray-900 dark:text-white font-bold text-lg">P2PCoinSwap</span>
+                        <div class="hidden sm:inline">
+                            <P2PBrandText size="lg" />
+                        </div>
                     </a>
                 </div>
 
@@ -122,16 +125,12 @@ const submit = () => {
             <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
 
             <!-- Two Factor Form Container -->
-            <div class="relative z-10 w-full max-w-md px-4 sm:px-6">
-                <div class="bg-white dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-slate-800 shadow-2xl p-6 sm:p-8">
-                    <!-- Logo -->
-                    <div class="text-center mb-6">
-                        <a href="/market" class="inline-flex items-center justify-center gap-3 group">
-                            <img src="/logo.png" alt="P2PCoinSwap" class="h-12 w-12 group-hover:scale-110 transition-transform duration-200" />
-                            <span class="text-2xl font-bold text-gray-900 dark:text-white">P2PCoinSwap</span>
-                        </a>
-                        <h2 class="mt-4 text-xl font-semibold text-gray-900 dark:text-white">双因素认证</h2>
-                        <p class="mt-2 text-sm text-gray-600 dark:text-slate-400">
+            <div class="relative z-10 w-full max-w-md px-4">
+                <div class="bg-white dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-slate-800 shadow-2xl p-4 sm:p-6">
+                    <!-- Title -->
+                    <div class="text-center mb-4">
+                        <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">双因素认证</h2>
+                        <p class="mt-1 text-xs sm:text-sm text-gray-600 dark:text-slate-400">
                             <template v-if="!recovery">
                                 请输入您的验证器应用提供的验证码
                             </template>
@@ -144,13 +143,13 @@ const submit = () => {
                     <!-- Two Factor Form -->
                     <form @submit.prevent="submit">
                         <!-- Authentication Code -->
-                        <div v-if="!recovery" class="mb-6">
-                            <label for="code" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                        <div v-if="!recovery" class="mb-4">
+                            <label for="code" class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                                 验证码
                             </label>
                             <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-5 w-5 text-gray-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
+                                    <svg class="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                                     </svg>
                                 </div>
@@ -162,7 +161,7 @@ const submit = () => {
                                     inputmode="numeric"
                                     autofocus
                                     autocomplete="one-time-code"
-                                    class="w-full pl-10 pr-3 py-2.5 bg-gray-50 dark:bg-slate-800/50 border border-gray-300 dark:border-slate-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
+                                    class="w-full pl-9 pr-3 py-2 sm:py-2.5 text-sm bg-gray-50 dark:bg-slate-800/50 border border-gray-300 dark:border-slate-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
                                     placeholder="000000"
                                 />
                             </div>
@@ -172,13 +171,13 @@ const submit = () => {
                         </div>
 
                         <!-- Recovery Code -->
-                        <div v-else class="mb-6">
-                            <label for="recovery_code" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                        <div v-else class="mb-4">
+                            <label for="recovery_code" class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
                                 恢复代码
                             </label>
                             <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-5 w-5 text-gray-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
+                                    <svg class="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
                                     </svg>
                                 </div>
@@ -188,7 +187,7 @@ const submit = () => {
                                     v-model="form.recovery_code"
                                     type="text"
                                     autocomplete="one-time-code"
-                                    class="w-full pl-10 pr-3 py-2.5 bg-gray-50 dark:bg-slate-800/50 border border-gray-300 dark:border-slate-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
+                                    class="w-full pl-9 pr-3 py-2 sm:py-2.5 text-sm bg-gray-50 dark:bg-slate-800/50 border border-gray-300 dark:border-slate-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
                                     placeholder="xxxxx-xxxxx"
                                 />
                             </div>
@@ -198,11 +197,11 @@ const submit = () => {
                         </div>
 
                         <!-- Toggle Recovery Mode -->
-                        <div class="mb-6">
+                        <div class="mb-4">
                             <button
                                 type="button"
                                 @click.prevent="toggleRecovery"
-                                class="text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
+                                class="text-xs sm:text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
                             >
                                 <template v-if="!recovery">
                                     使用恢复代码
@@ -217,7 +216,7 @@ const submit = () => {
                         <P2PButton
                             type="submit"
                             variant="primary"
-                            size="lg"
+                            size="md"
                             :fullWidth="true"
                             :loading="form.processing"
                             :disabled="form.processing"
@@ -232,7 +231,7 @@ const submit = () => {
                     </form>
 
                     <!-- Divider -->
-                    <div class="relative my-6">
+                    <div class="relative my-4">
                         <div class="absolute inset-0 flex items-center">
                             <div class="w-full border-t border-gray-300 dark:border-slate-700"></div>
                         </div>
@@ -244,7 +243,7 @@ const submit = () => {
                     <!-- Cancel Link -->
                     <a
                         href="/login"
-                        class="w-full py-3 px-4 bg-gray-100 dark:bg-slate-800/50 hover:bg-gray-200 dark:hover:bg-slate-700/50 text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white font-medium rounded-lg border border-gray-300 dark:border-slate-700 hover:border-gray-400 dark:hover:border-slate-600 transition-all duration-200 flex items-center justify-center gap-2"
+                        class="w-full py-2.5 px-4 bg-gray-100 dark:bg-slate-800/50 hover:bg-gray-200 dark:hover:bg-slate-700/50 text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white text-sm font-medium rounded-lg border border-gray-300 dark:border-slate-700 hover:border-gray-400 dark:hover:border-slate-600 transition-all duration-200 flex items-center justify-center gap-2"
                     >
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
@@ -253,14 +252,14 @@ const submit = () => {
                     </a>
 
                     <!-- Security Notice -->
-                    <div class="mt-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg">
-                        <div class="flex items-start gap-3">
-                            <svg class="w-5 h-5 text-amber-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="mt-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
+                        <div class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
                             </svg>
                             <div>
-                                <p class="text-sm text-amber-400 font-medium">安全提示</p>
-                                <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">请勿将验证码或恢复代码分享给任何人</p>
+                                <p class="text-xs sm:text-sm text-amber-400 font-medium">安全提示</p>
+                                <p class="text-[11px] sm:text-xs text-gray-500 dark:text-slate-400 mt-0.5">请勿将验证码或恢复代码分享给任何人</p>
                             </div>
                         </div>
                     </div>

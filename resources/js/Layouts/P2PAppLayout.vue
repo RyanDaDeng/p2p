@@ -220,26 +220,26 @@
         </div>
 
         <!-- Main Content -->
-        <main :class="showMobileBottomNav ? 'pb-20 md:pb-0' : ''">
+        <main :class="showMobileBottomNav ? 'pb-14 md:pb-0' : ''">
             <slot />
         </main>
 
         <!-- Mobile Bottom Navigation -->
         <nav v-if="showMobileBottomNav" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-t border-gray-200 dark:border-slate-800 shadow-lg pb-safe">
-            <div class="grid grid-cols-5 h-20">
+            <div class="grid grid-cols-5 h-14">
                 <!-- Market -->
                 <Link
                     href="/market"
-                    class="flex flex-col items-center justify-center gap-0.5 relative transition-all group"
+                    class="flex flex-col items-center justify-center gap-0 relative transition-all group pt-1"
                     :class="route().current('market') || route().current('web.market')
                         ? 'text-emerald-600 dark:text-emerald-400'
                         : 'text-gray-600 dark:text-slate-400'"
                 >
                     <div class="relative">
                         <div :class="route().current('market') || route().current('web.market')
-                            ? 'bg-emerald-50 dark:bg-emerald-500/10 p-1.5 rounded-lg'
-                            : 'p-1.5'">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            ? 'bg-emerald-50 dark:bg-emerald-500/10 p-1 rounded-lg'
+                            : 'p-1'">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                             </svg>
                         </div>
@@ -250,16 +250,16 @@
                 <!-- Orders -->
                 <Link
                     href="/orders"
-                    class="flex flex-col items-center justify-center gap-0.5 relative transition-all group"
+                    class="flex flex-col items-center justify-center gap-0 relative transition-all group pt-1"
                     :class="route().current('orders') || route().current('web.orders')
                         ? 'text-blue-600 dark:text-blue-400'
                         : 'text-gray-600 dark:text-slate-400'"
                 >
                     <div class="relative">
                         <div :class="route().current('orders') || route().current('web.orders')
-                            ? 'bg-blue-50 dark:bg-blue-500/10 p-1.5 rounded-lg'
-                            : 'p-1.5'">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            ? 'bg-blue-50 dark:bg-blue-500/10 p-1 rounded-lg'
+                            : 'p-1'">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                             </svg>
                         </div>
@@ -272,16 +272,16 @@
                 <!-- Publish -->
                 <Link
                     href="/publish"
-                    class="flex flex-col items-center justify-center gap-0.5 relative transition-all group"
+                    class="flex flex-col items-center justify-center gap-0 relative transition-all group pt-1"
                     :class="route().current('publish') || route().current('web.publish')
                         ? 'text-gray-900 dark:text-slate-100'
                         : 'text-gray-600 dark:text-slate-400'"
                 >
                     <div class="relative">
                         <div :class="route().current('publish') || route().current('web.publish')
-                            ? 'bg-gray-100 dark:bg-slate-800 p-1.5 rounded-lg'
-                            : 'p-1.5'">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            ? 'bg-gray-100 dark:bg-slate-800 p-1 rounded-lg'
+                            : 'p-1'">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                             </svg>
                         </div>
@@ -292,16 +292,16 @@
                 <!-- Wallet -->
                 <Link
                     href="/wallet/address-verification"
-                    class="flex flex-col items-center justify-center gap-0.5 relative transition-all group"
+                    class="flex flex-col items-center justify-center gap-0 relative transition-all group pt-1"
                     :class="route().current('wallet.address-verification') || route().current('web.wallet.address-verification')
                         ? 'text-amber-600 dark:text-amber-400'
                         : 'text-gray-600 dark:text-slate-400'"
                 >
                     <div class="relative">
                         <div :class="route().current('wallet.address-verification') || route().current('web.wallet.address-verification')
-                            ? 'bg-amber-50 dark:bg-amber-500/10 p-1.5 rounded-lg'
-                            : 'p-1.5'">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            ? 'bg-amber-50 dark:bg-amber-500/10 p-1 rounded-lg'
+                            : 'p-1'">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                             </svg>
                         </div>
@@ -314,16 +314,16 @@
                 <!-- Profile -->
                 <Link
                     :href="route('web.profile')"
-                    class="flex flex-col items-center justify-center gap-0.5 relative transition-all group"
+                    class="flex flex-col items-center justify-center gap-0 relative transition-all group pt-1"
                     :class="route().current('profile') || route().current('web.profile')
                         ? 'text-purple-600 dark:text-purple-400'
                         : 'text-gray-600 dark:text-slate-400'"
                 >
                     <div class="relative">
                         <div :class="route().current('profile') || route().current('web.profile')
-                            ? 'bg-purple-50 dark:bg-purple-500/10 p-1.5 rounded-lg'
-                            : 'p-1.5'">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            ? 'bg-purple-50 dark:bg-purple-500/10 p-1 rounded-lg'
+                            : 'p-1'">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
