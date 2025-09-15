@@ -18,6 +18,15 @@
         }
     </script>
     <style>
+        /* PWA Safe Area Support */
+        .pt-safe-area-inset-top {
+            padding-top: env(safe-area-inset-top);
+        }
+        .pb-safe-area-inset-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+    <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             scroll-behavior: smooth;

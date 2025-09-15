@@ -1,4 +1,4 @@
-<nav class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/50">
+<nav class="fixed top-0 left-0 right-0 w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/50 pt-safe-area-inset-top">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             <!-- Logo Section -->
@@ -115,5 +115,5 @@ function toggleMobileMenu() {
 }
 </script>
 
-<!-- Spacer for fixed nav -->
-<div class="h-16"></div>
+<!-- Spacer for fixed nav + safe area -->
+<div class="h-16 pt-safe-area-inset-top"></div>
