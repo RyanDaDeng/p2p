@@ -205,7 +205,7 @@
 
                 <!-- Quick Action Button -->
                 <div class="flex justify-center mb-16">
-                    <a href="/register" class="px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-semibold text-lg transition transform hover:scale-105 cursor-pointer">
+                    <a href="/market" class="px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-semibold text-lg transition transform hover:scale-105 cursor-pointer">
                         Start Trading Now
                     </a>
                 </div>
