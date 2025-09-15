@@ -4,16 +4,16 @@
         <button 
             @click="showPicker = true"
             type="button"
-            class="relative inline-flex items-center justify-between w-full px-4 h-10 text-sm rounded-lg border shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500/50 border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900/50 text-gray-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-800/50 hover:border-gray-400 dark:hover:border-slate-600 cursor-pointer"
+            class="relative inline-flex items-center justify-between w-full px-4 h-10 text-sm rounded border transition-all focus:outline-none focus:ring-1 focus:ring-emerald-500/20 focus:border-emerald-500/50 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900/50 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:border-gray-400 dark:hover:border-gray-600 cursor-pointer"
         >
             <span class="flex items-center flex-1 min-w-0">
                 <span v-if="selectedMethod" class="flex items-center gap-1.5">
                     <span class="text-base flex-shrink-0">{{ selectedMethodDetails.categoryIcon }}</span>
-                    <span class="text-gray-900 dark:text-slate-100 whitespace-nowrap">{{ selectedMethodDetails.label }}</span>
+                    <span class="text-gray-900 dark:text-gray-100 whitespace-nowrap">{{ selectedMethodDetails.label }}</span>
                 </span>
-                <span v-else class="text-gray-500 dark:text-slate-400 whitespace-nowrap">{{ placeholder }}</span>
+                <span v-else class="text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ placeholder }}</span>
             </span>
-            <svg class="ml-2 h-4 w-4 text-gray-500 dark:text-slate-500 flex-shrink-0" 
+            <svg class="ml-2 h-4 w-4 text-gray-500 dark:text-gray-500 flex-shrink-0" 
                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
@@ -35,16 +35,16 @@
                     
                     <!-- Modal Content -->
                     <div class="flex items-center justify-center min-h-full p-4">
-                        <div class="relative bg-white dark:bg-slate-900 rounded-xl shadow-xl max-w-2xl w-full max-h-[80vh] flex flex-col">
+                        <div class="relative bg-white dark:bg-gray-900 rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] flex flex-col">
                             <!-- Header -->
-                            <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-800">
+                            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-800">
                                 <div class="flex items-center justify-between">
-                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
                                         选择支付
                                     </h3>
                                     <button 
                                         @click="closePicker"
-                                        class="text-gray-400 hover:text-gray-500 dark:text-slate-500 dark:hover:text-slate-400 cursor-pointer"
+                                        class="text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 cursor-pointer"
                                     >
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -58,9 +58,9 @@
                                         v-model="searchQuery"
                                         type="text"
                                         placeholder="搜索支付..."
-                                        class="w-full px-10 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                                        class="w-full px-10 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                                     />
-                                    <svg class="absolute left-3 top-2.5 w-5 h-5 text-gray-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="absolute left-3 top-2.5 w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                     </svg>
                                 </div>
@@ -75,8 +75,8 @@
                                         <!-- Category Header -->
                                         <div class="flex items-center gap-2 mb-3">
                                             <span class="text-xl">{{ category.icon }}</span>
-                                            <h4 class="font-medium text-gray-900 dark:text-slate-100">{{ category.name }}</h4>
-                                            <span class="text-xs text-gray-500 dark:text-slate-400">({{ category.filteredMethods.length }})</span>
+                                            <h4 class="font-medium text-gray-900 dark:text-gray-100">{{ category.name }}</h4>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">({{ category.filteredMethods.length }})</span>
                                         </div>
 
                                         <!-- Methods Grid -->
@@ -89,12 +89,12 @@
                                                     'p-3 rounded-lg border cursor-pointer transition-all hover:shadow-md',
                                                     tempSelected === method.value
                                                         ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20'
-                                                        : 'border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600'
+                                                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                                                 ]"
                                             >
                                                 <div class="flex items-center justify-between">
                                                     <div class="flex items-center gap-2">
-                                                        <span class="font-medium text-sm text-gray-900 dark:text-slate-100">
+                                                        <span class="font-medium text-sm text-gray-900 dark:text-gray-100">
                                                             {{ method.label }}
                                                         </span>
                                                     </div>
@@ -109,19 +109,19 @@
 
                                 <!-- No Results -->
                                 <div v-if="!hasResults" class="text-center py-12">
-                                    <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                    <p class="mt-2 text-sm text-gray-500 dark:text-slate-400">没有找到支付</p>
-                                    <p class="text-xs text-gray-400 dark:text-slate-500">请尝试调整搜索关键词</p>
+                                    <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">没有找到支付</p>
+                                    <p class="text-xs text-gray-400 dark:text-gray-500">请尝试调整搜索关键词</p>
                                 </div>
                             </div>
 
                             <!-- Footer -->
-                            <div class="px-4 sm:px-6 py-4 border-t border-gray-200 dark:border-slate-800">
+                            <div class="px-4 sm:px-6 py-4 border-t border-gray-200 dark:border-gray-800">
                                 <!-- Desktop: side by side layout -->
                                 <div class="hidden sm:flex items-center justify-between">
-                                    <p class="text-xs text-gray-500 dark:text-slate-400">
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">
                                         选择您想要在此广告中使用的支付
                                     </p>
                                     <div class="flex gap-2">
@@ -133,14 +133,14 @@
                                         </button>
                                         <button
                                             @click="closePicker"
-                                            class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-slate-300 bg-gray-100 dark:bg-slate-800 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                                            class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                                         >
                                             取消
                                         </button>
                                         <button
                                             @click="confirmSelection"
                                             :disabled="!tempSelected"
-                                            class="px-4 py-2 text-sm font-medium text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 disabled:bg-gray-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                                            class="px-4 py-2 text-sm font-medium text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed transition-colors cursor-pointer"
                                         >
                                             确认
                                         </button>
@@ -149,7 +149,7 @@
                                 
                                 <!-- Mobile: stacked layout -->
                                 <div class="sm:hidden space-y-3">
-                                    <p class="text-xs text-gray-500 dark:text-slate-400 text-center">
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 text-center">
                                         选择您想要在此广告中使用的支付
                                     </p>
                                     <div class="grid grid-cols-3 gap-2">
@@ -161,14 +161,14 @@
                                         </button>
                                         <button
                                             @click="closePicker"
-                                            class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-slate-300 bg-gray-100 dark:bg-slate-800 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                                            class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                                         >
                                             取消
                                         </button>
                                         <button
                                             @click="confirmSelection"
                                             :disabled="!tempSelected"
-                                            class="px-3 py-2 text-sm font-medium text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 disabled:bg-gray-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                                            class="px-3 py-2 text-sm font-medium text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed transition-colors cursor-pointer"
                                         >
                                             确认
                                         </button>

@@ -21,24 +21,24 @@
                     leave-from-class="translate-y-0 md:scale-100 md:opacity-100"
                     leave-to-class="translate-y-full md:translate-y-0 md:scale-95 md:opacity-0"
                 >
-                    <div v-if="show" class="relative bg-white dark:bg-slate-900 rounded-t-2xl md:rounded-2xl shadow-2xl w-full md:max-w-lg max-h-[90vh] overflow-hidden md:m-4">
+                    <div v-if="show" class="relative bg-white dark:bg-gray-900 rounded-t md:rounded shadow-2xl w-full md:max-w-lg max-h-[90vh] overflow-hidden md:m-4 pt-safe">
                         <!-- Mobile drag indicator -->
                         <div class="md:hidden flex justify-center pt-2 pb-1">
-                            <div class="w-10 h-1 bg-gray-300 dark:bg-slate-700 rounded-full"></div>
+                            <div class="w-10 h-1 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
                         </div>
 
                         <!-- Header -->
-                        <div v-if="title || slots.header" class="px-4 md:px-6 py-3 md:py-4 border-b border-gray-200 dark:border-slate-800">
+                        <div v-if="title || slots.header" class="px-4 md:px-6 py-3 md:py-4 border-b border-gray-200 dark:border-gray-800">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-3">
-                                    <div v-if="icon" class="p-2 rounded-lg" :class="iconBgClass">
+                                    <div v-if="icon" class="p-2 rounded" :class="iconBgClass">
                                         <component :is="icon" class="w-5 h-5" :class="iconClass" />
                                     </div>
                                     <div v-if="title || subtitle">
-                                        <h3 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-slate-100">
+                                        <h3 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100">
                                             {{ title }}
                                         </h3>
-                                        <p v-if="subtitle" class="text-sm text-gray-500 dark:text-slate-400">
+                                        <p v-if="subtitle" class="text-sm text-gray-500 dark:text-gray-400">
                                             {{ subtitle }}
                                         </p>
                                     </div>
@@ -46,9 +46,9 @@
                                 </div>
                                 <button
                                     @click="$emit('close')"
-                                    class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                                    class="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
                                 >
-                                    <svg class="w-5 h-5 text-gray-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 </button>
@@ -60,7 +60,7 @@
                             <!-- Scrollable content area -->
                             <div class="overflow-y-auto flex-1 px-4 md:px-6 py-4">
                                 <!-- Merchant Info (if provided) -->
-                                <div v-if="merchant" class="mb-4 p-3 bg-gray-50 dark:bg-slate-800/50 rounded-lg">
+                                <div v-if="merchant" class="mb-4 p-3 bg-gray-50 dark:bg-gray-800/50 rounded">
                                     <div class="flex items-center gap-3">
                                         <div class="h-10 w-10 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center flex-shrink-0">
                                             <span class="text-white font-bold text-sm">
@@ -68,7 +68,7 @@
                                             </span>
                                         </div>
                                         <div class="flex-1 min-w-0">
-                                            <p class="font-medium text-gray-900 dark:text-slate-100 text-sm">
+                                            <p class="font-medium text-gray-900 dark:text-gray-100 text-sm">
                                                 {{ merchant.name || '商家' }}
                                             </p>
                                             <div class="flex items-center gap-2 text-xs">
@@ -78,7 +78,7 @@
                                                     </svg>
                                                     认证商家
                                                 </span>
-                                                <span v-if="merchant.tradesCount" class="text-gray-500 dark:text-slate-400">
+                                                <span v-if="merchant.tradesCount" class="text-gray-500 dark:text-gray-400">
                                                     成交 {{ merchant.tradesCount }} | {{ merchant.completionRate || 100 }}%
                                                 </span>
                                             </div>
@@ -87,9 +87,9 @@
                                 </div>
 
                                 <!-- Terms/Content -->
-                                <div v-if="terms" class="bg-gray-50 dark:bg-slate-800/50 rounded-lg p-4 mb-4">
-                                    <h4 class="font-semibold text-gray-900 dark:text-slate-100 mb-3">商家条款</h4>
-                                    <p class="text-sm text-gray-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">{{ terms }}</p>
+                                <div v-if="terms" class="bg-gray-50 dark:bg-gray-800/50 rounded p-4 mb-4">
+                                    <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-3">商家条款</h4>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">{{ terms }}</p>
                                 </div>
 
                                 <!-- Slot content -->
@@ -97,14 +97,14 @@
                             </div>
 
                             <!-- Agreement Section (if required) -->
-                            <div v-if="requiresAgreement" class="border-t border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 md:px-6 py-3">
+                            <div v-if="requiresAgreement" class="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 md:px-6 py-3">
                                 <label class="flex items-start gap-3 cursor-pointer">
                                     <input
                                         type="checkbox"
                                         v-model="agreed"
-                                        class="mt-1 w-4 h-4 text-emerald-600 bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600 rounded focus:ring-emerald-500 dark:focus:ring-emerald-400 focus:ring-2 cursor-pointer"
+                                        class="mt-1 w-4 h-4 text-emerald-600 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded focus:ring-emerald-500 dark:focus:ring-emerald-400 focus:ring-2 cursor-pointer"
                                     />
-                                    <span class="text-sm text-gray-700 dark:text-slate-300 font-medium">
+                                    <span class="text-sm text-gray-700 dark:text-gray-300 font-medium">
                                         {{ agreementText }}
                                     </span>
                                 </label>
@@ -112,13 +112,13 @@
                         </div>
 
                         <!-- Footer -->
-                        <div v-if="slots.footer || cancelText || confirmText" class="px-4 md:px-6 py-4 border-t border-gray-200 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/30">
+                        <div v-if="slots.footer || cancelText || confirmText" class="px-4 md:px-6 py-4 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/30">
                             <slot name="footer">
                                 <div class="flex gap-3">
                                     <button
                                         v-if="cancelText"
                                         @click="$emit('close')"
-                                        class="flex-1 px-4 py-2.5 border-2 border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors cursor-pointer font-medium"
+                                        class="flex-1 px-4 py-2.5 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer font-medium"
                                     >
                                         {{ cancelText }}
                                     </button>
@@ -127,10 +127,10 @@
                                         @click="handleConfirm"
                                         :disabled="requiresAgreement && !agreed"
                                         :class="[
-                                            'flex-1 px-4 py-2.5 rounded-lg font-medium transition-all relative',
+                                            'flex-1 px-4 py-2.5 rounded font-medium transition-all relative',
                                             (!requiresAgreement || agreed)
                                                 ? 'bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer shadow-sm hover:shadow-md'
-                                                : 'bg-gray-300 dark:bg-slate-700 text-gray-500 dark:text-slate-500 cursor-not-allowed opacity-60'
+                                                : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-500 cursor-not-allowed opacity-60'
                                         ]"
                                     >
                                         <!-- Disabled state overlay -->

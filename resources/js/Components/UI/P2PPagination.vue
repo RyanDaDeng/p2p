@@ -1,18 +1,21 @@
 <template>
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-gray-50 dark:bg-slate-900/50 rounded-xl border border-gray-200 dark:border-slate-800">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded border border-gray-200 dark:border-gray-800">
         <!-- Results info -->
-        <div class="text-sm text-gray-600 dark:text-slate-400 order-2 sm:order-1">
-            显示 <span class="text-emerald-600 dark:text-emerald-500 font-semibold">{{ from }}-{{ to }}</span> 
-            共 <span class="text-gray-900 dark:text-slate-200 font-semibold">{{ total }}</span> 条交易
+        <div v-if="total" class="text-sm text-gray-600 dark:text-gray-400 order-2 sm:order-1">
+            显示 <span class="text-emerald-600 dark:text-emerald-500 font-semibold">{{ from }}-{{ to }}</span>
+            共 <span class="text-gray-900 dark:text-gray-200 font-semibold">{{ total }}</span> 条数据
+        </div>
+        <div v-else class="text-sm text-gray-600 dark:text-gray-400 order-2 sm:order-1">
+            第 {{ currentPage }} 页 / 共 {{ lastPage }} 页
         </div>
         
         <!-- Pagination controls -->
-        <div class="flex items-center gap-1 order-1 sm:order-2 bg-white dark:bg-slate-800/50 p-1 rounded-lg border border-gray-200 dark:border-transparent">
+        <div class="flex items-center gap-1 order-1 sm:order-2 bg-white dark:bg-gray-800/50 p-1 rounded border border-gray-200 dark:border-transparent">
             <!-- First page -->
             <button
                 @click="goToPage(1)"
                 :disabled="currentPage === 1"
-                class="p-2 rounded-md transition-all disabled:opacity-30 disabled:cursor-not-allowed text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-700/50"
+                class="p-2 rounded-md transition-all disabled:opacity-30 disabled:cursor-not-allowed text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/50"
                 aria-label="第一页"
             >
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -24,7 +27,7 @@
             <button
                 @click="goToPage(currentPage - 1)"
                 :disabled="currentPage === 1"
-                class="p-2 rounded-md transition-all disabled:opacity-30 disabled:cursor-not-allowed text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-700/50"
+                class="p-2 rounded-md transition-all disabled:opacity-30 disabled:cursor-not-allowed text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/50"
                 aria-label="上一页"
             >
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,17 +42,17 @@
                         v-if="page !== '...'"
                         @click="goToPage(page)"
                         :class="[
-                            'min-w-[2rem] h-8 px-2 rounded-md font-medium text-sm transition-all',
+                            'min-w-[2rem] h-8 px-2 rounded font-medium text-sm transition-all',
                             page === currentPage
                                 ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20 dark:shadow-emerald-600/10'
-                                : 'text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-700/50'
+                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/50'
                         ]"
                     >
                         {{ page }}
                     </button>
                     <span
                         v-else
-                        class="px-2 text-gray-400 dark:text-slate-500"
+                        class="px-2 text-gray-400 dark:text-gray-500"
                     >
                         ···
                     </span>
@@ -60,7 +63,7 @@
             <button
                 @click="goToPage(currentPage + 1)"
                 :disabled="currentPage === lastPage"
-                class="p-2 rounded-md transition-all disabled:opacity-30 disabled:cursor-not-allowed text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-700/50"
+                class="p-2 rounded-md transition-all disabled:opacity-30 disabled:cursor-not-allowed text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/50"
                 aria-label="下一页"
             >
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,7 +75,7 @@
             <button
                 @click="goToPage(lastPage)"
                 :disabled="currentPage === lastPage"
-                class="p-2 rounded-md transition-all disabled:opacity-30 disabled:cursor-not-allowed text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-700/50"
+                class="p-2 rounded-md transition-all disabled:opacity-30 disabled:cursor-not-allowed text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/50"
                 aria-label="最后页"
             >
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -91,9 +94,13 @@ const props = defineProps({
         type: Number,
         required: true
     },
+    totalPages: {
+        type: Number,
+        required: false
+    },
     total: {
         type: Number,
-        required: true
+        required: false
     },
     perPage: {
         type: Number,
@@ -101,16 +108,21 @@ const props = defineProps({
     }
 });
 
-const emit = defineEmits(['update:currentPage']);
+const emit = defineEmits(['update:currentPage', 'page-changed']);
 
-const lastPage = computed(() => Math.ceil(props.total / props.perPage));
+const lastPage = computed(() => {
+    if (props.totalPages) return props.totalPages;
+    if (props.total) return Math.ceil(props.total / props.perPage);
+    return 1;
+});
 
 const from = computed(() => {
-    if (props.total === 0) return 0;
+    if (!props.total || props.total === 0) return 0;
     return (props.currentPage - 1) * props.perPage + 1;
 });
 
 const to = computed(() => {
+    if (!props.total) return props.currentPage * props.perPage;
     const end = props.currentPage * props.perPage;
     return end > props.total ? props.total : end;
 });
@@ -158,6 +170,7 @@ const visiblePages = computed(() => {
 const goToPage = (page) => {
     if (page !== '...' && page >= 1 && page <= lastPage.value) {
         emit('update:currentPage', page);
+        emit('page-changed', page);
     }
 };
 </script>

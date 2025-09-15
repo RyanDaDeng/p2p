@@ -14,7 +14,8 @@
       "Bash(while read file)",
       "Bash(do sed -i 's|@/composables/|@/Composables/|g' \"$file\")",
       "Bash(done)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": []

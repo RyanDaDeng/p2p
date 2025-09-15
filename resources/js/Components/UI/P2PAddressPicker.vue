@@ -4,7 +4,7 @@
         <button
             type="button"
             @click="open = true"
-            class="w-full px-4 py-3 bg-white dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-700 rounded-xl cursor-pointer hover:border-emerald-500 dark:hover:border-emerald-400 focus:border-emerald-500 dark:focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 dark:focus:ring-emerald-400/20 transition-all duration-200 text-left group"
+            class="w-full px-4 py-3 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded cursor-pointer hover:border-emerald-500 dark:hover:border-emerald-400 focus:border-emerald-500 dark:focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 dark:focus:ring-emerald-400/20 transition-all duration-200 text-left group"
         >
             <div class="flex items-center justify-between">
                 <div class="flex-1 min-w-0">
@@ -18,22 +18,22 @@
                             <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">
                                 {{ selected.currency }}
                             </span>
-                            <span class="text-xs text-gray-500 dark:text-slate-400">
+                            <span class="text-xs text-gray-500 dark:text-gray-400">
                                 {{ selected.network }}
                             </span>
                         </div>
-                        <div class="text-sm font-mono text-gray-900 dark:text-slate-100 break-all">
+                        <div class="text-sm font-mono text-gray-900 dark:text-gray-100 break-all">
                             {{ selected.address }}
                         </div>
                     </div>
-                    <div v-else class="flex items-center gap-2 text-gray-400 dark:text-slate-500">
+                    <div v-else class="flex items-center gap-2 text-gray-400 dark:text-gray-500">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
                         <span>选择地址</span>
                     </div>
                 </div>
-                <svg class="w-5 h-5 text-gray-400 dark:text-slate-500 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-gray-400 dark:text-gray-500 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
                 </svg>
             </div>
@@ -62,37 +62,37 @@
                         leave-from-class="translate-y-0 md:scale-100 md:opacity-100"
                         leave-to-class="translate-y-full md:translate-y-0 md:scale-95 md:opacity-0"
                     >
-                        <div v-if="open" class="relative bg-white dark:bg-slate-900 rounded-t-2xl md:rounded-2xl shadow-2xl w-full md:max-w-2xl max-h-[85vh] md:max-h-[80vh] overflow-hidden md:m-4">
+                        <div v-if="open" class="relative bg-white dark:bg-gray-900 rounded-t md:rounded shadow-2xl w-full md:max-w-2xl max-h-[85vh] md:max-h-[80vh] overflow-hidden md:m-4 pt-safe">
                             <!-- Mobile drag indicator -->
                             <div class="md:hidden flex justify-center pt-2 pb-1">
-                                <div class="w-10 h-1 bg-gray-300 dark:bg-slate-700 rounded-full"></div>
+                                <div class="w-10 h-1 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
                             </div>
 
                             <!-- Header -->
-                            <div class="px-4 md:px-6 py-3 md:py-4 border-b border-gray-200 dark:border-slate-800">
+                            <div class="px-4 md:px-6 py-3 md:py-4 border-b border-gray-200 dark:border-gray-800">
                                 <div class="flex items-center justify-between">
-                                    <h3 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-slate-100">选择收款地址</h3>
+                                    <h3 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100">选择收款地址</h3>
                                     <button
                                         @click="open = false"
-                                        class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                                        class="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
                                     >
-                                        <svg class="w-5 h-5 text-gray-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                         </svg>
                                     </button>
                                 </div>
-                                <p class="text-sm text-gray-500 dark:text-slate-400 mt-1">请选择一个地址用于接收款项</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">请选择一个地址用于接收款项</p>
                             </div>
 
                             <!-- Empty state -->
                             <div v-if="list.length === 0" class="px-6 py-12 text-center">
-                                <svg class="w-12 h-12 text-gray-300 dark:text-slate-700 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-12 h-12 text-gray-300 dark:text-gray-700 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                                 </svg>
-                                <p class="text-gray-500 dark:text-slate-400 mb-4">暂无可用地址</p>
+                                <p class="text-gray-500 dark:text-gray-400 mb-4">暂无可用地址</p>
                                 <a
                                     href="/wallet/address-verification"
-                                    class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors cursor-pointer"
+                                    class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded transition-colors cursor-pointer"
                                 >
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -110,20 +110,20 @@
                                             :key="item.address"
                                             @click="pick(item)"
                                             :class="[
-                                                'relative px-4 py-3 rounded-xl cursor-pointer transition-all duration-200 group',
+                                                'relative px-4 py-3 rounded cursor-pointer transition-all duration-200 group',
                                                 (item.id === value || item.address === value)
                                                     ? 'bg-gradient-to-r from-emerald-50 to-emerald-100/50 dark:from-emerald-900/30 dark:to-emerald-800/20 ring-2 ring-emerald-500 dark:ring-emerald-400'
-                                                    : 'hover:bg-gray-50 dark:hover:bg-slate-800 hover:ring-1 hover:ring-gray-200 dark:hover:ring-slate-700',
+                                                    : 'hover:bg-gray-50 dark:hover:bg-gray-800 hover:ring-1 hover:ring-gray-200 dark:hover:ring-gray-700',
                                                 item.disabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : ''
                                             ]"
                                         >
                                             <div class="flex items-start gap-3">
                                                 <!-- Crypto Icon -->
                                                 <div :class="[
-                                                    'p-2 rounded-lg flex-shrink-0 transition-colors flex items-center justify-center',
+                                                    'p-2 rounded flex-shrink-0 transition-colors flex items-center justify-center',
                                                     (item.id === value || item.address === value)
                                                         ? 'bg-emerald-100 dark:bg-emerald-900/30'
-                                                        : 'bg-gray-100 dark:bg-slate-800 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/20'
+                                                        : 'bg-gray-100 dark:bg-gray-800 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/20'
                                                 ]">
                                                     <component
                                                         :is="getIcon(item.currency)"
@@ -139,22 +139,22 @@
                                                             'inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium',
                                                             (item.id === value || item.address === value)
                                                                 ? 'bg-emerald-500 text-white'
-                                                                : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400'
+                                                                : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
                                                         ]">
                                                             {{ item.currency }}
                                                         </span>
                                                         <span class="text-xs font-medium" :class="[
                                                             (item.id === value || item.address === value)
                                                                 ? 'text-emerald-600 dark:text-emerald-400'
-                                                                : 'text-gray-500 dark:text-slate-500'
+                                                                : 'text-gray-500 dark:text-gray-500'
                                                         ]">
                                                             {{ item.network }}
                                                         </span>
                                                     </div>
                                                     <div class="font-mono text-sm break-all leading-relaxed" :class="[
                                                         (item.id === value || item.address === value)
-                                                            ? 'text-gray-900 dark:text-slate-100 font-medium'
-                                                            : 'text-gray-700 dark:text-slate-300'
+                                                            ? 'text-gray-900 dark:text-gray-100 font-medium'
+                                                            : 'text-gray-700 dark:text-gray-300'
                                                     ]">
                                                         {{ item.address }}
                                                     </div>
@@ -183,7 +183,7 @@
                                 </div>
 
                                 <!-- Footer with add address link -->
-                                <div class="border-t border-gray-200 dark:border-slate-800 px-4 py-3 text-center">
+                                <div class="border-t border-gray-200 dark:border-gray-800 px-4 py-3 text-center">
                                     <a
                                         href="/wallet/address-verification"
                                         class="text-sm text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-medium cursor-pointer"

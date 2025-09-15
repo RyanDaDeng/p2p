@@ -62,12 +62,12 @@ const handleCancel = () => {
 
             <!-- Title -->
             <div class="mt-3 text-center">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
                     {{ title }}
                 </h3>
 
                 <!-- Content Slot -->
-                <div class="mt-3 text-sm text-slate-600 dark:text-slate-400">
+                <div class="mt-3 text-sm text-gray-600 dark:text-gray-400">
                     <slot>
                         <p>此操作不可撤销，请确认是否继续？</p>
                     </slot>
@@ -76,7 +76,7 @@ const handleCancel = () => {
         </div>
 
         <!-- Actions -->
-        <div class="px-6 py-4 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800 flex items-center justify-end space-x-3">
+        <div class="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800 flex items-center justify-end space-x-3">
             <P2PButton
                 v-if="cancelText"
                 variant="ghost"

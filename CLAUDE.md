@@ -36,15 +36,16 @@ This is a **P2P Cryptocurrency Trading Platform** built with Laravel 12 and Vue 
 **Light Mode**:
 - Primary: `white`
 - Secondary: `gray-50`
-- Borders: `gray-200`
+- Card backgrounds: `white`
+- Borders: `gray-200`, `gray-300`
 - Text: `gray-700`, `gray-900`
 
 **Dark Mode**:
-- Primary: `slate-950`
-- Secondary: `slate-900`
-- Card backgrounds: `slate-900/60`
-- Borders: `slate-800`
-- Text: `slate-300`, `slate-100`
+- Primary: `gray-900`
+- Secondary: `gray-800`
+- Card backgrounds: `gray-900`, `gray-900/50`
+- Borders: `gray-700`, `gray-800`
+- Text: `gray-300`, `gray-100`
 
 ### Dark/Light Mode Implementation
 **IMPORTANT**: Using Tailwind CSS v4 with CSS-based configuration
@@ -56,7 +57,7 @@ This is a **P2P Cryptocurrency Trading Platform** built with Laravel 12 and Vue 
 
 **Component Usage**:
 ```vue
-<div class="bg-white dark:bg-slate-900 text-gray-700 dark:text-slate-300">
+<div class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
 ```
 
 ## 📱 Responsive Design Specifications
@@ -134,6 +135,11 @@ resources/js/
 2. **Mobile-first responsive**: Use `md:` prefix for desktop styles
 3. **No inline styles**: Use Tailwind classes exclusively
 4. **Consistent spacing**: Use Tailwind's spacing scale
+5. **Rounded corners**: Use `rounded` (4px) for professional appearance, NOT `rounded-lg` or `rounded-xl`
+6. **Focus states**: All interactive elements must use `focus:outline-none` with emerald focus rings
+   - Text inputs: `focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500`
+   - Buttons: `focus:outline-none focus:ring-2 focus:ring-emerald-500/20`
+   - Radio/checkboxes: `focus:ring-emerald-500 focus:ring-2`
 
 ### Code Style
 - **No comments** unless absolutely necessary
@@ -287,6 +293,37 @@ php artisan optimize
 - 图标和颜色标识
 - 弹窗式选择界面
 
+### P2PPublishDialog - 发布广告对话框
+专用的发布/创建广告模态框组件，采用统一的设计语言。
+
+**Props:**
+- `modelValue`: 控制显示/隐藏
+- `title`: 对话框标题
+- `subtitle`: 副标题说明
+- `showCancel/showConfirm`: 控制按钮显示
+- `confirmText/cancelText`: 按钮文本
+- `loading`: 加载状态
+- `persistent`: 防止意外关闭
+
+**特性:**
+- 响应式设计，移动端优化
+- 键盘ESC关闭支持
+- 滚动锁定处理
+- 统一的圆角和背景系统
+
+### P2PAddressPicker - 地址选择器
+专门用于选择已验证的加密货币地址。
+
+**Props:**
+- `modelValue`: 选中的地址ID
+- `addresses`: 地址列表数组
+
+**特性:**
+- 模态框式选择界面
+- 支持不同货币的图标显示
+- 地址格式化显示
+- 空状态处理
+
 ### 其他核心组件
 - **P2PDropdown**: 下拉菜单
 - **P2PPagination**: 分页
@@ -334,6 +371,8 @@ const {
 9. **Config Loading**: Load config once at parent level and pass via props to avoid multiple API calls
 10. **Database Fields**: Use `currency_key` not `cryptocurrency`, use `network` not `chain`
 11. **No Fallback Data**: NEVER display fallback, placeholder, or default content. Only show actual data from backend. Don't add your own text or values.
+12. **Consistent Design Language**: Use `rounded` corners (4px), `gray` color scheme, emerald focus states, and minimal professional styling
+13. **Focus Management**: ALL inputs must include `focus:outline-none` to remove browser defaults, then add emerald focus rings
 
 ## 🚀 Best Practices
 

@@ -1,17 +1,17 @@
 <template>
     <P2PAppLayout>
-        <div class="min-h-screen bg-gray-50 dark:bg-slate-950 py-6">
+        <div class="min-h-screen bg-gray-50 dark:bg-gray-950 py-6">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- 页面标题 -->
                 <div class="mb-6">
-                    <h1 class="text-2xl font-bold text-gray-900 dark:text-slate-100">消息通知</h1>
-                    <p class="mt-1 text-sm text-gray-500 dark:text-slate-400">查看您的通知消息</p>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">消息通知</h1>
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">查看您的通知消息</p>
                 </div>
 
                 <!-- 通知列表 -->
-                <div v-if="notifications.length > 0" class="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 divide-y divide-gray-200 dark:divide-slate-800 overflow-hidden">
+                <div v-if="notifications.length > 0" class="bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 divide-y divide-gray-200 dark:divide-gray-800 overflow-hidden">
                     <div v-for="notification in notifications" :key="notification.id"
-                         class="p-4 hover:bg-gray-100 dark:hover:bg-slate-800/50 transition-colors">
+                         class="p-4 hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-colors">
                         <div class="flex items-start gap-3">
                             <!-- 图标 -->
                             <div class="flex-shrink-0">
@@ -22,8 +22,8 @@
                                     </svg>
                                 </div>
                                 <div v-else
-                                     class="w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-gray-600 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                     class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
                                 </div>
@@ -33,17 +33,17 @@
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-start justify-between">
                                     <div class="flex-1">
-                                        <p class="text-sm font-medium text-gray-900 dark:text-slate-100">
+                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-100">
                                             {{ notification.message }}
                                             <span v-if="notification.count > 1"
                                                   class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
                                                 {{ notification.count }} 条
                                             </span>
                                         </p>
-                                        <p v-if="notification.order" class="mt-1 text-xs text-gray-500 dark:text-slate-400">
+                                        <p v-if="notification.order" class="mt-1 text-xs text-gray-500 dark:text-gray-400">
                                             订单号: #{{ notification.order.order_no }}
                                         </p>
-                                        <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">
+                                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
                                             {{ formatTime(notification.created_at) }}
                                         </p>
                                     </div>
@@ -58,7 +58,7 @@
                                         <!-- 操作按钮 -->
                                         <Link v-if="notification.order_id"
                                               :href="`/trade/${notification.order.order_no}/chat`"
-                                              class="inline-flex items-center px-3 py-1.5 border border-gray-300 dark:border-slate-600 text-xs font-medium rounded-lg text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors cursor-pointer">
+                                              class="inline-flex items-center px-3 py-1.5 border border-gray-300 dark:border-gray-600 text-xs font-medium rounded text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors cursor-pointer">
                                             查看订单
                                         </Link>
                                     </div>
@@ -69,13 +69,13 @@
                 </div>
 
                 <!-- 空状态 -->
-                <div v-else class="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-12">
+                <div v-else class="bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 p-12">
                     <div class="text-center">
-                        <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
                         </svg>
-                        <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-slate-100">暂无通知</h3>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-slate-400">您目前没有任何通知消息</p>
+                        <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">暂无通知</h3>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">您目前没有任何通知消息</p>
                     </div>
                 </div>
 
@@ -84,17 +84,17 @@
                     <nav class="flex items-center gap-2">
                         <button @click="changePage(currentPage - 1)"
                                 :disabled="currentPage === 1"
-                                class="px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                                class="px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                             上一页
                         </button>
 
-                        <span class="px-4 py-1.5 text-sm text-gray-700 dark:text-slate-300">
+                        <span class="px-4 py-1.5 text-sm text-gray-700 dark:text-gray-300">
                             第 {{ currentPage }} / {{ totalPages }} 页
                         </span>
 
                         <button @click="changePage(currentPage + 1)"
                                 :disabled="currentPage === totalPages"
-                                class="px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                                class="px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                             下一页
                         </button>
                     </nav>

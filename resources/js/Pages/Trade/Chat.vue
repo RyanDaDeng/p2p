@@ -25,13 +25,13 @@
                                     :alt="participant.name"
                                     :class="[
                                         'h-8 w-8 rounded-full object-cover ring-2',
-                                        participant.is_online ? 'ring-emerald-500' : 'ring-gray-400 dark:ring-slate-600'
+                                        participant.is_online ? 'ring-emerald-500' : 'ring-gray-400 dark:ring-gray-600'
                                     ]"
                                 />
                                 <!-- Fallback to initial -->
                                 <div v-else :class="[
-                                    'h-8 w-8 rounded-full flex items-center justify-center ring-2 ring-white dark:ring-slate-950',
-                                    participant.is_online ? 'bg-gradient-to-br from-emerald-500 to-emerald-600' : 'bg-gray-400 dark:bg-slate-600'
+                                    'h-8 w-8 rounded-full flex items-center justify-center ring-2 ring-white dark:ring-gray-950',
+                                    participant.is_online ? 'bg-gradient-to-br from-emerald-500 to-emerald-600' : 'bg-gray-400 dark:bg-gray-600'
                                 ]">
                                     <span class="text-white text-xs font-bold">{{ participant.name?.[0]?.toUpperCase() || 'U' }}</span>
                                 </div>
@@ -39,23 +39,23 @@
                         </template>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-semibold text-gray-900 dark:text-slate-100 truncate">
+                        <p class="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
                             订单 #{{ order.order_no }}
                         </p>
-                        <p class="text-xs text-gray-500 dark:text-slate-400">
+                        <p class="text-xs text-gray-500 dark:text-gray-400">
                             {{ participants.filter(p => p.is_online).length }}/{{ participants.length }} 在房间
                         </p>
                     </div>
                 </div>
             </template>
             <template #actions>
-                <button @click="showTradeTerms = !showTradeTerms" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
-                    <svg class="w-5 h-5 text-gray-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button @click="showTradeTerms = !showTradeTerms" class="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
                 </button>
-                <button @click="showMobileInfo = !showMobileInfo" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
-                    <svg class="w-5 h-5 text-gray-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button @click="showMobileInfo = !showMobileInfo" class="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                 </button>
@@ -63,7 +63,7 @@
         </P2PMobileHeader>
 
         <!-- 移动端固定高度，防止整页滚动 -->
-        <div class="lg:min-h-screen lg:bg-gray-50 lg:dark:bg-slate-950 h-screen lg:h-auto overflow-hidden lg:overflow-visible fixed lg:relative inset-0">
+        <div class="lg:min-h-screen lg:bg-gray-50 lg:dark:bg-gray-950 h-screen lg:h-auto overflow-hidden lg:overflow-visible fixed lg:relative inset-0">
             <!-- 已取消订单提示 -->
             <div v-if="order.status === 'cancelled'" class="relative z-10 bg-red-50 dark:bg-red-900/20 border-b border-red-200 dark:border-red-800">
                 <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8">
@@ -127,7 +127,7 @@
                         </div>
                         <div class="sm:ml-auto">
                             <Link href="/notifications/settings" 
-                                  class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors">
+                                  class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm font-medium transition-colors">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.56c-.21 2.27-1.13 7.75-1.6 10.29-.2 1.08-.59 1.44-.97 1.47-.82.07-1.45-.54-2.24-.99-1.24-.71-1.94-1.16-3.14-1.85-1.39-.8-.49-1.24.3-1.96.21-.19 3.85-3.52 3.91-3.82.01-.04.01-.19-.07-.27-.08-.08-.2-.05-.28-.03-.12.03-2.02.13-5.7 3.75-.54.54-1.03.8-1.48.78-.49-.02-1.42-.27-2.11-.5-.85-.28-1.53-.42-1.47-.89.03-.25.37-.51 1.02-.77 4-1.74 6.67-2.89 8.01-3.44 3.81-1.57 4.61-1.84 5.13-1.85.11 0 .37.03.53.18.14.12.18.28.2.45-.01.06-.01.24-.02.38z"/>
                                 </svg>
@@ -148,7 +148,7 @@
                 :icon-color="'blue'"
             >
                 <template #header-icon>
-                    <div class="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30">
+                    <div class="p-2 rounded bg-blue-100 dark:bg-blue-900/30">
                         <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                         </svg>
@@ -158,7 +158,7 @@
                 <div class="p-4 space-y-4">
                     <div class="space-y-4">
                         <!-- 托管状态 -->
-                        <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                        <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded border border-blue-200 dark:border-blue-800">
                             <div class="flex items-center gap-2">
                                 <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
@@ -172,7 +172,7 @@
 
                         <!-- 交易流程步骤 -->
                         <div>
-                            <p class="text-sm font-medium text-gray-900 dark:text-slate-100 mb-3">交易流程</p>
+                            <p class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">交易流程</p>
                             <div class="space-y-3">
                                 <!-- 根据订单状态动态显示步骤 -->
                                 <!-- 步骤 1: 订单创建 -->
@@ -183,18 +183,17 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                             </svg>
                                         </div>
-                                        <div class="w-0.5 h-16 bg-gray-300 dark:bg-slate-600"></div>
+                                        <div class="w-0.5 h-16 bg-gray-300 dark:bg-gray-600"></div>
                                     </div>
                                     <div class="flex-1 pb-3">
-                                        <p class="text-sm font-medium text-gray-900 dark:text-slate-100">订单创建</p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">{{ order.created_at ? formatTime(order.created_at) : '已完成' }}</p>
+                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-100">订单创建</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ order.created_at ? formatTime(order.created_at) : '已完成' }}</p>
                                         <!-- 商家确认按钮 -->
                                         <div v-if="order.escrow_status === 'order_initiated' && availableActions.includes('vendor_confirm')" class="mt-2">
                                             <P2PButton
                                                 @click="handleEscrowAction('vendor_confirm')"
                                                 variant="primary"
-                                                size="md"
-                                                fullWidth
+                                                size="sm"
                                             >
                                                 确认接单
                                             </P2PButton>
@@ -209,20 +208,20 @@
                                             'w-8 h-8 rounded-full flex items-center justify-center',
                                             order.escrow_status === 'order_initiated' ? 'bg-amber-500 animate-pulse' :
                                             ['vendor_confirmed', 'seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'bg-emerald-600' :
-                                            'bg-gray-300 dark:bg-slate-700'
+                                            'bg-gray-300 dark:bg-gray-700'
                                         ]">
                                             <svg v-if="['vendor_confirmed', 'seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status)" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                             </svg>
                                             <span v-else class="text-white text-xs font-bold">2</span>
                                         </div>
-                                        <div class="w-0.5 h-16 bg-gray-300 dark:bg-slate-600"></div>
+                                        <div class="w-0.5 h-16 bg-gray-300 dark:bg-gray-600"></div>
                                     </div>
                                     <div class="flex-1 pb-3">
-                                        <p class="text-sm font-medium" :class="['vendor_confirmed', 'seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-slate-100' : 'text-gray-600 dark:text-slate-300'">
+                                        <p class="text-sm font-medium" :class="['vendor_confirmed', 'seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-300'">
                                             商家确认
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">
                                             {{ order.vendor_confirmed_at ? formatTime(order.vendor_confirmed_at) : '等待商家确认订单' }}
                                         </p>
                                     </div>
@@ -235,20 +234,20 @@
                                             'w-8 h-8 rounded-full flex items-center justify-center',
                                             order.escrow_status === 'vendor_confirmed' ? 'bg-amber-500 animate-pulse' :
                                             ['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'bg-emerald-600' :
-                                            'bg-gray-300 dark:bg-slate-700'
+                                            'bg-gray-300 dark:bg-gray-700'
                                         ]">
                                             <svg v-if="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status)" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                             </svg>
                                             <span v-else class="text-white text-xs font-bold">3</span>
                                         </div>
-                                        <div class="w-0.5 h-16 bg-gray-300 dark:bg-slate-600"></div>
+                                        <div class="w-0.5 h-16 bg-gray-300 dark:bg-gray-600"></div>
                                     </div>
                                     <div class="flex-1 pb-3">
-                                        <p class="text-sm font-medium" :class="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-slate-100' : 'text-gray-600 dark:text-slate-300'">
+                                        <p class="text-sm font-medium" :class="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-300'">
                                             卖家转币到托管
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">
                                             {{ order.seller_paid_at ? formatTime(order.seller_paid_at) : '等待卖家转币' }}
                                         </p>
                                         <!-- 卖家转币按钮 -->
@@ -256,8 +255,7 @@
                                             <P2PButton
                                                 @click="handleEscrowAction('mark_seller_paid')"
                                                 variant="primary"
-                                                size="md"
-                                                fullWidth
+                                                size="sm"
                                             >
                                                 我已转币
                                             </P2PButton>
@@ -272,20 +270,20 @@
                                             'w-8 h-8 rounded-full flex items-center justify-center',
                                             order.escrow_status === 'seller_paid' ? 'bg-amber-500 animate-pulse' :
                                             ['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'bg-emerald-600' :
-                                            'bg-gray-300 dark:bg-slate-700'
+                                            'bg-gray-300 dark:bg-gray-700'
                                         ]">
                                             <svg v-if="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status)" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                             </svg>
                                             <span v-else class="text-white text-xs font-bold">4</span>
                                         </div>
-                                        <div class="w-0.5 h-16 bg-gray-300 dark:bg-slate-600"></div>
+                                        <div class="w-0.5 h-16 bg-gray-300 dark:bg-gray-600"></div>
                                     </div>
                                     <div class="flex-1 pb-3">
-                                        <p class="text-sm font-medium" :class="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-slate-100' : 'text-gray-600 dark:text-slate-300'">
+                                        <p class="text-sm font-medium" :class="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-300'">
                                             托管确认到账
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">
                                             {{ order.escrow_received_at ? formatTime(order.escrow_received_at) : '系统确认中' }}
                                         </p>
                                         <!-- 模拟托管确认按钮（仅测试环境） -->
@@ -322,20 +320,20 @@
                                             'w-8 h-8 rounded-full flex items-center justify-center',
                                             order.escrow_status === 'escrow_received' ? 'bg-amber-500 animate-pulse' :
                                             ['buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'bg-emerald-600' :
-                                            'bg-gray-300 dark:bg-slate-700'
+                                            'bg-gray-300 dark:bg-gray-700'
                                         ]">
                                             <svg v-if="['buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status)" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                             </svg>
                                             <span v-else class="text-white text-xs font-bold">5</span>
                                         </div>
-                                        <div class="w-0.5 h-16 bg-gray-300 dark:bg-slate-600"></div>
+                                        <div class="w-0.5 h-16 bg-gray-300 dark:bg-gray-600"></div>
                                     </div>
                                     <div class="flex-1 pb-3">
-                                        <p class="text-sm font-medium" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-slate-100' : 'text-gray-600 dark:text-slate-300'">
+                                        <p class="text-sm font-medium" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-300'">
                                             买家确认托管到账
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">
                                             {{ order.buyer_confirmed_escrow_at ? formatTime(order.buyer_confirmed_escrow_at) : '等待买家确认' }}
                                         </p>
                                         <!-- 买家确认托管按钮 -->
@@ -343,8 +341,7 @@
                                             <P2PButton
                                                 @click="handleEscrowAction('confirm_escrow')"
                                                 variant="primary"
-                                                size="md"
-                                                fullWidth
+                                                size="sm"
                                             >
                                                 确认托管到账
                                             </P2PButton>
@@ -359,20 +356,20 @@
                                             'w-8 h-8 rounded-full flex items-center justify-center',
                                             order.escrow_status === 'buyer_confirmed_escrow' ? 'bg-amber-500 animate-pulse' :
                                             ['buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'bg-emerald-600' :
-                                            'bg-gray-300 dark:bg-slate-700'
+                                            'bg-gray-300 dark:bg-gray-700'
                                         ]">
                                             <svg v-if="['buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status)" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                             </svg>
                                             <span v-else class="text-white text-xs font-bold">6</span>
                                         </div>
-                                        <div class="w-0.5 h-16 bg-gray-300 dark:bg-slate-600"></div>
+                                        <div class="w-0.5 h-16 bg-gray-300 dark:bg-gray-600"></div>
                                     </div>
                                     <div class="flex-1 pb-3">
-                                        <p class="text-sm font-medium" :class="['buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-slate-100' : 'text-gray-600 dark:text-slate-300'">
+                                        <p class="text-sm font-medium" :class="['buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-300'">
                                             买家付款
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">
                                             {{ order.buyer_paid_at ? formatTime(order.buyer_paid_at) : '等待买家付款' }}
                                         </p>
                                         <!-- 买家付款按钮 -->
@@ -380,8 +377,7 @@
                                             <P2PButton
                                                 @click="handleEscrowAction('mark_buyer_paid')"
                                                 variant="primary"
-                                                size="md"
-                                                fullWidth
+                                                size="sm"
                                             >
                                                 我已付款
                                             </P2PButton>
@@ -396,20 +392,20 @@
                                             'w-8 h-8 rounded-full flex items-center justify-center',
                                             order.escrow_status === 'buyer_paid' ? 'bg-amber-500 animate-pulse' :
                                             ['seller_received', 'escrow_released'].includes(order.escrow_status) ? 'bg-emerald-600' :
-                                            'bg-gray-300 dark:bg-slate-700'
+                                            'bg-gray-300 dark:bg-gray-700'
                                         ]">
                                             <svg v-if="['seller_received', 'escrow_released'].includes(order.escrow_status)" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                             </svg>
                                             <span v-else class="text-white text-xs font-bold">7</span>
                                         </div>
-                                        <div class="w-0.5 h-16 bg-gray-300 dark:bg-slate-600"></div>
+                                        <div class="w-0.5 h-16 bg-gray-300 dark:bg-gray-600"></div>
                                     </div>
                                     <div class="flex-1 pb-3">
-                                        <p class="text-sm font-medium" :class="['buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-slate-100' : 'text-gray-600 dark:text-slate-300'">
+                                        <p class="text-sm font-medium" :class="['buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-300'">
                                             卖家确认收款
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">
                                             {{ order.seller_received_at ? formatTime(order.seller_received_at) : '等待卖家确认' }}
                                         </p>
                                         <!-- 卖家确认收款按钮 -->
@@ -417,8 +413,7 @@
                                             <P2PButton
                                                 @click="handleEscrowAction('mark_seller_received')"
                                                 variant="success"
-                                                size="md"
-                                                fullWidth
+                                                size="sm"
                                             >
                                                 确认收款
                                             </P2PButton>
@@ -433,7 +428,7 @@
                                             'w-8 h-8 rounded-full flex items-center justify-center',
                                             order.escrow_status === 'seller_received' ? 'bg-amber-500 animate-pulse' :
                                             order.escrow_status === 'escrow_released' ? 'bg-emerald-600' :
-                                            'bg-gray-300 dark:bg-slate-700'
+                                            'bg-gray-300 dark:bg-gray-700'
                                         ]">
                                             <svg v-if="order.escrow_status === 'escrow_released'" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -442,10 +437,10 @@
                                         </div>
                                     </div>
                                     <div class="flex-1">
-                                        <p class="text-sm font-medium" :class="['seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-slate-100' : 'text-gray-600 dark:text-slate-300'">
+                                        <p class="text-sm font-medium" :class="['seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-300'">
                                             托管释放
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">
                                             {{ order.escrow_released_at ? formatTime(order.escrow_released_at) : '平台释放币给买家' }}
                                         </p>
                                     </div>
@@ -455,52 +450,52 @@
 
                         <!-- 交易信息 -->
                         <div>
-                            <p class="text-sm font-medium text-gray-900 dark:text-slate-100 mb-2">交易信息</p>
+                            <p class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">交易信息</p>
                             <div class="grid grid-cols-2 gap-3 text-sm">
                                 <div>
-                                    <span class="text-xs text-gray-500 dark:text-slate-400">订单编号</span>
-                                    <p class="font-mono text-gray-900 dark:text-slate-200">#{{ order.order_no }}</p>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">订单编号</span>
+                                    <p class="font-mono text-gray-900 dark:text-gray-200">#{{ order.order_no }}</p>
                                 </div>
                                 <div>
-                                    <span class="text-xs text-gray-500 dark:text-slate-400">商家</span>
-                                    <p class="font-medium text-gray-900 dark:text-slate-200">{{ order.vendor?.name || '加载中...' }}</p>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">商家</span>
+                                    <p class="font-medium text-gray-900 dark:text-gray-200">{{ order.vendor?.name || '加载中...' }}</p>
                                 </div>
                                 <div>
-                                    <span class="text-xs text-gray-500 dark:text-slate-400">客户</span>
-                                    <p class="font-medium text-gray-900 dark:text-slate-200">{{ order.client?.name || '加载中...' }}</p>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">客户</span>
+                                    <p class="font-medium text-gray-900 dark:text-gray-200">{{ order.client?.name || '加载中...' }}</p>
                                 </div>
                                 <div>
-                                    <span class="text-xs text-gray-500 dark:text-slate-400">买家</span>
-                                    <p class="font-medium text-gray-900 dark:text-slate-200">{{ order.buyer?.name || '加载中...' }}</p>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">买家</span>
+                                    <p class="font-medium text-gray-900 dark:text-gray-200">{{ order.buyer?.name || '加载中...' }}</p>
                                 </div>
                                 <div>
-                                    <span class="text-xs text-gray-500 dark:text-slate-400">卖家</span>
-                                    <p class="font-medium text-gray-900 dark:text-slate-200">{{ order.seller?.name || '加载中...' }}</p>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">卖家</span>
+                                    <p class="font-medium text-gray-900 dark:text-gray-200">{{ order.seller?.name || '加载中...' }}</p>
                                 </div>
                                 <div>
-                                    <span class="text-xs text-gray-500 dark:text-slate-400">币种</span>
-                                    <p class="font-medium text-gray-900 dark:text-slate-200">{{ order.currency_label || order.currency_key || order.crypto_currency }}</p>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">币种</span>
+                                    <p class="font-medium text-gray-900 dark:text-gray-200">{{ order.currency_label || order.currency_key || order.crypto_currency }}</p>
                                 </div>
                                 <div>
-                                    <span class="text-xs text-gray-500 dark:text-slate-400">数量（含交易费）</span>
-                                    <p class="font-medium text-gray-900 dark:text-slate-200">{{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}</p>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">数量（含交易费）</span>
+                                    <p class="font-medium text-gray-900 dark:text-gray-200">{{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}</p>
                                     <p v-if="order.fee && order.fee > 0" class="text-xs text-amber-600 dark:text-amber-400 mt-0.5">
                                         交易费（商家）: {{ parseFloat(order.fee).toFixed(8) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}
                                     </p>
                                 </div>
                                 <div>
-                                    <span class="text-xs text-gray-500 dark:text-slate-400">单价</span>
-                                    <p class="font-medium text-gray-900 dark:text-slate-200">¥{{ parseFloat(order.price).toFixed(2) }}</p>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">单价</span>
+                                    <p class="font-medium text-gray-900 dark:text-gray-200">¥{{ parseFloat(order.price).toFixed(2) }}</p>
                                 </div>
                                 <div>
-                                    <span class="text-xs text-gray-500 dark:text-slate-400">总金额</span>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">总金额</span>
                                     <p class="font-bold text-emerald-600 dark:text-emerald-400">¥{{ parseFloat(order.fiat_amount).toFixed(2) }}</p>
                                 </div>
                             </div>
                             <!-- 卖家地址 -->
-                            <div v-if="order.seller_address" class="mt-3 pt-3 border-t border-gray-100 dark:border-slate-800">
-                                <span class="text-xs text-gray-500 dark:text-slate-400 block mb-1">卖家地址</span>
-                                <p class="font-mono text-sm text-gray-900 dark:text-slate-200 break-all">{{ order.seller_address }}</p>
+                            <div v-if="order.seller_address" class="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
+                                <span class="text-xs text-gray-500 dark:text-gray-400 block mb-1">卖家地址</span>
+                                <p class="font-mono text-sm text-gray-900 dark:text-gray-200 break-all">{{ order.seller_address }}</p>
                             </div>
                         </div>
 
@@ -515,9 +510,9 @@
                     <!-- 左侧：交易信息面板（桌面端显示） -->
                     <div class="md:col-span-1 space-y-4">
                         <!-- 交易状态卡片 -->
-                        <div class="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-6">
+                        <div class="bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 p-6">
                             <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-lg font-bold text-gray-900 dark:text-slate-100">交易详情</h3>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">交易详情</h3>
                                 <span :class="getStatusBadgeClass(order.escrow_status)" class="px-3 py-1 text-xs font-semibold rounded-full">
                                     {{ getStatusBadgeText(order.escrow_status) }}
                                 </span>
@@ -525,7 +520,7 @@
                             
                             <!-- 评价按钮 - 放在顶部显眼位置 -->
                             <div v-if="currentOrder.escrow_status === 'escrow_released' && currentUserId === currentOrder.client_id" class="mb-4">
-                                <div v-if="!currentOrder.has_review" class="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
+                                <div v-if="!currentOrder.has_review" class="p-3 bg-amber-50 dark:bg-amber-900/20 rounded border border-amber-200 dark:border-amber-800">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center gap-2">
                                             <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="currentColor" viewBox="0 0 20 20">
@@ -549,7 +544,7 @@
                                         立即评价商家
                                     </P2PButton>
                                 </div>
-                                <div v-else class="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg border border-emerald-200 dark:border-emerald-800">
+                                <div v-else class="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded border border-emerald-200 dark:border-emerald-800">
                                     <div class="flex items-center gap-2">
                                         <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -561,11 +556,11 @@
 
                             <!-- 交易进度 -->
                             <div class="mb-6">
-                                <div class="flex items-center justify-between text-xs text-gray-500 dark:text-slate-400 mb-2">
+                                <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-2">
                                     <span>交易进度</span>
                                     <span>{{ getProgressPercentage(order.escrow_status) }}%</span>
                                 </div>
-                                <div class="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2">
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                     <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 h-2 rounded-full" :style="`width: ${getProgressPercentage(order.escrow_status)}%`"></div>
                                 </div>
                             </div>
@@ -581,8 +576,8 @@
                                             </svg>
                                         </div>
                                         <div class="flex-1">
-                                            <p class="text-sm font-medium text-gray-900 dark:text-slate-100">订单创建</p>
-                                            <p class="text-xs text-gray-500 dark:text-slate-400">{{ order.created_at ? formatTime(order.created_at) : '已完成' }}</p>
+                                            <p class="text-sm font-medium text-gray-900 dark:text-gray-100">订单创建</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ order.created_at ? formatTime(order.created_at) : '已完成' }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -594,7 +589,7 @@
                                             'w-8 h-8 rounded-full flex items-center justify-center',
                                             order.escrow_status === 'order_initiated' ? 'bg-amber-500 animate-pulse' :
                                             ['vendor_confirmed', 'seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'bg-emerald-500' :
-                                            'bg-gray-300 dark:bg-slate-700'
+                                            'bg-gray-300 dark:bg-gray-700'
                                         ]">
                                             <svg v-if="['vendor_confirmed', 'seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status)" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -602,10 +597,10 @@
                                             <span v-else class="text-white font-bold text-xs">2</span>
                                         </div>
                                         <div class="flex-1">
-                                            <p class="text-sm font-medium" :class="['vendor_confirmed', 'seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-slate-100' : 'text-gray-400 dark:text-slate-500'">
+                                            <p class="text-sm font-medium" :class="['vendor_confirmed', 'seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'">
                                                 商家确认
                                             </p>
-                                            <p class="text-xs" :class="['vendor_confirmed', 'seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-slate-400' : 'text-gray-400 dark:text-slate-600'">
+                                            <p class="text-xs" :class="['vendor_confirmed', 'seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
                                                 {{ order.vendor_confirmed_at ? formatTime(order.vendor_confirmed_at) : (order.escrow_status === 'order_initiated' ? '等待中...' : '待完成') }}
                                             </p>
                                         </div>
@@ -630,7 +625,7 @@
                                             'w-8 h-8 rounded-full flex items-center justify-center',
                                             order.escrow_status === 'vendor_confirmed' ? 'bg-amber-500 animate-pulse' :
                                             ['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'bg-emerald-500' :
-                                            'bg-gray-300 dark:bg-slate-700'
+                                            'bg-gray-300 dark:bg-gray-700'
                                         ]">
                                             <svg v-if="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status)" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -638,10 +633,10 @@
                                             <span v-else class="text-white font-bold text-xs">3</span>
                                         </div>
                                         <div class="flex-1">
-                                            <p class="text-sm font-medium" :class="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-slate-100' : 'text-gray-400 dark:text-slate-500'">
+                                            <p class="text-sm font-medium" :class="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'">
                                                 卖家转币到托管
                                             </p>
-                                            <p class="text-xs" :class="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-slate-400' : 'text-gray-400 dark:text-slate-600'">
+                                            <p class="text-xs" :class="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
                                                 {{ order.seller_paid_at ? formatTime(order.seller_paid_at) : (order.escrow_status === 'vendor_confirmed' ? '等待中...' : '待完成') }}
                                             </p>
                                             <!-- 显示交易哈希 -->
@@ -656,7 +651,6 @@
                                             @click="handleEscrowAction('mark_seller_paid')"
                                             variant="primary"
                                             size="sm"
-                                            fullWidth
                                         >
                                             我已转币到托管
                                         </P2PButton>
@@ -670,7 +664,7 @@
                                             'w-8 h-8 rounded-full flex items-center justify-center',
                                             order.escrow_status === 'seller_paid' ? 'bg-amber-500 animate-pulse' :
                                             ['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'bg-emerald-500' :
-                                            'bg-gray-300 dark:bg-slate-700'
+                                            'bg-gray-300 dark:bg-gray-700'
                                         ]">
                                             <svg v-if="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status)" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -678,10 +672,10 @@
                                             <span v-else class="text-white font-bold text-xs">4</span>
                                         </div>
                                         <div class="flex-1">
-                                            <p class="text-sm font-medium" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-slate-100' : 'text-gray-400 dark:text-slate-500'">
+                                            <p class="text-sm font-medium" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'">
                                                 托管确认到账
                                             </p>
-                                            <p class="text-xs" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-slate-400' : 'text-gray-400 dark:text-slate-600'">
+                                            <p class="text-xs" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
                                                 {{ order.escrow_received_at ? formatTime(order.escrow_received_at) : (order.escrow_status === 'seller_paid' ? '系统确认中...' : '待完成') }}
                                             </p>
                                         </div>
@@ -725,7 +719,7 @@
                                             'w-8 h-8 rounded-full flex items-center justify-center',
                                             order.escrow_status === 'escrow_received' ? 'bg-amber-500 animate-pulse' :
                                             ['buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'bg-emerald-500' :
-                                            'bg-gray-300 dark:bg-slate-700'
+                                            'bg-gray-300 dark:bg-gray-700'
                                         ]">
                                             <svg v-if="['buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status)" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -733,10 +727,10 @@
                                             <span v-else class="text-white font-bold text-xs">5</span>
                                         </div>
                                         <div class="flex-1">
-                                            <p class="text-sm font-medium" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-slate-100' : 'text-gray-400 dark:text-slate-500'">
+                                            <p class="text-sm font-medium" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'">
                                                 买家确认托管到账
                                             </p>
-                                            <p class="text-xs" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-slate-400' : 'text-gray-400 dark:text-slate-600'">
+                                            <p class="text-xs" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
                                                 {{ order.buyer_confirmed_escrow_at ? formatTime(order.buyer_confirmed_escrow_at) : (order.escrow_status === 'escrow_received' ? '等待确认...' : '待完成') }}
                                             </p>
                                         </div>
@@ -761,7 +755,7 @@
                                             'w-8 h-8 rounded-full flex items-center justify-center',
                                             order.escrow_status === 'buyer_confirmed_escrow' ? 'bg-amber-500 animate-pulse' :
                                             ['buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'bg-emerald-500' :
-                                            'bg-gray-300 dark:bg-slate-700'
+                                            'bg-gray-300 dark:bg-gray-700'
                                         ]">
                                             <svg v-if="['buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status)" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -769,10 +763,10 @@
                                             <span v-else class="text-white font-bold text-xs">6</span>
                                         </div>
                                         <div class="flex-1">
-                                            <p class="text-sm font-medium" :class="['buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-slate-100' : 'text-gray-400 dark:text-slate-500'">
+                                            <p class="text-sm font-medium" :class="['buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'">
                                                 买家付款
                                             </p>
-                                            <p class="text-xs text-gray-500 dark:text-slate-400">
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">
                                                 {{ order.buyer_paid_at ? formatTime(order.buyer_paid_at) : (order.escrow_status === 'buyer_confirmed_escrow' ? '等待中...' : '待完成') }}
                                             </p>
                                         </div>
@@ -797,7 +791,7 @@
                                             'w-8 h-8 rounded-full flex items-center justify-center',
                                             order.escrow_status === 'buyer_paid' ? 'bg-amber-500 animate-pulse' :
                                             ['seller_received', 'escrow_released'].includes(order.escrow_status) ? 'bg-emerald-500' :
-                                            'bg-gray-300 dark:bg-slate-700'
+                                            'bg-gray-300 dark:bg-gray-700'
                                         ]">
                                             <svg v-if="['seller_received', 'escrow_released'].includes(order.escrow_status)" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -805,10 +799,10 @@
                                             <span v-else class="text-white font-bold text-xs">7</span>
                                         </div>
                                         <div class="flex-1">
-                                            <p class="text-sm font-medium" :class="['buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-slate-100' : 'text-gray-400 dark:text-slate-500'">
+                                            <p class="text-sm font-medium" :class="['buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'">
                                                 卖家确认收款
                                             </p>
-                                            <p class="text-xs" :class="['buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-slate-400' : 'text-gray-400 dark:text-slate-600'">
+                                            <p class="text-xs" :class="['buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
                                                 {{ order.seller_received_at ? formatTime(order.seller_received_at) : (order.escrow_status === 'buyer_paid' ? '等待中...' : '待完成') }}
                                             </p>
                                         </div>
@@ -833,7 +827,7 @@
                                             'w-8 h-8 rounded-full flex items-center justify-center',
                                             order.escrow_status === 'seller_received' ? 'bg-amber-500 animate-pulse' :
                                             order.escrow_status === 'escrow_released' ? 'bg-emerald-500' :
-                                            'bg-gray-300 dark:bg-slate-700'
+                                            'bg-gray-300 dark:bg-gray-700'
                                         ]">
                                             <svg v-if="order.escrow_status === 'escrow_released'" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -841,10 +835,10 @@
                                             <span v-else class="text-white font-bold text-xs">8</span>
                                         </div>
                                         <div class="flex-1">
-                                            <p class="text-sm font-medium" :class="['seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-slate-100' : 'text-gray-400 dark:text-slate-500'">
+                                            <p class="text-sm font-medium" :class="['seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'">
                                                 托管释放
                                             </p>
-                                            <p class="text-xs" :class="['seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-slate-400' : 'text-gray-400 dark:text-slate-600'">
+                                            <p class="text-xs" :class="['seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
                                                 {{ order.escrow_released_at ? formatTime(order.escrow_released_at) : (order.escrow_status === 'seller_received' ? '处理中...' : '待完成') }}
                                             </p>
                                         </div>
@@ -853,47 +847,47 @@
                             </div>
 
                             <!-- 交易信息 -->
-                            <div class="space-y-3 border-t border-gray-200 dark:border-slate-800 pt-4">
+                            <div class="space-y-3 border-t border-gray-200 dark:border-gray-800 pt-4">
                                 <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500 dark:text-slate-400">订单编号</span>
-                                    <span class="text-sm font-mono text-gray-900 dark:text-slate-200">#{{ order.order_no }}</span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">订单编号</span>
+                                    <span class="text-sm font-mono text-gray-900 dark:text-gray-200">#{{ order.order_no }}</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500 dark:text-slate-400">商家</span>
-                                    <span class="text-sm font-medium text-gray-900 dark:text-slate-200">{{ order.vendor?.name || '加载中...' }}</span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">商家</span>
+                                    <span class="text-sm font-medium text-gray-900 dark:text-gray-200">{{ order.vendor?.name || '加载中...' }}</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500 dark:text-slate-400">客户</span>
-                                    <span class="text-sm font-medium text-gray-900 dark:text-slate-200">{{ order.client?.name || '加载中...' }}</span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">客户</span>
+                                    <span class="text-sm font-medium text-gray-900 dark:text-gray-200">{{ order.client?.name || '加载中...' }}</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500 dark:text-slate-400">买家</span>
-                                    <span class="text-sm font-medium text-gray-900 dark:text-slate-200">{{ order.buyer?.name || '加载中...' }}</span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">买家</span>
+                                    <span class="text-sm font-medium text-gray-900 dark:text-gray-200">{{ order.buyer?.name || '加载中...' }}</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500 dark:text-slate-400">卖家</span>
-                                    <span class="text-sm font-medium text-gray-900 dark:text-slate-200">{{ order.seller?.name || '加载中...' }}</span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">卖家</span>
+                                    <span class="text-sm font-medium text-gray-900 dark:text-gray-200">{{ order.seller?.name || '加载中...' }}</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500 dark:text-slate-400">数量（含交易费）</span>
-                                    <span class="text-sm font-medium text-gray-900 dark:text-slate-200">{{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}</span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">数量（含交易费）</span>
+                                    <span class="text-sm font-medium text-gray-900 dark:text-gray-200">{{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}</span>
                                 </div>
                                 <div v-if="order.fee && order.fee > 0" class="flex justify-between">
-                                    <span class="text-sm text-gray-500 dark:text-slate-400">交易费（商家）</span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">交易费（商家）</span>
                                     <span class="text-sm text-amber-600 dark:text-amber-400">{{ parseFloat(order.fee).toFixed(8) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500 dark:text-slate-400">单价</span>
-                                    <span class="text-sm font-medium text-gray-900 dark:text-slate-200">¥{{ parseFloat(order.price).toFixed(2) }}</span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">单价</span>
+                                    <span class="text-sm font-medium text-gray-900 dark:text-gray-200">¥{{ parseFloat(order.price).toFixed(2) }}</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="text-sm text-gray-500 dark:text-slate-400">总金额</span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">总金额</span>
                                     <span class="text-lg font-bold text-emerald-600 dark:text-emerald-400">¥{{ parseFloat(order.fiat_amount).toFixed(2) }}</span>
                                 </div>
                                 <!-- 卖家地址 -->
-                                <div v-if="order.seller_address" class="flex justify-between items-start pt-3 border-t border-gray-100 dark:border-slate-800">
-                                    <span class="text-sm text-gray-500 dark:text-slate-400">卖家地址</span>
-                                    <span class="text-sm font-medium text-gray-900 dark:text-slate-200 text-right break-all max-w-[180px]">
+                                <div v-if="order.seller_address" class="flex justify-between items-start pt-3 border-t border-gray-100 dark:border-gray-800">
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">卖家地址</span>
+                                    <span class="text-sm font-medium text-gray-900 dark:text-gray-200 text-right break-all max-w-[180px]">
                                         {{ order.seller_address }}
                                     </span>
                                 </div>
@@ -904,9 +898,9 @@
                     <!-- 右侧区域 -->
                     <div class="md:col-span-2">
                         <!-- 聊天区域（桌面端） -->
-                        <div class="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 flex flex-col" style="height: 650px; min-height: 600px;">
+                        <div class="bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 flex flex-col" style="height: 650px; min-height: 600px;">
                         <!-- 聊天头部 -->
-                        <div class="border-b border-gray-200 dark:border-slate-800">
+                        <div class="border-b border-gray-200 dark:border-gray-800">
                             <div class="px-6 py-4">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center gap-3">
@@ -922,24 +916,24 @@
                                                         v-if="participant.profile_photo_url"
                                                         :src="participant.profile_photo_url"
                                                         :alt="participant.name"
-                                                        class="h-10 w-10 rounded-full object-cover ring-2 ring-white dark:ring-slate-900"
+                                                        class="h-10 w-10 rounded-full object-cover ring-2 ring-white dark:ring-gray-900"
                                                     />
                                                     <!-- Fallback to initial -->
-                                                    <div v-else class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-white dark:ring-slate-900">
+                                                    <div v-else class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-white dark:ring-gray-900">
                                                         <span class="text-white font-bold">{{ participant.name?.[0]?.toUpperCase() || 'U' }}</span>
                                                     </div>
-                                                    <div v-if="participant.is_online" class="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 bg-emerald-500 rounded-full ring-2 ring-white dark:ring-slate-900"></div>
+                                                    <div v-if="participant.is_online" class="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 bg-emerald-500 rounded-full ring-2 ring-white dark:ring-gray-900"></div>
                                                 </a>
                                             </template>
                                         </div>
                                         <div class="flex-1">
                                             <div class="flex items-center gap-2">
-                                                <p class="font-semibold text-gray-900 dark:text-slate-100">
+                                                <p class="font-semibold text-gray-900 dark:text-gray-100">
                                                     订单 #{{ order.order_no }} 聊天室
-                                                    <span class="text-xs text-gray-500 dark:text-slate-400 ml-2">({{ participants.length }}人)</span>
+                                                    <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">({{ participants.length }}人)</span>
                                                 </p>
                                             </div>
-                                            <p class="text-xs text-gray-500 dark:text-slate-400">
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">
                                                 <span v-for="(participant, index) in participants" :key="participant.id">
                                                     <span :class="[
                                                         participant.is_online ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-400 dark:text-gray-500',
@@ -963,17 +957,17 @@
                         <div ref="messageContainer" class="flex-1 overflow-y-auto p-6 space-y-4">
                             <!-- 初始系统消息 -->
                             <div class="flex flex-col items-center gap-1">
-                                <div class="text-xs text-gray-400 dark:text-slate-500">
+                                <div class="text-xs text-gray-400 dark:text-gray-500">
                                     {{ new Date(order.created_at).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }) }}
                                 </div>
-                                <div class="px-3 py-1 bg-gray-100 dark:bg-slate-800 rounded-full text-xs text-gray-500 dark:text-slate-400">
+                                <div class="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs text-gray-500 dark:text-gray-400">
                                     订单已创建，等待商家确认
                                 </div>
                             </div>
 
                             <!-- 安全提醒 -->
                             <div class="mb-4 mx-4">
-                                <div class="bg-amber-50 dark:bg-amber-900/20 rounded-lg p-3 border border-amber-200 dark:border-amber-800">
+                                <div class="bg-amber-50 dark:bg-amber-900/20 rounded p-3 border border-amber-200 dark:border-amber-800">
                                     <div class="flex items-start gap-2">
                                         <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -988,20 +982,20 @@
 
                             <!-- 商家公告 -->
                             <div v-if="order.ad_snapshot?.welcome_message" class="mb-4 mx-4">
-                                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 border border-blue-200 dark:border-blue-800">
+                                <div class="bg-blue-50 dark:bg-blue-900/20 rounded p-3 border border-blue-200 dark:border-blue-800">
                                     <div class="flex items-center gap-2 mb-2">
                                         <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd" />
                                         </svg>
                                         <span class="text-xs font-medium text-blue-700 dark:text-blue-300">商家公告</span>
                                     </div>
-                                    <p class="text-sm text-gray-700 dark:text-slate-300 whitespace-pre-wrap">{{ order.ad_snapshot.welcome_message }}</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{{ order.ad_snapshot.welcome_message }}</p>
                                     <div v-if="order.vendor?.response_time" class="mt-2 pt-2 border-t border-blue-200 dark:border-blue-700">
                                         <div class="flex items-center gap-2">
                                             <svg class="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
-                                            <p class="text-xs text-gray-600 dark:text-slate-400">
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
                                                 该商家的响应时间是 <span class="font-medium text-blue-600 dark:text-blue-400">{{ order.vendor.response_time }} 分钟</span>，请在该时间内等待商家加入聊天室。
                                             </p>
                                         </div>
@@ -1011,12 +1005,12 @@
 
                             <!-- 独立响应时间提醒（没有欢迎消息时） -->
                             <div v-if="order.vendor?.response_time && !order.ad_snapshot?.welcome_message" class="mb-4 mx-4">
-                                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 border border-blue-200 dark:border-blue-800">
+                                <div class="bg-blue-50 dark:bg-blue-900/20 rounded p-3 border border-blue-200 dark:border-blue-800">
                                     <div class="flex items-center gap-2">
                                         <svg class="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
-                                        <p class="text-xs text-gray-600 dark:text-slate-400">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">
                                             该商家的响应时间是 <span class="font-medium text-blue-600 dark:text-blue-400">{{ order.vendor.response_time }} 分钟</span>，请在该时间内等待商家加入聊天室。
                                         </p>
                                     </div>
@@ -1036,11 +1030,11 @@
                                 <!-- 系统消息 -->
                                 <template v-if="msg.type === 'system'">
                                     <div class="flex flex-col items-center gap-1">
-                                        <div class="text-xs text-gray-400 dark:text-slate-500">
+                                        <div class="text-xs text-gray-400 dark:text-gray-500">
                                             {{ formatTime(msg.created_at) }}
                                         </div>
                                         <div :class="[
-                                            'px-3 py-1 rounded-full text-xs max-w-md',
+                                            'px-3 py-1 rounded text-xs max-w-md',
                                             msg.is_temporary ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400' : 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
                                         ]">
                                             <span v-if="msg.user">{{ msg.user.name }} </span>
@@ -1057,7 +1051,7 @@
                                             v-if="msg.user.profile_photo_url"
                                             :src="msg.user.profile_photo_url"
                                             :alt="msg.user.name"
-                                            class="h-8 w-8 rounded-full object-cover border border-gray-200 dark:border-slate-700"
+                                            class="h-8 w-8 rounded-full object-cover border border-gray-200 dark:border-gray-700"
                                         />
                                         <!-- Fallback to initial -->
                                         <div v-else class="h-8 w-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
@@ -1065,11 +1059,11 @@
                                         </div>
                                     </a>
                                     <div class="max-w-md">
-                                        <p class="text-xs font-medium text-gray-600 dark:text-slate-400 mb-1 px-1">
+                                        <p class="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1 px-1">
                                             {{ msg.user.name }}
                                             <span v-if="msg.type === 'admin'" class="text-purple-600 dark:text-purple-400 font-bold">(Admin)</span>
                                         </p>
-                                        <div class="bg-gray-100 dark:bg-slate-800 rounded-2xl rounded-tl-none px-4 py-3">
+                                        <div class="bg-gray-100 dark:bg-gray-800 rounded rounded-tl-none px-4 py-3">
                                             <!-- 附件显示 -->
                                             <div v-if="msg.attachment" class="mb-2">
                                                 <P2PAttachment
@@ -1078,20 +1072,20 @@
                                                     thumbnail-size="md"
                                                 />
                                             </div>
-                                            <p v-if="msg.message" class="text-sm text-gray-900 dark:text-slate-200">{{ msg.message }}</p>
+                                            <p v-if="msg.message" class="text-sm text-gray-900 dark:text-gray-200">{{ msg.message }}</p>
                                         </div>
-                                        <p class="text-xs text-gray-400 dark:text-slate-500 mt-1 px-1">{{ formatTime(msg.created_at) }}</p>
+                                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-1 px-1">{{ formatTime(msg.created_at) }}</p>
                                     </div>
                                 </template>
 
                                 <!-- 自己的消息 -->
                                 <template v-else>
                                     <div class="max-w-md">
-                                        <p class="text-xs font-medium text-gray-600 dark:text-slate-400 mb-1 px-1 text-right">
+                                        <p class="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1 px-1 text-right">
                                             {{ msg.user.name }}
                                             <span v-if="msg.type === 'admin'" class="text-purple-600 dark:text-purple-400 font-bold">(Admin)</span>
                                         </p>
-                                        <div class="bg-emerald-600 text-white rounded-2xl rounded-tr-none px-4 py-3">
+                                        <div class="bg-emerald-600 text-white rounded rounded-tr-none px-4 py-3">
                                             <!-- 附件显示 -->
                                             <div v-if="msg.attachment" class="mb-2">
                                                 <P2PAttachment
@@ -1102,14 +1096,14 @@
                                             </div>
                                             <p v-if="msg.message" class="text-sm">{{ msg.message }}</p>
                                         </div>
-                                        <p class="text-xs text-gray-400 dark:text-slate-500 mt-1 px-1 text-right">{{ formatTime(msg.created_at) }}</p>
+                                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-1 px-1 text-right">{{ formatTime(msg.created_at) }}</p>
                                     </div>
                                     <!-- 当前用户头像 -->
                                     <img
                                         v-if="$page.props.auth.user?.profile_photo_url"
                                         :src="$page.props.auth.user.profile_photo_url"
                                         :alt="$page.props.auth.user.name"
-                                        class="h-8 w-8 rounded-full object-cover border border-gray-200 dark:border-slate-700 flex-shrink-0"
+                                        class="h-8 w-8 rounded-full object-cover border border-gray-200 dark:border-gray-700 flex-shrink-0"
                                     />
                                     <!-- Fallback to initial -->
                                     <div v-else class="h-8 w-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
@@ -1120,15 +1114,15 @@
                         </div>
 
                         <!-- 输入区域 -->
-                        <div class="border-t border-gray-200 dark:border-slate-800 p-4">
+                        <div class="border-t border-gray-200 dark:border-gray-800 p-4">
                             <!-- 文件预览 -->
-                            <div v-if="selectedFile || isCompressing" class="mb-3 p-3 bg-gray-50 dark:bg-slate-800 rounded-lg">
+                            <div v-if="selectedFile || isCompressing" class="mb-3 p-3 bg-gray-50 dark:bg-gray-800 rounded">
                                 <!-- 压缩中状态 -->
                                 <div v-if="isCompressing" class="flex items-center gap-3">
                                     <div class="animate-spin h-8 w-8 border-4 border-blue-600 border-t-transparent rounded-full"></div>
                                     <div>
-                                        <p class="text-sm font-medium text-gray-900 dark:text-slate-200">正在压缩图片...</p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">优化图片大小以快速上传</p>
+                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-200">正在压缩图片...</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">优化图片大小以快速上传</p>
                                     </div>
                                 </div>
                                 <!-- 文件预览 -->
@@ -1137,25 +1131,25 @@
                                     <img v-if="selectedFile.type.startsWith('image/')"
                                          :src="filePreviewUrl"
                                          :alt="selectedFile.name"
-                                         class="max-h-32 rounded-lg"
+                                         class="max-h-32 rounded"
                                     />
                                     <!-- PDF图标 -->
                                     <div v-else-if="selectedFile.type === 'application/pdf'"
-                                         class="w-16 h-20 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center">
+                                         class="w-16 h-20 bg-red-100 dark:bg-red-900/30 rounded flex items-center justify-center">
                                         <svg class="w-8 h-8 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-5L9 2H4z" clip-rule="evenodd" />
                                         </svg>
                                     </div>
                                     <!-- 文件信息 -->
                                     <div class="flex-1">
-                                        <p class="text-sm font-medium text-gray-900 dark:text-slate-200">{{ selectedFile.name }}</p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">{{ formatFileSize(selectedFile.size) }}</p>
+                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-200">{{ selectedFile.name }}</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ formatFileSize(selectedFile.size) }}</p>
                                     </div>
                                     <!-- 移除按钮 -->
                                     <button @click="removeFile"
                                             type="button"
-                                            class="p-1 rounded hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            class="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                         </svg>
                                     </button>
@@ -1175,25 +1169,31 @@
                                 <button type="button"
                                         @click="!isTradeCompleted && !isCompressing && $refs.fileInput.click()"
                                         :disabled="isTradeCompleted || isCompressing"
-                                        class="p-2 rounded-lg text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+                                        class="p-2 rounded text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent"
                                 >
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
                                     </svg>
                                 </button>
 
+                                <P2PEmojiPicker
+                                    @select="(emoji) => newMessage += emoji"
+                                    :disabled="isTradeCompleted"
+                                    placement="top"
+                                />
+
                                 <input
                                     v-model="newMessage"
                                     type="text"
                                     :placeholder="isTradeCompleted ? '交易已结束，无法发送消息' : '输入消息...'"
-                                    class="flex-1 px-4 py-2 bg-gray-100 dark:bg-slate-800 border-0 rounded-lg text-base md:text-sm text-gray-900 dark:text-slate-200 placeholder-gray-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+                                    class="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-800 border-0 rounded text-base md:text-sm text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none disabled:opacity-50 transition-colors"
                                     :disabled="!isConnected || isTradeCompleted"
                                 />
 
                                 <button
                                     type="submit"
                                     :disabled="(!newMessage.trim() && !selectedFile) || !isConnected || isUploading || isTradeCompleted"
-                                    class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded-lg font-medium text-sm transition-colors flex items-center gap-2"
+                                    class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded font-medium text-sm transition-colors flex items-center gap-2"
                                 >
                                     <svg v-if="isUploading" class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -1210,7 +1210,7 @@
                                     <button
                                         v-if="action === 'vendor_confirm'"
                                         @click="handleEscrowAction('vendor_confirm')"
-                                        class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded-full transition-colors cursor-pointer"
+                                        class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
                                     >
                                         确认订单
                                     </button>
@@ -1218,7 +1218,7 @@
                                     <button
                                         v-if="action === 'mark_seller_paid'"
                                         @click="handleEscrowAction('mark_seller_paid')"
-                                        class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded-full transition-colors cursor-pointer"
+                                        class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
                                     >
                                         我已转币
                                     </button>
@@ -1226,7 +1226,7 @@
                                     <button
                                         v-if="action === 'confirm_escrow'"
                                         @click="handleEscrowAction('confirm_escrow')"
-                                        class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded-full transition-colors cursor-pointer"
+                                        class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
                                     >
                                         确认托管
                                     </button>
@@ -1234,7 +1234,7 @@
                                     <button
                                         v-if="action === 'mark_buyer_paid'"
                                         @click="handleEscrowAction('mark_buyer_paid')"
-                                        class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded-full transition-colors cursor-pointer"
+                                        class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
                                     >
                                         我已付款
                                     </button>
@@ -1242,7 +1242,7 @@
                                     <button
                                         v-if="action === 'mark_seller_received'"
                                         @click="handleEscrowAction('mark_seller_received')"
-                                        class="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-medium rounded-full transition-colors cursor-pointer"
+                                        class="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
                                     >
                                         确认收款
                                     </button>
@@ -1250,7 +1250,7 @@
                                     <button
                                         v-if="action === 'cancel'"
                                         @click="handleEscrowAction('cancel')"
-                                        class="px-3 py-1.5 bg-gray-600 hover:bg-gray-700 text-white text-xs font-medium rounded-full transition-colors cursor-pointer"
+                                        class="px-3 py-1.5 bg-gray-600 hover:bg-gray-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
                                     >
                                         取消订单
                                     </button>
@@ -1260,7 +1260,7 @@
                                 <button
                                     v-if="availableActions.includes('create_dispute')"
                                     @click="handleEscrowAction('create_dispute')"
-                                    class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-medium rounded-full transition-colors cursor-pointer"
+                                    class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
                                 >
                                     发起争议
                                 </button>
@@ -1268,7 +1268,7 @@
                                 <button
                                     v-if="availableActions.includes('resolve_dispute')"
                                     @click="handleEscrowAction('resolve_dispute')"
-                                    class="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-medium rounded-full transition-colors cursor-pointer"
+                                    class="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
                                 >
                                     解除争议
                                 </button>
@@ -1279,7 +1279,7 @@
                                    href="/notifications/settings"
                                    target="_blank"
                                    :class="[
-                                       'inline-flex items-center gap-1 px-3 py-1 text-xs rounded-full transition-colors cursor-pointer',
+                                       'inline-flex items-center gap-1 px-3 py-1 text-xs rounded transition-colors cursor-pointer',
                                        $page.props.auth.user?.telegram_chat_id
                                            ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-200 dark:hover:bg-emerald-900/50'
                                            : 'bg-blue-500 hover:bg-blue-600 text-white'
@@ -1295,15 +1295,15 @@
                             </div>
 
                             <!-- 交易状态栏 (桌面端) -->
-                            <div class="mt-3 p-2 bg-gray-50 dark:bg-slate-800/50 rounded-lg border border-gray-200 dark:border-slate-700">
+                            <div class="mt-3 p-2 bg-gray-50 dark:bg-gray-800/50 rounded border border-gray-200 dark:border-gray-700">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center gap-2">
                                         <div :class="getStatusColor(order.escrow_status)" class="w-2 h-2 rounded-full animate-pulse"></div>
-                                        <span class="text-xs font-medium text-gray-700 dark:text-slate-300">
+                                        <span class="text-xs font-medium text-gray-700 dark:text-gray-300">
                                             {{ getStatusText(order.escrow_status) }}
                                         </span>
                                     </div>
-                                    <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-slate-400">
+                                    <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
                                         <span>订单 #{{ order.trade_id }}</span>
                                         <span>{{ order.crypto_amount }} {{ order.currency_label || order.currency_key }}</span>
                                         <span class="text-emerald-600 dark:text-emerald-400 font-medium">¥{{ order.fiat_amount }}</span>
@@ -1317,21 +1317,21 @@
                     <!-- 支付信息和交易信息区域 -->
                     <div class="space-y-4 mt-6">
                     <!-- 交易条款（全宽） -->
-                    <div v-if="order.ad_snapshot?.vendor_toc" class="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-4">
+                    <div v-if="order.ad_snapshot?.vendor_toc" class="bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 p-4">
                         <div class="flex items-center gap-2 mb-3">
                             <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
-                            <h3 class="text-sm font-bold text-gray-900 dark:text-slate-100">交易条款</h3>
+                            <h3 class="text-sm font-bold text-gray-900 dark:text-gray-100">交易条款</h3>
                         </div>
 
                         <!-- 条款内容 -->
-                        <div class="p-3 bg-gray-50 dark:bg-slate-800/50 rounded-lg max-h-40 overflow-y-auto">
-                            <p class="text-xs text-gray-700 dark:text-slate-300 whitespace-pre-wrap">{{ order.ad_snapshot?.vendor_toc || '无交易条款' }}</p>
+                        <div class="p-3 bg-gray-50 dark:bg-gray-800/50 rounded max-h-40 overflow-y-auto">
+                            <p class="text-xs text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{{ order.ad_snapshot?.vendor_toc || '无交易条款' }}</p>
                         </div>
 
                         <!-- 提醒 -->
-                        <div class="mt-3 p-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
+                        <div class="mt-3 p-2 bg-amber-50 dark:bg-amber-900/20 rounded border border-amber-200 dark:border-amber-800">
                             <div class="flex items-start gap-2">
                                 <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -1348,7 +1348,7 @@
 
             <!-- 移动端：聊天区域（全屏） -->
             <!-- 使用CSS计算高度，考虑safe area -->
-            <div class="md:hidden fixed inset-x-0 bottom-0 flex flex-col bg-white dark:bg-slate-950"
+            <div class="md:hidden fixed inset-x-0 bottom-0 flex flex-col bg-white dark:bg-gray-950"
                  :style="`top: calc(3.5rem + env(safe-area-inset-top))`">
                     <!-- 移动端评价提示 -->
                     <div v-if="currentOrder.escrow_status === 'escrow_released' && currentUserId === currentOrder.client_id && !currentOrder.has_review" 
@@ -1374,7 +1374,7 @@
                     </div>
                     
                     <!-- 移动端聊天内容 -->
-                    <div ref="mobileMessageContainer" class="flex-1 overflow-y-auto overscroll-contain bg-white dark:bg-slate-950">
+                    <div ref="mobileMessageContainer" class="flex-1 overflow-y-auto overscroll-contain bg-white dark:bg-gray-950">
                         <!-- 连接状态指示器 -->
                         <div v-if="!isConnected && isPageVisible"
                              class="sticky top-0 z-10 bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800 p-2">
@@ -1390,17 +1390,17 @@
                         <div class="p-4 space-y-4">
                             <!-- 初始系统消息 -->
                             <div class="flex flex-col items-center gap-1">
-                                <div class="text-xs text-gray-400 dark:text-slate-500">
+                                <div class="text-xs text-gray-400 dark:text-gray-500">
                                     {{ new Date(order.created_at).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }) }}
                                 </div>
-                                <div class="px-3 py-1 bg-gray-100 dark:bg-slate-800 rounded-full text-xs text-gray-500 dark:text-slate-400">
+                                <div class="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs text-gray-500 dark:text-gray-400">
                                     订单已创建，等待商家确认
                                 </div>
                             </div>
 
                             <!-- 安全提醒 -->
                             <div class="mb-4 mx-4">
-                                <div class="bg-amber-50 dark:bg-amber-900/20 rounded-lg p-3 border border-amber-200 dark:border-amber-800">
+                                <div class="bg-amber-50 dark:bg-amber-900/20 rounded p-3 border border-amber-200 dark:border-amber-800">
                                     <div class="flex items-start gap-2">
                                         <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -1415,20 +1415,20 @@
 
                             <!-- 商家公告 -->
                             <div v-if="order.ad_snapshot?.welcome_message" class="mb-4 mx-4">
-                                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 border border-blue-200 dark:border-blue-800">
+                                <div class="bg-blue-50 dark:bg-blue-900/20 rounded p-3 border border-blue-200 dark:border-blue-800">
                                     <div class="flex items-center gap-2 mb-2">
                                         <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd" />
                                         </svg>
                                         <span class="text-xs font-medium text-blue-700 dark:text-blue-300">商家公告</span>
                                     </div>
-                                    <p class="text-sm text-gray-700 dark:text-slate-300 whitespace-pre-wrap">{{ order.ad_snapshot.welcome_message }}</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{{ order.ad_snapshot.welcome_message }}</p>
                                     <div v-if="order.vendor?.response_time" class="mt-2 pt-2 border-t border-blue-200 dark:border-blue-700">
                                         <div class="flex items-center gap-2">
                                             <svg class="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
-                                            <p class="text-xs text-gray-600 dark:text-slate-400">
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
                                                 该商家的响应时间是 <span class="font-medium text-blue-600 dark:text-blue-400">{{ order.vendor.response_time }} 分钟</span>，请在该时间内等待商家加入聊天室。
                                             </p>
                                         </div>
@@ -1438,12 +1438,12 @@
 
                             <!-- 独立响应时间提醒（没有欢迎消息时） -->
                             <div v-if="order.vendor?.response_time && !order.ad_snapshot?.welcome_message" class="mb-4 mx-4">
-                                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 border border-blue-200 dark:border-blue-800">
+                                <div class="bg-blue-50 dark:bg-blue-900/20 rounded p-3 border border-blue-200 dark:border-blue-800">
                                     <div class="flex items-center gap-2">
                                         <svg class="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
-                                        <p class="text-xs text-gray-600 dark:text-slate-400">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">
                                             该商家的响应时间是 <span class="font-medium text-blue-600 dark:text-blue-400">{{ order.vendor.response_time }} 分钟</span>，请在该时间内等待商家加入聊天室。
                                         </p>
                                     </div>
@@ -1463,11 +1463,11 @@
                                 <!-- 系统消息 -->
                                 <template v-if="msg.type === 'system'">
                                     <div class="flex flex-col items-center gap-1">
-                                        <div class="text-xs text-gray-400 dark:text-slate-500">
+                                        <div class="text-xs text-gray-400 dark:text-gray-500">
                                             {{ formatTime(msg.created_at) }}
                                         </div>
                                         <div :class="[
-                                            'px-3 py-1 rounded-full text-xs',
+                                            'px-3 py-1 rounded text-xs',
                                             msg.is_temporary ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400' : 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
                                         ]">
                                             <span v-if="msg.user">{{ msg.user.name }} </span>
@@ -1484,7 +1484,7 @@
                                             v-if="msg.user.profile_photo_url"
                                             :src="msg.user.profile_photo_url"
                                             :alt="msg.user.name"
-                                            class="h-7 w-7 rounded-full object-cover border border-gray-200 dark:border-slate-700"
+                                            class="h-7 w-7 rounded-full object-cover border border-gray-200 dark:border-gray-700"
                                         />
                                         <!-- Fallback to initial -->
                                         <div v-else class="h-7 w-7 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
@@ -1492,11 +1492,11 @@
                                         </div>
                                     </a>
                                     <div class="max-w-[70%]">
-                                        <p class="text-xs font-medium text-gray-600 dark:text-slate-400 mb-0.5 px-1">
+                                        <p class="text-xs font-medium text-gray-600 dark:text-gray-400 mb-0.5 px-1">
                                             {{ msg.user.name }}
                                             <span v-if="msg.type === 'admin'" class="text-purple-600 dark:text-purple-400 font-bold">(Admin)</span>
                                         </p>
-                                        <div class="bg-gray-100 dark:bg-slate-800 rounded-2xl rounded-tl-none px-3 py-2">
+                                        <div class="bg-gray-100 dark:bg-gray-800 rounded rounded-tl-none px-3 py-2">
                                             <!-- 附件显示 -->
                                             <div v-if="msg.attachment" class="mb-2">
                                                 <P2PAttachment
@@ -1505,20 +1505,20 @@
                                                     thumbnail-size="sm"
                                                 />
                                             </div>
-                                            <p v-if="msg.message" class="text-sm text-gray-900 dark:text-slate-200">{{ msg.message }}</p>
+                                            <p v-if="msg.message" class="text-sm text-gray-900 dark:text-gray-200">{{ msg.message }}</p>
                                         </div>
-                                        <p class="text-xs text-gray-400 dark:text-slate-500 mt-1 px-1">{{ formatTime(msg.created_at) }}</p>
+                                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-1 px-1">{{ formatTime(msg.created_at) }}</p>
                                     </div>
                                 </template>
 
                                 <!-- 自己的消息 -->
                                 <template v-else>
                                     <div class="max-w-[70%]">
-                                        <p class="text-xs font-medium text-gray-600 dark:text-slate-400 mb-0.5 px-1 text-right">
+                                        <p class="text-xs font-medium text-gray-600 dark:text-gray-400 mb-0.5 px-1 text-right">
                                             {{ msg.user.name }}
                                             <span v-if="msg.type === 'admin'" class="text-purple-600 dark:text-purple-400 font-bold">(Admin)</span>
                                         </p>
-                                        <div class="bg-emerald-600 text-white rounded-2xl rounded-tr-none px-3 py-2">
+                                        <div class="bg-emerald-600 text-white rounded rounded-tr-none px-3 py-2">
                                             <!-- 附件显示 -->
                                             <div v-if="msg.attachment" class="mb-2">
                                                 <P2PAttachment
@@ -1529,14 +1529,14 @@
                                             </div>
                                             <p v-if="msg.message" class="text-sm">{{ msg.message }}</p>
                                         </div>
-                                        <p class="text-xs text-gray-400 dark:text-slate-500 mt-1 px-1 text-right">{{ formatTime(msg.created_at) }}</p>
+                                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-1 px-1 text-right">{{ formatTime(msg.created_at) }}</p>
                                     </div>
                                     <!-- 当前用户头像 -->
                                     <img
                                         v-if="$page.props.auth.user?.profile_photo_url"
                                         :src="$page.props.auth.user.profile_photo_url"
                                         :alt="$page.props.auth.user.name"
-                                        class="h-7 w-7 rounded-full object-cover border border-gray-200 dark:border-slate-700 flex-shrink-0"
+                                        class="h-7 w-7 rounded-full object-cover border border-gray-200 dark:border-gray-700 flex-shrink-0"
                                     />
                                     <!-- Fallback to initial -->
                                     <div v-else class="h-7 w-7 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
@@ -1548,19 +1548,19 @@
                     </div>
 
                     <!-- 移动端底部操作区 - 固定在底部 -->
-                    <div class="bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 pb-safe">
+                    <div class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 pb-safe">
                         <!-- 输入区域 -->
                         <div class="p-3">
                             <!-- 文件预览 -->
-                            <div v-if="selectedFile || isCompressing" class="mb-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                            <div v-if="selectedFile || isCompressing" class="mb-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
                                 <!-- 压缩中状态 -->
                                 <div v-if="isCompressing" class="flex items-center gap-3">
                                     <div class="flex-shrink-0">
                                         <div class="animate-spin h-12 w-12 border-4 border-blue-600 border-t-transparent rounded-full"></div>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 dark:text-slate-200">正在压缩图片...</p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">优化中</p>
+                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-200">正在压缩图片...</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">优化中</p>
                                     </div>
                                 </div>
                                 <!-- 文件预览 -->
@@ -1569,22 +1569,22 @@
                                         <!-- 图片预览 -->
                                         <img v-if="filePreviewUrl && selectedFile.type.startsWith('image/')"
                                              :src="filePreviewUrl"
-                                             class="w-12 h-12 object-cover rounded-lg border"
+                                             class="w-12 h-12 object-cover rounded border"
                                              alt="预览">
                                         <!-- 文件图标 -->
-                                        <div v-else class="w-12 h-12 bg-gray-200 dark:bg-slate-600 rounded-lg flex items-center justify-center">
-                                            <svg class="w-6 h-6 text-gray-500 dark:text-slate-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <div v-else class="w-12 h-12 bg-gray-200 dark:bg-gray-600 rounded flex items-center justify-center">
+                                            <svg class="w-6 h-6 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-5L9 2H4z" clip-rule="evenodd" />
                                             </svg>
                                         </div>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 dark:text-slate-200 truncate">{{ selectedFile.name }}</p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">{{ formatFileSize(selectedFile.size) }}</p>
+                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-200 truncate">{{ selectedFile.name }}</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ formatFileSize(selectedFile.size) }}</p>
                                     </div>
                                     <button @click="removeFile"
                                             type="button"
-                                            class="flex-shrink-0 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-slate-300 transition-colors">
+                                            class="flex-shrink-0 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                         </svg>
@@ -1592,7 +1592,7 @@
                                 </div>
                             </div>
 
-                            <form @submit.prevent="sendMessage" class="flex gap-2">
+                            <form @submit.prevent="sendMessage" class="flex items-center gap-1">
                                 <!-- 隐藏的文件输入 -->
                                 <input
                                     ref="mobileFileInput"
@@ -1602,25 +1602,39 @@
                                     data-max-size="2097152"
                                     class="hidden"
                                 />
-                                <button type="button"
-                                        @click="!isTradeCompleted && !isCompressing && $refs.mobileFileInput.click()"
-                                        :disabled="isTradeCompleted || isCompressing"
-                                        class="p-2 rounded-lg text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
-                                    </svg>
-                                </button>
+
+                                <!-- 左侧按钮组 -->
+                                <div class="flex items-center">
+                                    <button type="button"
+                                            @click="!isTradeCompleted && !isCompressing && $refs.mobileFileInput.click()"
+                                            :disabled="isTradeCompleted || isCompressing"
+                                            class="p-2 rounded text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+                                        </svg>
+                                    </button>
+
+                                    <P2PEmojiPicker
+                                        @select="(emoji) => newMessage += emoji"
+                                        :disabled="isTradeCompleted"
+                                        placement="top"
+                                    />
+                                </div>
+
+                                <!-- 输入框 -->
                                 <input
                                     v-model="newMessage"
                                     type="text"
-                                    :placeholder="isTradeCompleted ? '交易已结束，无法发送消息' : '输入消息...'"
-                                    class="flex-1 px-3 py-2 bg-gray-100 dark:bg-slate-800 border-0 rounded-lg text-base text-gray-900 dark:text-slate-200 placeholder-gray-500 dark:placeholder-slate-400 disabled:opacity-50"
+                                    :placeholder="isTradeCompleted ? '交易已结束' : '输入消息...'"
+                                    class="flex-1 px-3 py-2 bg-gray-100 dark:bg-gray-800 border-0 rounded text-sm text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none disabled:opacity-50 transition-colors"
                                     :disabled="!isConnected || isTradeCompleted"
                                 />
+
+                                <!-- 发送按钮 -->
                                 <button
                                     type="submit"
                                     :disabled="(!newMessage.trim() && !selectedFile) || !isConnected || isUploading || isTradeCompleted"
-                                    class="px-4 py-2 bg-emerald-600 disabled:bg-gray-400 text-white rounded-lg font-medium text-sm transition-colors flex items-center gap-2"
+                                    class="px-3 py-2 bg-emerald-600 disabled:bg-gray-400 text-white rounded font-medium text-sm transition-colors"
                                 >
                                     <svg v-if="isUploading" class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -1637,7 +1651,7 @@
                                     <button
                                         v-if="action === 'vendor_confirm'"
                                         @click="handleEscrowAction('vendor_confirm')"
-                                        class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded-full whitespace-nowrap cursor-pointer"
+                                        class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
                                     >
                                         确认订单
                                     </button>
@@ -1645,7 +1659,7 @@
                                     <button
                                         v-if="action === 'mark_seller_paid'"
                                         @click="handleEscrowAction('mark_seller_paid')"
-                                        class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded-full whitespace-nowrap cursor-pointer"
+                                        class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
                                     >
                                         我已转币
                                     </button>
@@ -1653,7 +1667,7 @@
                                     <button
                                         v-if="action === 'confirm_escrow'"
                                         @click="handleEscrowAction('confirm_escrow')"
-                                        class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded-full whitespace-nowrap cursor-pointer"
+                                        class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
                                     >
                                         确认托管
                                     </button>
@@ -1661,7 +1675,7 @@
                                     <button
                                         v-if="action === 'mark_buyer_paid'"
                                         @click="handleEscrowAction('mark_buyer_paid')"
-                                        class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded-full whitespace-nowrap cursor-pointer"
+                                        class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
                                     >
                                         我已付款
                                     </button>
@@ -1669,7 +1683,7 @@
                                     <button
                                         v-if="action === 'mark_seller_received'"
                                         @click="handleEscrowAction('mark_seller_received')"
-                                        class="px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded-full whitespace-nowrap cursor-pointer"
+                                        class="px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
                                     >
                                         确认收款
                                     </button>
@@ -1677,9 +1691,9 @@
                                     <button
                                         v-if="action === 'cancel'"
                                         @click="handleEscrowAction('cancel')"
-                                        class="px-3 py-1.5 bg-gray-600 text-white text-xs font-medium rounded-full whitespace-nowrap cursor-pointer"
+                                        class="px-3 py-1.5 bg-gray-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
                                     >
-                                        取消
+                                        取消订单
                                     </button>
                                 </template>
 
@@ -1687,7 +1701,7 @@
                                 <button
                                     v-if="availableActions.includes('create_dispute')"
                                     @click="handleEscrowAction('create_dispute')"
-                                    class="px-3 py-1.5 bg-amber-600 text-white text-xs font-medium rounded-full whitespace-nowrap cursor-pointer"
+                                    class="px-3 py-1.5 bg-amber-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
                                 >
                                     发起争议
                                 </button>
@@ -1695,7 +1709,7 @@
                                 <button
                                     v-if="availableActions.includes('resolve_dispute')"
                                     @click="handleEscrowAction('resolve_dispute')"
-                                    class="px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded-full whitespace-nowrap cursor-pointer"
+                                    class="px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
                                 >
                                     解除争议
                                 </button>
@@ -1706,7 +1720,7 @@
                                    href="/notifications/settings"
                                    target="_blank"
                                    :class="[
-                                       'px-3 py-1.5 rounded-full inline-flex items-center justify-center cursor-pointer',
+                                       'px-3 py-1.5 rounded inline-flex items-center justify-center cursor-pointer',
                                        $page.props.auth.user?.telegram_chat_id
                                            ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
                                            : 'bg-blue-500 text-white'
@@ -1719,17 +1733,17 @@
                             </div>
 
                             <!-- 交易状态栏 (移动端 - 可点击) -->
-                            <div @click="showMobileInfo = true" class="mt-2 p-2 bg-gray-50 dark:bg-slate-800/50 rounded-lg border border-gray-200 dark:border-slate-700 cursor-pointer active:bg-gray-100 dark:active:bg-slate-800 transition-colors">
+                            <div @click="showMobileInfo = true" class="mt-2 p-2 bg-gray-50 dark:bg-gray-800/50 rounded border border-gray-200 dark:border-gray-700 cursor-pointer active:bg-gray-100 dark:active:bg-gray-800 transition-colors">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center gap-2">
                                         <div :class="getStatusColor(order.escrow_status)" class="w-2 h-2 rounded-full animate-pulse"></div>
-                                        <span class="text-xs font-medium text-gray-700 dark:text-slate-300">
+                                        <span class="text-xs font-medium text-gray-700 dark:text-gray-300">
                                             {{ getStatusText(order.escrow_status) }}
                                         </span>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <span class="text-xs text-gray-500 dark:text-slate-400">{{ order.crypto_amount }} {{ order.currency_label || order.currency_key }}</span>
-                                        <svg class="w-4 h-4 text-gray-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">{{ order.crypto_amount }} {{ order.currency_label || order.currency_key }}</span>
+                                        <svg class="w-4 h-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                         </svg>
                                     </div>
@@ -1751,13 +1765,13 @@
             @close="handleDialogCancel"
         >
             <!-- Dialog content with message -->
-            <div v-if="dialogState.message" class="text-gray-700 dark:text-slate-300">
+            <div v-if="dialogState.message" class="text-gray-700 dark:text-gray-300">
                 {{ dialogState.message }}
             </div>
 
             <!-- Input field if needed -->
             <div v-if="dialogState.inputMode" class="mt-4">
-                <label v-if="dialogState.inputLabel" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+                <label v-if="dialogState.inputLabel" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     {{ dialogState.inputLabel }}
                 </label>
                 <input
@@ -1765,7 +1779,7 @@
                     type="text"
                     :placeholder="dialogState.inputPlaceholder"
                     :required="dialogState.inputRequired"
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                 />
             </div>
         </P2PDialog>
@@ -1777,7 +1791,7 @@
             :closeable="true"
             @close="handleDialogCancel"
         >
-            <div class="bg-white dark:bg-slate-900 px-4 pt-4 pb-4 sm:p-5 sm:pb-4 max-h-[80vh] overflow-y-auto">
+            <div class="bg-white dark:bg-gray-900 px-4 pt-4 pb-4 sm:p-5 sm:pb-4 max-h-[80vh] overflow-y-auto">
                 <!-- 图标居中 -->
                 <div class="mx-auto flex items-center justify-center size-10 rounded-full bg-amber-100 dark:bg-amber-900/30">
                     <svg class="size-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1787,33 +1801,33 @@
                 
                 <!-- 标题和内容 -->
                 <div class="mt-2 text-center">
-                    <h3 class="text-base font-medium text-gray-900 dark:text-slate-100">
+                    <h3 class="text-base font-medium text-gray-900 dark:text-gray-100">
                         确认托管到账
                     </h3>
                     <div class="mt-3 space-y-2.5 text-left">
                         <!-- 交易信息显示 -->
-                        <div class="p-2.5 bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg">
+                        <div class="p-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
                             <div class="space-y-2">
                                 <div v-if="currentOrder.seller_address">
-                                    <label class="text-xs text-gray-500 dark:text-slate-400">来源地址（卖家）</label>
-                                    <p class="font-mono text-xs text-gray-900 dark:text-slate-100 break-all mt-0.5">
+                                    <label class="text-xs text-gray-500 dark:text-gray-400">来源地址（卖家）</label>
+                                    <p class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all mt-0.5">
                                         {{ currentOrder.seller_address }}
                                     </p>
                                 </div>
                                 <div v-if="currentOrder.escrow_address">
-                                    <label class="text-xs text-gray-500 dark:text-slate-400">托管地址</label>
-                                    <p class="font-mono text-xs text-gray-900 dark:text-slate-100 break-all mt-0.5">
+                                    <label class="text-xs text-gray-500 dark:text-gray-400">托管地址</label>
+                                    <p class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all mt-0.5">
                                         {{ currentOrder.escrow_address }}
                                     </p>
                                 </div>
                                 <div>
-                                    <label class="text-xs text-gray-500 dark:text-slate-400">交易金额</label>
+                                    <label class="text-xs text-gray-500 dark:text-gray-400">交易金额</label>
                                     <p class="text-base font-bold text-emerald-600 dark:text-emerald-400">
                                         {{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}
                                     </p>
                                 </div>
                                 <div v-if="currentOrder.escrow_tx_hash">
-                                    <label class="text-xs text-gray-500 dark:text-slate-400">交易哈希</label>
+                                    <label class="text-xs text-gray-500 dark:text-gray-400">交易哈希</label>
                                     <p class="font-mono text-xs text-blue-600 dark:text-blue-400 break-all mt-0.5">
                                         {{ currentOrder.escrow_tx_hash }}
                                     </p>
@@ -1822,7 +1836,7 @@
                         </div>
                         
                         <!-- 重要提醒 -->
-                        <div class="p-2.5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+                        <div class="p-2.5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded">
                             <div class="flex items-start gap-2">
                                 <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -1838,7 +1852,7 @@
                         
                         <!-- 确认清单 -->
                         <div class="space-y-2">
-                            <p class="text-xs font-medium text-gray-700 dark:text-slate-300">请确认以下所有项目：</p>
+                            <p class="text-xs font-medium text-gray-700 dark:text-gray-300">请确认以下所有项目：</p>
                             
                             <div class="space-y-1.5">
                                 <div class="flex items-start">
@@ -1848,7 +1862,7 @@
                                         class="mt-0.5 h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
                                         :disabled="dialogState.loading"
                                     />
-                                    <label class="ml-2 text-xs text-gray-700 dark:text-slate-300">
+                                    <label class="ml-2 text-xs text-gray-700 dark:text-gray-300">
                                         我已打开区块链浏览器，确认交易记录存在
                                     </label>
                                 </div>
@@ -1860,7 +1874,7 @@
                                         class="mt-0.5 h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
                                         :disabled="dialogState.loading"
                                     />
-                                    <label class="ml-2 text-xs text-gray-700 dark:text-slate-300">
+                                    <label class="ml-2 text-xs text-gray-700 dark:text-gray-300">
                                         交易已有足够的确认数（建议至少6个确认）
                                     </label>
                                 </div>
@@ -1872,7 +1886,7 @@
                                         class="mt-0.5 h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
                                         :disabled="dialogState.loading"
                                     />
-                                    <label class="ml-2 text-xs text-gray-700 dark:text-slate-300">
+                                    <label class="ml-2 text-xs text-gray-700 dark:text-gray-300">
                                         来源地址与卖家地址完全一致
                                         <span class="block font-mono text-blue-600 dark:text-blue-400 break-all mt-0.5">{{ currentOrder.seller_address || '无卖家地址' }}</span>
                                     </label>
@@ -1885,7 +1899,7 @@
                                         class="mt-0.5 h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
                                         :disabled="dialogState.loading"
                                     />
-                                    <label class="ml-2 text-xs text-gray-700 dark:text-slate-300">
+                                    <label class="ml-2 text-xs text-gray-700 dark:text-gray-300">
                                         目标地址与托管地址完全一致
                                         <span class="block font-mono text-blue-600 dark:text-blue-400 break-all mt-0.5">{{ currentOrder.escrow_address || '托管地址待分配' }}</span>
                                     </label>
@@ -1898,7 +1912,7 @@
                                         class="mt-0.5 h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
                                         :disabled="dialogState.loading"
                                     />
-                                    <label class="ml-2 text-xs text-gray-700 dark:text-slate-300">
+                                    <label class="ml-2 text-xs text-gray-700 dark:text-gray-300">
                                         交易金额为 <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}</span>，完全正确
                                     </label>
                                 </div>
@@ -1906,7 +1920,7 @@
                         </div>
                         
                         <!-- 最终警告 -->
-                        <div class="p-2.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                        <div class="p-2.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded">
                             <div class="flex items-start gap-2">
                                 <svg class="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -1924,7 +1938,7 @@
             </div>
             
             <!-- 按钮区域 -->
-            <div class="flex flex-row justify-end px-4 py-3 sm:px-5 sm:py-3 bg-gray-100 dark:bg-slate-800 text-end gap-2">
+            <div class="flex flex-row justify-end px-4 py-3 sm:px-5 sm:py-3 bg-gray-100 dark:bg-gray-800 text-end gap-2">
                 <P2PButton
                     variant="ghost"
                     @click="handleDialogCancel"
@@ -1950,7 +1964,7 @@
             :closeable="true"
             @close="handleDialogCancel"
         >
-            <div class="bg-white dark:bg-slate-900 px-4 pt-4 pb-4 sm:p-5 sm:pb-4 max-h-[80vh] overflow-y-auto">
+            <div class="bg-white dark:bg-gray-900 px-4 pt-4 pb-4 sm:p-5 sm:pb-4 max-h-[80vh] overflow-y-auto">
                 <!-- 图标居中 -->
                 <div class="mx-auto flex items-center justify-center size-10 rounded-full bg-blue-100 dark:bg-blue-900/30">
                     <svg class="size-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1960,21 +1974,21 @@
                 
                 <!-- 标题和内容 -->
                 <div class="mt-2 text-center">
-                    <h3 class="text-base font-medium text-gray-900 dark:text-slate-100">
+                    <h3 class="text-base font-medium text-gray-900 dark:text-gray-100">
                         标记已转币到托管
                     </h3>
                     <div class="mt-3 space-y-2.5 text-left">
                         <!-- 您的地址显示 -->
-                        <div v-if="currentOrder.seller_address" class="p-2.5 bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg">
+                        <div v-if="currentOrder.seller_address" class="p-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
                             <div class="space-y-1.5">
                                 <div>
-                                    <label class="text-xs text-gray-500 dark:text-slate-400">您的地址</label>
-                                    <p class="font-mono text-xs text-gray-900 dark:text-slate-100 break-all mt-0.5">
+                                    <label class="text-xs text-gray-500 dark:text-gray-400">您的地址</label>
+                                    <p class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all mt-0.5">
                                         {{ currentOrder.seller_address }}
                                     </p>
                                 </div>
                                 <div>
-                                    <label class="text-xs text-gray-500 dark:text-slate-400">转币金额</label>
+                                    <label class="text-xs text-gray-500 dark:text-gray-400">转币金额</label>
                                     <p class="text-base font-bold text-emerald-600 dark:text-emerald-400">
                                         {{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}
                                     </p>
@@ -1983,7 +1997,7 @@
                         </div>
                         
                         <!-- 托管地址说明 -->
-                        <div class="p-2.5 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                        <div class="p-2.5 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded">
                             <div class="flex items-start gap-2">
                                 <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
@@ -1998,7 +2012,7 @@
                         </div>
                         
                         <!-- 重要警告 -->
-                        <div class="p-2.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                        <div class="p-2.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded">
                             <div class="flex items-start gap-2">
                                 <svg class="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -2018,17 +2032,17 @@
                         
                         <!-- 交易哈希输入 -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 交易哈希 (TX ID) <span class="text-red-500">*</span>
                             </label>
                             <input
                                 v-model="sellerTxHash"
                                 type="text"
                                 placeholder="请输入区块链交易哈希..."
-                                class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 :disabled="dialogState.loading"
                             />
-                            <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">
+                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
                                 转币后请提供交易哈希作为凭证
                             </p>
                         </div>
@@ -2041,7 +2055,7 @@
                                 class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                                 :disabled="dialogState.loading"
                             />
-                            <label class="ml-2 text-sm text-gray-700 dark:text-slate-300">
+                            <label class="ml-2 text-sm text-gray-700 dark:text-gray-300">
                                 我已仔细核对金额，确认已准备好 <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}</span> 用于交易
                             </label>
                         </div>
@@ -2050,7 +2064,7 @@
             </div>
             
             <!-- 按钮区域 -->
-            <div class="flex flex-row justify-end px-4 py-3 sm:px-5 sm:py-3 bg-gray-100 dark:bg-slate-800 text-end gap-2">
+            <div class="flex flex-row justify-end px-4 py-3 sm:px-5 sm:py-3 bg-gray-100 dark:bg-gray-800 text-end gap-2">
                 <P2PButton
                     variant="ghost"
                     @click="handleDialogCancel"
@@ -2076,7 +2090,7 @@
             :closeable="true"
             @close="handleDialogCancel"
         >
-            <div class="bg-white dark:bg-slate-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="bg-white dark:bg-gray-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <!-- 图标居中 -->
                 <div class="mx-auto flex items-center justify-center size-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30">
                     <svg class="size-6 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2086,25 +2100,25 @@
 
                 <!-- 标题和内容 -->
                 <div class="mt-3 text-center">
-                    <h3 class="text-lg font-medium text-gray-900 dark:text-slate-100">
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                         标记已付款
                     </h3>
 
                     <div class="mt-4 space-y-3 text-left">
                             <!-- 主要提示信息 -->
-                            <p class="text-sm text-gray-600 dark:text-slate-400">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
                                 请确认您已向卖家付款 <span class="font-semibold text-emerald-600 dark:text-emerald-400">¥{{ parseFloat(order.fiat_amount).toFixed(2) }}</span>
                             </p>
 
                             <!-- 付款说明输入 -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     付款说明（可选）
                                 </label>
                                 <textarea
                                     v-model="buyerPaymentProof"
                                     rows="3"
-                                    class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                                    class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
                                     placeholder="请输入付款凭证或说明，如转账单号..."
                                 ></textarea>
                             </div>
@@ -2148,7 +2162,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-row justify-end px-6 py-4 bg-gray-100 dark:bg-slate-800 text-end gap-3">
+            <div class="flex flex-row justify-end px-6 py-4 bg-gray-100 dark:bg-gray-800 text-end gap-3">
                 <P2PButton
                     variant="ghost"
                     @click="handleDialogCancel"
@@ -2182,7 +2196,7 @@
             :closeable="true"
             @close="handleDialogCancel"
         >
-            <div class="bg-white dark:bg-slate-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="bg-white dark:bg-gray-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <!-- 图标居中 -->
                 <div class="mx-auto flex items-center justify-center size-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30">
                     <svg class="size-6 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2192,13 +2206,13 @@
 
                 <!-- 标题和内容 -->
                 <div class="mt-3 text-center">
-                    <h3 class="text-lg font-medium text-gray-900 dark:text-slate-100">
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                         确认收款
                     </h3>
 
                     <div class="mt-4 space-y-3 text-left">
                         <!-- 主要提示信息 -->
-                        <p class="text-sm text-gray-600 dark:text-slate-400">
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
                             请确认您已收到买家付款 <span class="font-semibold text-emerald-600 dark:text-emerald-400">¥{{ parseFloat(order.fiat_amount).toFixed(2) }}</span>
                         </p>
 
@@ -2241,7 +2255,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-row justify-end px-6 py-4 bg-gray-100 dark:bg-slate-800 text-end gap-3">
+            <div class="flex flex-row justify-end px-6 py-4 bg-gray-100 dark:bg-gray-800 text-end gap-3">
                 <P2PButton
                     variant="ghost"
                     @click="handleDialogCancel"
@@ -2277,7 +2291,7 @@
             :icon-color="'purple'"
         >
             <template #header-icon>
-                <div class="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30">
+                <div class="p-2 rounded bg-purple-100 dark:bg-purple-900/30">
                     <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
@@ -2285,15 +2299,15 @@
             </template>
             <div class="p-4">
                 <!-- 条款内容 -->
-                <div v-if="order.ad_snapshot?.vendor_toc" class="bg-gray-50 dark:bg-slate-800/50 rounded-lg p-4 max-h-80 overflow-y-auto">
-                    <p class="text-sm text-gray-700 dark:text-slate-300 whitespace-pre-wrap">{{ order.ad_snapshot?.vendor_toc }}</p>
+                <div v-if="order.ad_snapshot?.vendor_toc" class="bg-gray-50 dark:bg-gray-800/50 rounded p-4 max-h-80 overflow-y-auto">
+                    <p class="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{{ order.ad_snapshot?.vendor_toc }}</p>
                 </div>
-                <div v-else class="bg-gray-50 dark:bg-slate-800/50 rounded-lg p-4">
-                    <p class="text-sm text-gray-500 dark:text-slate-400 text-center">商家未设置交易条款</p>
+                <div v-else class="bg-gray-50 dark:bg-gray-800/50 rounded p-4">
+                    <p class="text-sm text-gray-500 dark:text-gray-400 text-center">商家未设置交易条款</p>
                 </div>
 
                 <!-- 提醒 -->
-                <div class="mt-4 p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
+                <div class="mt-4 p-3 bg-amber-50 dark:bg-amber-900/20 rounded border border-amber-200 dark:border-amber-800">
                     <div class="flex items-start gap-2">
                         <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -2330,6 +2344,7 @@ import P2PButton from '@/Components/UI/P2PButton.vue';
 import P2PDialog from '@/Components/UI/P2PDialog.vue';
 import P2PTwoFactorInput from '@/Components/UI/P2PTwoFactorInput.vue';
 import P2PAttachment from '@/Components/UI/P2PAttachment.vue';
+import P2PEmojiPicker from '@/Components/UI/P2PEmojiPicker.vue';
 import ConfirmationModal from '@/Components/ConfirmationModal.vue';
 import Modal from '@/Components/Modal.vue';
 import ReviewModal from '@/Components/Trade/ReviewModal.vue';

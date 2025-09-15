@@ -27,7 +27,7 @@
                     >
                         <div 
                             v-if="show"
-                            class="relative bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-h-[90vh] md:max-h-[85vh] flex flex-col"
+                            class="relative bg-white dark:bg-gray-900 rounded shadow-2xl w-full max-h-[90vh] md:max-h-[85vh] flex flex-col pt-safe"
                             :class="maxWidthClass"
                             @click.stop
                         >

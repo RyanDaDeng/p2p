@@ -46,7 +46,7 @@
                 <!-- 左侧：交易表单和交易详情 -->
                 <div class="space-y-4">
                     <!-- 输入金额卡片 -->
-                    <div class="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-800 p-5">
+                    <div class="bg-white dark:bg-gray-900 rounded shadow-sm border border-gray-200 dark:border-gray-800 p-5">
                         <h2 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">
                             输入要{{ tradeType === 'buy' ? '购买' : '出售' }}的金额
                         </h2>
@@ -70,7 +70,7 @@
                         <div class="mb-4 p-3 bg-gray-50 dark:bg-slate-800 rounded-lg">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-sm text-gray-600 dark:text-slate-400">当前价格:</span>
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">当前价格:</span>
                                     <span class="text-lg font-semibold text-gray-900 dark:text-slate-100">
                                         {{ getFiatInfo.symbol }}{{ getCurrentPrice ? (ad?.price_model === 'dynamic' ? getCurrentPrice.toFixed(6) : getCurrentPrice.toFixed(2)) : '0.00' }}
                                     </span>
@@ -163,29 +163,29 @@
                     </div>
 
                     <!-- 广告详情 -->
-                    <div class="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-800 p-5">
+                    <div class="bg-white dark:bg-gray-900 rounded shadow-sm border border-gray-200 dark:border-gray-800 p-5">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">广告详情</h3>
 
                         <div class="space-y-3">
-                            <div class="flex justify-between py-2 border-b border-gray-100 dark:border-slate-800">
-                                <span class="text-sm text-gray-600 dark:text-slate-400">法币</span>
-                                <span class="text-sm font-medium text-gray-900 dark:text-slate-100">{{ getFiatInfo.code || ad?.fiat_currency || 'CNY' }}</span>
+                            <div class="flex justify-between py-2 border-b border-gray-100 dark:border-gray-800">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">法币</span>
+                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ getFiatInfo.code || ad?.fiat_currency || 'CNY' }}</span>
                             </div>
-                            <div class="flex justify-between py-2 border-b border-gray-100 dark:border-slate-800">
-                                <span class="text-sm text-gray-600 dark:text-slate-400">网络</span>
-                                <span class="text-sm font-medium text-gray-900 dark:text-slate-100">{{ getCryptoInfo.network || ad?.network || 'ERC-20' }}</span>
+                            <div class="flex justify-between py-2 border-b border-gray-100 dark:border-gray-800">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">网络</span>
+                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ getCryptoInfo.network || ad?.network || 'ERC-20' }}</span>
                             </div>
-                            <div class="flex justify-between py-2 border-b border-gray-100 dark:border-slate-800">
-                                <span class="text-sm text-gray-600 dark:text-slate-400">加密货币</span>
-                                <span class="text-sm font-medium text-gray-900 dark:text-slate-100">{{ getCryptoInfo.label }}</span>
+                            <div class="flex justify-between py-2 border-b border-gray-100 dark:border-gray-800">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">加密货币</span>
+                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ getCryptoInfo.label }}</span>
                             </div>
-                            <div class="flex justify-between py-2 border-b border-gray-100 dark:border-slate-800">
-                                <span class="text-sm text-gray-600 dark:text-slate-400">支付方式</span>
-                                <span class="text-sm font-medium text-gray-900 dark:text-slate-100">{{ ad?.payment_method_name || ad?.payment_method || '银行转账' }}</span>
+                            <div class="flex justify-between py-2 border-b border-gray-100 dark:border-gray-800">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">支付方式</span>
+                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ ad?.payment_method_name || ad?.payment_method || '银行转账' }}</span>
                             </div>
-                            <div class="flex justify-between py-2 border-b border-gray-100 dark:border-slate-800">
-                                <span class="text-sm text-gray-600 dark:text-slate-400">价格模型</span>
-                                <span class="text-sm font-medium text-gray-900 dark:text-slate-100">
+                            <div class="flex justify-between py-2 border-b border-gray-100 dark:border-gray-800">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">价格模型</span>
+                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">
                                     <template v-if="ad?.price_model === 'fixed'">
                                         固定价格
                                     </template>
@@ -196,8 +196,8 @@
                             </div>
 
                             <div class="flex justify-between py-2">
-                                <span class="text-sm text-gray-600 dark:text-slate-400">交易类型</span>
-                                <span class="text-sm font-medium text-gray-900 dark:text-slate-100">{{ ad?.trade_type === 'buy' ? '客户购买' : '客户出售' }}</span>
+                                <span class="text-sm text-gray-600 dark:text-gray-400">交易类型</span>
+                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ ad?.trade_type === 'buy' ? '客户购买' : '客户出售' }}</span>
                             </div>
                         </div>
                     </div>
@@ -206,7 +206,7 @@
                 <!-- 右侧：商家信息和条款 -->
                 <div class="space-y-4">
                     <!-- 商家信息 -->
-                    <div class="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-gray-200 dark:border-slate-800 p-5">
+                    <div class="bg-white dark:bg-gray-900 rounded shadow-sm border border-gray-200 dark:border-gray-800 p-5">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">商家信息</h3>
 
                         <!-- 商家基本信息 -->
@@ -231,7 +231,7 @@
                                         <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                         </svg>
-                                        <span class="text-sm font-medium text-gray-900 dark:text-slate-100">{{ ad?.user?.rating || 0 }}</span>
+                                        <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ ad?.user?.rating || 0 }}</span>
                                     </div>
                                     <div class="text-sm text-green-600 dark:text-green-400">
                                         <span class="font-medium">{{ ad?.user?.trades_count || 0 }}</span> 笔交易
@@ -264,14 +264,14 @@
                         </p>
 
                         <div class="space-y-3">
-                            <div class="bg-white/10 backdrop-blur rounded-lg p-3">
+                            <div class="bg-white/10 backdrop-blur rounded p-3">
                                 <h4 class="font-medium mb-1.5 text-blue-300">如何联系交易者？</h4>
                                 <p class="text-xs leading-relaxed text-gray-300">
                                     一旦您进入交易，您将能够通过私人消息框与此交易者自由聊天。
                                 </p>
                             </div>
 
-                            <div class="bg-white/10 backdrop-blur rounded-lg p-3">
+                            <div class="bg-white/10 backdrop-blur rounded p-3">
                                 <h4 class="font-medium mb-1.5 text-amber-300">如何取消交易？</h4>
                                 <p class="text-xs leading-relaxed text-gray-300">
                                     一旦您进入交易，您不能自动取消交易，因为这可能会导致对方损失。如果出现错误，请提交支持工单或发起争议。

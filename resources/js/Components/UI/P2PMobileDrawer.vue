@@ -28,16 +28,16 @@
             <div
                 v-if="modelValue"
                 :class="[
-                    'fixed z-[70] bg-white dark:bg-slate-900 shadow-2xl lg:hidden flex flex-col',
+                    'fixed z-[70] bg-white dark:bg-gray-900 shadow-2xl lg:hidden flex flex-col pt-safe',
                     positionClasses,
                     sizeClasses
                 ]"
             >
                 <!-- Drawer头部 -->
-                <div class="flex-shrink-0 bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 px-4 py-3">
+                <div class="flex-shrink-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 py-3">
                     <div class="flex items-center justify-between">
                         <!-- 拖动指示器（底部drawer） -->
-                        <div v-if="position === 'bottom'" class="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-gray-300 dark:bg-slate-600 rounded-full"></div>
+                        <div v-if="position === 'bottom'" class="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
                         
                         <div class="flex items-center gap-3">
                             <slot name="header-icon">
@@ -46,14 +46,14 @@
                                 </div>
                             </slot>
                             <div>
-                                <h3 class="text-lg font-bold text-gray-900 dark:text-slate-100">{{ title }}</h3>
-                                <p v-if="subtitle" class="text-xs text-gray-500 dark:text-slate-400">{{ subtitle }}</p>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">{{ title }}</h3>
+                                <p v-if="subtitle" class="text-xs text-gray-500 dark:text-gray-400">{{ subtitle }}</p>
                             </div>
                         </div>
                         
                         <button 
                             @click="close"
-                            class="p-2 rounded-lg text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
+                            class="p-2 rounded text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                         >
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -68,7 +68,7 @@
                 </div>
 
                 <!-- Drawer底部（可选） -->
-                <div v-if="$slots.footer" class="flex-shrink-0 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 p-4">
+                <div v-if="$slots.footer" class="flex-shrink-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 p-4">
                     <slot name="footer" />
                 </div>
             </div>

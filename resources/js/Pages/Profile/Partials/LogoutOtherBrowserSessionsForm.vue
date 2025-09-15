@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import ActionMessage from '@/Components/ActionMessage.vue';
 import ActionSection from '@/Components/ActionSection.vue';
-import P2PConfirmationBox from '@/Components/UI/P2PConfirmationBox.vue';
+import P2PDialog from '@/Components/UI/P2PDialog.vue';
 import InputError from '@/Components/InputError.vue';
 import P2PButton from '@/Components/UI/P2PButton.vue';
 import P2PTextInput from '@/Components/UI/P2PTextInput.vue';
@@ -97,18 +97,18 @@ const closeModal = () => {
             </div>
 
             <!-- Log Out Other Devices Confirmation Modal -->
-            <P2PConfirmationBox
+            <P2PDialog
                 :show="confirmingLogout"
                 title="退出其他浏览器会话"
+                icon-color="amber"
                 confirm-text="退出其他会话"
                 cancel-text="取消"
-                :loading="form.processing"
                 @confirm="logoutOtherBrowserSessions"
                 @close="closeModal"
             >
                 <div class="text-left">
-                    <p class="mb-4">请输入您的密码以确认您要退出所有设备上的其他浏览器会话。</p>
-                    
+                    <p class="mb-4 text-gray-700 dark:text-gray-300">请输入您的密码以确认您要退出所有设备上的其他浏览器会话。</p>
+
                     <P2PTextInput
                         ref="passwordInput"
                         v-model="form.password"
@@ -121,7 +121,7 @@ const closeModal = () => {
 
                     <InputError :message="form.errors.password" class="mt-2" />
                 </div>
-            </P2PConfirmationBox>
+            </P2PDialog>
         </template>
     </ActionSection>
 </template>

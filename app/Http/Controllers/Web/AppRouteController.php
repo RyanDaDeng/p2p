@@ -283,9 +283,6 @@ class AppRouteController extends Controller
 
         // Get user with statistics
         $user = \App\Models\User::withCount(['vendorOrders', 'clientOrders'])
-            ->with(['reviews' => function($query) {
-                $query->latest()->limit(10);
-            }])
             ->findOrFail($userId);
 
         // Calculate statistics
@@ -317,13 +314,9 @@ class AppRouteController extends Controller
             ->unique()
             ->count();
 
-        // Get reviews with reviewer info
-        $reviews = \App\Models\Review::with(['reviewer', 'order'])
-            ->where('reviewed_id', $userId)
-            ->latest()
-            ->paginate(10);
+        // Reviews will be fetched via API, not needed here
 
-        // Calculate rating statistics
+        // Calculate rating statistics for tabs
         $ratingStats = \App\Models\Review::where('reviewed_id', $userId)
             ->selectRaw('rating, COUNT(*) as count')
             ->groupBy('rating')
@@ -354,13 +347,6 @@ class AppRouteController extends Controller
                 'languages' => ['中文', 'English'],
                 'is_verified' => $user->hasVerifiedEmail(),
                 'has_2fa' => $user->two_factor_secret !== null,
-            ],
-            'reviews' => $reviews->items(),
-            'reviewsPagination' => [
-                'current_page' => $reviews->currentPage(),
-                'last_page' => $reviews->lastPage(),
-                'per_page' => $reviews->perPage(),
-                'total' => $reviews->total(),
             ],
             'ratingStats' => $ratingStats,
             'isOwnProfile' => $isOwnProfile

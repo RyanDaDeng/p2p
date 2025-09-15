@@ -21,23 +21,23 @@
                         leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                     >
                         <div v-if="modelValue" 
-                            class="relative bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] md:max-h-[85vh] flex flex-col"
+                            class="relative bg-white dark:bg-gray-900 rounded shadow-2xl w-full max-w-2xl max-h-[90vh] md:max-h-[85vh] flex flex-col pt-safe"
                         >
-                            <div class="flex-shrink-0 px-6 py-4 border-b border-gray-200 dark:border-slate-800">
+                            <div class="flex-shrink-0 px-6 py-4 border-b border-gray-200 dark:border-gray-800">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <h2 class="text-lg font-semibold text-gray-900 dark:text-slate-100">
+                                        <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
                                             {{ title }}
                                         </h2>
-                                        <p v-if="subtitle" class="mt-1 text-sm text-gray-600 dark:text-slate-400">
+                                        <p v-if="subtitle" class="mt-1 text-sm text-gray-600 dark:text-gray-400">
                                             {{ subtitle }}
                                         </p>
                                     </div>
                                     <button
                                         @click="handleClose"
-                                        class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                                        class="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
                                     >
-                                        <svg class="w-5 h-5 text-gray-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                         </svg>
                                     </button>
@@ -48,13 +48,13 @@
                                 <slot name="content" />
                             </div>
 
-                            <div class="flex-shrink-0 px-6 py-4 border-t border-gray-200 dark:border-slate-800 bg-gray-50 dark:bg-slate-900/50 rounded-b-xl">
+                            <div class="flex-shrink-0 px-6 py-4 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800 rounded-b">
                                 <slot name="footer">
                                     <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
                                         <button
                                             v-if="showCancel"
                                             @click="handleCancel"
-                                            class="w-full sm:w-auto px-6 py-2.5 text-sm font-medium text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-700 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                                            class="w-full sm:w-auto px-6 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                                         >
                                             {{ cancelText }}
                                         </button>
@@ -62,7 +62,7 @@
                                             v-if="showConfirm"
                                             @click="handleConfirm"
                                             :disabled="confirmDisabled || loading"
-                                            class="w-full sm:w-auto px-6 py-2.5 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center"
+                                            class="w-full sm:w-auto px-6 py-2.5 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center"
                                         >
                                             <svg v-if="loading" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

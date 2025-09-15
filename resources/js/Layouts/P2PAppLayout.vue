@@ -7,7 +7,7 @@
     />
 
     <!-- <P2PNotificationContainer ref="notificationContainer"> -->
-    <div v-show="!showAppLoading" class="min-h-screen flex flex-col bg-gray-50 dark:bg-slate-950 transition-colors duration-200">
+    <div v-show="!showAppLoading" class="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950 transition-colors duration-200">
         <!-- Loading Overlay -->
         <Transition
             enter-active-class="transition ease-out duration-200"
@@ -30,7 +30,7 @@
 
         <!-- Navigation -->
         <nav v-if="!hideNavigation" :class="[
-                 'sticky top-0 z-40 w-full border-b border-gray-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md pt-safe',
+                 'sticky top-0 z-40 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md pt-safe',
                  hideNav ? 'hidden md:block' : ''
              ]">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -49,10 +49,10 @@
                                 <Link
                                     href="/market?type=buy"
                                     :class="[
-                                        'flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer',
+                                        'flex items-center gap-2 px-4 py-2 rounded text-sm font-bold transition-all cursor-pointer',
                                         route().current('web.market') && $page.url.includes('type=buy')
-                                            ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30'
-                                            : 'text-emerald-600 dark:text-emerald-500 hover:text-emerald-500 dark:hover:text-emerald-400 hover:bg-emerald-500/10 dark:hover:bg-emerald-500/10'
+                                            ? 'text-emerald-500 dark:text-emerald-400 bg-emerald-500/10 dark:bg-emerald-500/10'
+                                            : 'text-emerald-600 dark:text-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-300 hover:bg-emerald-500/20 dark:hover:bg-emerald-500/20'
                                     ]"
                                 >
                                     买币
@@ -60,10 +60,10 @@
                                 <Link
                                     href="/market?type=sell"
                                     :class="[
-                                        'flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer',
+                                        'flex items-center gap-2 px-4 py-2 rounded text-sm font-bold transition-all cursor-pointer',
                                         route().current('web.market') && $page.url.includes('type=sell')
-                                            ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
-                                            : 'text-blue-600 dark:text-blue-500 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-blue-500/10 dark:hover:bg-blue-500/10'
+                                            ? 'text-blue-500 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-500/10'
+                                            : 'text-blue-600 dark:text-blue-500 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-500/20 dark:hover:bg-blue-500/20'
                                     ]"
                                 >
                                     卖币
@@ -73,10 +73,10 @@
                                 <Link
                                     href="/orders"
                                     :class="[
-                                        'flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all',
+                                        'flex items-center px-3 py-2 rounded text-sm font-medium transition-all',
                                         route().current('orders') || route().current('web.orders')
-                                            ? 'bg-emerald-50 dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
-                                            : 'text-gray-600 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800/50'
+                                            ? 'text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-800/50'
+                                            : 'text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/30'
                                     ]"
                                 >
                                     <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -87,10 +87,10 @@
                                 <Link
                                     href="/publish"
                                     :class="[
-                                        'flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all',
+                                        'flex items-center px-3 py-2 rounded text-sm font-medium transition-all',
                                         route().current('publish') || route().current('web.publish')
-                                            ? 'bg-emerald-50 dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
-                                            : 'text-gray-600 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800/50'
+                                            ? 'text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-800/50'
+                                            : 'text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/30'
                                     ]"
                                 >
                                     <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,7 +108,7 @@
                         <a
                             v-if="!isPWA"
                             @click="handleAppClick"
-                            class="flex items-center gap-1 px-2.5 py-1 bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-300 dark:hover:border-emerald-800 text-gray-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg transition-all cursor-pointer"
+                            class="flex items-center gap-1 px-2.5 py-1 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-300 dark:hover:border-emerald-800 text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded transition-all cursor-pointer"
                             title="安装 APP"
                         >
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -120,7 +120,7 @@
                         <!-- Dark/Light Mode Toggle -->
                         <button
                             @click="toggleDark()"
-                            class="p-1.5 md:p-2 rounded-lg text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                            class="p-1.5 md:p-2 rounded text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
                             :aria-label="isDark ? '切换到浅色模式' : '切换到深色模式'"
                         >
                             <svg v-if="isDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -132,7 +132,7 @@
                         </button>
 
                         <!-- Notifications -->
-                        <Link href="/notifications" class="relative p-1.5 md:p-2 rounded-lg text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                        <Link href="/notifications" class="relative p-1.5 md:p-2 rounded text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                             </svg>
@@ -140,7 +140,7 @@
                         </Link>
 
                         <!-- Wallet -->
-                        <Link href="/wallet/address-verification" class="p-1.5 md:p-2 rounded-lg text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                        <Link href="/wallet/address-verification" class="p-1.5 md:p-2 rounded text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                             </svg>
@@ -148,19 +148,19 @@
 
                         <!-- User Profile Link (Desktop & Mobile) -->
                         <div v-if="$page.props.auth?.user" class="block">
-                            <Link :href="route('web.profile')" class="flex items-center gap-2 rounded-lg px-2 md:px-3 py-1.5 md:py-2 text-sm font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+                            <Link :href="route('web.profile')" class="flex items-center gap-2 rounded px-2 md:px-3 py-1.5 md:py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                                 <div class="relative">
                                     <!-- Use profile photo if available, otherwise show initial -->
                                     <img
                                         v-if="$page.props.auth.user.profile_photo_url"
                                         :src="$page.props.auth.user.profile_photo_url"
                                         :alt="$page.props.auth.user.name"
-                                        class="h-7 w-7 md:h-8 md:w-8 rounded-full object-cover border-2 border-gray-200 dark:border-slate-700"
+                                        class="h-7 w-7 md:h-8 md:w-8 rounded-full object-cover border-2 border-gray-200 dark:border-gray-700"
                                     />
-                                    <div v-else class="h-7 w-7 md:h-8 md:w-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                                    <div v-else class="h-7 w-7 md:h-8 md:w-8 rounded-full bg-gradient-to-br from-gray-500 to-gray-600 flex items-center justify-center">
                                         <span class="text-white font-bold text-xs md:text-sm">{{ $page.props.auth.user.name[0].toUpperCase() }}</span>
                                     </div>
-                                    <div class="absolute -bottom-0.5 -right-0.5 h-2.5 md:h-3 w-2.5 md:w-3 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-900"></div>
+                                    <div class="absolute -bottom-0.5 -right-0.5 h-2.5 md:h-3 w-2.5 md:w-3 bg-emerald-500 rounded-full border-2 border-white dark:border-gray-900"></div>
                                 </div>
                                 <span class="hidden sm:inline">{{ $page.props.auth.user.name }}</span>
                             </Link>
@@ -168,10 +168,10 @@
 
                         <!-- Login/Register -->
                         <div v-else class="flex items-center space-x-1 md:space-x-2">
-                            <Link href="/login" class="rounded-lg px-2.5 md:px-4 py-1.5 md:py-2 text-sm font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                            <Link href="/login" class="rounded px-2.5 md:px-4 py-1.5 md:py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                                 登录
                             </Link>
-                            <Link href="/register" class="hidden md:block rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 transition-all">
+                            <Link href="/register" class="hidden md:block rounded bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 shadow-sm transition-all cursor-pointer">
                                 注册账号
                             </Link>
                         </div>
@@ -181,13 +181,13 @@
         </nav>
 
         <!-- Desktop Breadcrumbs -->
-        <div v-if="showBreadcrumbs && breadcrumbs.length > 0" class="hidden md:block bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800">
+        <div v-if="showBreadcrumbs && breadcrumbs.length > 0" class="hidden md:block bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center py-3">
                     <nav class="flex" aria-label="Breadcrumb">
                         <ol class="flex items-center space-x-2">
                             <li>
-                                <Link href="/" class="flex items-center text-sm text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-300 transition-colors">
+                                <Link href="/" class="flex items-center text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
                                     <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                                     </svg>
@@ -195,20 +195,20 @@
                                 </Link>
                             </li>
                             <li v-for="(crumb, index) in breadcrumbs" :key="index" class="flex items-center">
-                                <svg class="w-4 h-4 text-gray-400 dark:text-slate-600" fill="currentColor" viewBox="0 0 20 20">
+                                <svg class="w-4 h-4 text-gray-400 dark:text-gray-600" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                                 </svg>
                                 <Link
                                     v-if="crumb.url && index < breadcrumbs.length - 1"
                                     :href="crumb.url"
-                                    class="ml-2 text-sm text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-300 transition-colors"
+                                    class="ml-2 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
                                 >
                                     {{ crumb.label }}
                                 </Link>
                                 <span
                                     v-else
                                     class="ml-2 text-sm"
-                                    :class="index === breadcrumbs.length - 1 ? 'text-gray-900 dark:text-slate-100 font-medium' : 'text-gray-500 dark:text-slate-400'"
+                                    :class="index === breadcrumbs.length - 1 ? 'text-gray-900 dark:text-gray-100 font-medium' : 'text-gray-500 dark:text-gray-400'"
                                 >
                                     {{ crumb.label }}
                                 </span>
@@ -225,22 +225,22 @@
         </main>
 
         <!-- Mobile Bottom Navigation -->
-        <nav v-if="showMobileBottomNav" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-t border-gray-200 dark:border-slate-800 shadow-lg pb-safe">
+        <nav v-if="showMobileBottomNav" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-t border-gray-200 dark:border-gray-800 pb-safe">
             <div class="grid grid-cols-5 h-14">
                 <!-- Market -->
                 <Link
                     href="/market"
                     class="flex flex-col items-center justify-center gap-0 relative transition-all group pt-1"
                     :class="route().current('market') || route().current('web.market')
-                        ? 'text-emerald-600 dark:text-emerald-400'
-                        : 'text-gray-600 dark:text-slate-400'"
+                        ? 'text-emerald-600 dark:text-emerald-500'
+                        : 'text-gray-500 dark:text-gray-500'"
                 >
                     <div class="relative">
                         <div :class="route().current('market') || route().current('web.market')
-                            ? 'bg-emerald-50 dark:bg-emerald-500/10 p-1 rounded-lg'
+                            ? 'bg-emerald-100 dark:bg-emerald-900/30 p-1 rounded'
                             : 'p-1'">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.638 14.904c-1.602 6.43-8.113 10.34-14.542 8.736C2.67 22.05-1.244 15.525.362 9.105 1.962 2.67 8.475-1.243 14.9.358c6.43 1.605 10.342 8.115 8.738 14.548v-.002zm-6.35-4.613c.24-1.59-.974-2.45-2.64-3.03l.54-2.153-1.315-.33-.525 2.107c-.345-.087-.705-.167-1.064-.25l.526-2.127-1.32-.33-.54 2.165c-.285-.067-.565-.132-.84-.2l-1.815-.45-.35 1.407s.975.225.955.236c.535.136.63.486.615.766l-1.477 5.92c-.075.166-.24.406-.614.314.015.02-.96-.24-.96-.24l-.66 1.51 1.71.426.93.242-.54 2.19 1.32.327.54-2.17c.36.1.705.19 1.05.273l-.51 2.154 1.32.33.545-2.19c2.24.427 3.93.257 4.64-1.774.57-1.637-.03-2.58-1.217-3.196.854-.193 1.5-.76 1.68-1.93h.01zm-3.01 4.22c-.404 1.64-3.157.75-4.05.53l.72-2.9c.896.23 3.757.67 3.33 2.37zm.41-4.24c-.37 1.49-2.662.735-3.405.55l.654-2.64c.744.18 3.137.524 2.75 2.084v.006z"/>
                             </svg>
                         </div>
                     </div>
@@ -252,19 +252,17 @@
                     href="/orders"
                     class="flex flex-col items-center justify-center gap-0 relative transition-all group pt-1"
                     :class="route().current('orders') || route().current('web.orders')
-                        ? 'text-blue-600 dark:text-blue-400'
-                        : 'text-gray-600 dark:text-slate-400'"
+                        ? 'text-emerald-600 dark:text-emerald-500'
+                        : 'text-gray-500 dark:text-gray-500'"
                 >
                     <div class="relative">
                         <div :class="route().current('orders') || route().current('web.orders')
-                            ? 'bg-blue-50 dark:bg-blue-500/10 p-1 rounded-lg'
+                            ? 'bg-emerald-100 dark:bg-emerald-900/30 p-1 rounded'
                             : 'p-1'">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                             </svg>
                         </div>
-                        <!-- Order notification badge -->
-                        <div v-if="false" class="absolute -top-0.5 -right-0.5 h-2 w-2 bg-red-500 rounded-full animate-pulse"></div>
                     </div>
                     <span class="text-[10px] font-medium">订单</span>
                 </Link>
@@ -274,12 +272,12 @@
                     href="/publish"
                     class="flex flex-col items-center justify-center gap-0 relative transition-all group pt-1"
                     :class="route().current('publish') || route().current('web.publish')
-                        ? 'text-gray-900 dark:text-slate-100'
-                        : 'text-gray-600 dark:text-slate-400'"
+                        ? 'text-emerald-600 dark:text-emerald-500'
+                        : 'text-gray-500 dark:text-gray-500'"
                 >
                     <div class="relative">
                         <div :class="route().current('publish') || route().current('web.publish')
-                            ? 'bg-gray-100 dark:bg-slate-800 p-1 rounded-lg'
+                            ? 'bg-emerald-100 dark:bg-emerald-900/30 p-1 rounded'
                             : 'p-1'">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -294,19 +292,17 @@
                     href="/wallet/address-verification"
                     class="flex flex-col items-center justify-center gap-0 relative transition-all group pt-1"
                     :class="route().current('wallet.address-verification') || route().current('web.wallet.address-verification')
-                        ? 'text-amber-600 dark:text-amber-400'
-                        : 'text-gray-600 dark:text-slate-400'"
+                        ? 'text-emerald-600 dark:text-emerald-500'
+                        : 'text-gray-500 dark:text-gray-500'"
                 >
                     <div class="relative">
                         <div :class="route().current('wallet.address-verification') || route().current('web.wallet.address-verification')
-                            ? 'bg-amber-50 dark:bg-amber-500/10 p-1 rounded-lg'
+                            ? 'bg-emerald-100 dark:bg-emerald-900/30 p-1 rounded'
                             : 'p-1'">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                             </svg>
                         </div>
-                        <!-- Wallet balance indicator -->
-                        <div v-if="false" class="absolute -top-0.5 -right-0.5 h-2 w-2 bg-emerald-500 rounded-full"></div>
                     </div>
                     <span class="text-[10px] font-medium">钱包</span>
                 </Link>
@@ -316,19 +312,17 @@
                     :href="route('web.profile')"
                     class="flex flex-col items-center justify-center gap-0 relative transition-all group pt-1"
                     :class="route().current('profile') || route().current('web.profile')
-                        ? 'text-purple-600 dark:text-purple-400'
-                        : 'text-gray-600 dark:text-slate-400'"
+                        ? 'text-emerald-600 dark:text-emerald-500'
+                        : 'text-gray-500 dark:text-gray-500'"
                 >
                     <div class="relative">
                         <div :class="route().current('profile') || route().current('web.profile')
-                            ? 'bg-purple-50 dark:bg-purple-500/10 p-1 rounded-lg'
+                            ? 'bg-emerald-100 dark:bg-emerald-900/30 p-1 rounded'
                             : 'p-1'">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
-                        <!-- Profile notification dot -->
-                        <div v-if="false" class="absolute -top-0.5 -right-0.5 h-2 w-2 bg-emerald-500 rounded-full"></div>
                     </div>
                     <span class="text-[10px] font-medium">我的</span>
                 </Link>

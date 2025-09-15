@@ -21,7 +21,7 @@ const hasActions = computed(() => !! useSlots().actions);
         <div class="mt-5 md:mt-0 md:col-span-2">
             <form @submit.prevent="$emit('submitted')">
                 <div
-                    class="px-4 py-5 bg-white dark:bg-slate-900/60 sm:p-6 border border-gray-200 dark:border-slate-800 rounded-xl"
+                    class="px-4 py-5 bg-white dark:bg-gray-900/60 sm:p-6 border border-gray-200 dark:border-gray-800 rounded"
                 >
                     <div class="grid grid-cols-6 gap-6">
                         <slot name="form" />

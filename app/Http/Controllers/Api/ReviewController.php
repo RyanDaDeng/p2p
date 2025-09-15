@@ -92,25 +92,39 @@ class ReviewController extends ApiController
     /**
      * 获取用户收到的评价列表
      */
-    public function getUserReviews($userId)
+    public function getUserReviews(Request $request, $userId)
     {
         $user = User::findOrFail($userId);
-        
-        $reviews = Review::with(['reviewer', 'order'])
-            ->forUser($userId)
-            ->orderBy('created_at', 'desc')
-            ->paginate(30);
+
+        $query = Review::with(['reviewer', 'order'])
+            ->forUser($userId);
+
+        // Apply rating filter
+        $ratingFilter = $request->query('rating', 'all');
+        if ($ratingFilter === 'positive') {
+            $query->whereIn('rating', [4, 5]);
+        } elseif ($ratingFilter === 'neutral') {
+            $query->where('rating', 3);
+        } elseif ($ratingFilter === 'negative') {
+            $query->whereIn('rating', [1, 2]);
+        }
+
+        $perPage = $request->query('per_page', 10);
+        $reviews = $query->orderBy('created_at', 'desc')
+            ->paginate($perPage);
             
         // 处理匿名评价
-        $reviews->getCollection()->transform(function ($review) {
+        $reviewsCollection = $reviews->getCollection()->transform(function ($review) {
             return [
                 'id' => $review->id,
                 'rating' => $review->rating,
                 'comment' => $review->comment,
                 'trade_type' => $review->trade_type,
+                'currency_key' => $review->currency_key,
                 'crypto_currency' => $review->currency_key,
                 'fiat_amount' => $review->fiat_amount,
                 'created_at' => $review->created_at,
+                'is_anonymous' => $review->is_anonymous,
                 'reviewer' => [
                     'id' => $review->is_anonymous ? null : $review->reviewer_id,
                     'name' => $review->reviewer_name,
@@ -118,9 +132,9 @@ class ReviewController extends ApiController
                 ]
             ];
         });
-        
+
         return $this->sendSuccess([
-            'reviews' => $reviews->items(),
+            'reviews' => $reviewsCollection,
             'pagination' => [
                 'current_page' => $reviews->currentPage(),
                 'last_page' => $reviews->lastPage(),

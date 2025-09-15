@@ -79,24 +79,24 @@ const props = defineProps({
     },
     rounded: {
         type: String,
-        default: 'lg',
+        default: 'sm',
         validator: (value) => ['sm', 'md', 'lg', 'xl', '2xl', 'full'].includes(value)
     }
 });
 
 // 基础样式
-const baseClasses = 'inline-flex items-center justify-center gap-1.5 font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed';
+const baseClasses = 'inline-flex items-center justify-center gap-1.5 font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed';
 
 // 按钮变体样式（使用我们的品牌色）
 const variants = {
     primary: 'bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-emerald-50 shadow-sm hover:shadow-md focus:ring-emerald-500 dark:focus:ring-emerald-400',
-    secondary: 'bg-gray-600 dark:bg-slate-600 hover:bg-gray-700 dark:hover:bg-slate-500 active:bg-gray-800 dark:active:bg-slate-700 text-white focus:ring-gray-500 dark:focus:ring-slate-400',
-    blue: 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-blue-50 shadow-sm hover:shadow-md focus:ring-blue-500 dark:focus:ring-blue-400',
+    secondary: 'bg-gray-600 dark:bg-gray-600 hover:bg-gray-700 dark:hover:bg-gray-500 active:bg-gray-800 dark:active:bg-gray-700 text-white focus:ring-gray-500 dark:focus:ring-gray-400',
+    blue: 'bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white shadow-sm hover:shadow-md focus:ring-indigo-500 dark:focus:ring-indigo-400',
     danger: 'bg-red-600 hover:bg-red-700 active:bg-red-800 text-white focus:ring-red-500 dark:focus:ring-red-400',
     warning: 'bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white focus:ring-amber-500 dark:focus:ring-amber-400',
     success: 'bg-green-600 hover:bg-green-700 active:bg-green-800 text-white focus:ring-green-500 dark:focus:ring-green-400',
-    ghost: 'bg-transparent hover:bg-gray-100 dark:hover:bg-slate-800 active:bg-gray-200 dark:active:bg-slate-700 text-gray-700 dark:text-slate-300 focus:ring-gray-400 dark:focus:ring-slate-500',
-    outline: 'bg-transparent border-2 border-gray-300 dark:border-slate-600 hover:border-gray-400 dark:hover:border-slate-500 text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800/50 focus:ring-gray-400 dark:focus:ring-slate-500'
+    ghost: 'bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700 text-gray-700 dark:text-gray-300 focus:ring-gray-400 dark:focus:ring-gray-500',
+    outline: 'bg-transparent border-2 border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 focus:ring-gray-400 dark:focus:ring-gray-500'
 };
 
 // 按钮尺寸样式

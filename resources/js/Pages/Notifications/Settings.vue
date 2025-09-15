@@ -2,14 +2,14 @@
     <P2PAppLayout>
         <Head title="通知设置" />
         
-        <div class="min-h-screen bg-gray-50 dark:bg-slate-950">
+        <div class="min-h-screen bg-gray-50 dark:bg-gray-950">
             <!-- Header -->
-            <div class="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800">
+            <div class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="py-6">
                         <div>
-                            <h1 class="text-xl font-bold text-gray-900 dark:text-slate-100">通知设置</h1>
-                            <p class="text-gray-600 dark:text-slate-400 text-sm mt-0.5">管理您的通知偏好</p>
+                            <h1 class="text-xl font-bold text-gray-900 dark:text-gray-100">通知设置</h1>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mt-0.5">管理您的通知偏好</p>
                         </div>
                     </div>
                 </div>
@@ -18,17 +18,17 @@
             <!-- Content -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <!-- Telegram Settings -->
-                <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-gray-200 dark:border-slate-800">
-                    <div class="p-6 border-b border-gray-200 dark:border-slate-800">
+                <div class="bg-white dark:bg-gray-900 rounded shadow-sm border border-gray-200 dark:border-gray-800">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-800">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                            <div class="w-10 h-10 rounded bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
                                 <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.56c-.21 2.27-1.13 7.75-1.6 10.29-.2 1.08-.59 1.44-.97 1.47-.82.07-1.45-.54-2.24-.99-1.24-.71-1.94-1.16-3.14-1.85-1.39-.8-.49-1.24.3-1.96.21-.19 3.85-3.52 3.91-3.82.01-.04.01-.19-.07-.27-.08-.08-.2-.05-.28-.03-.12.03-2.02.13-5.7 3.75-.54.54-1.03.8-1.48.78-.49-.02-1.42-.27-2.11-.5-.85-.28-1.53-.42-1.47-.89.03-.25.37-.51 1.02-.77 4-1.74 6.67-2.89 8.01-3.44 3.81-1.57 4.61-1.84 5.13-1.85.11 0 .37.03.53.18.14.12.18.28.2.45-.01.06-.01.24-.02.38z"/>
                                 </svg>
                             </div>
                             <div class="flex-1">
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-100">Telegram 通知</h3>
-                                <p class="text-sm text-gray-600 dark:text-slate-400 mt-1">通过 Telegram 机器人接收实时通知</p>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Telegram 通知</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">通过 Telegram 机器人接收实时通知</p>
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                     <div class="p-6">
                         <!-- Connection Status -->
                         <div v-if="!telegramConnected" class="space-y-4">
-                            <div class="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+                            <div class="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded">
                                 <div class="flex gap-3">
                                     <svg class="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -49,14 +49,14 @@
                             </div>
 
                             <!-- Privacy Notice -->
-                            <div class="p-4 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-lg">
+                            <div class="p-4 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded">
                                 <div class="flex gap-3">
-                                    <svg class="w-5 h-5 text-gray-600 dark:text-slate-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                     </svg>
                                     <div class="flex-1">
-                                        <p class="text-sm font-medium text-gray-900 dark:text-slate-100 mb-2">隐私说明</p>
-                                        <ul class="text-xs text-gray-600 dark:text-slate-400 space-y-1">
+                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">隐私说明</p>
+                                        <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
                                             <li class="flex items-start gap-1">
                                                 <span class="text-emerald-600 dark:text-emerald-400 mt-0.5">✓</span>
                                                 <span>机器人仅用于向您发送交易通知，不会获取您的任何 Telegram 权限</span>
@@ -80,15 +80,15 @@
 
                             <!-- Connection Steps -->
                             <div class="space-y-4">
-                                <h4 class="text-sm font-medium text-gray-900 dark:text-slate-100">连接步骤：</h4>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">连接步骤：</h4>
                                 
                                 <!-- Step 1: Open Telegram Bot -->
                                 <div class="space-y-2">
-                                    <div class="flex gap-2 text-sm text-gray-600 dark:text-slate-400">
-                                        <span class="font-medium text-gray-900 dark:text-slate-100">1.</span>
+                                    <div class="flex gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                        <span class="font-medium text-gray-900 dark:text-gray-100">1.</span>
                                         <span>打开 Telegram 机器人</span>
                                     </div>
-                                    <a :href="telegramBotLink" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium text-sm transition-colors">
+                                    <a :href="telegramBotLink" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium text-sm transition-colors">
                                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.56c-.21 2.27-1.13 7.75-1.6 10.29-.2 1.08-.59 1.44-.97 1.47-.82.07-1.45-.54-2.24-.99-1.24-.71-1.94-1.16-3.14-1.85-1.39-.8-.49-1.24.3-1.96.21-.19 3.85-3.52 3.91-3.82.01-.04.01-.19-.07-.27-.08-.08-.2-.05-.28-.03-.12.03-2.02.13-5.7 3.75-.54.54-1.03.8-1.48.78-.49-.02-1.42-.27-2.11-.5-.85-.28-1.53-.42-1.47-.89.03-.25.37-.51 1.02-.77 4-1.74 6.67-2.89 8.01-3.44 3.81-1.57 4.61-1.84 5.13-1.85.11 0 .37.03.53.18.14.12.18.28.2.45-.01.06-.01.24-.02.38z"/>
                                         </svg>
@@ -98,8 +98,8 @@
                                 
                                 <!-- Step 2: Get Verification Code -->
                                 <div class="space-y-2">
-                                    <div class="flex gap-2 text-sm text-gray-600 dark:text-slate-400">
-                                        <span class="font-medium text-gray-900 dark:text-slate-100">2.</span>
+                                    <div class="flex gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                        <span class="font-medium text-gray-900 dark:text-gray-100">2.</span>
                                         <span>获取验证码并发送给机器人</span>
                                     </div>
                                     
@@ -111,7 +111,7 @@
                                     </div>
                                     
                                     <!-- Verification Code Display -->
-                                    <div v-else class="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                                    <div v-else class="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded">
                                         <div class="flex items-center justify-between">
                                             <div class="flex-1">
                                                 <p class="text-xs text-blue-700 dark:text-blue-300 mb-2">请将此验证码发送给机器人</p>
@@ -136,8 +136,8 @@
                                 
                                 <!-- Step 3: Bind Telegram -->
                                 <div class="space-y-2">
-                                    <div class="flex gap-2 text-sm text-gray-600 dark:text-slate-400">
-                                        <span class="font-medium text-gray-900 dark:text-slate-100">3.</span>
+                                    <div class="flex gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                        <span class="font-medium text-gray-900 dark:text-gray-100">3.</span>
                                         <span>点击绑定按钮完成连接</span>
                                     </div>
                                     <P2PButton @click="bindTelegram" variant="primary" size="md" :loading="bindingTelegram">
@@ -154,7 +154,7 @@
 
                         <!-- Connected Status -->
                         <div v-else class="space-y-4">
-                            <div class="p-4 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-lg">
+                            <div class="p-4 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded">
                                 <div class="flex gap-3">
                                     <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -167,13 +167,13 @@
                             </div>
 
                             <!-- Privacy Reminder -->
-                            <div class="p-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-lg">
+                            <div class="p-3 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded">
                                 <div class="flex gap-2">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-slate-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                     </svg>
                                     <div class="flex-1">
-                                        <p class="text-xs text-gray-600 dark:text-slate-400">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">
                                             <span class="font-medium">隐私保护：</span>机器人仅向您发送通知，不会获取您的 Telegram 权限或读取任何聊天内容
                                         </p>
                                     </div>
@@ -181,7 +181,7 @@
                             </div>
                             
                             <!-- Notification Settings Tip -->
-                            <div class="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+                            <div class="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded">
                                 <div class="flex gap-3">
                                     <span class="text-amber-600 dark:text-amber-400 text-lg">💡</span>
                                     <div class="flex-1">
@@ -194,7 +194,7 @@
                                         </p>
                                         <div class="mt-3">
                                             <a :href="telegramBotLink" target="_blank" 
-                                               class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-medium transition-colors">
+                                               class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-medium transition-colors">
                                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.56c-.21 2.27-1.13 7.75-1.6 10.29-.2 1.08-.59 1.44-.97 1.47-.82.07-1.45-.54-2.24-.99-1.24-.71-1.94-1.16-3.14-1.85-1.39-.8-.49-1.24.3-1.96.21-.19 3.85-3.52 3.91-3.82.01-.04.01-.19-.07-.27-.08-.08-.2-.05-.28-.03-.12.03-2.02.13-5.7 3.75-.54.54-1.03.8-1.48.78-.49-.02-1.42-.27-2.11-.5-.85-.28-1.53-.42-1.47-.89.03-.25.37-.51 1.02-.77 4-1.74 6.67-2.89 8.01-3.44 3.81-1.57 4.61-1.84 5.13-1.85.11 0 .37.03.53.18.14.12.18.28.2.45-.01.06-.01.24-.02.38z"/>
                                                 </svg>
@@ -208,8 +208,8 @@
                             <!-- Test Notification -->
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <p class="text-sm font-medium text-gray-900 dark:text-slate-100">测试通知</p>
-                                    <p class="text-xs text-gray-600 dark:text-slate-400 mt-1">发送测试消息到您的 Telegram</p>
+                                    <p class="text-sm font-medium text-gray-900 dark:text-gray-100">测试通知</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">发送测试消息到您的 Telegram</p>
                                 </div>
                                 <P2PButton @click="sendTestMessage" variant="outline" size="sm" :loading="sendingTest">
                                     <template #icon>
@@ -222,7 +222,7 @@
                             </div>
 
                             <!-- Disconnect -->
-                            <div class="pt-4 border-t border-gray-200 dark:border-slate-800">
+                            <div class="pt-4 border-t border-gray-200 dark:border-gray-800">
                                 <P2PButton @click="disconnectTelegram" variant="danger" size="sm">
                                     断开连接
                                 </P2PButton>
@@ -236,18 +236,17 @@
         </div>
         
         <!-- Confirmation Dialog -->
-        <P2PConfirmationBox
+        <P2PDialog
             :show="showConfirmDialog"
             :title="confirmDialogTitle"
-            :danger="confirmDialogDanger && !confirmDialogIsSuccess"
+            :icon-color="confirmDialogDanger ? 'red' : 'emerald'"
             :confirm-text="confirmDialogIsSuccess ? '完成' : (confirmDialogCallback ? '确认' : '知道了')"
-            :cancel-text="confirmDialogIsSuccess ? '' : (confirmDialogCallback ? '取消' : '关闭')"
+            :cancel-text="confirmDialogIsSuccess ? '' : (confirmDialogCallback ? '取消' : '')"
             @confirm="handleConfirmDialog"
-            @cancel="handleCancelDialog"
             @close="handleCancelDialog"
         >
             <div v-html="confirmDialogMessage"></div>
-        </P2PConfirmationBox>
+        </P2PDialog>
     </P2PAppLayout>
 </template>
 
@@ -256,7 +255,7 @@ import { ref, onMounted, computed } from 'vue';
 import { Head, usePage } from '@inertiajs/vue3';
 import P2PAppLayout from '@/Layouts/P2PAppLayout.vue';
 import P2PButton from '@/Components/UI/P2PButton.vue';
-import P2PConfirmationBox from '@/Components/UI/P2PConfirmationBox.vue';
+import P2PDialog from '@/Components/UI/P2PDialog.vue';
 import MessageDialog from '@/Components/MessageDialog';
 import axios from 'axios';
 
@@ -325,16 +324,16 @@ const bindTelegram = async () => {
             
             let message = '<div class="space-y-2">';
             message += '<p class="text-emerald-600 dark:text-emerald-400 font-medium">✅ 绑定成功！</p>';
-            
+
             if (telegramUser) {
-                message += '<div class="bg-gray-50 dark:bg-slate-800 rounded-lg p-3 space-y-1">';
-                message += `<p><span class="font-medium">Telegram 用户:</span> ${telegramUser.display_name}</p>`;
+                message += '<div class="bg-gray-50 dark:bg-gray-800 rounded p-3 space-y-1">';
+                message += `<p class="text-gray-900 dark:text-gray-100"><span class="font-medium">Telegram 用户:</span> ${telegramUser.display_name}</p>`;
                 if (telegramUser.first_name || telegramUser.last_name) {
-                    message += `<p><span class="font-medium">昵称:</span> ${telegramUser.first_name || ''} ${telegramUser.last_name || ''}</p>`;
+                    message += `<p class="text-gray-900 dark:text-gray-100"><span class="font-medium">昵称:</span> ${telegramUser.first_name || ''} ${telegramUser.last_name || ''}</p>`;
                 }
                 message += '</div>';
             }
-            
+
             message += '<p class="text-sm text-gray-600 dark:text-gray-400 mt-3">您的 Telegram 已成功连接到平台账号</p>';
             message += '</div>';
             
@@ -377,7 +376,7 @@ const sendTestMessage = async () => {
 
 const disconnectTelegram = async () => {
     confirmDialogTitle.value = '断开 Telegram 连接';
-    confirmDialogMessage.value = '<p>确定要断开 Telegram 连接吗？断开后您将无法接收平台通知。</p>';
+    confirmDialogMessage.value = '<p class="text-gray-700 dark:text-gray-300">确定要断开 Telegram 连接吗？断开后您将无法接收平台通知。</p>';
     confirmDialogDanger.value = true;
     confirmDialogCallback.value = async () => {
         try {

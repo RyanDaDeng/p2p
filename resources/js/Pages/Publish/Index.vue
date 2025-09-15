@@ -3,30 +3,30 @@
         <Head title="我的发布" />
 
         <!-- 页面头部 -->
-        <div class="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800">
+        <div class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
             <div class="mx-auto max-w-7xl px-4 py-3 sm:py-4 sm:px-6 lg:px-8">
                 <!-- 标题和统计 -->
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 mb-3 sm:mb-4">
                     <div>
-                        <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-slate-100">我的发布</h1>
-                        <p class="hidden sm:block text-sm text-gray-500 dark:text-slate-400 mt-1">管理您的交易广告</p>
+                        <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">我的发布</h1>
+                        <p class="hidden sm:block text-sm text-gray-500 dark:text-gray-400 mt-1">管理您的交易广告</p>
                     </div>
 
                     <!-- 发布统计 -->
                     <div class="flex items-center gap-2 sm:gap-3">
                         <div class="text-center">
-                            <p class="text-xl sm:text-2xl font-bold text-emerald-600 dark:text-emerald-500">{{ activeOffers }}</p>
-                            <p class="text-xs text-gray-500 dark:text-slate-400">活跃广告</p>
+                            <p class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">{{ activeOffers }}</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">活跃广告</p>
                         </div>
-                        <div class="h-6 sm:h-8 w-px bg-gray-200 dark:bg-slate-700"></div>
+                        <div class="h-6 sm:h-8 w-px bg-gray-200 dark:bg-gray-700"></div>
                         <div class="text-center">
-                            <p class="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-500">{{ offers.filter(o => o.status === 'paused').length }}</p>
-                            <p class="text-xs text-gray-500 dark:text-slate-400">已暂停</p>
+                            <p class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">{{ offers.filter(o => o.status === 'paused').length }}</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">已暂停</p>
                         </div>
-                        <div class="h-6 sm:h-8 w-px bg-gray-200 dark:bg-slate-700"></div>
+                        <div class="h-6 sm:h-8 w-px bg-gray-200 dark:bg-gray-700"></div>
                         <div class="text-center">
-                            <p class="text-xl sm:text-2xl font-bold text-gray-600 dark:text-slate-400">{{ totalOffers }}</p>
-                            <p class="text-xs text-gray-500 dark:text-slate-400">总广告</p>
+                            <p class="text-xl sm:text-2xl font-bold text-gray-600 dark:text-gray-400">{{ totalOffers }}</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">总广告</p>
                         </div>
                     </div>
                 </div>
@@ -34,18 +34,24 @@
                 <!-- 筛选栏 -->
                 <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <!-- 筛选器 -->
-                    <div class="flex items-center gap-2 order-2 sm:order-1 overflow-x-auto">
+                    <div class="flex flex-col sm:flex-row gap-2 order-2 sm:order-1 items-start">
                         <!-- 状态筛选 - 类似订单页面的按钮组 -->
-                        <div class="flex items-center bg-gray-100 dark:bg-slate-800 rounded-lg p-0.5">
+                        <div class="flex items-center bg-gray-100 dark:bg-gray-800 rounded p-0.5 w-auto">
                             <button
                                 v-for="status in statusOptions"
                                 :key="status.value || 'all'"
                                 @click="filterStatus = status.value"
                                 :class="[
-                                    'px-3 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap cursor-pointer',
+                                    'px-3 py-1.5 text-xs font-medium rounded transition-all whitespace-nowrap cursor-pointer',
                                     filterStatus === status.value
-                                        ? 'bg-white dark:bg-slate-700 text-emerald-600 dark:text-emerald-400 shadow-sm'
-                                        : 'text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200'
+                                        ? status.value === 'active'
+                                            ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 shadow-sm'
+                                            : status.value === 'paused'
+                                            ? 'bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 shadow-sm'
+                                            : status.value === 'archived'
+                                            ? 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-sm'
+                                            : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm'
+                                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
                                 ]"
                             >
                                 {{ status.label }}
@@ -53,16 +59,20 @@
                         </div>
 
                         <!-- 类型筛选 -->
-                        <div class="flex items-center bg-gray-100 dark:bg-slate-800 rounded-lg p-0.5">
+                        <div class="flex items-center bg-gray-100 dark:bg-gray-800 rounded p-0.5">
                             <button
                                 v-for="type in typeOptions"
                                 :key="type.value || 'all'"
                                 @click="filterType = type.value"
                                 :class="[
-                                    'px-3 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap cursor-pointer',
+                                    'px-3 py-1.5 text-xs font-medium rounded transition-all whitespace-nowrap cursor-pointer',
                                     filterType === type.value
-                                        ? 'bg-white dark:bg-slate-700 text-emerald-600 dark:text-emerald-400 shadow-sm'
-                                        : 'text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200'
+                                        ? type.value === 'buy'
+                                            ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 shadow-sm'
+                                            : type.value === 'sell'
+                                            ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shadow-sm'
+                                            : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm'
+                                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
                                 ]"
                             >
                                 {{ type.label }}
@@ -128,19 +138,19 @@
             </div>
 
             <!-- Empty State -->
-            <div v-else-if="offers.length === 0" class="text-center py-12 bg-white dark:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-800">
-                <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div v-else-if="offers.length === 0" class="text-center py-12 bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800">
+                <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                 </svg>
-                <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-slate-100">暂无广告</h3>
-                <p class="mt-1 text-sm text-gray-500 dark:text-slate-400">点击"创建发布"开始发布您的第一个交易广告</p>
+                <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">暂无广告</h3>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">点击"创建发布"开始发布您的第一个交易广告</p>
             </div>
 
             <!-- Desktop View -->
             <div v-if="!loading && offers.length > 0" class="hidden md:block space-y-4">
                 <!-- Ad Cards - 使用主页相同布局 -->
                 <div v-for="offer in offers" :key="offer?.id"
-                     class="bg-white dark:bg-slate-900/60 border border-gray-200 dark:border-slate-800 rounded-lg hover:border-gray-300 dark:hover:border-slate-700 transition-all group shadow-sm dark:shadow-none">
+                     class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded hover:border-gray-300 dark:hover:border-gray-700 transition-all">
                     <div class="p-4">
                         <div class="grid grid-cols-12 gap-4 items-center">
                             <!-- 交易类型与币种 - Col 1-3 -->
@@ -148,19 +158,16 @@
                                 <div class="flex flex-col gap-2">
                                     <!-- 币种显示 -->
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center shadow-sm">
+                                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
                                             <component :is="getCryptoIcon(offer?.currency)" :size="20" class="dark:brightness-110" />
                                         </div>
                                         <div>
-                                            <div class="font-semibold text-gray-900 dark:text-slate-100">
+                                            <div class="font-semibold text-gray-900 dark:text-gray-100">
                                                 {{ offer?.currency_label || offer?.currency || 'USDT' }}
-                                                <span class="text-xs text-gray-500 dark:text-slate-500 ml-2">#{{ offer?.id }}</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-500 ml-2">#{{ offer?.id }}</span>
                                             </div>
                                             <div class="flex items-center gap-1.5">
-                                                <span :class="[
-                                                    'text-xs font-medium',
-                                                    offer?.type === 'sell' ? 'text-blue-600 dark:text-blue-400' : 'text-emerald-600 dark:text-emerald-400'
-                                                ]">
+                                                <span class="text-xs font-medium text-gray-600 dark:text-gray-400">
                                                     {{ offer?.type === 'sell' ? '商家收购' : '商家出售' }}
                                                 </span>
                                                 <span v-if="offer?.status === 'active'" class="h-1.5 w-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
@@ -174,14 +181,14 @@
                             <div class="col-span-4">
                                 <div class="space-y-1.5">
                                     <div class="flex items-start gap-2 flex-wrap">
-                                        <span class="px-2 py-0.5 bg-blue-500/10 border border-blue-500/20 dark:border-blue-500/30 rounded text-xs font-medium text-blue-600 dark:text-blue-400">
+                                        <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded text-xs font-medium text-gray-700 dark:text-gray-300">
                                             {{ getPaymentMethodDetails(offer?.payment_method)?.label || offer?.payment_method }}
                                         </span>
-                                        <span class="px-2 py-0.5 bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded text-xs text-gray-700 dark:text-slate-400">
+                                        <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded text-xs text-gray-700 dark:text-gray-400">
                                             📍 {{ getCountryName(offer?.country) }}
                                         </span>
                                     </div>
-                                    <div v-if="offer?.notes" class="text-xs text-gray-600 dark:text-slate-400 italic line-clamp-2">
+                                    <div v-if="offer?.notes" class="text-xs text-gray-600 dark:text-gray-400 italic line-clamp-2">
                                         {{ offer?.notes }}
                                     </div>
                                 </div>
@@ -189,13 +196,13 @@
 
                             <!-- 资产与价格 - Col 8-9 -->
                             <div class="col-span-2 text-right">
-                                <p v-if="offer?.price_model === 'fixed'" class="text-xl lg:text-2xl text-emerald-500 font-bold leading-none">
+                                <p v-if="offer?.price_model === 'fixed'" class="text-xl lg:text-2xl text-gray-900 dark:text-gray-100 font-bold leading-none">
                                     ¥{{ offer?.price?.toLocaleString() || '0' }}
                                 </p>
-                                <p v-else class="text-xl lg:text-2xl text-emerald-500 font-bold leading-none">
+                                <p v-else class="text-xl lg:text-2xl text-gray-900 dark:text-gray-100 font-bold leading-none">
                                     {{ offer?.margin > 0 ? '+' : '' }}{{ offer?.margin || 0 }}%
                                 </p>
-                                <div class="text-xs mt-0.5 text-gray-500 dark:text-slate-400">
+                                <div class="text-xs mt-0.5 text-gray-500 dark:text-gray-400">
                                     {{ offer?.price_model === 'fixed' ? '固定单价' : '动态单价' }} · {{ offer?.fiat_currency || 'CNY' }}
                                 </div>
                             </div>
@@ -204,8 +211,8 @@
                             <div class="col-span-3">
                                 <div class="text-right">
                                     <div class="text-sm mb-2">
-                                        <span class="text-xs text-gray-500 dark:text-slate-500">限额:</span>
-                                        <span class="text-emerald-500 font-medium ml-1">
+                                        <span class="text-xs text-gray-500 dark:text-gray-500">限额:</span>
+                                        <span class="text-gray-700 dark:text-gray-300 font-medium ml-1">
                                             ¥{{ offer?.minLimit?.toLocaleString() || '0' }} - ¥{{ offer?.maxLimit?.toLocaleString() || '0' }}
                                         </span>
                                     </div>
@@ -213,28 +220,28 @@
                                         <button
                                             v-if="offer?.status === 'active'"
                                             @click="toggleOfferStatus(offer?.id, 'pause')"
-                                            class="px-3 py-1.5 text-sm font-medium text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 rounded-lg hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors cursor-pointer"
+                                            class="px-3 py-1.5 text-sm font-medium text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 rounded hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors cursor-pointer"
                                         >
                                             暂停
                                         </button>
                                         <button
                                             v-else-if="offer?.status === 'paused'"
                                             @click="toggleOfferStatus(offer?.id, 'activate')"
-                                            class="px-3 py-1.5 text-sm font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors cursor-pointer"
+                                            class="px-3 py-1.5 text-sm font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 rounded hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors cursor-pointer"
                                         >
                                             激活
                                         </button>
                                         <button
                                             v-else-if="offer?.status === 'archived'"
                                             @click="restoreOffer(offer?.id)"
-                                            class="px-3 py-1.5 text-sm font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors cursor-pointer"
+                                            class="px-3 py-1.5 text-sm font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 rounded hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors cursor-pointer"
                                         >
                                             恢复
                                         </button>
                                         <button
                                             v-if="offer?.status !== 'archived'"
                                             @click="editOffer(offer)"
-                                            class="px-3 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors cursor-pointer"
+                                            class="px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                                         >
                                             编辑
                                         </button>
@@ -256,24 +263,24 @@
             <!-- Mobile Cards -->
             <div v-if="!loading && offers.length > 0" class="md:hidden space-y-3">
                 <div v-for="offer in offers" :key="offer?.id"
-                     class="bg-white dark:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-800 overflow-hidden">
+                     class="bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 overflow-hidden">
                     <div class="p-3">
                         <!-- 头部信息 -->
                         <div class="flex items-center justify-between mb-3">
                             <!-- 币种与交易类型 -->
                             <div class="flex items-center gap-2.5">
-                                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center shadow-sm">
+                                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center shadow-sm">
                                     <component :is="getCryptoIcon(offer?.currency)" :size="18" class="dark:brightness-110" />
                                 </div>
                                 <div>
-                                    <div class="font-medium text-sm text-gray-900 dark:text-slate-100">
+                                    <div class="font-medium text-sm text-gray-900 dark:text-gray-100">
                                         {{ offer?.currency_label || offer?.currency || 'USDT' }}
-                                        <span class="text-xs text-gray-500 dark:text-slate-500 ml-1">#{{ offer?.id }}</span>
+                                        <span class="text-xs text-gray-500 dark:text-gray-500 ml-1">#{{ offer?.id }}</span>
                                     </div>
                                     <div class="flex items-center gap-1">
                                         <span :class="[
                                             'text-xs font-medium',
-                                            offer?.type === 'sell' ? 'text-blue-600 dark:text-blue-400' : 'text-emerald-600 dark:text-emerald-400'
+                                            offer?.type === 'sell' ? 'text-gray-600 dark:text-gray-400' : 'text-gray-700 dark:text-gray-300'
                                         ]">
                                             {{ offer?.type === 'sell' ? '商家收购' : '商家出售' }}
                                         </span>
@@ -284,13 +291,13 @@
 
                             <!-- 价格信息 -->
                             <div class="text-right">
-                                <div v-if="offer?.price_model === 'fixed'" class="text-lg font-bold text-emerald-600 dark:text-emerald-400">
+                                <div v-if="offer?.price_model === 'fixed'" class="text-lg font-bold text-gray-900 dark:text-gray-100">
                                     ¥{{ (offer?.price || 0).toLocaleString() }}
                                 </div>
-                                <div v-else class="text-lg font-bold text-emerald-600 dark:text-emerald-400">
+                                <div v-else class="text-lg font-bold text-gray-900 dark:text-gray-100">
                                     {{ offer?.margin > 0 ? '+' : '' }}{{ offer?.margin || 0 }}%
                                 </div>
-                                <div class="text-xs text-gray-500 dark:text-slate-400">
+                                <div class="text-xs text-gray-500 dark:text-gray-400">
                                     {{ offer?.price_model === 'fixed' ? '固定' : '浮动' }}
                                 </div>
                             </div>
@@ -299,19 +306,19 @@
                         <!-- 限额和支付方式一行 -->
                         <div class="mb-2 text-xs">
                             <div class="flex items-center justify-between mb-1">
-                                <span class="text-gray-600 dark:text-slate-400">
+                                <span class="text-gray-600 dark:text-gray-400">
                                     限额: ¥{{ (offer?.minLimit || 0).toLocaleString() }}-{{ (offer?.maxLimit || 0).toLocaleString() }}
                                 </span>
                                 <div class="flex gap-1">
-                                    <span class="px-1.5 py-0.5 bg-blue-500/10 border border-blue-500/20 dark:border-blue-500/30 rounded text-blue-600 dark:text-blue-400">
+                                    <span class="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded text-gray-700 dark:text-gray-400">
                                         {{ getPaymentMethodDetails(offer?.payment_method)?.label || offer?.payment_method }}
                                     </span>
-                                    <span class="px-1.5 py-0.5 bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded text-gray-700 dark:text-slate-400">
+                                    <span class="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded text-gray-700 dark:text-gray-400">
                                         📍 {{ getCountryName(offer?.country) }}
                                     </span>
                                 </div>
                             </div>
-                            <div v-if="offer?.notes" class="text-gray-600 dark:text-slate-400 italic line-clamp-2">
+                            <div v-if="offer?.notes" class="text-gray-600 dark:text-gray-400 italic line-clamp-2">
                                 {{ offer?.notes }}
                             </div>
                         </div>
@@ -339,7 +346,7 @@
                             <button
                                 v-if="offer?.status !== 'archived'"
                                 @click="editOffer(offer)"
-                                class="px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors cursor-pointer">
+                                class="px-2 py-1 text-xs font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer">
                                 编辑
                             </button>
                             <button
@@ -352,18 +359,18 @@
                     </div>
 
                     <!-- 状态栏 -->
-                    <div class="px-3 py-1 bg-gray-50 dark:bg-slate-800/30 border-t border-gray-200 dark:border-slate-800">
+                    <div class="px-3 py-1 bg-gray-50 dark:bg-gray-800/30 border-t border-gray-200 dark:border-gray-800">
                         <div class="flex items-center justify-between text-xs">
                             <span :class="[
                                 'px-1.5 py-0.5 font-medium rounded',
                                 offer?.status === 'active' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' :
                                 offer?.status === 'paused' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400' :
                                 offer?.status === 'archived' ? 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400' :
-                                'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-400'
+                                'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-400'
                             ]">
                                 {{ offer?.status === 'active' ? '● 活跃' : offer?.status === 'paused' ? '● 已暂停' : offer?.status === 'archived' ? '● 已归档' : '● 未知' }}
                             </span>
-                            <span class="text-gray-500 dark:text-slate-500">
+                            <span class="text-gray-500 dark:text-gray-500">
                                 {{ offer?.createdAt }}
                             </span>
                         </div>
@@ -399,39 +406,40 @@
 
 
         <!-- Archive Confirmation Dialog -->
-        <P2PConfirmationBox
+        <P2PDialog
             :show="showArchiveConfirm"
             title="归档广告"
             confirm-text="确认归档"
             cancel-text="取消"
-            :danger="false"
+            icon-color="amber"
             @confirm="confirmArchive"
-            @cancel="cancelArchive"
             @close="cancelArchive"
         >
-            <p>确定要归档这个广告吗？</p>
-            <p class="mt-2 text-xs">归档后的广告将不再显示在列表中，但您的数据会被保留。</p>
-        </P2PConfirmationBox>
+            <div class="text-sm text-gray-600 dark:text-gray-400">
+                <p>确定要归档这个广告吗？</p>
+                <p class="mt-2">归档后的广告将不再显示在列表中，但您的数据会被保留。</p>
+            </div>
+        </P2PDialog>
 
         <!-- Status Change Confirmation Dialog -->
-        <P2PConfirmationBox
+        <P2PDialog
             :show="showStatusConfirm"
             :title="statusChangeAction === 'pause' ? '暂停广告' : '激活广告'"
             :confirm-text="statusChangeAction === 'pause' ? '确认暂停' : '确认激活'"
             cancel-text="取消"
-            :danger="false"
-            :confirm-variant="statusChangeAction === 'pause' ? 'warning' : 'primary'"
+            :icon-color="statusChangeAction === 'pause' ? 'amber' : 'emerald'"
             @confirm="confirmStatusChange"
-            @cancel="cancelStatusChange"
             @close="cancelStatusChange"
         >
-            <p v-if="statusChangeAction === 'pause'">
-                确定要暂停这个广告吗？暂停后其他用户将无法看到这个广告。
-            </p>
-            <p v-else>
-                确定要激活这个广告吗？激活后其他用户将可以看到并与您进行交易。
-            </p>
-        </P2PConfirmationBox>
+            <div class="text-sm text-gray-600 dark:text-gray-400">
+                <p v-if="statusChangeAction === 'pause'">
+                    确定要暂停这个广告吗？暂停后其他用户将无法看到这个广告。
+                </p>
+                <p v-else>
+                    确定要激活这个广告吗？激活后其他用户将可以看到并与您进行交易。
+                </p>
+            </div>
+        </P2PDialog>
     </P2PAppLayout>
 </template>
 
@@ -443,7 +451,7 @@ import P2PAppLayout from '@/Layouts/P2PAppLayout.vue';
 import P2PButton from '@/Components/UI/P2PButton.vue';
 import P2PToggle from '@/Components/UI/P2PToggle.vue';
 import P2PPagination from '@/Components/UI/P2PPagination.vue';
-import P2PConfirmationBox from '@/Components/UI/P2PConfirmationBox.vue';
+import P2PDialog from '@/Components/UI/P2PDialog.vue';
 import CreateOfferModal from '@/Components/Publish/CreateOfferModal.vue';
 import TradeSettingsModal from '@/Components/Publish/TradeSettingsModal.vue';
 import { getPaymentMethodDetails } from '@/Constants/paymentMethods';

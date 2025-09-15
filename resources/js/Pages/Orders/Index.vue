@@ -3,30 +3,30 @@
         <Head title="订单" />
         
         <!-- 页面头部 -->
-        <div class="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800">
+        <div class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
             <div class="mx-auto max-w-7xl px-4 py-3 sm:py-4 sm:px-6 lg:px-8">
                 <!-- 标题和统计 -->
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 mb-3 sm:mb-4">
                     <div>
-                        <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-slate-100">我的订单</h1>
-                        <p class="hidden sm:block text-sm text-gray-500 dark:text-slate-400 mt-1">管理和跟踪您的所有交易订单</p>
+                        <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">我的订单</h1>
+                        <p class="hidden sm:block text-sm text-gray-500 dark:text-gray-400 mt-1">管理和跟踪您的所有交易订单</p>
                     </div>
                     
                     <!-- 订单统计 - 移动端更紧凑 -->
                     <div class="flex items-center gap-2 sm:gap-3">
                         <div class="text-center">
-                            <p class="text-xl sm:text-2xl font-bold text-emerald-600 dark:text-emerald-500">{{ statistics.active }}</p>
-                            <p class="text-xs text-gray-500 dark:text-slate-400">进行中</p>
+                            <p class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">{{ statistics.active }}</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">进行中</p>
                         </div>
-                        <div class="h-6 sm:h-8 w-px bg-gray-200 dark:bg-slate-700"></div>
+                        <div class="h-6 sm:h-8 w-px bg-gray-200 dark:bg-gray-700"></div>
                         <div class="text-center">
-                            <p class="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-500">{{ statistics.completed }}</p>
-                            <p class="text-xs text-gray-500 dark:text-slate-400">已完成</p>
+                            <p class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">{{ statistics.completed }}</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">已完成</p>
                         </div>
-                        <div class="h-6 sm:h-8 w-px bg-gray-200 dark:bg-slate-700"></div>
+                        <div class="h-6 sm:h-8 w-px bg-gray-200 dark:bg-gray-700"></div>
                         <div class="text-center">
-                            <p class="text-xl sm:text-2xl font-bold text-gray-600 dark:text-slate-400">{{ statistics.total }}</p>
-                            <p class="text-xs text-gray-500 dark:text-slate-400">总订单</p>
+                            <p class="text-xl sm:text-2xl font-bold text-gray-600 dark:text-gray-400">{{ statistics.total }}</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">总订单</p>
                         </div>
                     </div>
                 </div>
@@ -34,24 +34,27 @@
                 <!-- 筛选栏 - 桌面端 -->
                 <div class="hidden sm:flex flex-wrap items-center gap-2">
                     <!-- 状态筛选 -->
-                    <div class="flex items-center bg-gray-100 dark:bg-slate-800 rounded-lg p-0.5">
+                    <div class="flex items-center bg-gray-100 dark:bg-gray-800 rounded p-0.5">
                         <button
                             v-for="status in statuses"
                             :key="status.value"
                             @click="filters.status = status.value"
                             :class="[
-                                'px-3 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap cursor-pointer',
+                                'px-3 py-1.5 text-xs font-medium rounded transition-all whitespace-nowrap cursor-pointer',
                                 filters.status === status.value
-                                    ? 'bg-white dark:bg-slate-700 text-emerald-600 dark:text-emerald-400 shadow-sm'
-                                    : 'text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200'
+                                    ? status.value === 'trading'
+                                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shadow-sm'
+                                        : status.value === 'completed'
+                                        ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 shadow-sm'
+                                        : status.value === 'cancelled'
+                                        ? 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-sm'
+                                        : status.value === 'disputed'
+                                        ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 shadow-sm'
+                                        : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm'
+                                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
                             ]"
                         >
-                            <span class="flex items-center gap-1.5">
-                                <div v-if="status.value !== 'all'"
-                                     class="h-2 w-2 rounded-full"
-                                     :class="status.dotColor"></div>
-                                {{ status.label }}
-                            </span>
+                            {{ status.label }}
                         </button>
                     </div>
                     
@@ -87,7 +90,7 @@
                                 v-model="searchQuery"
                                 type="text"
                                 placeholder="搜索订单号或用户名..."
-                                class="pl-9 pr-3 py-1.5 text-sm border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                                class="pl-9 pr-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                             >
                             <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -100,24 +103,27 @@
                 <div class="sm:hidden space-y-2">
                     <!-- 状态筛选 - 横向滚动 -->
                     <div class="overflow-x-auto">
-                        <div class="flex items-center bg-gray-100 dark:bg-slate-800 rounded-lg p-0.5 w-fit">
+                        <div class="flex items-center bg-gray-100 dark:bg-gray-800 rounded p-0.5 w-fit">
                             <button
                                 v-for="status in statuses"
                                 :key="status.value"
                                 @click="filters.status = status.value"
                                 :class="[
-                                    'px-3 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap cursor-pointer',
+                                    'px-3 py-1.5 text-xs font-medium rounded transition-all whitespace-nowrap cursor-pointer',
                                     filters.status === status.value
-                                        ? 'bg-white dark:bg-slate-700 text-emerald-600 dark:text-emerald-400 shadow-sm'
-                                        : 'text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200'
+                                        ? status.value === 'trading'
+                                            ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shadow-sm'
+                                            : status.value === 'completed'
+                                            ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 shadow-sm'
+                                            : status.value === 'cancelled'
+                                            ? 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-sm'
+                                            : status.value === 'disputed'
+                                            ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 shadow-sm'
+                                            : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm'
+                                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
                                 ]"
                             >
-                                <span class="flex items-center gap-1.5">
-                                    <div v-if="status.value !== 'all'"
-                                         class="h-1.5 w-1.5 rounded-full"
-                                         :class="status.dotColor"></div>
-                                    {{ status.label }}
-                                </span>
+                                {{ status.label }}
                             </button>
                         </div>
                     </div>
@@ -154,7 +160,7 @@
                                 v-model="searchQuery"
                                 type="text"
                                 placeholder="搜索..."
-                                class="w-full pl-8 pr-2 py-1.5 text-xs border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                                class="w-full pl-8 pr-2 py-1.5 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-1 focus:ring-emerald-500"
                             >
                             <svg class="absolute left-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -168,38 +174,38 @@
         <!-- 主内容区 -->
         <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
             <!-- 桌面端表格视图 -->
-            <div class="hidden sm:block bg-white dark:bg-slate-900 rounded-lg shadow-sm overflow-hidden">
+            <div class="hidden sm:block bg-white dark:bg-gray-900 rounded shadow-sm overflow-hidden">
                 <div v-if="loading" class="flex items-center justify-center p-8">
                     <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
                 </div>
                 <div v-else-if="orders.length === 0" class="text-center py-12">
-                    <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    <p class="mt-4 text-sm text-gray-500 dark:text-slate-400">暂无订单记录</p>
+                    <p class="mt-4 text-sm text-gray-500 dark:text-gray-400">暂无订单记录</p>
                 </div>
                 <div v-else class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-800">
-                        <thead class="bg-gray-50 dark:bg-slate-800">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-800">
+                        <thead class="bg-gray-50 dark:bg-gray-800">
                             <tr>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">订单信息</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">买家</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">卖家</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">金额</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">状态</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">操作</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">订单信息</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">买家</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">卖家</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">金额</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">状态</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">操作</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-200 dark:divide-slate-800">
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
                             <tr v-for="order in orders" :key="order.id" 
-                                class="hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors">
+                                class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                                 <!-- 订单信息 -->
                                 <td class="px-4 py-3">
                                     <div>
                                         <div class="flex items-center gap-2">
-                                            <span class="text-sm font-medium text-gray-900 dark:text-slate-100">#{{ order.order_no }}</span>
+                                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">#{{ order.order_no }}</span>
                                         </div>
-                                        <div class="flex items-center gap-1 text-xs text-gray-500 dark:text-slate-400 mt-1">
+                                        <div class="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 mt-1">
                                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
@@ -211,23 +217,23 @@
                                 <!-- 买家 -->
                                 <td class="px-4 py-3">
                                     <div v-if="getUserRole(order) === 'buyer'">
-                                        <p class="text-sm font-medium text-gray-900 dark:text-slate-100">我</p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">当前用户</p>
+                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-100">我</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">当前用户</p>
                                     </div>
                                     <div v-else-if="order.buyer" class="flex items-center gap-2">
                                         <a :href="`/trader/profile/${order.buyer.id}`" target="_blank" class="cursor-pointer">
                                             <img v-if="order.buyer.profile_photo_url"
                                                  :src="order.buyer.profile_photo_url"
                                                  :alt="order.buyer.name"
-                                                 class="h-8 w-8 rounded-full object-cover hover:ring-2 hover:ring-blue-500 transition-all">
-                                            <div v-else class="h-8 w-8 rounded-full bg-gradient-to-br from-blue-600 to-blue-800 dark:from-blue-500 dark:to-blue-700 flex items-center justify-center hover:ring-2 hover:ring-blue-500 transition-all">
+                                                 class="h-8 w-8 rounded-full object-cover hover:ring-2 hover:ring-gray-500 transition-all">
+                                            <div v-else class="h-8 w-8 rounded-full bg-gradient-to-br from-gray-500 to-gray-600 dark:from-gray-500 dark:to-gray-600 flex items-center justify-center hover:ring-2 hover:ring-gray-500 transition-all">
                                                 <span class="text-white font-bold text-xs">
                                                     {{ (order.buyer.name || 'U')[0].toUpperCase() }}
                                                 </span>
                                             </div>
                                         </a>
                                         <div>
-                                            <a :href="`/trader/profile/${order.buyer.id}`" target="_blank" class="text-sm font-medium text-gray-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">{{ order.buyer.name }}</a>
+                                            <a :href="`/trader/profile/${order.buyer.id}`" target="_blank" class="text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 cursor-pointer">{{ order.buyer.name }}</a>
                                         </div>
                                     </div>
                                 </td>
@@ -235,23 +241,23 @@
                                 <!-- 卖家 -->
                                 <td class="px-4 py-3">
                                     <div v-if="getUserRole(order) === 'seller'">
-                                        <p class="text-sm font-medium text-gray-900 dark:text-slate-100">我</p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">当前用户</p>
+                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-100">我</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">当前用户</p>
                                     </div>
                                     <div v-else-if="order.seller" class="flex items-center gap-2">
                                         <a :href="`/trader/profile/${order.seller.id}`" target="_blank" class="cursor-pointer">
                                             <img v-if="order.seller.profile_photo_url"
                                                  :src="order.seller.profile_photo_url"
                                                  :alt="order.seller.name"
-                                                 class="h-8 w-8 rounded-full object-cover hover:ring-2 hover:ring-emerald-500 transition-all">
-                                            <div v-else class="h-8 w-8 rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 dark:from-emerald-500 dark:to-emerald-700 flex items-center justify-center hover:ring-2 hover:ring-emerald-500 transition-all">
+                                                 class="h-8 w-8 rounded-full object-cover hover:ring-2 hover:ring-gray-500 transition-all">
+                                            <div v-else class="h-8 w-8 rounded-full bg-gradient-to-br from-gray-500 to-gray-600 dark:from-gray-500 dark:to-gray-600 flex items-center justify-center hover:ring-2 hover:ring-gray-500 transition-all">
                                                 <span class="text-white font-bold text-xs">
                                                     {{ (order.seller.name || 'U')[0].toUpperCase() }}
                                                 </span>
                                             </div>
                                         </a>
                                         <div>
-                                            <a :href="`/trader/profile/${order.seller.id}`" target="_blank" class="text-sm font-medium text-gray-900 dark:text-slate-100 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer">{{ order.seller.name }}</a>
+                                            <a :href="`/trader/profile/${order.seller.id}`" target="_blank" class="text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 cursor-pointer">{{ order.seller.name }}</a>
                                         </div>
                                     </div>
                                 </td>
@@ -259,10 +265,10 @@
                                 <!-- 金额 -->
                                 <td class="px-4 py-3">
                                     <div>
-                                        <p class="text-sm font-semibold text-gray-900 dark:text-slate-100">
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">
                                             {{ order.crypto_amount }} {{ order.currency_label || order.currency_key || order.crypto_currency }}
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">
                                             ≈ {{ order.fiat_currency_symbol || '¥' }}{{ (order.fiat_amount || 0).toLocaleString() }} {{ order.fiat_currency }}
                                         </p>
                                     </div>
@@ -282,14 +288,14 @@
                                             </span>
                                         </div>
                                         <div class="mt-1">
-                                            <div class="w-24 bg-gray-200 dark:bg-slate-700 rounded-full h-1.5">
-                                                <div 
+                                            <div class="w-24 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                                                <div
                                                     class="bg-gradient-to-r from-emerald-500 to-emerald-600 h-1.5 rounded-full transition-all"
                                                     :style="`width: ${getOrderProgress(order)}%`"
                                                 ></div>
                                             </div>
                                         </div>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                             {{ getEscrowStatusName(order.escrow_status) }}
                                         </p>
                                     </div>
@@ -299,7 +305,7 @@
                                 <td class="px-4 py-3">
                                     <Link 
                                         :href="`/trade/${order.order_no}/chat`"
-                                        class="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors cursor-pointer"
+                                        class="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 bg-gray-100 dark:bg-gray-800 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                                     >
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -313,7 +319,7 @@
                 </div>
                 
                 <!-- 分页 -->
-                <div class="px-4 py-3 border-t border-gray-200 dark:border-slate-800">
+                <div class="px-4 py-3 border-t border-gray-200 dark:border-gray-800">
                     <P2PPagination
                         :current-page="pagination.current_page"
                         :total="pagination.total"
@@ -328,24 +334,24 @@
                 <div v-if="loading" class="flex items-center justify-center p-8">
                     <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
                 </div>
-                <div v-else-if="orders.length === 0" class="text-center py-12 bg-white dark:bg-slate-900 rounded-lg">
-                    <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div v-else-if="orders.length === 0" class="text-center py-12 bg-white dark:bg-gray-900 rounded">
+                    <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    <p class="mt-4 text-sm text-gray-500 dark:text-slate-400">暂无订单记录</p>
+                    <p class="mt-4 text-sm text-gray-500 dark:text-gray-400">暂无订单记录</p>
                 </div>
                 <div v-else class="space-y-3">
                     <div
                         v-for="order in orders"
                         :key="order.id"
-                        class="bg-white dark:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-800 overflow-hidden"
+                        class="bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 overflow-hidden"
                     >
                         <!-- 订单头部 -->
-                        <div class="bg-gray-50 dark:bg-slate-800/50 px-3 py-2 border-b border-gray-200 dark:border-slate-800">
+                        <div class="bg-gray-50 dark:bg-gray-800/50 px-3 py-2 border-b border-gray-200 dark:border-gray-800">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-xs font-medium text-gray-600 dark:text-slate-400">订单号:</span>
-                                    <span class="text-xs font-bold text-gray-900 dark:text-slate-100">#{{ order.order_no }}</span>
+                                    <span class="text-xs font-medium text-gray-600 dark:text-gray-400">订单号:</span>
+                                    <span class="text-xs font-bold text-gray-900 dark:text-gray-100">#{{ order.order_no }}</span>
                                 </div>
                                 <span
                                     :class="[
@@ -360,7 +366,7 @@
                                 <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
-                                <span class="text-xs text-gray-500 dark:text-slate-400">{{ formatDate(order.created_at) }}</span>
+                                <span class="text-xs text-gray-500 dark:text-gray-400">{{ formatDate(order.created_at) }}</span>
                             </div>
                         </div>
 
@@ -369,63 +375,63 @@
                             <div class="grid grid-cols-2 gap-3">
                                 <!-- 买家 -->
                                 <div class="space-y-1">
-                                    <p class="text-xs text-gray-500 dark:text-slate-400 font-medium">买家</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 font-medium">买家</p>
                                     <div v-if="getUserRole(order) === 'buyer'">
-                                        <p class="text-sm font-medium text-emerald-600 dark:text-emerald-400">我</p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">当前用户</p>
+                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-100">我</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">当前用户</p>
                                     </div>
                                     <div v-else-if="order.buyer" class="flex items-center gap-1.5">
                                         <a :href="`/trader/profile/${order.buyer.id}`" target="_blank" class="cursor-pointer">
                                             <img v-if="order.buyer.profile_photo_url"
                                                  :src="order.buyer.profile_photo_url"
                                                  :alt="order.buyer.name"
-                                                 class="h-6 w-6 rounded-full object-cover hover:ring-2 hover:ring-blue-500 transition-all">
-                                            <div v-else class="h-6 w-6 rounded-full bg-gradient-to-br from-blue-600 to-blue-800 dark:from-blue-500 dark:to-blue-700 flex items-center justify-center hover:ring-2 hover:ring-blue-500 transition-all">
+                                                 class="h-6 w-6 rounded-full object-cover hover:ring-2 hover:ring-gray-500 transition-all">
+                                            <div v-else class="h-6 w-6 rounded-full bg-gradient-to-br from-gray-500 to-gray-600 dark:from-gray-500 dark:to-gray-600 flex items-center justify-center hover:ring-2 hover:ring-gray-500 transition-all">
                                                 <span class="text-white font-bold text-xs">
                                                     {{ (order.buyer.name || 'U')[0].toUpperCase() }}
                                                 </span>
                                             </div>
                                         </a>
-                                        <a :href="`/trader/profile/${order.buyer.id}`" target="_blank" class="text-sm font-medium text-gray-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 truncate cursor-pointer">{{ order.buyer.name }}</a>
+                                        <a :href="`/trader/profile/${order.buyer.id}`" target="_blank" class="text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 truncate cursor-pointer">{{ order.buyer.name }}</a>
                                     </div>
                                 </div>
 
                                 <!-- 卖家 -->
                                 <div class="space-y-1">
-                                    <p class="text-xs text-gray-500 dark:text-slate-400 font-medium">卖家</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 font-medium">卖家</p>
                                     <div v-if="getUserRole(order) === 'seller'">
-                                        <p class="text-sm font-medium text-emerald-600 dark:text-emerald-400">我</p>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">当前用户</p>
+                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-100">我</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">当前用户</p>
                                     </div>
                                     <div v-else-if="order.seller" class="flex items-center gap-1.5">
                                         <a :href="`/trader/profile/${order.seller.id}`" target="_blank" class="cursor-pointer">
                                             <img v-if="order.seller.profile_photo_url"
                                                  :src="order.seller.profile_photo_url"
                                                  :alt="order.seller.name"
-                                                 class="h-6 w-6 rounded-full object-cover hover:ring-2 hover:ring-emerald-500 transition-all">
-                                            <div v-else class="h-6 w-6 rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 dark:from-emerald-500 dark:to-emerald-700 flex items-center justify-center hover:ring-2 hover:ring-emerald-500 transition-all">
+                                                 class="h-6 w-6 rounded-full object-cover hover:ring-2 hover:ring-gray-500 transition-all">
+                                            <div v-else class="h-6 w-6 rounded-full bg-gradient-to-br from-gray-500 to-gray-600 dark:from-gray-500 dark:to-gray-600 flex items-center justify-center hover:ring-2 hover:ring-gray-500 transition-all">
                                                 <span class="text-white font-bold text-xs">
                                                     {{ (order.seller.name || 'U')[0].toUpperCase() }}
                                                 </span>
                                             </div>
                                         </a>
-                                        <a :href="`/trader/profile/${order.seller.id}`" target="_blank" class="text-sm font-medium text-gray-900 dark:text-slate-100 hover:text-emerald-600 dark:hover:text-emerald-400 truncate cursor-pointer">{{ order.seller.name }}</a>
+                                        <a :href="`/trader/profile/${order.seller.id}`" target="_blank" class="text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 truncate cursor-pointer">{{ order.seller.name }}</a>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- 金额信息 -->
-                            <div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-lg p-2.5">
+                            <div class="bg-gray-50 dark:bg-gray-800/50 rounded p-2.5">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <p class="text-xs text-gray-600 dark:text-slate-400">交易金额</p>
-                                        <p class="text-sm font-bold text-gray-900 dark:text-slate-100 mt-0.5">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">交易金额</p>
+                                        <p class="text-sm font-bold text-gray-900 dark:text-gray-100 mt-0.5">
                                             {{ order.crypto_amount }} {{ order.currency_label || order.currency_key || order.crypto_currency }}
                                         </p>
                                     </div>
                                     <div class="text-right">
-                                        <p class="text-xs text-gray-600 dark:text-slate-400">法币金额</p>
-                                        <p class="text-sm font-bold text-gray-900 dark:text-slate-100 mt-0.5">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">法币金额</p>
+                                        <p class="text-sm font-bold text-gray-900 dark:text-gray-100 mt-0.5">
                                             {{ order.fiat_currency_symbol || '¥' }}{{ (order.fiat_amount || 0).toLocaleString() }} {{ order.fiat_currency }}
                                         </p>
                                     </div>
@@ -435,16 +441,16 @@
                             <!-- 托管状态进度 -->
                             <div>
                                 <div class="flex items-center justify-between mb-1.5">
-                                    <span class="text-xs font-medium text-gray-600 dark:text-slate-400">托管状态</span>
+                                    <span class="text-xs font-medium text-gray-600 dark:text-gray-400">托管状态</span>
                                     <span class="text-xs font-medium text-emerald-600 dark:text-emerald-400">{{ getOrderProgress(order) }}%</span>
                                 </div>
-                                <div class="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-1.5">
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
                                     <div
                                         class="bg-gradient-to-r from-emerald-500 to-emerald-600 h-1.5 rounded-full transition-all"
                                         :style="`width: ${getOrderProgress(order)}%`"
                                     ></div>
                                 </div>
-                                <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                     {{ getEscrowStatusName(order.escrow_status) }}
                                 </p>
                             </div>
@@ -452,7 +458,7 @@
                             <!-- 操作按钮 -->
                             <Link
                                 :href="`/trade/${order.order_no}/chat`"
-                                class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 rounded-lg transition-colors cursor-pointer"
+                                class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 bg-gray-100 dark:bg-gray-800 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                             >
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -711,10 +717,10 @@ const getStatusColor = (order) => {
     if (order.is_disputed) {
         return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400';
     }
-    
+
     const colorMap = {
-        'trading': 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-        'completed': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
+        'trading': 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
+        'completed': 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
         'cancelled': 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400',
     };
     return colorMap[order.status] || 'bg-gray-100 text-gray-700';

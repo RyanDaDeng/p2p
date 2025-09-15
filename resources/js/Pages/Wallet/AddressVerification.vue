@@ -3,14 +3,14 @@
         <Head title="地址管理" />
 
         <!-- Header -->
-        <div class="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800">
+        <div class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
             <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-slate-100">
+                        <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
                             地址管理
                         </h1>
-                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-1">
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
                             管理您的发款/收款地址
                         </p>
                     </div>
@@ -34,7 +34,7 @@
         <!-- Main Content -->
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <!-- Important Notice -->
-            <div class="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+            <div class="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded">
                 <div class="flex items-start gap-3">
                     <svg class="w-5 h-5 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
@@ -54,31 +54,31 @@
             <!-- Address List -->
             <div v-if="userAddresses.length > 0" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <div v-for="address in userAddresses" :key="address.id"
-                     class="bg-white dark:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-800 p-4">
+                     class="bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 p-4">
                     <!-- Currency Header -->
                     <div class="mb-3 flex items-center gap-3">
                         <component :is="getCryptoIcon(address.currency_key)" :size="32" />
                         <div>
-                            <div class="font-semibold text-gray-900 dark:text-slate-100">
+                            <div class="font-semibold text-gray-900 dark:text-gray-100">
                                 {{ address.currency }}
                             </div>
-                            <div class="text-xs text-gray-500 dark:text-slate-400">
+                            <div class="text-xs text-gray-500 dark:text-gray-400">
                                 {{ address.chain_label || address.network || getChainLabel(address.chain) }}
                             </div>
                         </div>
                     </div>
 
                     <!-- Address -->
-                    <div class="bg-gray-50 dark:bg-slate-800 rounded-lg p-3 mb-3">
-                        <div class="text-xs text-gray-500 dark:text-slate-400 mb-1">地址</div>
-                        <div class="font-mono text-xs text-gray-900 dark:text-slate-100 break-all">
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded p-3 mb-3">
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">地址</div>
+                        <div class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all">
                             {{ address.address }}
                         </div>
                     </div>
 
                     <!-- Actions -->
                     <div class="flex items-center justify-end">
-                        <div class="text-xs text-gray-500 dark:text-slate-400">
+                        <div class="text-xs text-gray-500 dark:text-gray-400">
                             添加于 {{ formatDate(address.created_at) }}
                         </div>
                     </div>
@@ -86,12 +86,12 @@
             </div>
 
             <!-- Empty State -->
-            <div v-else class="bg-white dark:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-800 p-8 text-center">
-                <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div v-else class="bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 p-8 text-center">
+                <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
-                <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-slate-100">暂无地址</h3>
-                <p class="mt-1 text-sm text-gray-500 dark:text-slate-400">
+                <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">暂无地址</h3>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                     添加您的加密货币地址以开始交易
                 </p>
                 <div class="mt-6">
@@ -110,21 +110,21 @@
         <!-- Add Address Modal -->
         <P2PModal :show="showAddModal" max-width="2xl" @close="closeAddModal">
             <!-- Modal Header -->
-            <div class="flex-shrink-0 px-6 py-4 border-b border-gray-200 dark:border-slate-800">
+            <div class="flex-shrink-0 px-6 py-4 border-b border-gray-200 dark:border-gray-800">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h2 class="text-lg font-semibold text-gray-900 dark:text-slate-100">
+                        <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
                             添加地址
                         </h2>
-                        <p class="mt-1 text-sm text-gray-600 dark:text-slate-400">
+                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
                             添加您的加密货币发款地址
                         </p>
                     </div>
                     <button
                         @click="closeAddModal"
-                        class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                        class="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
                     >
-                        <svg class="w-5 h-5 text-gray-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
@@ -136,7 +136,7 @@
 
                 <!-- Currency Selection -->
                 <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         选择币种和网络
                     </label>
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
@@ -144,10 +144,10 @@
                                 :key="crypto.key"
                                 @click="selectCurrency(crypto)"
                                 :class="[
-                                    'p-3 text-sm rounded-lg border transition-colors cursor-pointer',
+                                    'p-3 text-sm rounded border transition-colors cursor-pointer',
                                     selectedCurrency?.key === crypto.key
                                         ? 'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-500 text-emerald-700 dark:text-emerald-400'
-                                        : 'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-700 text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700'
+                                        : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                 ]">
                             <div class="mb-1 flex justify-center">
                                 <component :is="getCryptoIcon(crypto.key)" :size="24" />
@@ -165,14 +165,14 @@
                     enter-to-class="opacity-100 transform translate-y-0"
                 >
                     <div v-if="selectedCurrency" class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             钱包地址
                         </label>
                         <input v-model="addressInput"
                                type="text"
                                :placeholder="getAddressPlaceholder()"
-                               class="w-full px-3 py-2 border border-gray-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-mono text-sm">
-                        <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">
+                               class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-mono text-sm">
+                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
                             请确保地址正确，错误的地址可能导致资金损失
                         </p>
                     </div>
@@ -184,26 +184,26 @@
                     enter-from-class="opacity-0 transform translate-y-2"
                     enter-to-class="opacity-100 transform translate-y-0"
                 >
-                    <div v-if="canSave" class="mb-4 p-4 bg-gray-50 dark:bg-slate-900/50 rounded-lg border border-gray-200 dark:border-slate-700">
+                    <div v-if="canSave" class="mb-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded border border-gray-200 dark:border-gray-700">
                     <div class="space-y-3">
                         <div class="flex items-start">
-                            <div class="w-12 text-xs text-gray-500 dark:text-slate-400 pt-0.5">币种:</div>
-                            <div class="flex-1 text-sm text-gray-900 dark:text-slate-100 flex items-center gap-2">
+                            <div class="w-12 text-xs text-gray-500 dark:text-gray-400 pt-0.5">币种:</div>
+                            <div class="flex-1 text-sm text-gray-900 dark:text-gray-100 flex items-center gap-2">
                                 <component :is="getCryptoIcon(selectedCurrency?.key)" :size="18" />
                                 <span class="font-medium">{{ selectedCurrency?.label }}</span>
-                                <span class="text-xs text-gray-500 dark:text-slate-400">({{ selectedCurrency?.network }})</span>
+                                <span class="text-xs text-gray-500 dark:text-gray-400">({{ selectedCurrency?.network }})</span>
                             </div>
                         </div>
                         <div class="flex items-start">
-                            <div class="w-12 text-xs text-gray-500 dark:text-slate-400 pt-0.5">网络:</div>
-                            <div class="flex-1 text-sm text-gray-900 dark:text-slate-100 font-medium">
+                            <div class="w-12 text-xs text-gray-500 dark:text-gray-400 pt-0.5">网络:</div>
+                            <div class="flex-1 text-sm text-gray-900 dark:text-gray-100 font-medium">
                                 {{ selectedCurrency?.network }}
                             </div>
                         </div>
                         <div class="flex items-start">
-                            <div class="w-12 text-xs text-gray-500 dark:text-slate-400 pt-0.5 flex-shrink-0">地址:</div>
+                            <div class="w-12 text-xs text-gray-500 dark:text-gray-400 pt-0.5 flex-shrink-0">地址:</div>
                             <div class="flex-1 min-w-0">
-                                <div class="text-sm text-gray-900 dark:text-slate-100 font-mono break-all bg-gray-100 dark:bg-slate-800 p-2 rounded border border-gray-200 dark:border-slate-600">
+                                <div class="text-sm text-gray-900 dark:text-gray-100 font-mono break-all bg-gray-100 dark:bg-gray-800 p-2 rounded border border-gray-200 dark:border-gray-600">
                                     {{ addressInput }}
                                 </div>
                             </div>
@@ -214,18 +214,18 @@
             </div>
 
             <!-- Modal Footer -->
-            <div class="flex-shrink-0 px-6 py-4 border-t border-gray-200 dark:border-slate-800 bg-gray-50 dark:bg-slate-900/50 rounded-b-xl">
+            <div class="flex-shrink-0 px-6 py-4 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 rounded-b">
                 <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
                     <button
                         @click="closeAddModal"
-                        class="w-full sm:w-auto px-6 py-2.5 text-sm font-medium text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-700 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                        class="w-full sm:w-auto px-6 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                     >
                         取消
                     </button>
                     <button
                         @click="saveAddress"
                         :disabled="!canSave || saving"
-                        class="w-full sm:w-auto px-6 py-2.5 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center"
+                        class="w-full sm:w-auto px-6 py-2.5 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center"
                     >
                         <svg v-if="saving" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

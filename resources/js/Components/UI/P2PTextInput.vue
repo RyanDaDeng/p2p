@@ -101,7 +101,7 @@ const sizeClasses = {
 };
 
 const variantClasses = {
-    default: 'border-slate-300 dark:border-slate-700 focus:border-emerald-500 dark:focus:border-emerald-400 focus:ring-emerald-500/20 dark:focus:ring-emerald-400/20',
+    default: 'border-gray-300 dark:border-gray-700 focus:border-emerald-500 dark:focus:border-emerald-400 focus:ring-emerald-500/20 dark:focus:ring-emerald-400/20',
     success: 'border-emerald-500 dark:border-emerald-400 focus:border-emerald-600 dark:focus:border-emerald-300 focus:ring-emerald-500/20 dark:focus:ring-emerald-400/20',
     error: 'border-red-500 dark:border-red-400 focus:border-red-600 dark:focus:border-red-300 focus:ring-red-500/20 dark:focus:ring-red-400/20',
     warning: 'border-amber-500 dark:border-amber-400 focus:border-amber-600 dark:focus:border-amber-300 focus:ring-amber-500/20 dark:focus:ring-amber-400/20',
@@ -113,7 +113,7 @@ const variantClasses = {
         <!-- Icon Slot -->
         <div v-if="icon || $slots.icon" class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <slot name="icon">
-                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </slot>
@@ -137,7 +137,7 @@ const variantClasses = {
             :step="step"
             :pattern="pattern"
             :inputmode="inputmode"
-            class="w-full rounded-lg border bg-white dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 transition-all duration-200 focus:outline-none focus:ring-2 disabled:bg-slate-50 dark:disabled:bg-slate-900 disabled:text-slate-500 dark:disabled:text-slate-400 disabled:cursor-not-allowed"
+            class="w-full rounded border bg-white dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 focus:outline-none focus:ring-2 disabled:bg-gray-50 dark:disabled:bg-gray-900 disabled:text-gray-500 dark:disabled:text-gray-400 disabled:cursor-not-allowed"
             :class="[
                 sizeClasses[size],
                 variantClasses[variant],
@@ -157,7 +157,7 @@ const variantClasses = {
         <!-- Suffix -->
         <div v-if="suffix || $slots.suffix" class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
             <slot name="suffix">
-                <span class="text-slate-500 dark:text-slate-400 text-sm">{{ suffix }}</span>
+                <span class="text-gray-500 dark:text-gray-400 text-sm">{{ suffix }}</span>
             </slot>
         </div>
     </div>

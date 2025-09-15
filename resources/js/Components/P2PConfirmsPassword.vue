@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, nextTick } from 'vue';
-import P2PConfirmationBox from './UI/P2PConfirmationBox.vue';
+import P2PDialog from './UI/P2PDialog.vue';
 import InputError from './InputError.vue';
 import P2PTextInput from './UI/P2PTextInput.vue';
 
@@ -74,18 +74,18 @@ const closeModal = () => {
             <slot />
         </span>
 
-        <P2PConfirmationBox
+        <P2PDialog
             :show="confirmingPassword"
             :title="title"
+            icon-color="amber"
             :confirm-text="button"
             cancel-text="取消"
-            :loading="form.processing"
             @confirm="confirmPassword"
             @close="closeModal"
         >
             <div class="text-left">
-                <p class="mb-4">{{ content }}</p>
-                
+                <p class="mb-4 text-gray-700 dark:text-gray-300">{{ content }}</p>
+
                 <P2PTextInput
                     ref="passwordInput"
                     v-model="form.password"
@@ -98,6 +98,6 @@ const closeModal = () => {
 
                 <InputError :message="form.error" class="mt-2" />
             </div>
-        </P2PConfirmationBox>
+        </P2PDialog>
     </span>
 </template>

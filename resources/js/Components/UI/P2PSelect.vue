@@ -13,20 +13,20 @@
                 </slot>
                 <!-- Default display -->
                 <template v-else>
-                    <span v-if="selectedOption?.icon" class="mr-2 text-gray-500 dark:text-slate-400 flex-shrink-0">{{ selectedOption.icon }}</span>
+                    <span v-if="selectedOption?.icon" class="mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0">{{ selectedOption.icon }}</span>
                     <span v-if="selectedOption?.flag" class="mr-2 text-lg flex-shrink-0">{{ selectedOption.flag }}</span>
-                    <span class="truncate block" :class="selectedOption ? 'text-gray-900 dark:text-slate-100' : 'text-gray-500 dark:text-slate-400'">
+                    <span class="truncate block" :class="selectedOption ? 'text-gray-900 dark:text-gray-100' : 'text-gray-500 dark:text-gray-400'">
                         {{ selectedOption?.label || placeholder }}
                     </span>
                 </template>
             </span>
-            <svg class="ml-2 h-4 w-4 text-gray-500 dark:text-slate-500 transition-transform duration-200 flex-shrink-0" 
+            <svg class="ml-2 h-4 w-4 text-gray-500 dark:text-gray-500 transition-transform duration-200 flex-shrink-0"
                  :class="{ 'rotate-180': open }"
                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
         </button>
-        
+
         <Transition
             enter-active-class="transition ease-out duration-200"
             enter-from-class="opacity-0 scale-95"
@@ -35,16 +35,16 @@
             <div
                 v-show="open"
                 ref="dropdownRef"
-                class="absolute z-50 mt-2 w-full min-w-max rounded-xl bg-white dark:bg-slate-800 shadow-xl ring-1 ring-gray-200 dark:ring-slate-700/50 backdrop-blur-xl"
+                class="absolute z-50 mt-2 w-full min-w-max rounded bg-white dark:bg-gray-900 shadow-xl ring-1 ring-gray-200 dark:ring-gray-700"
                 :style="dropdownStyle"
             >
                 <!-- Dropdown Header -->
-                <div class="px-3 py-2 border-b border-gray-200 dark:border-slate-700/50">
-                    <p class="text-xs font-medium text-gray-500 dark:text-slate-400">{{ placeholder }}</p>
+                <div class="px-3 py-2 border-b border-gray-200 dark:border-gray-700">
+                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400">{{ placeholder }}</p>
                 </div>
-                
+
                 <!-- Clear Button -->
-                <div v-if="modelValue && modelValue !== defaultValue" class="border-b border-gray-200 dark:border-slate-700/50">
+                <div v-if="modelValue && modelValue !== defaultValue" class="border-b border-gray-200 dark:border-gray-700">
                     <button
                         type="button"
                         @click="clearSelection"
@@ -56,7 +56,7 @@
                         <span>清除选择</span>
                     </button>
                 </div>
-                
+
                 <!-- Options List -->
                 <div class="max-h-60 overflow-auto py-1 custom-scrollbar">
                     <button
@@ -74,12 +74,12 @@
                             </slot>
                             <!-- Default display -->
                             <template v-else>
-                                <span v-if="option.icon" class="mr-2 text-gray-500 dark:text-slate-400">{{ option.icon }}</span>
+                                <span v-if="option.icon" class="mr-2 text-gray-500 dark:text-gray-400">{{ option.icon }}</span>
                                 <span v-if="option.flag" class="mr-2 text-lg">{{ option.flag }}</span>
                                 <span class="truncate">{{ option.label }}</span>
                             </template>
                         </span>
-                        
+
                         <!-- Selected Indicator -->
                         <Transition
                             enter-active-class="transition ease-out duration-200"
@@ -98,12 +98,12 @@
                         </Transition>
                     </button>
                 </div>
-                
+
                 <!-- Trust Footer -->
-                <div class="px-3 py-2 bg-gray-50 dark:bg-slate-900/50 border-t border-gray-200 dark:border-slate-700/50 rounded-b-xl">
+                <div class="px-3 py-2 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 rounded-b">
                     <div class="flex items-center justify-center gap-1.5">
                         <img src="/logo.png" alt="Logo" class="h-3.5 w-auto" />
-                        <span class="text-xs font-medium text-gray-600 dark:text-slate-400">P2PCoinSwap</span>
+                        <span class="text-xs font-medium text-gray-600 dark:text-gray-400">P2PCoinSwap</span>
                     </div>
                 </div>
             </div>
@@ -193,10 +193,10 @@ const clearSelection = () => {
 
 const updateDropdownPosition = () => {
     if (!dropdownRef.value) return;
-    
+
     const rect = dropdownRef.value.getBoundingClientRect();
     const windowHeight = window.innerHeight;
-    
+
     // Check if dropdown would go off bottom of screen
     if (rect.bottom > windowHeight) {
         // Position above the button instead
@@ -213,20 +213,20 @@ const updateDropdownPosition = () => {
 };
 
 const buttonClasses = computed(() => {
-    const base = 'relative w-full cursor-pointer rounded-lg border backdrop-blur text-left shadow-sm transition-all focus:border-emerald-500/50 focus:outline-none focus:ring-2 focus:ring-emerald-500/20';
-    
+    const base = 'relative w-full cursor-pointer rounded border backdrop-blur text-left transition-all focus:border-emerald-500/50 focus:outline-none focus:ring-1 focus:ring-emerald-500/20';
+
     const sizes = {
         sm: 'px-3 h-8 text-xs',
         md: 'px-4 h-10 text-sm',
         lg: 'px-4 h-12 text-base'
     };
-    
+
     const state = props.disabled
-        ? 'cursor-not-allowed border-gray-300 dark:border-slate-800 bg-gray-100 dark:bg-slate-900/30 text-gray-400 dark:text-slate-600'
+        ? 'cursor-not-allowed border-gray-300 dark:border-gray-800 bg-gray-100 dark:bg-gray-900/30 text-gray-400 dark:text-gray-600'
         : open.value
-        ? 'border-emerald-500/50 text-gray-900 dark:text-slate-100 bg-white dark:bg-slate-900/70'
-        : 'border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900/50 text-gray-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-800/50 hover:border-gray-400 dark:hover:border-slate-600';
-    
+            ? 'border-emerald-500/50 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900/70'
+            : 'border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900/50 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:border-gray-400 dark:hover:border-gray-600';
+
     return `${base} ${sizes[props.size]} ${state} flex items-center justify-between`;
 });
 
@@ -235,13 +235,13 @@ const optionClasses = (option) => {
 
     // Handle disabled state
     if (option.disabled) {
-        return `${base} cursor-not-allowed opacity-50 text-gray-400 dark:text-slate-500 bg-gray-50 dark:bg-slate-800/50`;
+        return `${base} cursor-not-allowed opacity-50 text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-800/50`;
     }
 
     // Normal state
     const state = option.value === props.modelValue
         ? 'cursor-pointer bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-medium'
-        : 'cursor-pointer text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700/50 hover:text-gray-900 dark:hover:text-slate-100';
+        : 'cursor-pointer text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100';
 
     return `${base} ${state}`;
 };
@@ -249,7 +249,7 @@ const optionClasses = (option) => {
 const handleClickOutside = (event) => {
     // Get the parent element that contains both button and dropdown
     const componentEl = dropdownRef.value?.closest('.relative');
-    
+
     // If click is outside this component, close the dropdown
     if (componentEl && !componentEl.contains(event.target)) {
         close();
@@ -284,7 +284,7 @@ onUnmounted(() => {
     document.removeEventListener('keydown', handleEscape);
     window.removeEventListener('resize', updateDropdownPosition);
     window.removeEventListener('scroll', updateDropdownPosition, true);
-    
+
     if (activeDropdown === close) {
         activeDropdown = null;
     }
@@ -318,11 +318,11 @@ onUnmounted(() => {
 
 /* Dark mode scrollbar */
 .dark .custom-scrollbar {
-    scrollbar-color: #475569 #1e293b;
+    scrollbar-color: #475569 #1f2937;
 }
 
 .dark .custom-scrollbar::-webkit-scrollbar-track {
-    background: #1e293b;
+    background: #1f2937;
 }
 
 .dark .custom-scrollbar::-webkit-scrollbar-thumb {
@@ -330,6 +330,6 @@ onUnmounted(() => {
 }
 
 .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #64748b;
+    background: #6b7280;
 }
 </style>
