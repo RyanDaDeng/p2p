@@ -1293,8 +1293,9 @@
             </div>
 
             <!-- 移动端：聊天区域（全屏） -->
-            <!-- 计算高度：100vh - 顶部导航(3.5rem) -->
-            <div class="lg:hidden fixed inset-x-0 top-14 bottom-0 flex flex-col bg-white dark:bg-slate-950">
+            <!-- 使用CSS计算高度，考虑safe area -->
+            <div class="lg:hidden fixed inset-x-0 bottom-0 flex flex-col bg-white dark:bg-slate-950"
+                 :style="`top: calc(3.5rem + env(safe-area-inset-top))`">
                     <!-- 移动端评价提示 -->
                     <div v-if="currentOrder.escrow_status === 'escrow_released' && currentUserId === currentOrder.client_id && !currentOrder.has_review" 
                          class="bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800 p-3">
