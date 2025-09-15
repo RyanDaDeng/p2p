@@ -31,7 +31,7 @@
             </div>
 
             <!-- 底部版权信息 -->
-            <div class="absolute bottom-8 left-0 right-0 text-center">
+            <div class="absolute bottom-8 pb-safe left-0 right-0 text-center">
                 <p class="text-xs text-gray-400 dark:text-slate-600 flex items-center justify-center gap-1">© 2025 <P2PBrandText size="sm" />. All rights reserved.</p>
             </div>
         </div>

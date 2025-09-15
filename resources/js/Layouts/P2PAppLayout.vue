@@ -20,7 +20,7 @@
             <div v-if="loading" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
                 <div class="flex flex-col items-center">
                     <div class="relative">
-                        <div class="h-12 w-12 rounded-full border-4 border-slate-700"></div>
+                        <div class="h-12 w-12 rounded-full border-4 border-gray-700"></div>
                         <div class="absolute top-0 h-12 w-12 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent"></div>
                     </div>
                     <p class="mt-4 text-sm font-medium text-white">加载中...</p>

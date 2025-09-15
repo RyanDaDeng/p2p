@@ -4,15 +4,65 @@
         <div class="bg-gradient-to-b from-gray-100 to-gray-50 dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700">
             <div class="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
                 <!-- 安全横幅 + Crypto Price Bar 合并 -->
-                <div class="bg-white/70 dark:bg-gray-900/30 rounded-lg p-2 sm:p-2.5 mb-3">
-                    <div v-if="cryptoPrices.loading" class="flex items-center justify-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                        <svg class="animate-spin h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        <span>加载价格中...</span>
+                <div class="bg-white/70 dark:bg-gray-900/30 rounded-lg p-1 sm:p-1.5 mb-3">
+                    <div v-if="cryptoPrices.loading" class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 min-h-[1.5rem]">
+                        <!-- 左侧：安全标识 (不需要skeleton，显示实际内容) -->
+                        <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+                            <div class="flex items-center gap-1.5">
+                                <div class="p-1 bg-emerald-500/10 rounded">
+                                    <svg class="w-3.5 sm:w-4 h-3.5 sm:h-4 text-emerald-600 dark:text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                    </svg>
+                                </div>
+                                <span class="text-xs font-semibold text-gray-800 dark:text-gray-200">安全托管</span>
+                            </div>
+                            <div class="hidden sm:block h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+                            <div class="flex items-center gap-1.5">
+                                <svg class="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-xs font-medium text-gray-700 dark:text-gray-300">实名认证</span>
+                            </div>
+                        </div>
+
+                        <!-- 右侧：价格显示 skeleton -->
+                        <div class="relative flex-1 sm:flex-initial overflow-hidden">
+                            <!-- 移动端skeleton -->
+                            <div class="sm:hidden overflow-x-auto scrollbar-hide">
+                                <div class="flex items-center gap-3 min-w-max pr-2">
+                                    <div class="flex items-center gap-1 whitespace-nowrap">
+                                        <div class="w-6 h-3.5 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                                        <div class="w-8 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                                    </div>
+                                    <div class="flex items-center gap-1 whitespace-nowrap">
+                                        <div class="w-5 h-3.5 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                                        <div class="w-10 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                                    </div>
+                                    <div class="flex items-center gap-1 whitespace-nowrap">
+                                        <div class="w-5 h-3.5 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                                        <div class="w-9 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 桌面端skeleton -->
+                            <div class="hidden sm:flex items-center gap-3 md:gap-4">
+                                <div class="flex items-center gap-1">
+                                    <div class="w-12 h-3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                                    <div class="w-10 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <div class="w-10 h-3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                                    <div class="w-12 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <div class="w-10 h-3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                                    <div class="w-11 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div v-else class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div v-else class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 min-h-[1.5rem]">
                         <!-- 左侧：安全标识 -->
                         <div class="flex flex-wrap items-center gap-2 sm:gap-3">
                             <div class="flex items-center gap-1.5">
