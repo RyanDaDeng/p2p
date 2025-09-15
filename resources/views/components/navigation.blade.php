@@ -1,5 +1,35 @@
-<nav class="fixed top-0 left-0 right-0 w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/50">
-    <div class="pt-safe-area-inset-top">
+<style>
+/* 确保导航栏背景延伸到状态栏区域 */
+.nav-with-safe-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 50;
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+}
+
+.nav-with-safe-area::before {
+    content: '';
+    position: absolute;
+    top: calc(-1 * env(safe-area-inset-top, 0px));
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top, 0px);
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(24px);
+}
+
+.nav-content {
+    padding-top: env(safe-area-inset-top, 0px);
+}
+</style>
+
+<nav class="nav-with-safe-area">
+    <div class="nav-content">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo Section -->
@@ -118,4 +148,4 @@ function toggleMobileMenu() {
 </script>
 
 <!-- Spacer for fixed nav + safe area -->
-<div class="h-16 pt-safe-area-inset-top"></div>
+<div style="height: calc(4rem + env(safe-area-inset-top, 0px));"></div>
