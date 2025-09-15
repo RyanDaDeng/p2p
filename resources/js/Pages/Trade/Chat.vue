@@ -3592,6 +3592,9 @@ const handleVisibilityChange = () => {
             disconnectTimer = null;
         }
 
+        // 检查是否为移动设备
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
         // 如果未连接，重新连接
         if (!isConnected.value && !presenceChannel) {
             console.log('[WebSocket] 检测到断开状态，重新连接...');
@@ -3601,8 +3604,24 @@ const handleVisibilityChange = () => {
             console.log('[WebSocket] 连接状态不一致，重新连接...');
             connectWebSocket();
         } else {
-            console.log('[WebSocket] 已连接，无需重连');
+            // 已连接状态
+            console.log('[WebSocket] 已连接');
+
+            // 移动端总是重新加载消息，确保获取最新内容
+            if (isMobile) {
+                console.log('[WebSocket] 移动端恢复，重新加载消息');
+                loadMessages();
+            }
         }
+    }
+};
+
+// 焦点处理函数（需要在外部定义以便在 unmount 时移除）
+const handleFocus = () => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile && isConnected.value) {
+        console.log('[WebSocket] 页面获得焦点，重新加载消息');
+        loadMessages();
     }
 };
 
@@ -3639,6 +3658,9 @@ onMounted(() => {
     // 监听页面可见性变化
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
+    // 监听焦点（移动端更可靠）
+    document.addEventListener('focusin', handleFocus);
+
     // PWA相关事件
     document.addEventListener('pause', () => {
         console.log('[WebSocket] PWA进入后台');
@@ -3649,6 +3671,10 @@ onMounted(() => {
         console.log('[WebSocket] PWA恢复前台');
         if (!isConnected.value) {
             connectWebSocket();
+        } else {
+            // 即使已连接，也重新加载消息确保同步
+            console.log('[WebSocket] PWA恢复，重新加载消息');
+            loadMessages();
         }
     });
 });
@@ -3667,6 +3693,7 @@ onUnmounted(() => {
 
     // 移除事件监听
     document.removeEventListener('visibilitychange', handleVisibilityChange);
+    document.removeEventListener('focusin', handleFocus);
     document.removeEventListener('pause', handleVisibilityChange);
     document.removeEventListener('resume', handleVisibilityChange);
 });
