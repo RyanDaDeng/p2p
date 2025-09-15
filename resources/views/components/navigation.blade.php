@@ -1,6 +1,11 @@
-<nav style="position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 50; background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(24px); border-bottom: 1px solid rgba(51, 65, 85, 0.5); padding-top: env(safe-area-inset-top, 0px);">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
+<nav style="position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 50; border-bottom: 1px solid rgba(51, 65, 85, 0.5);">
+    <!-- Background that extends to top of screen including safe area -->
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(24px); z-index: -1;"></div>
+
+    <!-- Content with safe area padding -->
+    <div style="padding-top: env(safe-area-inset-top, 0px);">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
             <!-- Logo Section -->
             <div class="flex items-center">
                 <a href="/" class="flex items-center group">
@@ -90,6 +95,7 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
 </nav>
 
@@ -111,5 +117,5 @@ function toggleMobileMenu() {
 }
 </script>
 
-<!-- Spacer for fixed nav -->
+<!-- Spacer for fixed nav (nav height + safe area) -->
 <div style="height: calc(4rem + env(safe-area-inset-top, 0px));"></div>
