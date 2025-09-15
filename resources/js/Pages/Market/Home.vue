@@ -715,6 +715,13 @@
                 </div>
             </div>
         </P2PDialog>
+
+        <!-- Login Prompt Dialog -->
+        <P2PLoginPrompt
+            v-model="showLoginPrompt"
+            :message="loginPromptMessage"
+            :return-url="returnUrl"
+        />
     </P2PAppLayout>
 </template>
 
@@ -728,7 +735,9 @@ import P2PSelect from '@/Components/UI/P2PSelect.vue';
 import P2PPagination from '@/Components/UI/P2PPagination.vue';
 import P2PPaymentMethodPicker from '@/Components/UI/P2PPaymentMethodPicker.vue';
 import P2PDialog from '@/Components/UI/P2PDialog.vue';
+import P2PLoginPrompt from '@/Components/UI/P2PLoginPrompt.vue';
 import { useConfig } from '@/composables/useConfig';
+import { useAuthCheck } from '@/Composables/useAuthCheck';
 import axios from 'axios';
 
 // Crypto Icons
@@ -783,6 +792,9 @@ const error = ref(null);
 const showWarningDialog = ref(false);
 const selectedListing = ref(null);
 const selectedTradeType = ref('buy');
+
+// Auth check composable
+const { requireAuth, showLoginPrompt, loginPromptMessage, returnUrl } = useAuthCheck();
 
 // Fetch crypto prices
 const fetchCryptoPrices = async () => {
@@ -1022,9 +1034,17 @@ watch(selectedFiatCurrency, (newCurrency) => {
 // 读取URL参数设置初始交易类型
 // Handle trade button click
 const handleTradeClick = (listing, tradeType) => {
-    selectedListing.value = listing;
-    selectedTradeType.value = tradeType;
-    showWarningDialog.value = true;
+    const action = () => {
+        selectedListing.value = listing;
+        selectedTradeType.value = tradeType;
+        showWarningDialog.value = true;
+    };
+
+    const message = tradeType === 'buy'
+        ? `请先登录以购买 ${getCryptocurrencyByKey(listing.cryptocurrency)?.label || getCryptoLabel(listing.cryptocurrency)}`
+        : `请先登录以出售 ${getCryptocurrencyByKey(listing.cryptocurrency)?.label || getCryptoLabel(listing.cryptocurrency)}`;
+
+    requireAuth(action, message);
 };
 
 // Handle warning dialog confirmation

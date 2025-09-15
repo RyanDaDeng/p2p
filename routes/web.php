@@ -55,9 +55,9 @@ Route::get('/app-download', function () {
 Route::middleware([])->namespace('App\Http\Controllers\Web')->name('web.')->group(function () {
     Route::get('/market', 'AppRouteController@market')->name('market');
     Route::get('/orders', 'AppRouteController@orders')->name('orders')->middleware('auth');
-    Route::get('/trade/create-order', 'AppRouteController@createOrder')->name('trade.create-order');
+    Route::get('/trade/create-order', 'AppRouteController@createOrder')->name('trade.create-order')->middleware('auth');
     Route::get('/vendor/application', 'AppRouteController@vendorApplication')->name('vendor.application');
-    Route::get('/wallet/address-verification', 'AppRouteController@addressVerification')->name('wallet.address-verification');
+    Route::get('/wallet/address-verification', 'AppRouteController@addressVerification')->name('wallet.address-verification')->middleware('auth');
     Route::get('/publish', 'AppRouteController@publish')->name('publish')->middleware('auth');
     Route::get('/trader/profile/{id?}', 'AppRouteController@traderProfile')->name('trader.profile');
     Route::get('/profile', 'AppRouteController@profile')->name('profile')->middleware('auth');

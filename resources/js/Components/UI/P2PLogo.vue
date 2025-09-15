@@ -2,7 +2,12 @@
     <a :href="href" class="flex items-center space-x-2 hover:opacity-90 transition-opacity">
         <img src="/logo.png" alt="Logo" :class="logoClasses" />
         <div :class="[textContainerClasses, hideTextOnMobile ? 'hidden md:flex' : '']">
-            <span :class="titleClasses">{{ title }}</span>
+            <P2PBrandText
+                v-if="useBrandText"
+                :size="size"
+                :show-domain="showDomain"
+            />
+            <span v-else :class="titleClasses">{{ title }}</span>
             <p :class="taglineClasses" v-if="showTagline">{{ tagline }}</p>
         </div>
     </a>
@@ -10,6 +15,7 @@
 
 <script setup>
 import { computed } from 'vue';
+import P2PBrandText from './P2PBrandText.vue';
 
 const props = defineProps({
     href: {
@@ -36,6 +42,14 @@ const props = defineProps({
     tagline: {
         type: String,
         default: '安全 · 可信 · 快捷'
+    },
+    useBrandText: {
+        type: Boolean,
+        default: true
+    },
+    showDomain: {
+        type: Boolean,
+        default: false
     }
 });
 

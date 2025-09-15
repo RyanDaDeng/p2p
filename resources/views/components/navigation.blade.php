@@ -5,7 +5,9 @@
             <div class="flex items-center">
                 <a href="/" class="flex items-center group">
                     <img src="/logo.png" alt="P2PCoinSwap" class="h-8 w-8 group-hover:scale-110 transition-transform duration-200" />
-                    <span class="hidden md:block ml-3 text-white font-semibold text-lg">P2PCoinSwap</span>
+                    <div class="hidden md:block ml-3">
+                        <x-p2p-brand-text size="lg" />
+                    </div>
                 </a>
 
                 <!-- Desktop Navigation -->

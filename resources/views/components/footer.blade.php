@@ -8,7 +8,7 @@
                     <div class="flex items-center gap-3 mb-4">
                         <img src="/logo.png" alt="P2PCoinSwap" class="w-10 h-10" />
                         <div>
-                            <div class="text-lg font-bold text-white">P2PCoinSwap</div>
+                            <x-p2p-brand-text size="lg" />
                             <div class="text-xs text-slate-400">Trade Crypto P2P</div>
                         </div>
                     </div>
@@ -114,8 +114,8 @@
     <div class="bg-slate-950 border-t border-slate-800/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="text-xs text-slate-500">
-                    © 2025 P2PCoinSwap. All rights reserved.
+                <div class="text-xs text-slate-500 flex items-center gap-1">
+                    © 2025 <x-p2p-brand-text size="sm" />. All rights reserved.
                 </div>
 
                 <!-- Social Links -->

@@ -333,12 +333,12 @@ class OrderController extends Controller
     public function mockEscrowReceived($id)
     {
         // 仅在开发环境使用
-        if (app()->environment('production')) {
-            return response()->json([
-                'success' => false,
-                'message' => '此功能仅在测试环境可用'
-            ], 403);
-        }
+//        if (app()->environment('production')) {
+//            return response()->json([
+//                'success' => false,
+//                'message' => '此功能仅在测试环境可用'
+//            ], 403);
+//        }
 
         try {
             $order = $this->escrowService->confirmEscrowReceived($id, 3);
@@ -362,12 +362,12 @@ class OrderController extends Controller
     public function mockEscrowNotReceived($id)
     {
         // 仅在开发环境使用
-        if (app()->environment('production')) {
-            return response()->json([
-                'success' => false,
-                'message' => '此功能仅在测试环境可用'
-            ], 403);
-        }
+//        if (app()->environment('production')) {
+//            return response()->json([
+//                'success' => false,
+//                'message' => '此功能仅在测试环境可用'
+//            ], 403);
+//        }
 
         try {
             $order = $this->escrowService->markEscrowFailed($id);

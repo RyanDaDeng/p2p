@@ -7,7 +7,7 @@
     />
 
     <!-- <P2PNotificationContainer ref="notificationContainer"> -->
-    <div v-show="!showAppLoading" class="min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-200">
+    <div v-show="!showAppLoading" class="pmin-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-200">
         <!-- Loading Overlay -->
         <Transition
             enter-active-class="transition ease-out duration-200"
@@ -30,12 +30,11 @@
 
         <!-- Navigation -->
         <nav v-if="!hideNavigation" :class="[
-                 'fixed top-0 left-0 right-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl',
+                 'sticky top-0 z-40 w-full border-b border-gray-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md pt-safe',
                  hideNav ? 'hidden md:block' : ''
              ]">
-            <div class="pt-safe border-b border-gray-200 dark:border-slate-800">
-                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="flex h-14 md:h-16 items-center justify-between">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex h-14 md:h-16 items-center justify-between">
                     <!-- Logo & Navigation Links -->
                     <div class="flex items-center">
                         <!-- Logo -->
@@ -52,7 +51,7 @@
                                     :class="[
                                         'flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer',
                                         route().current('web.market') && $page.url.includes('type=buy')
-                                            ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30' 
+                                            ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30'
                                             : 'text-emerald-600 dark:text-emerald-500 hover:text-emerald-500 dark:hover:text-emerald-400 hover:bg-emerald-500/10 dark:hover:bg-emerald-500/10'
                                     ]"
                                 >
@@ -63,7 +62,7 @@
                                     :class="[
                                         'flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer',
                                         route().current('web.market') && $page.url.includes('type=sell')
-                                            ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' 
+                                            ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
                                             : 'text-blue-600 dark:text-blue-500 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-blue-500/10 dark:hover:bg-blue-500/10'
                                     ]"
                                 >
@@ -76,7 +75,7 @@
                                     :class="[
                                         'flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all',
                                         route().current('orders') || route().current('web.orders')
-                                            ? 'bg-emerald-50 dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30' 
+                                            ? 'bg-emerald-50 dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
                                             : 'text-gray-600 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800/50'
                                     ]"
                                 >
@@ -90,7 +89,7 @@
                                     :class="[
                                         'flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all',
                                         route().current('publish') || route().current('web.publish')
-                                            ? 'bg-emerald-50 dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30' 
+                                            ? 'bg-emerald-50 dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
                                             : 'text-gray-600 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800/50'
                                     ]"
                                 >
@@ -109,7 +108,7 @@
                         <a
                             v-if="!isPWA"
                             @click="handleAppClick"
-                            class="flex items-center gap-1 px-2.5 py-1 bg-gray-700/40 backdrop-blur-sm border border-gray-500/40 hover:bg-gray-600/50 hover:border-pink-500/30 text-gray-300 hover:text-pink-300 rounded-lg transition-all cursor-pointer"
+                            class="flex items-center gap-1 px-2.5 py-1 bg-gray-100 dark:bg-gray-700/40 backdrop-blur-sm border border-gray-300 dark:border-gray-500/40 hover:bg-gray-200 dark:hover:bg-gray-600/50 hover:border-pink-600 dark:hover:border-pink-500/30 text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-300 rounded-lg transition-all cursor-pointer"
                             title="安装 APP"
                         >
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -179,7 +178,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         </nav>
 
         <!-- Desktop Breadcrumbs -->
@@ -200,14 +198,14 @@
                                 <svg class="w-4 h-4 text-gray-400 dark:text-slate-600" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                                 </svg>
-                                <Link 
+                                <Link
                                     v-if="crumb.url && index < breadcrumbs.length - 1"
                                     :href="crumb.url"
                                     class="ml-2 text-sm text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-300 transition-colors"
                                 >
                                     {{ crumb.label }}
                                 </Link>
-                                <span 
+                                <span
                                     v-else
                                     class="ml-2 text-sm"
                                     :class="index === breadcrumbs.length - 1 ? 'text-gray-900 dark:text-slate-100 font-medium' : 'text-gray-500 dark:text-slate-400'"
@@ -222,22 +220,19 @@
         </div>
 
         <!-- Main Content -->
-        <main :class="[
-            showMobileBottomNav ? 'pb-20 md:pb-0' : '',
-            !hideNavigation ? 'pt-[calc(3.5rem+env(safe-area-inset-top))] md:pt-[calc(4rem+env(safe-area-inset-top))]' : ''
-        ]">
+        <main :class="showMobileBottomNav ? 'pb-20 md:pb-0' : ''">
             <slot />
         </main>
 
         <!-- Mobile Bottom Navigation -->
-        <nav v-if="showMobileBottomNav" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-gray-200 dark:border-slate-800 shadow-lg pb-safe">
+        <nav v-if="showMobileBottomNav" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-t border-gray-200 dark:border-slate-800 shadow-lg pb-safe">
             <div class="grid grid-cols-5 h-20">
                 <!-- Market -->
                 <Link
                     href="/market"
                     class="flex flex-col items-center justify-center gap-0.5 relative transition-all group"
                     :class="route().current('market') || route().current('web.market')
-                        ? 'text-emerald-600 dark:text-emerald-400' 
+                        ? 'text-emerald-600 dark:text-emerald-400'
                         : 'text-gray-600 dark:text-slate-400'"
                 >
                     <div class="relative">
@@ -257,7 +252,7 @@
                     href="/orders"
                     class="flex flex-col items-center justify-center gap-0.5 relative transition-all group"
                     :class="route().current('orders') || route().current('web.orders')
-                        ? 'text-blue-600 dark:text-blue-400' 
+                        ? 'text-blue-600 dark:text-blue-400'
                         : 'text-gray-600 dark:text-slate-400'"
                 >
                     <div class="relative">
@@ -299,7 +294,7 @@
                     href="/wallet/address-verification"
                     class="flex flex-col items-center justify-center gap-0.5 relative transition-all group"
                     :class="route().current('wallet.address-verification') || route().current('web.wallet.address-verification')
-                        ? 'text-amber-600 dark:text-amber-400' 
+                        ? 'text-amber-600 dark:text-amber-400'
                         : 'text-gray-600 dark:text-slate-400'"
                 >
                     <div class="relative">
@@ -321,7 +316,7 @@
                     :href="route('web.profile')"
                     class="flex flex-col items-center justify-center gap-0.5 relative transition-all group"
                     :class="route().current('profile') || route().current('web.profile')
-                        ? 'text-purple-600 dark:text-purple-400' 
+                        ? 'text-purple-600 dark:text-purple-400'
                         : 'text-gray-600 dark:text-slate-400'"
                 >
                     <div class="relative">
@@ -342,7 +337,7 @@
 
         <!-- Footer - 手机端始终隐藏，桌面端根据 hideFooter 属性决定 -->
         <P2PFooter v-if="!hideFooter" class="hidden sm:block" />
-        
+
     </div>
     <!-- </P2PNotificationContainer> -->
 </template>

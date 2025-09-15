@@ -1,5 +1,9 @@
 <template>
-    <footer class="bg-gradient-to-b from-gray-50 to-white dark:from-slate-900 dark:to-slate-950 border-t border-gray-200 dark:border-slate-800">
+    <footer class="relative bg-gradient-to-b from-gray-50 to-white dark:from-slate-900 dark:to-slate-950 border-t border-gray-200 dark:border-slate-800">
+        <!-- Logo Watermark -->
+        <div class="absolute right-10 bottom-10 opacity-[0.03] dark:opacity-[0.08] pointer-events-none">
+            <img src="/logo.png" class="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48" style="filter: grayscale(100%);" />
+        </div>
         <!-- Main Footer Content -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
@@ -9,7 +13,7 @@
                         <div class="flex items-center gap-3 mb-4">
                             <img src="/logo.png" alt="P2PCoinSwap" class="w-10 h-10" />
                             <div>
-                                <div class="text-lg font-bold text-gray-900 dark:text-white">P2PCoinSwap</div>
+                                <P2PBrandText size="lg" />
                                 <div class="text-xs text-gray-500 dark:text-slate-400">Trade Crypto P2P</div>
                             </div>
                         </div>
@@ -115,8 +119,8 @@
         <div class="bg-white dark:bg-slate-950 border-t border-gray-200 dark:border-slate-800/50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div class="text-xs text-gray-500 dark:text-slate-500">
-                        © 2025 P2PCoinSwap. All rights reserved.
+                    <div class="text-xs text-gray-500 dark:text-slate-500 flex items-center gap-1">
+                        © 2025 <P2PBrandText size="sm" />. All rights reserved.
                     </div>
 
                     <!-- Social Links -->
@@ -134,5 +138,5 @@
 </template>
 
 <script setup>
-// No need for P2PLogo import since we're using direct img tag like blade footer
+import P2PBrandText from './P2PBrandText.vue';
 </script>

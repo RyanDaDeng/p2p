@@ -3,6 +3,7 @@ import { Head, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import P2PAppLayout from '@/Layouts/P2PAppLayout.vue';
 import P2PButton from '@/Components/UI/P2PButton.vue';
+import P2PBrandText from '@/Components/UI/P2PBrandText.vue';
 import BitcoinIcon from '@/Components/Icons/BitcoinIcon.vue';
 import EthereumIcon from '@/Components/Icons/EthereumIcon.vue';
 import UsdtIcon from '@/Components/Icons/UsdtIcon.vue';
@@ -24,10 +25,41 @@ const submit = () => {
 </script>
 
 <template>
-    <P2PAppLayout :hideNavigation="true">
+    <P2PAppLayout :hideNavigation="true" :show-mobile-bottom-nav="false">
         <Head title="忘记密码 - P2PCoinSwap" />
 
-        <div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-slate-950">
+        <!-- Simple Navigation Bar -->
+        <div class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 pt-safe">
+            <div class="px-4 py-3 flex items-center justify-between">
+                <!-- Back Button & Logo -->
+                <div class="flex items-center gap-3">
+                    <a
+                        href="/login"
+                        class="p-2 rounded-lg text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800/50 transition-all cursor-pointer"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                    </a>
+                    <a href="/" class="flex items-center gap-2 cursor-pointer">
+                        <img src="/logo.png" alt="Logo" class="h-8 w-8">
+                        <div class="hidden sm:inline">
+                            <P2PBrandText size="lg" />
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Login Link -->
+                <a
+                    href="/login"
+                    class="text-sm text-gray-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer"
+                >
+                    已有账号？立即登录
+                </a>
+            </div>
+        </div>
+
+        <div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-50 dark:bg-slate-950 pt-[calc(3.5rem+env(safe-area-inset-top))]">
             <!-- Cryptocurrency Background Pattern -->
             <div class="absolute inset-0 crypto-bg">
                 <!-- Logo Watermark -->
@@ -78,15 +110,11 @@ const submit = () => {
 
             <!-- Forgot Password Form Container -->
             <div class="relative z-10 w-full max-w-md px-4 sm:px-6">
-                <div class="bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-800 shadow-2xl p-6 sm:p-8">
-                    <!-- Logo -->
+                <div class="bg-white dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-slate-800 shadow-2xl p-6 sm:p-8">
+                    <!-- Title -->
                     <div class="text-center mb-6">
-                        <a href="/market" class="inline-flex items-center justify-center gap-3 group">
-                            <img src="/logo.png" alt="P2PCoinSwap" class="h-12 w-12 group-hover:scale-110 transition-transform duration-200" />
-                            <span class="text-2xl font-bold text-white">P2PCoinSwap</span>
-                        </a>
-                        <h2 class="mt-4 text-xl font-semibold text-white">重置密码</h2>
-                        <p class="mt-2 text-sm text-slate-400">
+                        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">重置密码</h2>
+                        <p class="mt-2 text-sm text-gray-600 dark:text-slate-400">
                             请输入您的注册邮箱，我们将发送密码重置链接到您的邮箱
                         </p>
                     </div>
@@ -107,12 +135,12 @@ const submit = () => {
                     <form @submit.prevent="submit">
                         <!-- Email -->
                         <div class="mb-6">
-                            <label for="email" class="block text-sm font-medium text-slate-300 mb-2">
+                            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                                 邮箱地址
                             </label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-5 w-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="h-5 w-5 text-gray-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
                                     </svg>
                                 </div>
@@ -123,7 +151,7 @@ const submit = () => {
                                     required
                                     autofocus
                                     autocomplete="username"
-                                    class="w-full pl-10 pr-3 py-2.5 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
+                                    class="w-full pl-10 pr-3 py-2.5 bg-gray-50 dark:bg-slate-800/50 border border-gray-300 dark:border-slate-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
                                     placeholder="your@email.com"
                                 />
                             </div>
@@ -153,17 +181,17 @@ const submit = () => {
                     <!-- Divider -->
                     <div class="relative my-6">
                         <div class="absolute inset-0 flex items-center">
-                            <div class="w-full border-t border-slate-700"></div>
+                            <div class="w-full border-t border-gray-300 dark:border-slate-700"></div>
                         </div>
                         <div class="relative flex justify-center text-sm">
-                            <span class="px-2 bg-slate-900/80 text-slate-500">或</span>
+                            <span class="px-2 bg-white dark:bg-slate-900/80 text-gray-500 dark:text-slate-500">或</span>
                         </div>
                     </div>
 
                     <!-- Back to Login -->
                     <a
                         :href="route('login')"
-                        class="w-full py-3 px-4 bg-slate-800/50 hover:bg-slate-700/50 text-slate-300 hover:text-white font-medium rounded-lg border border-slate-700 hover:border-slate-600 transition-all duration-200 flex items-center justify-center gap-2"
+                        class="w-full py-3 px-4 bg-gray-100 dark:bg-slate-800/50 hover:bg-gray-200 dark:hover:bg-slate-700/50 text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white font-medium rounded-lg border border-gray-300 dark:border-slate-700 hover:border-gray-400 dark:hover:border-slate-600 transition-all duration-200 flex items-center justify-center gap-2"
                     >
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
@@ -179,7 +207,7 @@ const submit = () => {
                             </svg>
                             <div>
                                 <p class="text-sm text-amber-400 font-medium">安全提示</p>
-                                <p class="text-xs text-slate-400 mt-1">密码重置链接将在24小时后失效，请及时查收邮件</p>
+                                <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">密码重置链接将在24小时后失效，请及时查收邮件</p>
                             </div>
                         </div>
                     </div>

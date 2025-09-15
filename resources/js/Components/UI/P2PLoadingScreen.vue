@@ -16,7 +16,7 @@
                     <div class="flex items-center justify-center gap-4 mb-4">
                         <img src="/logo.png" alt="P2PCoinSwap" class="w-16 h-16" />
                         <div class="text-left">
-                            <div class="text-2xl font-bold text-gray-900 dark:text-white">P2PCoinSwap</div>
+                            <P2PBrandText size="xl" />
                             <div class="text-sm text-gray-600 dark:text-slate-400">Trade Crypto P2P</div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
 
             <!-- 底部版权信息 -->
             <div class="absolute bottom-8 left-0 right-0 text-center">
-                <p class="text-xs text-gray-400 dark:text-slate-600">© 2024 LocalCoinSwap P2P</p>
+                <p class="text-xs text-gray-400 dark:text-slate-600 flex items-center justify-center gap-1">© 2025 <P2PBrandText size="sm" />. All rights reserved.</p>
             </div>
         </div>
     </Transition>
@@ -41,6 +41,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import P2PLogo from './P2PLogo.vue'
+import P2PBrandText from './P2PBrandText.vue'
 
 const props = defineProps({
     duration: {
