@@ -140,6 +140,7 @@ class ChatController extends Controller
                     'trades_count' => $order->vendor->trades_count ?? 0,
                     'is_verified' => $order->vendor->is_verified ?? false,
                     'last_seen' => $order->vendor->last_seen,
+                    'response_time' => $order->vendor->response_time,
                     'completion_rate' => 98.5, // 暂时使用固定值
                 ],
                 'client' => [
@@ -307,7 +308,12 @@ class ChatController extends Controller
     public function uploadFile(Request $request, $orderNo)
     {
         $request->validate([
-            'file' => 'required|file|mimes:pdf,jpg,jpeg,png,gif,webp|max:10240', // 10MB
+            'file' => 'required|file|mimes:pdf,jpg,jpeg,png,gif,webp|max:2048', // 2MB
+        ], [
+            'file.required' => '请选择要上传的文件',
+            'file.file' => '上传的必须是有效文件',
+            'file.mimes' => '文件格式不支持，仅支持 PDF、JPG、PNG、GIF、WebP',
+            'file.max' => '文件大小不能超过 2MB',
         ]);
 
         $order = Order::where('order_no', $orderNo)->firstOrFail();

@@ -8,7 +8,7 @@
             leave-from-class="opacity-100"
             leave-to-class="opacity-0"
         >
-            <div v-if="show" class="fixed inset-0 z-50 flex items-end md:items-center justify-center">
+            <div v-if="show" class="fixed inset-0 z-[80] flex items-end md:items-center justify-center">
                 <!-- Background -->
                 <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" @click="handleBackgroundClick"></div>
 

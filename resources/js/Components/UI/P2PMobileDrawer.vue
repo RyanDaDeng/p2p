@@ -9,7 +9,7 @@
             leave-from-class="opacity-100"
             leave-to-class="opacity-0"
         >
-            <div 
+            <div
                 v-if="modelValue"
                 class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] lg:hidden"
                 @click="close"
