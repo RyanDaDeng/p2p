@@ -27,6 +27,7 @@
                         </svg>
                     </button>
                     <button
+                        v-if="!isPWA"
                         @click.stop="handleDownload"
                         class="p-1.5 md:p-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-700 hover:bg-white transition-colors"
                         title="下载"
@@ -73,6 +74,7 @@
                     </svg>
                 </button>
                 <button
+                    v-if="!isPWA"
                     @click.stop="handleDownload"
                     class="p-1.5 rounded-lg bg-black/5 hover:bg-black/10 transition-colors"
                     title="下载"
@@ -101,6 +103,7 @@
                 <p class="text-xs" :class="documentSizeClass">{{ getFileType(attachment.type) }} · {{ formatFileSize(attachment.size) }}</p>
             </div>
             <button
+                v-if="!isPWA"
                 @click.stop="handleDownload"
                 class="flex-shrink-0 p-1.5 rounded-lg bg-black/5 hover:bg-black/10 transition-colors"
                 title="下载"
@@ -145,6 +148,7 @@
                                 </svg>
                             </button>
                             <button
+                                v-if="!isPWA"
                                 @click="handleDownload"
                                 class="p-3 bg-white/90 backdrop-blur-sm rounded-full text-gray-700 active:bg-white transition-colors"
                                 title="下载原图"
@@ -167,6 +171,7 @@
 
                         <!-- Desktop Download button (keep as link for desktop) -->
                         <a
+                            v-if="!isPWA"
                             :href="attachment.url"
                             download
                             class="hidden md:block absolute bottom-4 right-4 p-3 bg-white/90 hover:bg-white rounded-full text-gray-700 transition-colors"

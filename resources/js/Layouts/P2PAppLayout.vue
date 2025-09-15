@@ -108,7 +108,7 @@
                         <a
                             v-if="!isPWA"
                             @click="handleAppClick"
-                            class="flex items-center gap-1 px-2.5 py-1 bg-gray-100 dark:bg-gray-700/40 backdrop-blur-sm border border-gray-300 dark:border-gray-500/40 hover:bg-gray-200 dark:hover:bg-gray-600/50 hover:border-pink-600 dark:hover:border-pink-500/30 text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-300 rounded-lg transition-all cursor-pointer"
+                            class="flex items-center gap-1 px-2.5 py-1 bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-300 dark:hover:border-emerald-800 text-gray-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg transition-all cursor-pointer"
                             title="安装 APP"
                         >
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

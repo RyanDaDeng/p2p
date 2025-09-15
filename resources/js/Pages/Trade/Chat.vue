@@ -1582,7 +1582,8 @@
                                         <p class="text-sm font-medium text-gray-900 dark:text-slate-200 truncate">{{ selectedFile.name }}</p>
                                         <p class="text-xs text-gray-500 dark:text-slate-400">{{ formatFileSize(selectedFile.size) }}</p>
                                     </div>
-                                    <button @click="clearFileSelection"
+                                    <button @click="removeFile"
+                                            type="button"
                                             class="flex-shrink-0 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-slate-300 transition-colors">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
