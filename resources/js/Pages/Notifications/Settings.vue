@@ -48,6 +48,36 @@
                                 </div>
                             </div>
 
+                            <!-- Privacy Notice -->
+                            <div class="p-4 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-lg">
+                                <div class="flex gap-3">
+                                    <svg class="w-5 h-5 text-gray-600 dark:text-slate-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900 dark:text-slate-100 mb-2">隐私说明</p>
+                                        <ul class="text-xs text-gray-600 dark:text-slate-400 space-y-1">
+                                            <li class="flex items-start gap-1">
+                                                <span class="text-emerald-600 dark:text-emerald-400 mt-0.5">✓</span>
+                                                <span>机器人仅用于向您发送交易通知，不会获取您的任何 Telegram 权限</span>
+                                            </li>
+                                            <li class="flex items-start gap-1">
+                                                <span class="text-emerald-600 dark:text-emerald-400 mt-0.5">✓</span>
+                                                <span>验证码仅用于建立机器人与您账号的关联，确保通知发送到正确的用户</span>
+                                            </li>
+                                            <li class="flex items-start gap-1">
+                                                <span class="text-emerald-600 dark:text-emerald-400 mt-0.5">✓</span>
+                                                <span>我们不会读取您的聊天记录、联系人或任何个人信息</span>
+                                            </li>
+                                            <li class="flex items-start gap-1">
+                                                <span class="text-emerald-600 dark:text-emerald-400 mt-0.5">✓</span>
+                                                <span>您可以随时在 Telegram 中屏蔽机器人或在此页面解除绑定</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Connection Steps -->
                             <div class="space-y-4">
                                 <h4 class="text-sm font-medium text-gray-900 dark:text-slate-100">连接步骤：</h4>
@@ -132,6 +162,20 @@
                                     <div class="flex-1">
                                         <p class="text-sm font-medium text-emerald-800 dark:text-emerald-200">Telegram 已连接</p>
                                         <p class="text-xs text-emerald-700 dark:text-emerald-300 mt-1">您将接收所有重要通知</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Privacy Reminder -->
+                            <div class="p-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-lg">
+                                <div class="flex gap-2">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-slate-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                    <div class="flex-1">
+                                        <p class="text-xs text-gray-600 dark:text-slate-400">
+                                            <span class="font-medium">隐私保护：</span>机器人仅向您发送通知，不会获取您的 Telegram 权限或读取任何聊天内容
+                                        </p>
                                     </div>
                                 </div>
                             </div>

@@ -135,6 +135,7 @@ Route::middleware(['auth'])->prefix('web/api')->group(function () {
     Route::post('/orders/{id}/mock-escrow-not-received', [OrderController::class, 'mockEscrowNotReceived']);
 
     // Chat Routes (订单聊天)
+    Route::get('/orders/{orderNo}/chat/messages', [ChatController::class, 'getMessages']);
     Route::post('/orders/{orderNo}/chat/send', [ChatController::class, 'sendMessage']);
     Route::post('/orders/{orderNo}/chat/upload', [ChatController::class, 'uploadFile']);
 

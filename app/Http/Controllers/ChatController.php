@@ -15,6 +15,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class ChatController extends Controller
 {
@@ -178,6 +179,47 @@ class ChatController extends Controller
             'userRole' => $order->getUserRole(auth()->id()),
             'availableActions' => $availableActions,
         ]);
+    }
+
+    /**
+     * 获取消息列表（支持获取离线期间的消息）
+     */
+    public function getMessages(Request $request, $orderNo)
+    {
+        $order = Order::where('order_no', $orderNo)->firstOrFail();
+
+        // 检查用户权限
+        if (!$order->isParticipant(auth()->id())) {
+            abort(403, '无权访问');
+        }
+
+        $query = $order->chatMessages();
+
+        // 如果提供了since参数，获取该时间戳之后的消息
+        if ($request->has('since')) {
+            $since = Carbon::createFromTimestamp($request->since);
+            $query->where('created_at', '>', $since);
+        }
+
+        $messages = $query->with('user')
+            ->orderBy('created_at', 'asc')
+            ->get()
+            ->map(function ($message) {
+                return [
+                    'id' => $message->id,
+                    'message' => $message->message,
+                    'type' => $message->type,
+                    'attachment' => $message->attachment,
+                    'user' => $message->user ? [
+                        'id' => $message->user->id,
+                        'name' => $message->user->name,
+                        'profile_photo_url' => $message->user->profile_photo_url,
+                    ] : null,
+                    'created_at' => $message->created_at->toIso8601String(),
+                ];
+            });
+
+        return response()->json($messages);
     }
 
     /**

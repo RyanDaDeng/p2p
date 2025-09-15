@@ -11,7 +11,7 @@
         ]"
     >
         <!-- 移动端返回导航 -->
-        <P2PMobileHeader back-url="/orders">
+        <P2PMobileHeader :title="`订单 #${order.order_no}`" back-url="/orders">
             <template #custom>
                 <div class="flex items-center gap-2 flex-1">
                     <!-- 显示所有参与者头像 -->
@@ -111,7 +111,7 @@
             
             <!-- Telegram 未连接提醒 (仅桌面端显示) -->
             <div v-if="!$page.props.auth.user?.telegram_chat_id && order.status !== 'cancelled' && order.status !== 'completed'" 
-                 class="hidden lg:block relative z-10 bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-800">
+                 class="hidden md:block relative z-10 bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-800">
                 <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8">
                     <div class="flex flex-col sm:flex-row sm:items-center gap-3">
                         <div class="flex items-start gap-3 flex-1">
@@ -119,7 +119,7 @@
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.56c-.21 2.27-1.13 7.75-1.6 10.29-.2 1.08-.59 1.44-.97 1.47-.82.07-1.45-.54-2.24-.99-1.24-.71-1.94-1.16-3.14-1.85-1.39-.8-.49-1.24.3-1.96.21-.19 3.85-3.52 3.91-3.82.01-.04.01-.19-.07-.27-.08-.08-.2-.05-.28-.03-.12.03-2.02.13-5.7 3.75-.54.54-1.03.8-1.48.78-.49-.02-1.42-.27-2.11-.5-.85-.28-1.53-.42-1.47-.89.03-.25.37-.51 1.02-.77 4-1.74 6.67-2.89 8.01-3.44 3.81-1.57 4.61-1.84 5.13-1.85.11 0 .37.03.53.18.14.12.18.28.2.45-.01.06-.01.24-.02.38z"/>
                             </svg>
                             <div class="flex-1">
-                                <p class="text-sm font-medium text-blue-800 dark:text-blue-200">建议连接 Telegram 接收实时通知</p>
+                                <p class="text-sm font-medium text-blue-800 dark:text-blue-200">建议设置 Telegram 接收实时通知</p>
                                 <p class="text-xs text-blue-700 dark:text-blue-300 mt-1">
                                     连接 Telegram 后，您可以实时收到交易状态更新、对方消息提醒等重要通知，确保不错过任何关键信息。
                                 </p>
@@ -511,9 +511,9 @@
 
             <!-- 桌面端原有布局 -->
             <div class="mx-auto max-w-7xl">
-                <div class="hidden lg:grid lg:grid-cols-3 gap-4 p-4">
+                <div class="hidden md:grid md:grid-cols-3 gap-4 p-4">
                     <!-- 左侧：交易信息面板（桌面端显示） -->
-                    <div class="lg:col-span-1 space-y-4">
+                    <div class="md:col-span-1 space-y-4">
                         <!-- 交易状态卡片 -->
                         <div class="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-6">
                             <div class="flex items-center justify-between mb-4">
@@ -902,7 +902,7 @@
                     </div>
 
                     <!-- 右侧区域 -->
-                    <div class="lg:col-span-2">
+                    <div class="md:col-span-2">
                         <!-- 聊天区域（桌面端） -->
                         <div class="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 flex flex-col" style="height: 650px; min-height: 600px;">
                         <!-- 聊天头部 -->
@@ -1134,13 +1134,11 @@
                                     :disabled="(!newMessage.trim() && !selectedFile) || !isConnected || isUploading || isTradeCompleted"
                                     class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded-lg font-medium text-sm transition-colors flex items-center gap-2"
                                 >
-                                    <span v-if="isUploading" class="animate-spin">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                    </span>
-                                    <span>{{ isUploading ? '发送中...' : '发送' }}</span>
+                                    <svg v-if="isUploading" class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    <span v-else>发送</span>
                                 </button>
                             </form>
 
@@ -1164,7 +1162,7 @@
                                     <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.56c-.21 2.27-1.13 7.75-1.6 10.29-.2 1.08-.59 1.44-.97 1.47-.82.07-1.45-.54-2.24-.99-1.24-.71-1.94-1.16-3.14-1.85-1.39-.8-.49-1.24.3-1.96.21-.19 3.85-3.52 3.91-3.82.01-.04.01-.19-.07-.27-.08-.08-.2-.05-.28-.03-.12.03-2.02.13-5.7 3.75-.54.54-1.03.8-1.48.78-.49-.02-1.42-.27-2.11-.5-.85-.28-1.53-.42-1.47-.89.03-.25.37-.51 1.02-.77 4-1.74 6.67-2.89 8.01-3.44 3.81-1.57 4.61-1.84 5.13-1.85.11 0 .37.03.53.18.14.12.18.28.2.45-.01.06-.01.24-.02.38z"/>
                                     </svg>
-                                    实时通知
+                                    设置实时通知
                                 </a>
                             </div>
                         </div>
@@ -1294,7 +1292,7 @@
 
             <!-- 移动端：聊天区域（全屏） -->
             <!-- 使用CSS计算高度，考虑safe area -->
-            <div class="lg:hidden fixed inset-x-0 bottom-0 flex flex-col bg-white dark:bg-slate-950"
+            <div class="md:hidden fixed inset-x-0 bottom-0 flex flex-col bg-white dark:bg-slate-950"
                  :style="`top: calc(3.5rem + env(safe-area-inset-top))`">
                     <!-- 移动端评价提示 -->
                     <div v-if="currentOrder.escrow_status === 'escrow_released' && currentUserId === currentOrder.client_id && !currentOrder.has_review" 
@@ -1321,6 +1319,18 @@
                     
                     <!-- 移动端聊天内容 -->
                     <div ref="mobileMessageContainer" class="flex-1 overflow-y-auto overscroll-contain bg-white dark:bg-slate-950">
+                        <!-- 连接状态指示器 -->
+                        <div v-if="!isConnected && isPageVisible"
+                             class="sticky top-0 z-10 bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800 p-2">
+                            <div class="flex items-center justify-center gap-2">
+                                <svg class="animate-spin h-4 w-4 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                <span class="text-xs text-amber-700 dark:text-amber-300">重新连接中...</span>
+                            </div>
+                        </div>
+
                         <div class="p-4 space-y-4">
                             <!-- 初始系统消息 -->
                             <div class="flex justify-center">
@@ -1566,13 +1576,11 @@
                                     :disabled="(!newMessage.trim() && !selectedFile) || !isConnected || isUploading || isTradeCompleted"
                                     class="px-4 py-2 bg-emerald-600 disabled:bg-gray-400 text-white rounded-lg font-medium text-sm transition-colors flex items-center gap-2"
                                 >
-                                    <span v-if="isUploading" class="animate-spin">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                    </span>
-                                    <span>{{ isUploading ? '发送中...' : '发送' }}</span>
+                                    <svg v-if="isUploading" class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    <span v-else>发送</span>
                                 </button>
                             </form>
 
@@ -1591,7 +1599,7 @@
                                     <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.56c-.21 2.27-1.13 7.75-1.6 10.29-.2 1.08-.59 1.44-.97 1.47-.82.07-1.45-.54-2.24-.99-1.24-.71-1.94-1.16-3.14-1.85-1.39-.8-.49-1.24.3-1.96.21-.19 3.85-3.52 3.91-3.82.01-.04.01-.19-.07-.27-.08-.08-.2-.05-.28-.03-.12.03-2.02.13-5.7 3.75-.54.54-1.03.8-1.48.78-.49-.02-1.42-.27-2.11-.5-.85-.28-1.53-.42-1.47-.89.03-.25.37-.51 1.02-.77 4-1.74 6.67-2.89 8.01-3.44 3.81-1.57 4.61-1.84 5.13-1.85.11 0 .37.03.53.18.14.12.18.28.2.45-.01.06-.01.24-.02.38z"/>
                                     </svg>
-                                    实时通知
+                                    设置实时通知
                                 </a>
                             </div>
                         </div>
@@ -1604,20 +1612,30 @@
         <P2PDialog
             :show="dialogState.show && dialogState.pendingAction !== 'confirm_escrow' && dialogState.pendingAction !== 'mark_buyer_paid' && dialogState.pendingAction !== 'mark_seller_received' && dialogState.pendingAction !== 'mark_seller_paid'"
             :title="dialogState.title"
-            :message="dialogState.message"
-            :input-mode="dialogState.inputMode"
-            :input-label="dialogState.inputLabel"
-            :input-placeholder="dialogState.inputPlaceholder"
-            :input-required="dialogState.inputRequired"
-            :danger="dialogState.danger"
-            :confirm-variant="dialogState.confirmVariant"
             :confirm-text="dialogState.confirmText"
             :cancel-text="dialogState.cancelText"
-            :loading="dialogState.loading"
-            @confirm="handleDialogConfirm"
-            @cancel="handleDialogCancel"
+            @confirm="() => handleDialogConfirm(dialogState.inputValue)"
             @close="handleDialogCancel"
-        />
+        >
+            <!-- Dialog content with message -->
+            <div v-if="dialogState.message" class="text-gray-700 dark:text-slate-300">
+                {{ dialogState.message }}
+            </div>
+
+            <!-- Input field if needed -->
+            <div v-if="dialogState.inputMode" class="mt-4">
+                <label v-if="dialogState.inputLabel" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+                    {{ dialogState.inputLabel }}
+                </label>
+                <input
+                    v-model="dialogState.inputValue"
+                    type="text"
+                    :placeholder="dialogState.inputPlaceholder"
+                    :required="dialogState.inputRequired"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                />
+            </div>
+        </P2PDialog>
 
         <!-- 买家确认托管专用对话框 -->
         <Modal
@@ -2241,7 +2259,11 @@ const fileInput = ref(null);
 const isUploading = ref(false);
 const mobileMessageContainer = ref(null);
 const isConnected = ref(false);
+const isPageVisible = ref(true); // 追踪页面可见性
 let echo = null;
+let presenceChannel = null;
+let disconnectTimer = null;
+let disconnectedAt = null;
 
 // 在线状态管理
 const isOtherUserOnline = ref(false);
@@ -2308,6 +2330,7 @@ const dialogState = ref({
     title: '',
     message: '',
     inputMode: false,
+    inputValue: '',
     inputLabel: '',
     inputPlaceholder: '',
     inputRequired: false,
@@ -2959,6 +2982,7 @@ const handleDialogCancel = () => {
         title: '',
         message: '',
         inputMode: false,
+        inputValue: '',
         inputLabel: '',
         inputPlaceholder: '',
         inputRequired: false,
@@ -3239,13 +3263,29 @@ const mockEscrowStatus = async (status) => {
     }
 };
 
+// 断开WebSocket连接
+const disconnectWebSocket = () => {
+    console.log('[WebSocket] 断开连接');
+    if (presenceChannel) {
+        presenceChannel.stopListening('.MessageSent');
+        presenceChannel.stopListening('.EscrowStatusUpdated');
+        presenceChannel.stopListening('.OrderStatusUpdated');
+        presenceChannel.stopListening('.dispute.resolved');
+        echo.leave(`order.${currentOrder.value.id}`);
+        presenceChannel = null;
+    }
+    isConnected.value = false;
+    disconnectedAt = Date.now();
+};
+
 // 连接WebSocket到私有频道
 const connectWebSocket = () => {
-    if (typeof window.Echo !== 'undefined') {
+    if (typeof window.Echo !== 'undefined' && !presenceChannel) {
         echo = window.Echo;
-        
+        console.log('[WebSocket] 建立连接');
+
         // 使用单个 Presence Channel 处理在线状态和消息
-        echo.join(`order.${currentOrder.value.id}`)
+        presenceChannel = echo.join(`order.${currentOrder.value.id}`)
             .here((users) => {
                 // 初始在线用户列表
                 console.log('当前在线用户:', users);
@@ -3432,6 +3472,12 @@ const connectWebSocket = () => {
             });
 
         isConnected.value = true;
+
+        // 如果是重连，获取离线期间的消息
+        if (disconnectedAt) {
+            fetchMissedMessages();
+            disconnectedAt = null;
+        }
     } else {
         console.warn('Echo not available, retrying...');
         setTimeout(connectWebSocket, 1000);
@@ -3439,21 +3485,103 @@ const connectWebSocket = () => {
 };
 
 
+// 获取离线期间的消息
+const fetchMissedMessages = async () => {
+    if (!disconnectedAt) return;
+
+    try {
+        const response = await axios.get(`/web/api/orders/${currentOrder.value.order_no}/chat/messages`, {
+            params: {
+                since: Math.floor(disconnectedAt / 1000)
+            }
+        });
+
+        if (response.data && response.data.length > 0) {
+            // 添加离线期间的消息
+            response.data.forEach(msg => {
+                // 检查消息是否已存在
+                if (!messages.value.find(m => m.id === msg.id)) {
+                    messages.value.push(msg);
+                }
+            });
+            scrollToBottom();
+        }
+    } catch (error) {
+        console.error('[WebSocket] 获取离线消息失败:', error);
+    }
+};
+
+// 页面可见性变化处理
+const handleVisibilityChange = () => {
+    isPageVisible.value = !document.hidden; // 更新响应式变量
+
+    if (document.hidden) {
+        // 页面隐藏
+        console.log('[WebSocket] 页面隐藏，准备断开');
+
+        // 移动端延迟10秒，桌面端延迟30秒
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        const delay = isMobile ? 10000 : 30000; // 移动端10秒，桌面端30秒
+
+        disconnectTimer = setTimeout(() => {
+            disconnectWebSocket();
+        }, delay);
+    } else {
+        // 页面显示
+        console.log('[WebSocket] 页面显示');
+
+        // 取消断开计时
+        if (disconnectTimer) {
+            clearTimeout(disconnectTimer);
+            disconnectTimer = null;
+        }
+
+        // 如果未连接，重新连接
+        if (!isConnected.value && !presenceChannel) {
+            connectWebSocket();
+        }
+    }
+};
+
 onMounted(() => {
     initParticipants();
     startCountdown();
-    
+
     scrollToBottom();
     connectWebSocket();
+
+    // 监听页面可见性变化
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    // PWA相关事件
+    document.addEventListener('pause', () => {
+        console.log('[WebSocket] PWA进入后台');
+        disconnectWebSocket();
+    });
+
+    document.addEventListener('resume', () => {
+        console.log('[WebSocket] PWA恢复前台');
+        if (!isConnected.value) {
+            connectWebSocket();
+        }
+    });
 });
 
 onUnmounted(() => {
+    // 清理定时器
     if (timer) {
         clearInterval(timer);
     }
-    if (echo) {
-        // 离开 Presence Channel
-        echo.leave(`order.${currentOrder.value.id}`);
+    if (disconnectTimer) {
+        clearTimeout(disconnectTimer);
     }
+
+    // 断开WebSocket
+    disconnectWebSocket();
+
+    // 移除事件监听
+    document.removeEventListener('visibilitychange', handleVisibilityChange);
+    document.removeEventListener('pause', handleVisibilityChange);
+    document.removeEventListener('resume', handleVisibilityChange);
 });
 </script>
