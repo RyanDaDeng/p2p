@@ -105,7 +105,7 @@
     <!-- Additional Styles -->
     @stack('styles')
 </head>
-<body class="bg-slate-950 text-slate-300 min-h-screen flex flex-col">
+<body class="@yield('body_class', 'bg-slate-950 text-slate-300') min-h-screen flex flex-col">
     <!-- Navigation -->
     @include('components.navigation')
 

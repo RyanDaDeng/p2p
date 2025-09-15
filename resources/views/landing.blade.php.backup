@@ -1,10 +1,42 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+    <title>P2PCoinSwap - Secure · Trusted · Fast</title>
+    <meta name="description" content="P2PCoinSwap is a peer-to-peer cryptocurrency trading platform. Trade Bitcoin, USDT, Ethereum directly with users worldwide using 300+ payment methods.">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/logo.png">
+    <link rel="apple-touch-icon" href="/logo.png">
 
-@section('title', 'P2PCoinSwap - Secure · Trusted · Fast')
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="rgba(255, 255, 255, 0.95)" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="rgba(15, 23, 42, 0.95)" media="(prefers-color-scheme: dark)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="P2PCoinSwap">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="P2PCoinSwap">
+    <link rel="manifest" href="/build/manifest.webmanifest">
 
-@section('body_class', 'bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-300')
-
-@push('styles')
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    <style>
+        /* PWA Safe Area Support */
+        .pt-safe-area-inset-top {
+            padding-top: env(safe-area-inset-top);
+        }
+        .pb-safe-area-inset-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -83,9 +115,11 @@
             animation: pulse-glow 8s ease-in-out infinite;
         }
     </style>
-@endpush
+</head>
+<body class="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-300">
+    <!-- Navigation -->
+    @include('components.navigation')
 
-@section('content')
     <!-- Hero Section -->
     <section class="relative py-20 overflow-hidden">
         <!-- 3D Floating Coins Background -->
@@ -1263,4 +1297,7 @@
                   fill="none" stroke="rgba(16,185,129,0.1)" stroke-width="1"/>
         </svg>
     </div>
-@endsection
+
+    @include('components.footer')
+</body>
+</html>
