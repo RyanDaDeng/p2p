@@ -1125,7 +1125,7 @@
                                     v-model="newMessage"
                                     type="text"
                                     :placeholder="isTradeCompleted ? '交易已结束，无法发送消息' : '输入消息...'"
-                                    class="flex-1 px-4 py-2 bg-gray-100 dark:bg-slate-800 border-0 rounded-lg text-sm text-gray-900 dark:text-slate-200 placeholder-gray-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+                                    class="flex-1 px-4 py-2 bg-gray-100 dark:bg-slate-800 border-0 rounded-lg text-base md:text-sm text-gray-900 dark:text-slate-200 placeholder-gray-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
                                     :disabled="!isConnected || isTradeCompleted"
                                 />
 
@@ -1504,7 +1504,7 @@
                     </div>
                 </div>
                     <!-- 移动端底部操作区 - 固定在底部 -->
-                    <div class="bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800">
+                    <div class="bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 pb-safe">
                         <!-- 输入区域 -->
                         <div class="p-3">
                             <!-- 文件预览 -->
@@ -1557,7 +1557,7 @@
                                     v-model="newMessage"
                                     type="text"
                                     :placeholder="isTradeCompleted ? '交易已结束，无法发送消息' : '输入消息...'"
-                                    class="flex-1 px-3 py-2 bg-gray-100 dark:bg-slate-800 border-0 rounded-lg text-sm text-gray-900 dark:text-slate-200 placeholder-gray-500 dark:placeholder-slate-400 disabled:opacity-50"
+                                    class="flex-1 px-3 py-2 bg-gray-100 dark:bg-slate-800 border-0 rounded-lg text-base text-gray-900 dark:text-slate-200 placeholder-gray-500 dark:placeholder-slate-400 disabled:opacity-50"
                                     :disabled="!isConnected || isTradeCompleted"
                                 />
                                 <button

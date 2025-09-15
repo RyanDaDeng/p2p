@@ -28,7 +28,8 @@
                     </button>
                     <a
                         :href="attachment.url"
-                        download
+                        :download="!isMobile ? true : undefined"
+                        :target="isMobile ? '_blank' : undefined"
                         @click.stop
                         class="p-1.5 md:p-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-700 hover:bg-white transition-colors"
                         title="下载"
@@ -76,7 +77,8 @@
                 </button>
                 <a
                     :href="attachment.url"
-                    download
+                    :download="!isMobile ? true : undefined"
+                    :target="isMobile ? '_blank' : undefined"
                     @click.stop
                     class="p-1.5 rounded-lg bg-black/5 hover:bg-black/10 transition-colors"
                     title="下载"
@@ -106,7 +108,8 @@
             </div>
             <a
                 :href="attachment.url"
-                download
+                :download="!isMobile ? true : undefined"
+                :target="isMobile ? '_blank' : undefined"
                 @click.stop
                 class="flex-shrink-0 p-1.5 rounded-lg bg-black/5 hover:bg-black/10 transition-colors"
                 title="下载"
@@ -152,7 +155,7 @@
                             </button>
                             <a
                                 :href="attachment.url"
-                                download
+                                target="_blank"
                                 class="p-3 bg-white/90 backdrop-blur-sm rounded-full text-gray-700 active:bg-white transition-colors"
                                 title="下载原图"
                             >
@@ -219,6 +222,11 @@ const props = defineProps({
 
 // State
 const showImagePreview = ref(false);
+
+// Check if mobile
+const isMobile = computed(() => {
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+});
 
 // Computed
 const isImage = computed(() => {
