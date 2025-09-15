@@ -7,7 +7,7 @@
     />
 
     <!-- <P2PNotificationContainer ref="notificationContainer"> -->
-    <div v-show="!showAppLoading" class="pmin-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-200">
+    <div v-show="!showAppLoading" class="min-h-screen flex flex-col bg-gray-50 dark:bg-slate-950 transition-colors duration-200">
         <!-- Loading Overlay -->
         <Transition
             enter-active-class="transition ease-out duration-200"
@@ -220,7 +220,7 @@
         </div>
 
         <!-- Main Content -->
-        <main :class="showMobileBottomNav ? 'pb-14 md:pb-0' : ''">
+        <main :class="['flex-1', showMobileBottomNav ? 'pb-14 md:pb-0' : '']">
             <slot />
         </main>
 
