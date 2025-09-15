@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="light">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $title ?? 'P2PCoinSwap - Peer-to-Peer Cryptocurrency Trading Platform' }}</title>
@@ -11,6 +11,16 @@
     <link rel="icon" type="image/png" href="/logo.png">
     <link rel="shortcut icon" type="image/png" href="/logo.png">
     <link rel="apple-touch-icon" href="/logo.png">
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="rgba(255, 255, 255, 0.95)" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="rgba(15, 23, 42, 0.95)" media="(prefers-color-scheme: dark)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="P2PCoinSwap">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="P2PCoinSwap">
+    <link rel="manifest" href="/build/manifest.webmanifest">
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="{{ $description ?? 'Trade cryptocurrencies directly with other users on our secure P2P platform. Buy and sell Bitcoin, Ethereum, USDT and more with escrow protection.' }}">
