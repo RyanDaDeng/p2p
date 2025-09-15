@@ -26,18 +26,15 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
                     </button>
-                    <a
-                        :href="attachment.url"
-                        :download="!isMobile ? true : undefined"
-                        :target="isMobile ? '_blank' : undefined"
-                        @click.stop
+                    <button
+                        @click.stop="handleDownload"
                         class="p-1.5 md:p-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-700 hover:bg-white transition-colors"
                         title="下载"
                     >
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -75,18 +72,15 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
                 </button>
-                <a
-                    :href="attachment.url"
-                    :download="!isMobile ? true : undefined"
-                    :target="isMobile ? '_blank' : undefined"
-                    @click.stop
+                <button
+                    @click.stop="handleDownload"
                     class="p-1.5 rounded-lg bg-black/5 hover:bg-black/10 transition-colors"
                     title="下载"
                 >
                     <svg class="w-4 h-4" :class="documentIconClass" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
-                </a>
+                </button>
             </div>
         </div>
 
@@ -106,18 +100,15 @@
                 <p class="text-xs md:text-sm font-medium truncate" :class="documentTextClass">{{ attachment.name }}</p>
                 <p class="text-xs" :class="documentSizeClass">{{ getFileType(attachment.type) }} · {{ formatFileSize(attachment.size) }}</p>
             </div>
-            <a
-                :href="attachment.url"
-                :download="!isMobile ? true : undefined"
-                :target="isMobile ? '_blank' : undefined"
-                @click.stop
+            <button
+                @click.stop="handleDownload"
                 class="flex-shrink-0 p-1.5 rounded-lg bg-black/5 hover:bg-black/10 transition-colors"
                 title="下载"
             >
                 <svg class="w-4 h-4" :class="documentIconClass" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-            </a>
+            </button>
         </div>
 
         <!-- Image Preview Modal -->
@@ -153,16 +144,15 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
-                            <a
-                                :href="attachment.url"
-                                target="_blank"
+                            <button
+                                @click="handleDownload"
                                 class="p-3 bg-white/90 backdrop-blur-sm rounded-full text-gray-700 active:bg-white transition-colors"
                                 title="下载原图"
                             >
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                 </svg>
-                            </a>
+                            </button>
                         </div>
 
                         <!-- Desktop Close button -->
@@ -175,7 +165,7 @@
                             </svg>
                         </button>
 
-                        <!-- Desktop Download button -->
+                        <!-- Desktop Download button (keep as link for desktop) -->
                         <a
                             :href="attachment.url"
                             download
@@ -222,10 +212,18 @@ const props = defineProps({
 
 // State
 const showImagePreview = ref(false);
+const showDocumentPreview = ref(false);
 
 // Check if mobile
 const isMobile = computed(() => {
     return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+});
+
+// Check if running in PWA standalone mode
+const isPWA = computed(() => {
+    return window.matchMedia('(display-mode: standalone)').matches ||
+           window.navigator.standalone ||
+           document.referrer.includes('android-app://');
 });
 
 // Computed
@@ -318,6 +316,43 @@ const closePreview = () => {
 };
 
 const openDocument = () => {
-    window.open(props.attachment.url, '_blank');
+    if (isPWA.value && isMobile.value) {
+        // In PWA on mobile, just show alert for now
+        alert('请长按图片保存或使用分享功能');
+    } else {
+        window.open(props.attachment.url, '_blank');
+    }
+};
+
+const handleDownload = () => {
+    if (isPWA.value && isMobile.value) {
+        // For images in PWA, show the preview modal (which has a close button)
+        if (isImage.value) {
+            openPreview();
+        } else {
+            // For PDFs and other files, try to open in a way that allows return
+            // Use a hidden iframe to trigger download without navigation
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = props.attachment.url;
+            document.body.appendChild(iframe);
+
+            // Remove iframe after a delay
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+            }, 3000);
+
+            // Show a message to user
+            alert('文件下载已开始，请检查您的下载文件夹');
+        }
+    } else {
+        // For desktop or non-PWA, use normal download
+        const link = document.createElement('a');
+        link.href = props.attachment.url;
+        link.download = props.attachment.name || 'download';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
 };
 </script>
