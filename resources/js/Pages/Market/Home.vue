@@ -301,7 +301,7 @@
                 </div>
 
                 <!-- 桌面版交易卡片 -->
-                <div v-else-if="!loading && !error && filteredListings.length > 0" class="hidden lg:block space-y-2">
+                <div v-else-if="!loading && !error && filteredListings.length > 0" class="hidden md:block space-y-2">
                     <div
                         v-for="listing in paginatedListings"
                         :key="listing.id"
@@ -327,7 +327,8 @@
 
                                     <div class="min-w-0 flex-1">
                                         <div class="flex items-center gap-2 flex-wrap">
-                                            <Link :href="`/trader/profile/${listing.seller.id || listing.id}`" class="text-base leading-snug text-gray-900 dark:text-blue-400 font-semibold truncate hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer">
+                                            <Link :href="`/trader/profile/${listing.seller.id || listing.id}`" class="flex items-center gap-1.5 text-base leading-snug text-gray-900 dark:text-blue-400 font-semibold truncate hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer">
+                                                <span v-if="listing.country" class="inline-block w-4 h-3" v-html="getCountryFlag(listing.country)"></span>
                                                 {{ listing.seller.name || 'Unknown' }}
                                             </Link>
                                             <div v-if="listing.seller.isVerified" class="flex items-center gap-1">
@@ -355,13 +356,26 @@
 
                                         </div>
 
-                                        <div class="flex items-center gap-1 mt-1">
-                                            <svg class="w-3 h-3 text-gray-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                            <span class="text-xs text-gray-500 dark:text-slate-500">
-                                                {{ formatLastSeen(listing.seller.lastSeen) }}
-                                            </span>
+                                        <div class="flex items-center gap-3 mt-1">
+                                            <!-- Last Seen -->
+                                            <div class="flex items-center gap-1">
+                                                <svg class="w-3 h-3 text-gray-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                <span class="text-xs text-gray-500 dark:text-slate-500">
+                                                    {{ formatLastSeen(listing.seller.lastSeen) }}
+                                                </span>
+                                            </div>
+                                            <!-- Country -->
+                                            <div v-if="listing.country_name" class="flex items-center gap-1">
+                                                <svg class="w-3 h-3 text-gray-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                </svg>
+                                                <span class="text-xs text-gray-500 dark:text-slate-500">
+                                                    {{ listing.country_name }}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -489,7 +503,7 @@
                 </div>
 
                 <!-- 移动版交易卡片 -->
-                <div v-if="!loading && !error && filteredListings.length > 0" class="lg:hidden space-y-2">
+                <div v-if="!loading && !error && filteredListings.length > 0" class="md:hidden space-y-2">
                         <div
                             v-for="listing in paginatedListings"
                             :key="listing.id"
@@ -514,6 +528,7 @@
 
                                     <div class="flex-1">
                                         <div class="flex items-center gap-1">
+                                            <span v-if="listing.country" class="inline-block w-4 h-3" v-html="getCountryFlag(listing.country)"></span>
                                             <p class="text-sm font-semibold text-gray-900 dark:text-slate-100">{{ listing.seller.name || 'Unknown' }}</p>
                                             <svg v-if="listing.seller.isVerified" class="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -528,6 +543,8 @@
                                             </div>
                                             <span>·</span>
                                             <span>{{ formatLastSeen(listing.seller.lastSeen) }}</span>
+                                            <span v-if="listing.country_name">·</span>
+                                            <span v-if="listing.country_name">{{ listing.country_name }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -742,6 +759,7 @@ import axios from 'axios';
 
 // Crypto Icons
 import { getCryptoIcon, getCryptoLabel } from '@/Utils/crypto';
+import { getCountryFlag, getCountryFlagWithFallback } from '@/Utils/countryFlags';
 
 const props = defineProps({
     // No props needed, all data comes from API
@@ -856,7 +874,8 @@ const fetchAds = async () => {
         if (data.success) {
             console.log('Raw ad data:', data.data.ads[0]); // 调试：查看原始数据
             // 转换数据格式以匹配现有结构
-            listings.value = data.data.ads.map(ad => ({
+            listings.value = data.data.ads.map(ad => {
+                return {
                 id: ad.id,
                 type: ad.trade_type,
                 cryptocurrency: ad.currency_key,
@@ -873,6 +892,8 @@ const fetchAds = async () => {
                 paymentMethod: ad.payment_method,
                 paymentWindow: ad.payment_time_limit || 15,
                 notes: ad.notes,
+                country: ad.country,
+                country_name: ad.country_name,
                 seller: {
                     id: ad.user?.id || 0,
                     name: ad.user?.name || 'Unknown',
@@ -886,7 +907,8 @@ const fetchAds = async () => {
                     responseTime: ad.user?.response_time || null,
                     completionRate: 98.5 // 暂时使用固定值
                 }
-            }));
+                };
+            });
         } else {
             error.value = data.message || '获取广告列表失败';
         }
@@ -1063,6 +1085,8 @@ onMounted(async () => {
     } catch (error) {
         console.error('Failed to load config:', error);
     }
+
+    // 测试国旗功能
 
     const urlParams = new URLSearchParams(window.location.search);
     const type = urlParams.get('type');
