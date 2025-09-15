@@ -1,7 +1,7 @@
 <template>
     <P2PAppLayout>
         <Head title="我的发布" />
-        
+
         <!-- 页面头部 -->
         <div class="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800">
             <div class="mx-auto max-w-7xl px-4 py-3 sm:py-4 sm:px-6 lg:px-8">
@@ -11,7 +11,7 @@
                         <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-slate-100">我的发布</h1>
                         <p class="hidden sm:block text-sm text-gray-500 dark:text-slate-400 mt-1">管理您的交易广告</p>
                     </div>
-                    
+
                     <!-- 发布统计 -->
                     <div class="flex items-center gap-2 sm:gap-3">
                         <div class="text-center">
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- 筛选栏 -->
                 <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <!-- 筛选器 -->
@@ -84,7 +84,7 @@
                             </template>
                             创建发布
                         </P2PButton>
-                        
+
                         <P2PButton
                             @click="showTradeSettings = true"
                             variant="ghost"
@@ -99,7 +99,7 @@
                             </template>
                             交易设置
                         </P2PButton>
-                        
+
                         <P2PButton
                             @click="$inertia.visit('/notifications/settings')"
                             variant="ghost"
@@ -117,7 +117,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <!-- Loading State -->
             <div v-if="loading" class="flex items-center justify-center py-12">
@@ -126,7 +126,7 @@
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
             </div>
-            
+
             <!-- Empty State -->
             <div v-else-if="offers.length === 0" class="text-center py-12 bg-white dark:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-800">
                 <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -135,11 +135,11 @@
                 <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-slate-100">暂无广告</h3>
                 <p class="mt-1 text-sm text-gray-500 dark:text-slate-400">点击"创建发布"开始发布您的第一个交易广告</p>
             </div>
-            
+
             <!-- Desktop View -->
             <div v-if="!loading && offers.length > 0" class="hidden md:block space-y-4">
                 <!-- Ad Cards - 使用主页相同布局 -->
-                <div v-for="offer in offers" :key="offer?.id" 
+                <div v-for="offer in offers" :key="offer?.id"
                      class="bg-white dark:bg-slate-900/60 border border-gray-200 dark:border-slate-800 rounded-lg hover:border-gray-300 dark:hover:border-slate-700 transition-all group shadow-sm dark:shadow-none">
                     <div class="p-4">
                         <div class="grid grid-cols-12 gap-4 items-center">
@@ -210,35 +210,35 @@
                                         </span>
                                     </div>
                                     <div class="flex justify-end gap-1">
-                                        <button 
+                                        <button
                                             v-if="offer?.status === 'active'"
                                             @click="toggleOfferStatus(offer?.id, 'pause')"
                                             class="px-3 py-1.5 text-sm font-medium text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 rounded-lg hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors cursor-pointer"
                                         >
                                             暂停
                                         </button>
-                                        <button 
+                                        <button
                                             v-else-if="offer?.status === 'paused'"
                                             @click="toggleOfferStatus(offer?.id, 'activate')"
                                             class="px-3 py-1.5 text-sm font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors cursor-pointer"
                                         >
                                             激活
                                         </button>
-                                        <button 
+                                        <button
                                             v-else-if="offer?.status === 'archived'"
                                             @click="restoreOffer(offer?.id)"
                                             class="px-3 py-1.5 text-sm font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors cursor-pointer"
                                         >
                                             恢复
                                         </button>
-                                        <button 
+                                        <button
                                             v-if="offer?.status !== 'archived'"
                                             @click="editOffer(offer)"
                                             class="px-3 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors cursor-pointer"
                                         >
                                             编辑
                                         </button>
-                                        <button 
+                                        <button
                                             v-if="offer?.status !== 'archived'"
                                             @click="archiveOffer(offer?.id)"
                                             class="px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/20 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900/30 transition-colors cursor-pointer"
@@ -255,7 +255,7 @@
 
             <!-- Mobile Cards -->
             <div v-if="!loading && offers.length > 0" class="md:hidden space-y-3">
-                <div v-for="offer in offers" :key="offer?.id" 
+                <div v-for="offer in offers" :key="offer?.id"
                      class="bg-white dark:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-800 overflow-hidden">
                     <div class="p-3">
                         <!-- 头部信息 -->
@@ -318,39 +318,39 @@
 
                         <!-- 操作按钮 -->
                         <div class="flex items-center gap-2 justify-end">
-                            <button 
+                            <button
                                 v-if="offer?.status === 'active'"
                                 @click="toggleOfferStatus(offer?.id, 'pause')"
                                 class="px-2 py-1 text-xs font-medium text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 rounded hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors cursor-pointer">
                                 暂停
                             </button>
-                            <button 
+                            <button
                                 v-else-if="offer?.status === 'paused'"
                                 @click="toggleOfferStatus(offer?.id, 'activate')"
                                 class="px-2 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 rounded hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors cursor-pointer">
                                 激活
                             </button>
-                            <button 
+                            <button
                                 v-else-if="offer?.status === 'archived'"
                                 @click="restoreOffer(offer?.id)"
                                 class="px-2 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 rounded hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors cursor-pointer">
                                 恢复
                             </button>
-                            <button 
+                            <button
                                 v-if="offer?.status !== 'archived'"
-                                @click="editOffer(offer)" 
+                                @click="editOffer(offer)"
                                 class="px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors cursor-pointer">
                                 编辑
                             </button>
-                            <button 
+                            <button
                                 v-if="offer?.status !== 'archived'"
-                                @click="archiveOffer(offer?.id)" 
+                                @click="archiveOffer(offer?.id)"
                                 class="px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/20 rounded hover:bg-gray-100 dark:hover:bg-gray-900/30 transition-colors cursor-pointer">
                                 归档
                             </button>
                         </div>
                     </div>
-                    
+
                     <!-- 状态栏 -->
                     <div class="px-3 py-1 bg-gray-50 dark:bg-slate-800/30 border-t border-gray-200 dark:border-slate-800">
                         <div class="flex items-center justify-between text-xs">
@@ -373,7 +373,7 @@
 
             <!-- Pagination -->
             <div v-if="!loading" class="mt-6">
-                <P2PPagination 
+                <P2PPagination
                     :current-page="currentPage"
                     :total="totalOffers"
                     :per-page="perPage"
@@ -383,21 +383,21 @@
         </div>
 
         <!-- Create/Edit Offer Modal -->
-        <CreateOfferModal 
-            v-model="showCreateModal" 
+        <CreateOfferModal
+            v-model="showCreateModal"
             :offer="editingOffer"
             :trade-settings="tradeSettings"
             :user-addresses="props.userAddresses"
             :payment-methods="paymentMethods"
             @success="handleOfferCreated"
         />
-        
-        <TradeSettingsModal 
+
+        <TradeSettingsModal
             v-model="showTradeSettings"
             @saved="handleSettingsSaved"
         />
-        
-        
+
+
         <!-- Archive Confirmation Dialog -->
         <P2PConfirmationBox
             :show="showArchiveConfirm"
@@ -412,7 +412,7 @@
             <p>确定要归档这个广告吗？</p>
             <p class="mt-2 text-xs">归档后的广告将不再显示在列表中，但您的数据会被保留。</p>
         </P2PConfirmationBox>
-        
+
         <!-- Status Change Confirmation Dialog -->
         <P2PConfirmationBox
             :show="showStatusConfirm"
@@ -447,7 +447,7 @@ import P2PConfirmationBox from '@/Components/UI/P2PConfirmationBox.vue';
 import CreateOfferModal from '@/Components/Publish/CreateOfferModal.vue';
 import TradeSettingsModal from '@/Components/Publish/TradeSettingsModal.vue';
 import { getPaymentMethodDetails } from '@/Constants/paymentMethods';
-import { useConfig } from '@/composables/useConfig';
+import { useConfig } from '@/Composables/useConfig';
 import { getCryptoIcon } from '@/Utils/crypto';
 
 const page = usePage();
@@ -538,7 +538,7 @@ const fetchAds = async () => {
         console.log('Fetching ads with params:', params);
 
         const response = await axios.get('/web/api/ads/my', { params });
-        
+
         console.log('API Response:', response.data.data);
         offers.value = (response.data.data.ads || []).filter(ad => ad).map(ad => {
             return {
@@ -570,16 +570,16 @@ const fetchAds = async () => {
                 createdAt: new Date(ad.created_at).toLocaleDateString('zh-CN')
             };
         });
-        
+
         console.log('Processed offers:', offers.value);
-        
+
         // Update statistics
         activeOffers.value = offers.value.filter(o => o.status === 'active').length;
         totalTrades.value = response.data.data.ads.reduce((sum, ad) => sum + ad.trades_count, 0);
-        
+
         // Update pagination
         totalOffers.value = response.data.data.pagination.total;
-        
+
     } catch (error) {
         // 错误通知会通过 axios 拦截器自动显示
         console.error('Error fetching ads:', error);
@@ -612,7 +612,7 @@ const confirmStatusChange = async () => {
         // 错误通知会通过 axios 拦截器自动显示
         console.error('Error toggling offer status:', error);
     }
-    
+
     showStatusConfirm.value = false;
     statusChangeOfferId.value = null;
     statusChangeAction.value = null;
@@ -639,7 +639,7 @@ const confirmArchive = async () => {
         // 错误通知会通过 axios 拦截器自动显示
         console.error('Error archiving offer:', error);
     }
-    
+
     showArchiveConfirm.value = false;
     archivingOfferId.value = null;
 };

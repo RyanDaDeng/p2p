@@ -10,7 +10,10 @@
       "Bash(sed:*)",
       "Bash(sqlite3:*)",
       "WebFetch(domain:localcoinswap.com)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(while read file)",
+      "Bash(do sed -i 's|@/composables/|@/Composables/|g' \"$file\")",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": []

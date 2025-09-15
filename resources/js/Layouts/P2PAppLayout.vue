@@ -336,7 +336,7 @@
         </nav>
 
         <!-- Footer - 手机端始终隐藏，桌面端根据 hideFooter 属性决定 -->
-        <P2PFooter v-if="!hideFooter" class="hidden sm:block" />
+        <P2PFooter v-if="!hideFooter" class=" sm:block" />
 
     </div>
     <!-- </P2PNotificationContainer> -->
@@ -349,7 +349,7 @@ import { useDark, useToggle } from '@vueuse/core';
 import P2PFooter from '@/Components/UI/P2PFooter.vue';
 import P2PLogo from '@/Components/UI/P2PLogo.vue';
 import P2PLoadingScreen from '@/Components/UI/P2PLoadingScreen.vue';
-import { usePWA } from '@/composables/usePWA';
+import { usePWA } from '@/Composables/usePWA';
 // import P2PNotificationContainer from '@/Components/UI/P2PNotificationContainer.vue';
 
 // Props

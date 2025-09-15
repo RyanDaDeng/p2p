@@ -753,7 +753,7 @@ import P2PPagination from '@/Components/UI/P2PPagination.vue';
 import P2PPaymentMethodPicker from '@/Components/UI/P2PPaymentMethodPicker.vue';
 import P2PDialog from '@/Components/UI/P2PDialog.vue';
 import P2PLoginPrompt from '@/Components/UI/P2PLoginPrompt.vue';
-import { useConfig } from '@/composables/useConfig';
+import { useConfig } from '@/Composables/useConfig';
 import { useAuthCheck } from '@/Composables/useAuthCheck';
 import axios from 'axios';
 

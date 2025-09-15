@@ -338,7 +338,7 @@ import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 import P2PPublishDialog from '@/Components/UI/P2PPublishDialog.vue';
 import P2PSelect from '@/Components/UI/P2PSelect.vue';
 import P2PPaymentMethodPicker from '@/Components/UI/P2PPaymentMethodPicker.vue';
-import { useConfig } from '@/composables/useConfig';
+import { useConfig } from '@/Composables/useConfig';
 import { getPaymentMethodDetails, getPaymentMethodPlaceholder } from '@/Constants/paymentMethods';
 import axios from 'axios';
 import MessageDialog from '@/Components/MessageDialog';
