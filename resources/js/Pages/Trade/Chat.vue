@@ -63,7 +63,7 @@
         </P2PMobileHeader>
 
         <!-- 移动端固定高度，防止整页滚动 -->
-        <div class="lg:min-h-screen lg:bg-gray-50 lg:dark:bg-slate-950 h-screen lg:h-auto overflow-hidden lg:overflow-visible">
+        <div class="lg:min-h-screen lg:bg-gray-50 lg:dark:bg-slate-950 h-screen lg:h-auto overflow-hidden lg:overflow-visible fixed lg:relative inset-0">
             <!-- 已取消订单提示 -->
             <div v-if="order.status === 'cancelled'" class="relative z-10 bg-red-50 dark:bg-red-900/20 border-b border-red-200 dark:border-red-800">
                 <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8">
@@ -1320,7 +1320,7 @@
                     </div>
                     
                     <!-- 移动端聊天内容 -->
-                    <div ref="mobileMessageContainer" class="flex-1 overflow-y-auto bg-white dark:bg-slate-950">
+                    <div ref="mobileMessageContainer" class="flex-1 overflow-y-auto overscroll-contain bg-white dark:bg-slate-950">
                         <div class="p-4 space-y-4">
                             <!-- 初始系统消息 -->
                             <div class="flex justify-center">
