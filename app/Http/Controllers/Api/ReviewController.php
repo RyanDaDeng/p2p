@@ -21,9 +21,8 @@ class ReviewController extends ApiController
         
         // 检查是否可以创建评价
         if (!Review::canCreateForOrder($order, Auth::user())) {
-            return $this->sendError('无法创建评价', [
-                'reason' => $this->getCannotReviewReason($order)
-            ]);
+            $reason = $this->getCannotReviewReason($order);
+            return $this->sendError($reason);
         }
         
         $request->validate([
@@ -46,7 +45,7 @@ class ReviewController extends ApiController
                 'rating' => $request->rating,
                 'comment' => $request->comment,
                 'trade_type' => $tradeType,
-                'crypto_currency' => $order->currency_key,
+                'currency_key' => $order->currency_key,
                 'fiat_amount' => $order->fiat_amount,
                 'is_anonymous' => $request->is_anonymous ?? false
             ]);
@@ -175,17 +174,17 @@ class ReviewController extends ApiController
     private function getCannotReviewReason(Order $order)
     {
         if ($order->escrow_status !== 'escrow_released') {
-            return '订单尚未完成';
+            return '订单尚未完成，请等待交易完成后再评价';
         }
-        
+
         if ($order->client_id !== Auth::id()) {
-            return '只有客户可以评价商家';
+            return '只有买家可以对卖家进行评价';
         }
-        
+
         if (Review::where('order_id', $order->id)->exists()) {
-            return '该订单已评价';
+            return '您已经评价过此订单';
         }
-        
-        return '未知原因';
+
+        return '当前无法评价此订单';
     }
 }

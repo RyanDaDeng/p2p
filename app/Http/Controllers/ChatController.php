@@ -49,13 +49,13 @@ class ChatController extends Controller
             ->where('order_id', $order->id)
             ->where('is_read', 0)
             ->update(['is_read' => 1]);
-        
+
         // 如果有更新通知，检查是否还有其他未读通知
         if ($updated > 0) {
             $hasOtherUnread = Notification::where('user_id', auth()->id())
                 ->where('is_read', 0)
                 ->exists();
-            
+
             // 如果没有其他未读通知，清除用户的 unread 标记
             if (!$hasOtherUnread) {
                 User::where('id', auth()->id())->update(['unread' => 0]);
@@ -368,6 +368,7 @@ class ChatController extends Controller
 
         // 广播系统消息，包含触发用户信息
         $user = $userId ? \App\Models\User::find($userId) : null;
+
         broadcast(new MessageSent($chatMessage, $user, $orderId));
 
         return $chatMessage;

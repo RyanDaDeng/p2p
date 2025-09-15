@@ -21,7 +21,7 @@
                     leave-from-class="translate-y-0 md:scale-100 md:opacity-100"
                     leave-to-class="translate-y-full md:translate-y-0 md:scale-95 md:opacity-0"
                 >
-                    <div v-if="show" class="relative bg-white dark:bg-gray-900 rounded-t md:rounded shadow-2xl w-full md:max-w-lg max-h-[90vh] overflow-hidden md:m-4 pt-safe">
+                    <div v-if="show" class="relative bg-white dark:bg-gray-900 rounded-t md:rounded shadow-2xl w-full md:max-w-lg max-h-[90vh] overflow-hidden md:m-4">
                         <!-- Mobile drag indicator -->
                         <div class="md:hidden flex justify-center pt-2 pb-1">
                             <div class="w-10 h-1 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
@@ -98,13 +98,15 @@
 
                             <!-- Agreement Section (if required) -->
                             <div v-if="requiresAgreement" class="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 md:px-6 py-3">
-                                <label class="flex items-start gap-3 cursor-pointer">
+                                <label class="flex items-start gap-3" :class="agreementDisabled ? 'cursor-not-allowed' : 'cursor-pointer'">
                                     <input
                                         type="checkbox"
                                         v-model="agreed"
-                                        class="mt-1 w-4 h-4 text-emerald-600 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded focus:ring-emerald-500 dark:focus:ring-emerald-400 focus:ring-2 cursor-pointer"
+                                        :disabled="agreementDisabled"
+                                        class="mt-1 w-4 h-4 text-emerald-600 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded focus:ring-emerald-500 dark:focus:ring-emerald-400 focus:ring-2"
+                                        :class="agreementDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'"
                                     />
-                                    <span class="text-sm text-gray-700 dark:text-gray-300 font-medium">
+                                    <span class="text-sm font-medium" :class="agreementDisabled ? 'text-gray-400 dark:text-gray-500' : 'text-gray-700 dark:text-gray-300'">
                                         {{ agreementText }}
                                     </span>
                                 </label>
@@ -194,6 +196,10 @@ const props = defineProps({
     agreementText: {
         type: String,
         default: '我已了解并同意继续'
+    },
+    agreementDisabled: {
+        type: Boolean,
+        default: false
     },
     cancelText: {
         type: String,

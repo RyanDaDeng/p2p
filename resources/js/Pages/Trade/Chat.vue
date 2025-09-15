@@ -108,9 +108,9 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Telegram 未连接提醒 (仅桌面端显示) -->
-            <div v-if="!$page.props.auth.user?.telegram_chat_id && order.status !== 'cancelled' && order.status !== 'completed'" 
+            <div v-if="!$page.props.auth.user?.telegram_chat_id && order.status !== 'cancelled' && order.status !== 'completed'"
                  class="hidden md:block relative z-10 bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-800">
                 <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8">
                     <div class="flex flex-col sm:flex-row sm:items-center gap-3">
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                         <div class="sm:ml-auto">
-                            <Link href="/notifications/settings" 
+                            <Link href="/notifications/settings"
                                   class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm font-medium transition-colors">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.56c-.21 2.27-1.13 7.75-1.6 10.29-.2 1.08-.59 1.44-.97 1.47-.82.07-1.45-.54-2.24-.99-1.24-.71-1.94-1.16-3.14-1.85-1.39-.8-.49-1.24.3-1.96.21-.19 3.85-3.52 3.91-3.82.01-.04.01-.19-.07-.27-.08-.08-.2-.05-.28-.03-.12.03-2.02.13-5.7 3.75-.54.54-1.03.8-1.48.78-.49-.02-1.42-.27-2.11-.5-.85-.28-1.53-.42-1.47-.89.03-.25.37-.51 1.02-.77 4-1.74 6.67-2.89 8.01-3.44 3.81-1.57 4.61-1.84 5.13-1.85.11 0 .37.03.53.18.14.12.18.28.2.45-.01.06-.01.24-.02.38z"/>
@@ -517,42 +517,7 @@
                                     {{ getStatusBadgeText(order.escrow_status) }}
                                 </span>
                             </div>
-                            
-                            <!-- 评价按钮 - 放在顶部显眼位置 -->
-                            <div v-if="currentOrder.escrow_status === 'escrow_released' && currentUserId === currentOrder.client_id" class="mb-4">
-                                <div v-if="!currentOrder.has_review" class="p-3 bg-amber-50 dark:bg-amber-900/20 rounded border border-amber-200 dark:border-amber-800">
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center gap-2">
-                                            <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                            </svg>
-                                            <span class="text-sm font-medium text-amber-800 dark:text-amber-200">交易已完成，请评价</span>
-                                        </div>
-                                    </div>
-                                    <P2PButton
-                                        @click="showReviewModal = true"
-                                        variant="primary"
-                                        size="sm"
-                                        fullWidth
-                                        class="mt-2"
-                                    >
-                                        <template #icon>
-                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                            </svg>
-                                        </template>
-                                        立即评价商家
-                                    </P2PButton>
-                                </div>
-                                <div v-else class="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded border border-emerald-200 dark:border-emerald-800">
-                                    <div class="flex items-center gap-2">
-                                        <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                        </svg>
-                                        <span class="text-sm font-medium text-emerald-800 dark:text-emerald-200">您已评价此交易</span>
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <!-- 交易进度 -->
                             <div class="mb-6">
@@ -899,41 +864,41 @@
                     <div class="md:col-span-2">
                         <!-- 聊天区域（桌面端） -->
                         <div class="bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 flex flex-col" style="height: 650px; min-height: 600px;">
-                        <!-- 聊天头部 -->
-                        <div class="border-b border-gray-200 dark:border-gray-800">
-                            <div class="px-6 py-4">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-3">
-                                        <!-- 参与者头像组 -->
-                                        <div class="flex -space-x-2">
-                                            <template v-for="(participant, index) in participants" :key="participant.id">
-                                                <a :href="`/trader/profile/${participant.id}`"
-                                                   target="_blank"
-                                                   class="relative hover:opacity-80 transition-opacity cursor-pointer"
-                                                   :style="`z-index: ${participants.length - index}`">
-                                                    <!-- 使用profile photo if available -->
-                                                    <img
-                                                        v-if="participant.profile_photo_url"
-                                                        :src="participant.profile_photo_url"
-                                                        :alt="participant.name"
-                                                        class="h-10 w-10 rounded-full object-cover ring-2 ring-white dark:ring-gray-900"
-                                                    />
-                                                    <!-- Fallback to initial -->
-                                                    <div v-else class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-white dark:ring-gray-900">
-                                                        <span class="text-white font-bold">{{ participant.name?.[0]?.toUpperCase() || 'U' }}</span>
-                                                    </div>
-                                                    <div v-if="participant.is_online" class="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 bg-emerald-500 rounded-full ring-2 ring-white dark:ring-gray-900"></div>
-                                                </a>
-                                            </template>
-                                        </div>
-                                        <div class="flex-1">
-                                            <div class="flex items-center gap-2">
-                                                <p class="font-semibold text-gray-900 dark:text-gray-100">
-                                                    订单 #{{ order.order_no }} 聊天室
-                                                    <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">({{ participants.length }}人)</span>
-                                                </p>
+                            <!-- 聊天头部 -->
+                            <div class="border-b border-gray-200 dark:border-gray-800">
+                                <div class="px-6 py-4">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <!-- 参与者头像组 -->
+                                            <div class="flex -space-x-2">
+                                                <template v-for="(participant, index) in participants" :key="participant.id">
+                                                    <a :href="`/trader/profile/${participant.id}`"
+                                                       target="_blank"
+                                                       class="relative hover:opacity-80 transition-opacity cursor-pointer"
+                                                       :style="`z-index: ${participants.length - index}`">
+                                                        <!-- 使用profile photo if available -->
+                                                        <img
+                                                            v-if="participant.profile_photo_url"
+                                                            :src="participant.profile_photo_url"
+                                                            :alt="participant.name"
+                                                            class="h-10 w-10 rounded-full object-cover ring-2 ring-white dark:ring-gray-900"
+                                                        />
+                                                        <!-- Fallback to initial -->
+                                                        <div v-else class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-white dark:ring-gray-900">
+                                                            <span class="text-white font-bold">{{ participant.name?.[0]?.toUpperCase() || 'U' }}</span>
+                                                        </div>
+                                                        <div v-if="participant.is_online" class="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 bg-emerald-500 rounded-full ring-2 ring-white dark:ring-gray-900"></div>
+                                                    </a>
+                                                </template>
                                             </div>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                            <div class="flex-1">
+                                                <div class="flex items-center gap-2">
+                                                    <p class="font-semibold text-gray-900 dark:text-gray-100">
+                                                        订单 #{{ order.order_no }} 聊天室
+                                                        <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">({{ participants.length }}人)</span>
+                                                    </p>
+                                                </div>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400">
                                                 <span v-for="(participant, index) in participants" :key="participant.id">
                                                     <span :class="[
                                                         participant.is_online ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-400 dark:text-gray-500',
@@ -943,54 +908,69 @@
                                                     </span>
                                                     <span v-if="index < participants.length - 1" class="text-gray-400"> · </span>
                                                 </span>
-                                            </p>
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="flex items-center gap-2">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 聊天消息区域 -->
-                        <div ref="messageContainer" class="flex-1 overflow-y-auto p-6 space-y-4">
-                            <!-- 初始系统消息 -->
-                            <div class="flex flex-col items-center gap-1">
-                                <div class="text-xs text-gray-400 dark:text-gray-500">
-                                    {{ new Date(order.created_at).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }) }}
-                                </div>
-                                <div class="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs text-gray-500 dark:text-gray-400">
-                                    订单已创建，等待商家确认
-                                </div>
-                            </div>
-
-                            <!-- 安全提醒 -->
-                            <div class="mb-4 mx-4">
-                                <div class="bg-amber-50 dark:bg-amber-900/20 rounded p-3 border border-amber-200 dark:border-amber-800">
-                                    <div class="flex items-start gap-2">
-                                        <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                        </svg>
-                                        <div class="text-xs">
-                                            <p class="font-medium text-amber-700 dark:text-amber-300 mb-1">安全提醒</p>
-                                            <p class="text-amber-600 dark:text-amber-400">请勿相信任何平台外的交易邀请，谨防诈骗。任何平台以外的交流都无法作为争议材料。</p>
+                                        <div class="flex items-center gap-2">
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- 商家公告 -->
-                            <div v-if="order.ad_snapshot?.welcome_message" class="mb-4 mx-4">
-                                <div class="bg-blue-50 dark:bg-blue-900/20 rounded p-3 border border-blue-200 dark:border-blue-800">
-                                    <div class="flex items-center gap-2 mb-2">
-                                        <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd" />
-                                        </svg>
-                                        <span class="text-xs font-medium text-blue-700 dark:text-blue-300">商家公告</span>
+                            <!-- 聊天消息区域 -->
+                            <div ref="messageContainer" class="flex-1 overflow-y-auto p-6 space-y-4">
+                                <!-- 初始系统消息 -->
+                                <div class="flex flex-col items-center gap-1">
+                                    <div class="text-xs text-gray-400 dark:text-gray-500">
+                                        {{ new Date(order.created_at).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }) }}
                                     </div>
-                                    <p class="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{{ order.ad_snapshot.welcome_message }}</p>
-                                    <div v-if="order.vendor?.response_time" class="mt-2 pt-2 border-t border-blue-200 dark:border-blue-700">
+                                    <div class="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs text-gray-500 dark:text-gray-400">
+                                        订单已创建，等待商家确认
+                                    </div>
+                                </div>
+
+                                <!-- 安全提醒 -->
+                                <div class="mb-4 mx-4">
+                                    <div class="bg-amber-50 dark:bg-amber-900/20 rounded p-3 border border-amber-200 dark:border-amber-800">
+                                        <div class="flex items-start gap-2">
+                                            <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                            </svg>
+                                            <div class="text-xs">
+                                                <p class="font-medium text-amber-700 dark:text-amber-300 mb-1">安全提醒</p>
+                                                <p class="text-amber-600 dark:text-amber-400">请勿相信任何平台外的交易邀请，谨防诈骗。任何平台以外的交流都无法作为争议材料。</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 商家公告 -->
+                                <div v-if="order.ad_snapshot?.welcome_message" class="mb-4 mx-4">
+                                    <div class="bg-blue-50 dark:bg-blue-900/20 rounded p-3 border border-blue-200 dark:border-blue-800">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd" />
+                                            </svg>
+                                            <span class="text-xs font-medium text-blue-700 dark:text-blue-300">商家公告</span>
+                                        </div>
+                                        <p class="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{{ order.ad_snapshot.welcome_message }}</p>
+                                        <div v-if="order.vendor?.response_time" class="mt-2 pt-2 border-t border-blue-200 dark:border-blue-700">
+                                            <div class="flex items-center gap-2">
+                                                <svg class="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                    该商家的响应时间是 <span class="font-medium text-blue-600 dark:text-blue-400">{{ order.vendor.response_time }} 分钟</span>，请在该时间内等待商家加入聊天室。
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 独立响应时间提醒（没有欢迎消息时） -->
+                                <div v-if="order.vendor?.response_time && !order.ad_snapshot?.welcome_message" class="mb-4 mx-4">
+                                    <div class="bg-blue-50 dark:bg-blue-900/20 rounded p-3 border border-blue-200 dark:border-blue-800">
                                         <div class="flex items-center gap-2">
                                             <svg class="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -1001,378 +981,379 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- 独立响应时间提醒（没有欢迎消息时） -->
-                            <div v-if="order.vendor?.response_time && !order.ad_snapshot?.welcome_message" class="mb-4 mx-4">
-                                <div class="bg-blue-50 dark:bg-blue-900/20 rounded p-3 border border-blue-200 dark:border-blue-800">
-                                    <div class="flex items-center gap-2">
-                                        <svg class="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        <p class="text-xs text-gray-600 dark:text-gray-400">
-                                            该商家的响应时间是 <span class="font-medium text-blue-600 dark:text-blue-400">{{ order.vendor.response_time }} 分钟</span>，请在该时间内等待商家加入聊天室。
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 动态消息列表 -->
-                            <div
-                                v-for="msg in messages"
-                                :key="msg.id"
-                                :class="[
+                                <!-- 动态消息列表 -->
+                                <div
+                                    v-for="msg in messages"
+                                    :key="msg.id"
+                                    :class="[
                                     'flex',
                                     msg.type === 'system' ? 'justify-center' : 'gap-3',
                                     msg.type !== 'system' && msg.user?.id === $page.props.auth.user?.id ? 'justify-end' : ''
                                 ]"
-                            >
-                                <!-- 系统消息 -->
-                                <template v-if="msg.type === 'system'">
-                                    <div class="flex flex-col items-center gap-1">
-                                        <div class="text-xs text-gray-400 dark:text-gray-500">
-                                            {{ formatTime(msg.created_at) }}
-                                        </div>
-                                        <div :class="[
+                                >
+                                    <!-- 系统消息 -->
+                                    <template v-if="msg.type === 'system'">
+                                        <div class="flex flex-col items-center gap-1">
+                                            <div class="text-xs text-gray-400 dark:text-gray-500">
+                                                {{ formatTime(msg.created_at) }}
+                                            </div>
+                                            <div :class="[
                                             'px-3 py-1 rounded text-xs max-w-md',
                                             msg.is_temporary ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400' : 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
                                         ]">
-                                            <span v-if="msg.user">{{ msg.user.name }} </span>
-                                            {{ msg.message || msg.content }}
-                                        </div>
-                                    </div>
-                                </template>
+                                                <span v-if="msg.user">{{ msg.user.name }} </span>
+                                                {{ msg.message || msg.content }}
+                                            </div>
 
-                                <!-- 对方消息 -->
-                                <template v-else-if="msg.user?.id !== $page.props.auth.user?.id">
-                                    <a :href="`/trader/profile/${msg.user.id}`" target="_blank" class="h-8 w-8 rounded-full flex-shrink-0 hover:opacity-80 transition-opacity cursor-pointer">
-                                        <!-- 使用profile photo if available -->
+                                            <!-- 评价按钮或已评价状态 - 交易完成时显示 -->
+                                            <div v-if="msg.show_review_button">
+                                                <!-- 未评价 - 显示评价按钮 -->
+                                                <div v-if="!currentOrder.has_review"
+                                                     class="mt-3 p-3 bg-amber-50 dark:bg-amber-900/20 rounded border border-amber-200 dark:border-amber-800 max-w-sm">
+                                                    <div class="flex flex-col items-center gap-2">
+                                                        <div class="flex items-center gap-2">
+                                                            <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                            </svg>
+                                                            <span class="text-sm font-medium text-amber-800 dark:text-amber-300">请评价本次交易</span>
+                                                        </div>
+                                                        <P2PButton
+                                                            @click="showReviewModal = true"
+                                                            variant="warning"
+                                                            size="sm"
+                                                            fullWidth
+                                                        >
+                                                            <template #icon>
+                                                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                                </svg>
+                                                            </template>
+                                                            立即评价
+                                                        </P2PButton>
+                                                    </div>
+                                                </div>
+                                                <!-- 已评价 - 显示状态 -->
+                                                <div v-else
+                                                     class="mt-3 p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded border border-emerald-200 dark:border-emerald-800 max-w-sm">
+                                                    <div class="flex items-center justify-center gap-2">
+                                                        <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                        </svg>
+                                                        <span class="text-sm font-medium text-emerald-800 dark:text-emerald-300">您已评价此交易</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <!-- 对方消息 -->
+                                    <template v-else-if="msg.user?.id !== $page.props.auth.user?.id">
+                                        <a :href="`/trader/profile/${msg.user.id}`" target="_blank" class="h-8 w-8 rounded-full flex-shrink-0 hover:opacity-80 transition-opacity cursor-pointer">
+                                            <!-- 使用profile photo if available -->
+                                            <img
+                                                v-if="msg.user.profile_photo_url"
+                                                :src="msg.user.profile_photo_url"
+                                                :alt="msg.user.name"
+                                                class="h-8 w-8 rounded-full object-cover border border-gray-200 dark:border-gray-700"
+                                            />
+                                            <!-- Fallback to initial -->
+                                            <div v-else class="h-8 w-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                                                <span class="text-white text-sm font-bold">{{ msg.user.name.charAt(0) }}</span>
+                                            </div>
+                                        </a>
+                                        <div class="max-w-lg">
+                                            <p class="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1 px-1">
+                                                {{ msg.user.name }}
+                                                <span v-if="msg.type === 'admin'" class="text-purple-600 dark:text-purple-400 font-bold">(Admin)</span>
+                                            </p>
+                                            <div class="inline-block bg-gray-100 dark:bg-gray-800 rounded rounded-tl-none px-4 py-3">
+                                                <!-- 附件显示 -->
+                                                <div v-if="msg.attachment" class="mb-2">
+                                                    <P2PAttachment
+                                                        :attachment="msg.attachment"
+                                                        variant="default"
+                                                        thumbnail-size="md"
+                                                    />
+                                                </div>
+                                                <p v-if="msg.message" class="text-sm text-gray-900 dark:text-gray-200 break-words">{{ msg.message }}</p>
+                                            </div>
+                                            <p class="text-xs text-gray-400 dark:text-gray-500 mt-1 px-1">{{ formatTime(msg.created_at) }}</p>
+                                        </div>
+                                    </template>
+
+                                    <!-- 自己的消息 -->
+                                    <template v-else>
+                                        <div class="max-w-lg">
+                                            <p class="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1 px-1 text-right">
+                                                {{ msg.user.name }}
+                                                <span v-if="msg.type === 'admin'" class="text-purple-600 dark:text-purple-400 font-bold">(Admin)</span>
+                                            </p>
+                                            <div class="inline-block bg-emerald-600 text-white rounded rounded-tr-none px-4 py-3">
+                                                <!-- 附件显示 -->
+                                                <div v-if="msg.attachment" class="mb-2">
+                                                    <P2PAttachment
+                                                        :attachment="msg.attachment"
+                                                        variant="primary"
+                                                        thumbnail-size="md"
+                                                    />
+                                                </div>
+                                                <p v-if="msg.message" class="text-sm break-words">{{ msg.message }}</p>
+                                            </div>
+                                            <p class="text-xs text-gray-400 dark:text-gray-500 mt-1 px-1 text-right">{{ formatTime(msg.created_at) }}</p>
+                                        </div>
+                                        <!-- 当前用户头像 -->
                                         <img
-                                            v-if="msg.user.profile_photo_url"
-                                            :src="msg.user.profile_photo_url"
-                                            :alt="msg.user.name"
-                                            class="h-8 w-8 rounded-full object-cover border border-gray-200 dark:border-gray-700"
+                                            v-if="$page.props.auth.user?.profile_photo_url"
+                                            :src="$page.props.auth.user.profile_photo_url"
+                                            :alt="$page.props.auth.user.name"
+                                            class="h-8 w-8 rounded-full object-cover border border-gray-200 dark:border-gray-700 flex-shrink-0"
                                         />
                                         <!-- Fallback to initial -->
-                                        <div v-else class="h-8 w-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                                            <span class="text-white text-sm font-bold">{{ msg.user.name.charAt(0) }}</span>
+                                        <div v-else class="h-8 w-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
+                                            <span class="text-white text-sm font-bold">{{ $page.props.auth.user?.name?.charAt(0).toUpperCase() || 'U' }}</span>
                                         </div>
-                                    </a>
-                                    <div class="max-w-md">
-                                        <p class="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1 px-1">
-                                            {{ msg.user.name }}
-                                            <span v-if="msg.type === 'admin'" class="text-purple-600 dark:text-purple-400 font-bold">(Admin)</span>
-                                        </p>
-                                        <div class="bg-gray-100 dark:bg-gray-800 rounded rounded-tl-none px-4 py-3">
-                                            <!-- 附件显示 -->
-                                            <div v-if="msg.attachment" class="mb-2">
-                                                <P2PAttachment
-                                                    :attachment="msg.attachment"
-                                                    variant="default"
-                                                    thumbnail-size="md"
-                                                />
-                                            </div>
-                                            <p v-if="msg.message" class="text-sm text-gray-900 dark:text-gray-200">{{ msg.message }}</p>
-                                        </div>
-                                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-1 px-1">{{ formatTime(msg.created_at) }}</p>
-                                    </div>
-                                </template>
-
-                                <!-- 自己的消息 -->
-                                <template v-else>
-                                    <div class="max-w-md">
-                                        <p class="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1 px-1 text-right">
-                                            {{ msg.user.name }}
-                                            <span v-if="msg.type === 'admin'" class="text-purple-600 dark:text-purple-400 font-bold">(Admin)</span>
-                                        </p>
-                                        <div class="bg-emerald-600 text-white rounded rounded-tr-none px-4 py-3">
-                                            <!-- 附件显示 -->
-                                            <div v-if="msg.attachment" class="mb-2">
-                                                <P2PAttachment
-                                                    :attachment="msg.attachment"
-                                                    variant="primary"
-                                                    thumbnail-size="md"
-                                                />
-                                            </div>
-                                            <p v-if="msg.message" class="text-sm">{{ msg.message }}</p>
-                                        </div>
-                                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-1 px-1 text-right">{{ formatTime(msg.created_at) }}</p>
-                                    </div>
-                                    <!-- 当前用户头像 -->
-                                    <img
-                                        v-if="$page.props.auth.user?.profile_photo_url"
-                                        :src="$page.props.auth.user.profile_photo_url"
-                                        :alt="$page.props.auth.user.name"
-                                        class="h-8 w-8 rounded-full object-cover border border-gray-200 dark:border-gray-700 flex-shrink-0"
-                                    />
-                                    <!-- Fallback to initial -->
-                                    <div v-else class="h-8 w-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
-                                        <span class="text-white text-sm font-bold">{{ $page.props.auth.user?.name?.charAt(0).toUpperCase() || 'U' }}</span>
-                                    </div>
-                                </template>
-                            </div>
-                        </div>
-
-                        <!-- 输入区域 -->
-                        <div class="border-t border-gray-200 dark:border-gray-800 p-4">
-                            <!-- 文件预览 -->
-                            <div v-if="selectedFile || isCompressing" class="mb-3 p-3 bg-gray-50 dark:bg-gray-800 rounded">
-                                <!-- 压缩中状态 -->
-                                <div v-if="isCompressing" class="flex items-center gap-3">
-                                    <div class="animate-spin h-8 w-8 border-4 border-blue-600 border-t-transparent rounded-full"></div>
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-200">正在压缩图片...</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">优化图片大小以快速上传</p>
-                                    </div>
+                                    </template>
                                 </div>
+                            </div>
+
+                            <!-- 输入区域 -->
+                            <div class="border-t border-gray-200 dark:border-gray-800 p-4">
                                 <!-- 文件预览 -->
-                                <div v-else-if="selectedFile" class="flex items-start gap-3">
-                                    <!-- 图片预览 -->
-                                    <img v-if="selectedFile.type.startsWith('image/')"
-                                         :src="filePreviewUrl"
-                                         :alt="selectedFile.name"
-                                         class="max-h-32 rounded"
+                                <div v-if="selectedFile || isCompressing" class="mb-3 p-3 bg-gray-50 dark:bg-gray-800 rounded">
+                                    <!-- 压缩中状态 -->
+                                    <div v-if="isCompressing" class="flex items-center gap-3">
+                                        <div class="animate-spin h-8 w-8 border-4 border-blue-600 border-t-transparent rounded-full"></div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-900 dark:text-gray-200">正在压缩图片...</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">优化图片大小以快速上传</p>
+                                        </div>
+                                    </div>
+                                    <!-- 文件预览 -->
+                                    <div v-else-if="selectedFile" class="flex items-start gap-3">
+                                        <!-- 图片预览 -->
+                                        <img v-if="selectedFile.type.startsWith('image/')"
+                                             :src="filePreviewUrl"
+                                             :alt="selectedFile.name"
+                                             class="max-h-32 rounded"
+                                        />
+                                        <!-- PDF图标 -->
+                                        <div v-else-if="selectedFile.type === 'application/pdf'"
+                                             class="w-16 h-20 bg-red-100 dark:bg-red-900/30 rounded flex items-center justify-center">
+                                            <svg class="w-8 h-8 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-5L9 2H4z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <!-- 文件信息 -->
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium text-gray-900 dark:text-gray-200">{{ selectedFile.name }}</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ formatFileSize(selectedFile.size) }}</p>
+                                        </div>
+                                        <!-- 移除按钮 -->
+                                        <button @click="removeFile"
+                                                type="button"
+                                                class="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <form @submit.prevent="sendMessage" class="flex gap-2">
+                                    <!-- 隐藏的文件输入 -->
+                                    <input
+                                        ref="fileInput"
+                                        type="file"
+                                        @change="handleFileSelect"
+                                        accept=".pdf,image/*"
+                                        data-max-size="2097152"
+                                        class="hidden"
                                     />
-                                    <!-- PDF图标 -->
-                                    <div v-else-if="selectedFile.type === 'application/pdf'"
-                                         class="w-16 h-20 bg-red-100 dark:bg-red-900/30 rounded flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-5L9 2H4z" clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <!-- 文件信息 -->
-                                    <div class="flex-1">
-                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-200">{{ selectedFile.name }}</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ formatFileSize(selectedFile.size) }}</p>
-                                    </div>
-                                    <!-- 移除按钮 -->
-                                    <button @click="removeFile"
-                                            type="button"
-                                            class="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    <button type="button"
+                                            @click="!isTradeCompleted && !isCompressing && $refs.fileInput.click()"
+                                            :disabled="isTradeCompleted || isCompressing"
+                                            class="p-2 rounded text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+                                    >
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
                                         </svg>
                                     </button>
-                                </div>
-                            </div>
 
-                            <form @submit.prevent="sendMessage" class="flex gap-2">
-                                <!-- 隐藏的文件输入 -->
-                                <input
-                                    ref="fileInput"
-                                    type="file"
-                                    @change="handleFileSelect"
-                                    accept=".pdf,image/*"
-                                    data-max-size="2097152"
-                                    class="hidden"
-                                />
-                                <button type="button"
-                                        @click="!isTradeCompleted && !isCompressing && $refs.fileInput.click()"
-                                        :disabled="isTradeCompleted || isCompressing"
-                                        class="p-2 rounded text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent"
-                                >
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
-                                    </svg>
-                                </button>
+                                    <P2PEmojiPicker
+                                        @select="(emoji) => newMessage += emoji"
+                                        :disabled="isTradeCompleted"
+                                        placement="top"
+                                    />
 
-                                <P2PEmojiPicker
-                                    @select="(emoji) => newMessage += emoji"
-                                    :disabled="isTradeCompleted"
-                                    placement="top"
-                                />
-
-                                <input
-                                    v-model="newMessage"
-                                    type="text"
-                                    :placeholder="isTradeCompleted ? '交易已结束，无法发送消息' : '输入消息...'"
-                                    class="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-800 border-0 rounded text-base md:text-sm text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none disabled:opacity-50 transition-colors"
-                                    :disabled="!isConnected || isTradeCompleted"
-                                />
-
-                                <button
-                                    type="submit"
-                                    :disabled="(!newMessage.trim() && !selectedFile) || !isConnected || isUploading || isTradeCompleted"
-                                    class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded font-medium text-sm transition-colors flex items-center gap-2"
-                                >
-                                    <svg v-if="isUploading" class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                    </svg>
-                                    <span v-else>发送</span>
-                                </button>
-                            </form>
-
-                            <!-- 操作按钮区域 -->
-                            <div v-if="(availableActions.length > 0 && order.status !== 'completed' && order.status !== 'cancelled' && order.escrow_status !== 'escrow_released') || order.status !== 'cancelled' && order.status !== 'completed'" class="flex mt-3 items-center justify-between">
-                                <div class="flex gap-2 items-center">
-                                <template v-for="action in availableActions" :key="action">
-                                    <button
-                                        v-if="action === 'vendor_confirm'"
-                                        @click="handleEscrowAction('vendor_confirm')"
-                                        class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
-                                    >
-                                        确认订单
-                                    </button>
+                                    <input
+                                        v-model="newMessage"
+                                        type="text"
+                                        :placeholder="isTradeCompleted ? '交易已结束，无法发送消息' : '输入消息...'"
+                                        class="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-800 border-0 rounded text-base md:text-sm text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none disabled:opacity-50 transition-colors"
+                                        :disabled="!isConnected || isTradeCompleted"
+                                    />
 
                                     <button
-                                        v-if="action === 'mark_seller_paid'"
-                                        @click="handleEscrowAction('mark_seller_paid')"
-                                        class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
+                                        type="submit"
+                                        :disabled="(!newMessage.trim() && !selectedFile) || !isConnected || isUploading || isTradeCompleted"
+                                        class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded font-medium text-sm transition-colors flex items-center gap-2"
                                     >
-                                        我已转币
+                                        <svg v-if="isUploading" class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        <span v-else>发送</span>
                                     </button>
+                                </form>
 
-                                    <button
-                                        v-if="action === 'confirm_escrow'"
-                                        @click="handleEscrowAction('confirm_escrow')"
-                                        class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
-                                    >
-                                        确认托管
-                                    </button>
+                                <!-- 操作按钮区域 -->
+                                <div v-if="(availableActions.length > 0 && order.status !== 'completed' && order.status !== 'cancelled' && order.escrow_status !== 'escrow_released') || order.status !== 'cancelled' && order.status !== 'completed'" class="flex mt-3 items-center justify-between">
+                                    <div class="flex gap-2 items-center">
+                                        <template v-for="action in availableActions" :key="action">
+                                            <button
+                                                v-if="action === 'vendor_confirm'"
+                                                @click="handleEscrowAction('vendor_confirm')"
+                                                class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
+                                            >
+                                                确认订单
+                                            </button>
 
-                                    <button
-                                        v-if="action === 'mark_buyer_paid'"
-                                        @click="handleEscrowAction('mark_buyer_paid')"
-                                        class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
-                                    >
-                                        我已付款
-                                    </button>
+                                            <button
+                                                v-if="action === 'mark_seller_paid'"
+                                                @click="handleEscrowAction('mark_seller_paid')"
+                                                class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
+                                            >
+                                                我已转币
+                                            </button>
 
-                                    <button
-                                        v-if="action === 'mark_seller_received'"
-                                        @click="handleEscrowAction('mark_seller_received')"
-                                        class="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
-                                    >
-                                        确认收款
-                                    </button>
+                                            <button
+                                                v-if="action === 'confirm_escrow'"
+                                                @click="handleEscrowAction('confirm_escrow')"
+                                                class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
+                                            >
+                                                确认托管
+                                            </button>
 
-                                    <button
-                                        v-if="action === 'cancel'"
-                                        @click="handleEscrowAction('cancel')"
-                                        class="px-3 py-1.5 bg-gray-600 hover:bg-gray-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
-                                    >
-                                        取消订单
-                                    </button>
-                                </template>
+                                            <button
+                                                v-if="action === 'mark_buyer_paid'"
+                                                @click="handleEscrowAction('mark_buyer_paid')"
+                                                class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
+                                            >
+                                                我已付款
+                                            </button>
 
-                                <!-- 争议按钮 -->
-                                <button
-                                    v-if="availableActions.includes('create_dispute')"
-                                    @click="handleEscrowAction('create_dispute')"
-                                    class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
-                                >
-                                    发起争议
-                                </button>
+                                            <button
+                                                v-if="action === 'mark_seller_received'"
+                                                @click="handleEscrowAction('mark_seller_received')"
+                                                class="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
+                                            >
+                                                确认收款
+                                            </button>
 
-                                <button
-                                    v-if="availableActions.includes('resolve_dispute')"
-                                    @click="handleEscrowAction('resolve_dispute')"
-                                    class="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
-                                >
-                                    解除争议
-                                </button>
-                                </div>
+                                            <button
+                                                v-if="action === 'cancel'"
+                                                @click="handleEscrowAction('cancel')"
+                                                class="px-3 py-1.5 bg-gray-600 hover:bg-gray-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
+                                            >
+                                                取消订单
+                                            </button>
+                                        </template>
 
-                                <!-- Telegram 通知提醒 (桌面版) -->
-                                <a v-if="order.status !== 'cancelled' && order.status !== 'completed'"
-                                   href="/notifications/settings"
-                                   target="_blank"
-                                   :class="[
+                                        <!-- 争议按钮 -->
+                                        <button
+                                            v-if="availableActions.includes('create_dispute')"
+                                            @click="handleEscrowAction('create_dispute')"
+                                            class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
+                                        >
+                                            发起争议
+                                        </button>
+
+                                        <button
+                                            v-if="availableActions.includes('resolve_dispute')"
+                                            @click="handleEscrowAction('resolve_dispute')"
+                                            class="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-medium rounded transition-colors cursor-pointer"
+                                        >
+                                            解除争议
+                                        </button>
+                                    </div>
+
+                                    <!-- Telegram 通知提醒 (桌面版) -->
+                                    <a v-if="order.status !== 'cancelled' && order.status !== 'completed'"
+                                       href="/notifications/settings"
+                                       target="_blank"
+                                       :class="[
                                        'inline-flex items-center gap-1 px-3 py-1 text-xs rounded transition-colors cursor-pointer',
                                        $page.props.auth.user?.telegram_chat_id
                                            ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-200 dark:hover:bg-emerald-900/50'
                                            : 'bg-blue-500 hover:bg-blue-600 text-white'
                                    ]">
-                                    <svg v-if="$page.props.auth.user?.telegram_chat_id" class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    <svg v-else class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.56c-.21 2.27-1.13 7.75-1.6 10.29-.2 1.08-.59 1.44-.97 1.47-.82.07-1.45-.54-2.24-.99-1.24-.71-1.94-1.16-3.14-1.85-1.39-.8-.49-1.24.3-1.96.21-.19 3.85-3.52 3.91-3.82.01-.04.01-.19-.07-.27-.08-.08-.2-.05-.28-.03-.12.03-2.02.13-5.7 3.75-.54.54-1.03.8-1.48.78-.49-.02-1.42-.27-2.11-.5-.85-.28-1.53-.42-1.47-.89.03-.25.37-.51 1.02-.77 4-1.74 6.67-2.89 8.01-3.44 3.81-1.57 4.61-1.84 5.13-1.85.11 0 .37.03.53.18.14.12.18.28.2.45-.01.06-.01.24-.02.38z"/>
-                                    </svg>
-                                    {{ $page.props.auth.user?.telegram_chat_id ? '已开启通知' : '设置实时通知' }}
-                                </a>
-                            </div>
+                                        <svg v-if="$page.props.auth.user?.telegram_chat_id" class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <svg v-else class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.56c-.21 2.27-1.13 7.75-1.6 10.29-.2 1.08-.59 1.44-.97 1.47-.82.07-1.45-.54-2.24-.99-1.24-.71-1.94-1.16-3.14-1.85-1.39-.8-.49-1.24.3-1.96.21-.19 3.85-3.52 3.91-3.82.01-.04.01-.19-.07-.27-.08-.08-.2-.05-.28-.03-.12.03-2.02.13-5.7 3.75-.54.54-1.03.8-1.48.78-.49-.02-1.42-.27-2.11-.5-.85-.28-1.53-.42-1.47-.89.03-.25.37-.51 1.02-.77 4-1.74 6.67-2.89 8.01-3.44 3.81-1.57 4.61-1.84 5.13-1.85.11 0 .37.03.53.18.14.12.18.28.2.45-.01.06-.01.24-.02.38z"/>
+                                        </svg>
+                                        {{ $page.props.auth.user?.telegram_chat_id ? '已开启通知' : '设置实时通知' }}
+                                    </a>
+                                </div>
 
-                            <!-- 交易状态栏 (桌面端) -->
-                            <div class="mt-3 p-2 bg-gray-50 dark:bg-gray-800/50 rounded border border-gray-200 dark:border-gray-700">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-2">
-                                        <div :class="getStatusColor(order.escrow_status)" class="w-2 h-2 rounded-full animate-pulse"></div>
-                                        <span class="text-xs font-medium text-gray-700 dark:text-gray-300">
+                                <!-- 交易状态栏 (桌面端) -->
+                                <div class="mt-3 p-2 bg-gray-50 dark:bg-gray-800/50 rounded border border-gray-200 dark:border-gray-700">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <div :class="getStatusColor(order.escrow_status)" class="w-2 h-2 rounded-full animate-pulse"></div>
+                                            <span class="text-xs font-medium text-gray-700 dark:text-gray-300">
                                             {{ getStatusText(order.escrow_status) }}
                                         </span>
+                                        </div>
+                                        <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+                                            <span>订单 #{{ order.trade_id }}</span>
+                                            <span>{{ order.crypto_amount }} {{ order.currency_label || order.currency_key }}</span>
+                                            <span class="text-emerald-600 dark:text-emerald-400 font-medium">¥{{ order.fiat_amount }}</span>
+                                        </div>
                                     </div>
-                                    <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-                                        <span>订单 #{{ order.trade_id }}</span>
-                                        <span>{{ order.crypto_amount }} {{ order.currency_label || order.currency_key }}</span>
-                                        <span class="text-emerald-600 dark:text-emerald-400 font-medium">¥{{ order.fiat_amount }}</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- 支付信息和交易信息区域 -->
+                        <div class="space-y-4 mt-3">
+                            <!-- 交易条款（全宽） -->
+                            <div v-if="order.ad_snapshot?.vendor_toc" class="bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 p-4">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    <h3 class="text-sm font-bold text-gray-900 dark:text-gray-100">交易条款</h3>
+                                </div>
+
+                                <!-- 条款内容 -->
+                                <div class="p-3 bg-gray-50 dark:bg-gray-800/50 rounded max-h-40 overflow-y-auto">
+                                    <p class="text-xs text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{{ order.ad_snapshot?.vendor_toc || '无交易条款' }}</p>
+                                </div>
+
+                                <!-- 提醒 -->
+                                <div class="mt-3 p-2 bg-amber-50 dark:bg-amber-900/20 rounded border border-amber-200 dark:border-amber-800">
+                                    <div class="flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                        </svg>
+                                        <p class="text-xs text-amber-700 dark:text-amber-300">
+                                            请仔细阅读并遵守以上交易条款，违反条款可能导致交易取消
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-
-                    <!-- 支付信息和交易信息区域 -->
-                    <div class="space-y-4 mt-6">
-                    <!-- 交易条款（全宽） -->
-                    <div v-if="order.ad_snapshot?.vendor_toc" class="bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 p-4">
-                        <div class="flex items-center gap-2 mb-3">
-                            <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            <h3 class="text-sm font-bold text-gray-900 dark:text-gray-100">交易条款</h3>
-                        </div>
-
-                        <!-- 条款内容 -->
-                        <div class="p-3 bg-gray-50 dark:bg-gray-800/50 rounded max-h-40 overflow-y-auto">
-                            <p class="text-xs text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{{ order.ad_snapshot?.vendor_toc || '无交易条款' }}</p>
-                        </div>
-
-                        <!-- 提醒 -->
-                        <div class="mt-3 p-2 bg-amber-50 dark:bg-amber-900/20 rounded border border-amber-200 dark:border-amber-800">
-                            <div class="flex items-start gap-2">
-                                <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                </svg>
-                                <p class="text-xs text-amber-700 dark:text-amber-300">
-                                    请仔细阅读并遵守以上交易条款，违反条款可能导致交易取消
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 移动端：聊天区域（全屏） -->
-            <!-- 使用CSS计算高度，考虑safe area -->
-            <div class="md:hidden fixed inset-x-0 bottom-0 flex flex-col bg-white dark:bg-gray-950"
-                 :style="`top: calc(3.5rem + env(safe-area-inset-top))`">
-                    <!-- 移动端评价提示 -->
-                    <div v-if="currentOrder.escrow_status === 'escrow_released' && currentUserId === currentOrder.client_id && !currentOrder.has_review" 
-                         class="bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800 p-3">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2 flex-1">
-                                <svg class="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                                <div>
-                                    <p class="text-sm font-medium text-amber-800 dark:text-amber-200">交易已完成</p>
-                                    <p class="text-xs text-amber-700 dark:text-amber-300">请对商家进行评价</p>
-                                </div>
-                            </div>
-                            <P2PButton
-                                @click="showReviewModal = true"
-                                variant="primary"
-                                size="sm"
-                            >
-                                立即评价
-                            </P2PButton>
-                        </div>
-                    </div>
-                    
+                <!-- 移动端：聊天区域（全屏） -->
+                <!-- 使用CSS计算高度，考虑safe area -->
+                <div class="md:hidden fixed inset-x-0 bottom-0 flex flex-col bg-white dark:bg-gray-950"
+                     :style="`top: calc(3.5rem + env(safe-area-inset-top))`">
                     <!-- 移动端聊天内容 -->
                     <div ref="mobileMessageContainer" class="flex-1 overflow-y-auto overscroll-contain bg-white dark:bg-gray-950">
                         <!-- 连接状态指示器 -->
@@ -1473,6 +1454,45 @@
                                             <span v-if="msg.user">{{ msg.user.name }} </span>
                                             {{ msg.message || msg.content }}
                                         </div>
+
+                                        <!-- 移动端评价按钮或已评价状态 - 交易完成时显示 -->
+                                        <div v-if="msg.show_review_button">
+                                            <!-- 未评价 - 显示评价按钮 -->
+                                            <div v-if="!currentOrder.has_review"
+                                                 class="mt-3 p-3 bg-amber-50 dark:bg-amber-900/20 rounded border border-amber-200 dark:border-amber-800 max-w-sm">
+                                                <div class="flex flex-col items-center gap-2">
+                                                    <div class="flex items-center gap-2">
+                                                        <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                        </svg>
+                                                        <span class="text-sm font-medium text-amber-800 dark:text-amber-300">请评价本次交易</span>
+                                                    </div>
+                                                    <P2PButton
+                                                        @click="showReviewModal = true"
+                                                        variant="warning"
+                                                        size="sm"
+                                                        fullWidth
+                                                    >
+                                                        <template #icon>
+                                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                            </svg>
+                                                        </template>
+                                                        立即评价
+                                                    </P2PButton>
+                                                </div>
+                                            </div>
+                                            <!-- 已评价 - 显示状态 -->
+                                            <div v-else
+                                                 class="mt-3 p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded border border-emerald-200 dark:border-emerald-800 max-w-sm">
+                                                <div class="flex items-center justify-center gap-2">
+                                                    <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                    </svg>
+                                                    <span class="text-sm font-medium text-emerald-800 dark:text-emerald-300">您已评价此交易</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </template>
 
@@ -1491,12 +1511,12 @@
                                             <span class="text-white text-xs font-bold">{{ msg.user.name.charAt(0) }}</span>
                                         </div>
                                     </a>
-                                    <div class="max-w-[70%]">
+                                    <div class="max-w-[85%]">
                                         <p class="text-xs font-medium text-gray-600 dark:text-gray-400 mb-0.5 px-1">
                                             {{ msg.user.name }}
                                             <span v-if="msg.type === 'admin'" class="text-purple-600 dark:text-purple-400 font-bold">(Admin)</span>
                                         </p>
-                                        <div class="bg-gray-100 dark:bg-gray-800 rounded rounded-tl-none px-3 py-2">
+                                        <div class="inline-block bg-gray-100 dark:bg-gray-800 rounded rounded-tl-none px-3 py-2">
                                             <!-- 附件显示 -->
                                             <div v-if="msg.attachment" class="mb-2">
                                                 <P2PAttachment
@@ -1505,7 +1525,7 @@
                                                     thumbnail-size="sm"
                                                 />
                                             </div>
-                                            <p v-if="msg.message" class="text-sm text-gray-900 dark:text-gray-200">{{ msg.message }}</p>
+                                            <p v-if="msg.message" class="text-sm text-gray-900 dark:text-gray-200 break-words">{{ msg.message }}</p>
                                         </div>
                                         <p class="text-xs text-gray-400 dark:text-gray-500 mt-1 px-1">{{ formatTime(msg.created_at) }}</p>
                                     </div>
@@ -1513,12 +1533,12 @@
 
                                 <!-- 自己的消息 -->
                                 <template v-else>
-                                    <div class="max-w-[70%]">
+                                    <div class="max-w-[85%]">
                                         <p class="text-xs font-medium text-gray-600 dark:text-gray-400 mb-0.5 px-1 text-right">
                                             {{ msg.user.name }}
                                             <span v-if="msg.type === 'admin'" class="text-purple-600 dark:text-purple-400 font-bold">(Admin)</span>
                                         </p>
-                                        <div class="bg-emerald-600 text-white rounded rounded-tr-none px-3 py-2">
+                                        <div class="inline-block bg-emerald-600 text-white rounded rounded-tr-none px-3 py-2">
                                             <!-- 附件显示 -->
                                             <div v-if="msg.attachment" class="mb-2">
                                                 <P2PAttachment
@@ -1527,7 +1547,7 @@
                                                     thumbnail-size="sm"
                                                 />
                                             </div>
-                                            <p v-if="msg.message" class="text-sm">{{ msg.message }}</p>
+                                            <p v-if="msg.message" class="text-sm break-words">{{ msg.message }}</p>
                                         </div>
                                         <p class="text-xs text-gray-400 dark:text-gray-500 mt-1 px-1 text-right">{{ formatTime(msg.created_at) }}</p>
                                     </div>
@@ -1647,72 +1667,72 @@
                             <!-- 操作按钮区域 (移动端) -->
                             <div v-if="(availableActions.length > 0 && order.status !== 'completed' && order.status !== 'cancelled' && order.escrow_status !== 'escrow_released') || order.status !== 'cancelled' && order.status !== 'completed'" class="flex mt-2 justify-between items-center">
                                 <div class="flex gap-2 overflow-x-auto pb-1">
-                                <template v-for="action in availableActions" :key="action">
+                                    <template v-for="action in availableActions" :key="action">
+                                        <button
+                                            v-if="action === 'vendor_confirm'"
+                                            @click="handleEscrowAction('vendor_confirm')"
+                                            class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
+                                        >
+                                            确认订单
+                                        </button>
+
+                                        <button
+                                            v-if="action === 'mark_seller_paid'"
+                                            @click="handleEscrowAction('mark_seller_paid')"
+                                            class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
+                                        >
+                                            我已转币
+                                        </button>
+
+                                        <button
+                                            v-if="action === 'confirm_escrow'"
+                                            @click="handleEscrowAction('confirm_escrow')"
+                                            class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
+                                        >
+                                            确认托管
+                                        </button>
+
+                                        <button
+                                            v-if="action === 'mark_buyer_paid'"
+                                            @click="handleEscrowAction('mark_buyer_paid')"
+                                            class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
+                                        >
+                                            我已付款
+                                        </button>
+
+                                        <button
+                                            v-if="action === 'mark_seller_received'"
+                                            @click="handleEscrowAction('mark_seller_received')"
+                                            class="px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
+                                        >
+                                            确认收款
+                                        </button>
+
+                                        <button
+                                            v-if="action === 'cancel'"
+                                            @click="handleEscrowAction('cancel')"
+                                            class="px-3 py-1.5 bg-gray-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
+                                        >
+                                            取消订单
+                                        </button>
+                                    </template>
+
+                                    <!-- 争议按钮 -->
                                     <button
-                                        v-if="action === 'vendor_confirm'"
-                                        @click="handleEscrowAction('vendor_confirm')"
-                                        class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
+                                        v-if="availableActions.includes('create_dispute')"
+                                        @click="handleEscrowAction('create_dispute')"
+                                        class="px-3 py-1.5 bg-amber-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
                                     >
-                                        确认订单
+                                        发起争议
                                     </button>
 
                                     <button
-                                        v-if="action === 'mark_seller_paid'"
-                                        @click="handleEscrowAction('mark_seller_paid')"
-                                        class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
-                                    >
-                                        我已转币
-                                    </button>
-
-                                    <button
-                                        v-if="action === 'confirm_escrow'"
-                                        @click="handleEscrowAction('confirm_escrow')"
-                                        class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
-                                    >
-                                        确认托管
-                                    </button>
-
-                                    <button
-                                        v-if="action === 'mark_buyer_paid'"
-                                        @click="handleEscrowAction('mark_buyer_paid')"
-                                        class="px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
-                                    >
-                                        我已付款
-                                    </button>
-
-                                    <button
-                                        v-if="action === 'mark_seller_received'"
-                                        @click="handleEscrowAction('mark_seller_received')"
+                                        v-if="availableActions.includes('resolve_dispute')"
+                                        @click="handleEscrowAction('resolve_dispute')"
                                         class="px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
                                     >
-                                        确认收款
+                                        解除争议
                                     </button>
-
-                                    <button
-                                        v-if="action === 'cancel'"
-                                        @click="handleEscrowAction('cancel')"
-                                        class="px-3 py-1.5 bg-gray-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
-                                    >
-                                        取消订单
-                                    </button>
-                                </template>
-
-                                <!-- 争议按钮 -->
-                                <button
-                                    v-if="availableActions.includes('create_dispute')"
-                                    @click="handleEscrowAction('create_dispute')"
-                                    class="px-3 py-1.5 bg-amber-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
-                                >
-                                    发起争议
-                                </button>
-
-                                <button
-                                    v-if="availableActions.includes('resolve_dispute')"
-                                    @click="handleEscrowAction('resolve_dispute')"
-                                    class="px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded whitespace-nowrap cursor-pointer"
-                                >
-                                    解除争议
-                                </button>
                                 </div>
 
                                 <!-- 实时通知按钮 (移动端) -->
@@ -1785,502 +1805,367 @@
         </P2PDialog>
 
         <!-- 买家确认托管专用对话框 -->
-        <Modal
+        <P2PDialog
             :show="dialogState.pendingAction === 'confirm_escrow' && dialogState.show"
-            max-width="lg"
-            :closeable="true"
+            title="确认托管到账"
+            subtitle="请仔细核对托管交易信息"
+            icon-color="amber"
+            :requires-agreement="true"
+            :agreement-disabled="!allEscrowChecksCompleted"
+            :agreement-text="allEscrowChecksCompleted ? '我已核对所有信息无误，确认托管已到账' : '请先勾选上方所有确认项'"
+            confirm-text="确认托管到账"
+            cancel-text="返回检查"
+            :persistent="dialogState.loading"
+            @confirm="handleEscrowConfirm"
             @close="handleDialogCancel"
         >
-            <div class="bg-white dark:bg-gray-900 px-4 pt-4 pb-4 sm:p-5 sm:pb-4 max-h-[80vh] overflow-y-auto">
-                <!-- 图标居中 -->
-                <div class="mx-auto flex items-center justify-center size-10 rounded-full bg-amber-100 dark:bg-amber-900/30">
-                    <svg class="size-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </div>
-                
-                <!-- 标题和内容 -->
-                <div class="mt-2 text-center">
-                    <h3 class="text-base font-medium text-gray-900 dark:text-gray-100">
-                        确认托管到账
-                    </h3>
-                    <div class="mt-3 space-y-2.5 text-left">
-                        <!-- 交易信息显示 -->
-                        <div class="p-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
-                            <div class="space-y-2">
-                                <div v-if="currentOrder.seller_address">
-                                    <label class="text-xs text-gray-500 dark:text-gray-400">来源地址（卖家）</label>
-                                    <p class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all mt-0.5">
-                                        {{ currentOrder.seller_address }}
-                                    </p>
-                                </div>
-                                <div v-if="currentOrder.escrow_address">
-                                    <label class="text-xs text-gray-500 dark:text-gray-400">托管地址</label>
-                                    <p class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all mt-0.5">
-                                        {{ currentOrder.escrow_address }}
-                                    </p>
-                                </div>
-                                <div>
-                                    <label class="text-xs text-gray-500 dark:text-gray-400">交易金额</label>
-                                    <p class="text-base font-bold text-emerald-600 dark:text-emerald-400">
-                                        {{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}
-                                    </p>
-                                </div>
-                                <div v-if="currentOrder.escrow_tx_hash">
-                                    <label class="text-xs text-gray-500 dark:text-gray-400">交易哈希</label>
-                                    <p class="font-mono text-xs text-blue-600 dark:text-blue-400 break-all mt-0.5">
-                                        {{ currentOrder.escrow_tx_hash }}
-                                    </p>
-                                </div>
-                            </div>
+            <div class="space-y-3">
+                <!-- 交易信息显示 -->
+                <div class="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                    <div class="space-y-2">
+                        <div v-if="currentOrder.seller_address">
+                            <label class="text-xs text-gray-500 dark:text-gray-400">来源地址（卖家）</label>
+                            <p class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all mt-1">
+                                {{ currentOrder.seller_address }}
+                            </p>
                         </div>
-                        
-                        <!-- 重要提醒 -->
-                        <div class="p-2.5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded">
-                            <div class="flex items-start gap-2">
-                                <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                                <div class="text-xs">
-                                    <p class="font-medium text-amber-800 dark:text-amber-300">请打开区块链浏览器仔细核对</p>
-                                    <p class="text-amber-700 dark:text-amber-400 mt-0.5">
-                                        确认前必须逐项检查以下所有信息
-                                    </p>
-                                </div>
-                            </div>
+                        <div v-if="currentOrder.escrow_address">
+                            <label class="text-xs text-gray-500 dark:text-gray-400">托管地址</label>
+                            <p class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all mt-1">
+                                {{ currentOrder.escrow_address }}
+                            </p>
                         </div>
-                        
-                        <!-- 确认清单 -->
-                        <div class="space-y-2">
-                            <p class="text-xs font-medium text-gray-700 dark:text-gray-300">请确认以下所有项目：</p>
-                            
-                            <div class="space-y-1.5">
-                                <div class="flex items-start">
-                                    <input
-                                        v-model="escrowChecks.txExists"
-                                        type="checkbox"
-                                        class="mt-0.5 h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
-                                        :disabled="dialogState.loading"
-                                    />
-                                    <label class="ml-2 text-xs text-gray-700 dark:text-gray-300">
-                                        我已打开区块链浏览器，确认交易记录存在
-                                    </label>
-                                </div>
-                                
-                                <div class="flex items-start">
-                                    <input
-                                        v-model="escrowChecks.confirmations"
-                                        type="checkbox"
-                                        class="mt-0.5 h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
-                                        :disabled="dialogState.loading"
-                                    />
-                                    <label class="ml-2 text-xs text-gray-700 dark:text-gray-300">
-                                        交易已有足够的确认数（建议至少6个确认）
-                                    </label>
-                                </div>
-                                
-                                <div class="flex items-start">
-                                    <input
-                                        v-model="escrowChecks.fromAddress"
-                                        type="checkbox"
-                                        class="mt-0.5 h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
-                                        :disabled="dialogState.loading"
-                                    />
-                                    <label class="ml-2 text-xs text-gray-700 dark:text-gray-300">
-                                        来源地址与卖家地址完全一致
-                                        <span class="block font-mono text-blue-600 dark:text-blue-400 break-all mt-0.5">{{ currentOrder.seller_address || '无卖家地址' }}</span>
-                                    </label>
-                                </div>
-                                
-                                <div class="flex items-start">
-                                    <input
-                                        v-model="escrowChecks.toAddress"
-                                        type="checkbox"
-                                        class="mt-0.5 h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
-                                        :disabled="dialogState.loading"
-                                    />
-                                    <label class="ml-2 text-xs text-gray-700 dark:text-gray-300">
-                                        目标地址与托管地址完全一致
-                                        <span class="block font-mono text-blue-600 dark:text-blue-400 break-all mt-0.5">{{ currentOrder.escrow_address || '托管地址待分配' }}</span>
-                                    </label>
-                                </div>
-                                
-                                <div class="flex items-start">
-                                    <input
-                                        v-model="escrowChecks.amount"
-                                        type="checkbox"
-                                        class="mt-0.5 h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
-                                        :disabled="dialogState.loading"
-                                    />
-                                    <label class="ml-2 text-xs text-gray-700 dark:text-gray-300">
-                                        交易金额为 <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}</span>，完全正确
-                                    </label>
-                                </div>
-                            </div>
+                        <div>
+                            <label class="text-xs text-gray-500 dark:text-gray-400">交易金额</label>
+                            <p class="text-lg font-bold text-emerald-600 dark:text-emerald-400">
+                                {{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}
+                            </p>
                         </div>
-                        
-                        <!-- 最终警告 -->
-                        <div class="p-2.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded">
-                            <div class="flex items-start gap-2">
-                                <svg class="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                                <div class="text-xs">
-                                    <p class="font-bold text-red-800 dark:text-red-300">最终确认</p>
-                                    <p class="text-red-700 dark:text-red-400 mt-0.5">
-                                        确认后您将进入付款阶段，必须按时完成付款。如信息有误导致的损失，责任自负！
-                                    </p>
-                                </div>
-                            </div>
+                        <div v-if="currentOrder.escrow_tx_hash">
+                            <label class="text-xs text-gray-500 dark:text-gray-400">交易哈希</label>
+                            <p class="font-mono text-xs text-blue-600 dark:text-blue-400 break-all mt-1">
+                                {{ currentOrder.escrow_tx_hash }}
+                            </p>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- 按钮区域 -->
-            <div class="flex flex-row justify-end px-4 py-3 sm:px-5 sm:py-3 bg-gray-100 dark:bg-gray-800 text-end gap-2">
-                <P2PButton
-                    variant="ghost"
-                    @click="handleDialogCancel"
-                    :disabled="dialogState.loading"
-                >
-                    返回检查
-                </P2PButton>
-                <P2PButton
-                    variant="warning"
-                    :loading="dialogState.loading"
-                    :disabled="!allEscrowChecksCompleted"
-                    @click="handleEscrowConfirm"
-                >
-                    确认托管到账
-                </P2PButton>
-            </div>
-        </Modal>
-        
-        <!-- 卖家转币专用对话框 -->
-        <Modal
-            :show="dialogState.pendingAction === 'mark_seller_paid' && dialogState.show"
-            max-width="lg"
-            :closeable="true"
-            @close="handleDialogCancel"
-        >
-            <div class="bg-white dark:bg-gray-900 px-4 pt-4 pb-4 sm:p-5 sm:pb-4 max-h-[80vh] overflow-y-auto">
-                <!-- 图标居中 -->
-                <div class="mx-auto flex items-center justify-center size-10 rounded-full bg-blue-100 dark:bg-blue-900/30">
-                    <svg class="size-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                </div>
-                
-                <!-- 标题和内容 -->
-                <div class="mt-2 text-center">
-                    <h3 class="text-base font-medium text-gray-900 dark:text-gray-100">
-                        标记已转币到托管
-                    </h3>
-                    <div class="mt-3 space-y-2.5 text-left">
-                        <!-- 您的地址显示 -->
-                        <div v-if="currentOrder.seller_address" class="p-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
-                            <div class="space-y-1.5">
-                                <div>
-                                    <label class="text-xs text-gray-500 dark:text-gray-400">您的地址</label>
-                                    <p class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all mt-0.5">
-                                        {{ currentOrder.seller_address }}
-                                    </p>
-                                </div>
-                                <div>
-                                    <label class="text-xs text-gray-500 dark:text-gray-400">转币金额</label>
-                                    <p class="text-base font-bold text-emerald-600 dark:text-emerald-400">
-                                        {{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 托管地址说明 -->
-                        <div class="p-2.5 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded">
-                            <div class="flex items-start gap-2">
-                                <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                                </svg>
-                                <div class="text-xs">
-                                    <p class="font-medium text-blue-800 dark:text-blue-300">托管地址提示</p>
-                                    <p class="text-blue-700 dark:text-blue-400 mt-0.5">
-                                        托管地址功能正在开发中，请先将币转到您自己的地址保管
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 重要警告 -->
-                        <div class="p-2.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded">
-                            <div class="flex items-start gap-2">
-                                <svg class="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                                <div class="text-xs">
-                                    <p class="font-bold text-red-800 dark:text-red-300 text-sm">极其重要！请仔细核对！</p>
-                                    <ul class="mt-1 space-y-0.5 text-red-700 dark:text-red-400">
-                                        <li class="text-xs">• 请确保转币地址完全正确</li>
-                                        <li class="text-xs">• <span class="font-bold">请一定要确保金额是一次性从您的地址转入，否则系统无法确认</span></li>
-                                        <li class="text-xs">• 请确保转币金额准确无误</li>
-                                        <li class="text-xs">• <span class="font-bold">如果地址或金额错误，托管将无法确认！</span></li>
-                                        <li class="text-xs">• <span class="font-bold text-red-800 dark:text-red-200">任何损失概不负责！</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 交易哈希输入 -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                交易哈希 (TX ID) <span class="text-red-500">*</span>
-                            </label>
-                            <input
-                                v-model="sellerTxHash"
-                                type="text"
-                                placeholder="请输入区块链交易哈希..."
-                                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                :disabled="dialogState.loading"
-                            />
-                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                转币后请提供交易哈希作为凭证
+
+                <!-- 重要提醒 -->
+                <div class="p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded">
+                    <div class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                        <div class="text-xs">
+                            <p class="font-medium text-amber-800 dark:text-amber-300">请打开区块链浏览器仔细核对</p>
+                            <p class="text-amber-700 dark:text-amber-400 mt-1">
+                                确认前必须逐项检查以下所有信息
                             </p>
                         </div>
-                        
-                        <!-- 确认复选框 -->
+                    </div>
+                </div>
+
+                <!-- 确认清单 -->
+                <div class="space-y-2">
+                    <p class="text-sm font-medium text-gray-700 dark:text-gray-300">请确认以下所有项目：</p>
+
+                    <div class="space-y-2">
                         <div class="flex items-start">
                             <input
-                                v-model="sellerConfirmChecked"
+                                v-model="escrowChecks.txExists"
                                 type="checkbox"
-                                class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                class="mt-0.5 h-4 w-4 text-emerald-600 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded focus:ring-emerald-500 focus:ring-2"
                                 :disabled="dialogState.loading"
                             />
                             <label class="ml-2 text-sm text-gray-700 dark:text-gray-300">
-                                我已仔细核对金额，确认已准备好 <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}</span> 用于交易
+                                我已打开区块链浏览器，确认交易记录存在
+                            </label>
+                        </div>
+
+                        <div class="flex items-start">
+                            <input
+                                v-model="escrowChecks.confirmations"
+                                type="checkbox"
+                                class="mt-0.5 h-4 w-4 text-emerald-600 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded focus:ring-emerald-500 focus:ring-2"
+                                :disabled="dialogState.loading"
+                            />
+                            <label class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                交易已有足够的确认数（建议至少6个确认）
+                            </label>
+                        </div>
+
+                        <div class="flex items-start">
+                            <input
+                                v-model="escrowChecks.fromAddress"
+                                type="checkbox"
+                                class="mt-0.5 h-4 w-4 text-emerald-600 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded focus:ring-emerald-500 focus:ring-2"
+                                :disabled="dialogState.loading"
+                            />
+                            <label class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                来源地址与卖家地址完全一致
+                                <span class="block font-mono text-xs text-blue-600 dark:text-blue-400 break-all mt-1">{{ currentOrder.seller_address || '无卖家地址' }}</span>
+                            </label>
+                        </div>
+
+                        <div class="flex items-start">
+                            <input
+                                v-model="escrowChecks.toAddress"
+                                type="checkbox"
+                                class="mt-0.5 h-4 w-4 text-emerald-600 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded focus:ring-emerald-500 focus:ring-2"
+                                :disabled="dialogState.loading"
+                            />
+                            <label class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                目标地址与托管地址完全一致
+                                <span class="block font-mono text-xs text-blue-600 dark:text-blue-400 break-all mt-1">{{ currentOrder.escrow_address || '托管地址待分配' }}</span>
+                            </label>
+                        </div>
+
+                        <div class="flex items-start">
+                            <input
+                                v-model="escrowChecks.amount"
+                                type="checkbox"
+                                class="mt-0.5 h-4 w-4 text-emerald-600 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded focus:ring-emerald-500 focus:ring-2"
+                                :disabled="dialogState.loading"
+                            />
+                            <label class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                交易金额为 <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}</span>，完全正确
                             </label>
                         </div>
                     </div>
                 </div>
+
+                <!-- 最终警告 -->
+                <div class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded">
+                    <div class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                        <div class="text-xs">
+                            <p class="font-bold text-red-800 dark:text-red-300">最终确认</p>
+                            <p class="text-red-700 dark:text-red-400 mt-1">
+                                确认后您将进入付款阶段，必须按时完成付款。如信息有误导致的损失，责任自负！
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <!-- 按钮区域 -->
-            <div class="flex flex-row justify-end px-4 py-3 sm:px-5 sm:py-3 bg-gray-100 dark:bg-gray-800 text-end gap-2">
-                <P2PButton
-                    variant="ghost"
-                    @click="handleDialogCancel"
-                    :disabled="dialogState.loading"
-                >
-                    返回
-                </P2PButton>
-                <P2PButton
-                    variant="primary"
-                    :loading="dialogState.loading"
-                    :disabled="!sellerTxHash || !sellerTxHash.trim() || !sellerConfirmChecked"
-                    @click="handleSellerPaidConfirm"
-                >
-                    确认已转币
-                </P2PButton>
+        </P2PDialog>
+
+        <!-- 卖家转币专用对话框 -->
+        <P2PDialog
+            :show="dialogState.pendingAction === 'mark_seller_paid' && dialogState.show"
+            title="标记已转币到托管"
+            subtitle="请确认您已将币转入托管地址"
+            icon-color="blue"
+            :requires-agreement="true"
+            agreement-text="我已仔细核对金额和地址，确认转币信息无误"
+            confirm-text="确认已转币"
+            cancel-text="返回"
+            :persistent="dialogState.loading"
+            @confirm="handleSellerPaidConfirm"
+            @close="handleDialogCancel"
+        >
+            <div class="space-y-3">
+                <!-- 交易哈希输入 - 移到顶部 -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        交易哈希 (TX ID) <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        v-model="sellerTxHash"
+                        type="text"
+                        placeholder="请输入区块链交易哈希..."
+                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                        :disabled="dialogState.loading"
+                    />
+                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        转币后请提供交易哈希作为凭证
+                    </p>
+                </div>
+
+                <!-- 您的地址显示 -->
+                <div v-if="currentOrder.seller_address" class="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                    <div class="space-y-2">
+                        <div>
+                            <label class="text-xs text-gray-500 dark:text-gray-400">您的地址</label>
+                            <p class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all mt-1">
+                                {{ currentOrder.seller_address }}
+                            </p>
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500 dark:text-gray-400">转币金额</label>
+                            <p class="text-lg font-bold text-emerald-600 dark:text-emerald-400">
+                                {{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 托管地址说明 -->
+                <div class="p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded">
+                    <div class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                        </svg>
+                        <div class="text-xs">
+                            <p class="font-medium text-blue-800 dark:text-blue-300">托管地址提示</p>
+                            <p class="text-blue-700 dark:text-blue-400 mt-1">
+                                托管地址功能正在开发中，请先将币转到您自己的地址保管
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 重要警告 -->
+                <div class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded">
+                    <div class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                        <div class="text-xs">
+                            <p class="font-bold text-red-800 dark:text-red-300 text-sm">极其重要！请仔细核对！</p>
+                            <ul class="mt-1 space-y-1 text-red-700 dark:text-red-400">
+                                <li>• 请确保转币地址完全正确</li>
+                                <li>• <span class="font-bold">请一定要确保金额是一次性从您的地址转入，否则系统无法确认</span></li>
+                                <li>• 请确保转币金额准确无误</li>
+                                <li>• <span class="font-bold">如果地址或金额错误，托管将无法确认！</span></li>
+                                <li>• <span class="font-bold text-red-800 dark:text-red-200">任何损失概不负责！</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </Modal>
+        </P2PDialog>
 
         <!-- 买家付款专用对话框（含2FA验证） -->
-        <Modal
+        <P2PDialog
             :show="dialogState.pendingAction === 'mark_buyer_paid' && dialogState.show"
-            max-width="md"
-            :closeable="true"
+            title="标记已付款"
+            :subtitle="`请确认您已向卖家付款 ¥${parseFloat(order.fiat_amount).toFixed(2)}`"
+            icon-color="emerald"
+            :requires-agreement="userHas2FA"
+            :agreement-disabled="userHas2FA && (!dialogState.twoFactorCode || dialogState.twoFactorCode.length !== 6)"
+            :agreement-text="userHas2FA ? (dialogState.twoFactorCode && dialogState.twoFactorCode.length === 6 ? '我确认已完成付款，理解虚假付款将导致账户封禁' : '请先输入6位验证码') : ''"
+            :confirm-text="userHas2FA ? '确认已付款' : '前往启用双重验证'"
+            cancel-text="返回"
+            :persistent="dialogState.loading"
+            @confirm="userHas2FA ? handleBuyerPaymentConfirm() : router.visit('/user/profile#tab-2fa')"
             @close="handleDialogCancel"
         >
-            <div class="bg-white dark:bg-gray-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <!-- 图标居中 -->
-                <div class="mx-auto flex items-center justify-center size-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30">
-                    <svg class="size-6 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+            <div class="space-y-3">
+                <!-- 付款说明输入 -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        付款说明（可选）
+                    </label>
+                    <textarea
+                        v-model="buyerPaymentProof"
+                        rows="3"
+                        class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                        placeholder="请输入付款凭证或说明，如转账单号..."
+                        :disabled="dialogState.loading"
+                    ></textarea>
                 </div>
 
-                <!-- 标题和内容 -->
-                <div class="mt-3 text-center">
-                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                        标记已付款
-                    </h3>
+                <!-- 2FA验证码输入（仅当用户启用2FA时显示） -->
+                <div v-if="userHas2FA">
+                    <P2PTwoFactorInput
+                        v-model="dialogState.twoFactorCode"
+                        :error="dialogState.twoFactorError"
+                        :disabled="dialogState.loading"
+                        @complete="handleTwoFactorComplete"
+                    />
+                </div>
 
-                    <div class="mt-4 space-y-3 text-left">
-                            <!-- 主要提示信息 -->
-                            <p class="text-sm text-gray-600 dark:text-gray-400">
-                                请确认您已向卖家付款 <span class="font-semibold text-emerald-600 dark:text-emerald-400">¥{{ parseFloat(order.fiat_amount).toFixed(2) }}</span>
+                <!-- 未启用2FA的提示 -->
+                <div v-else class="p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded">
+                    <div class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                        <div class="text-xs">
+                            <p class="font-medium text-amber-800 dark:text-amber-300">需要双重验证</p>
+                            <p class="text-amber-700 dark:text-amber-400 mt-1">
+                                为保护您的资金安全，买家付款必须启用双重验证
                             </p>
+                        </div>
+                    </div>
+                </div>
 
-                            <!-- 付款说明输入 -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    付款说明（可选）
-                                </label>
-                                <textarea
-                                    v-model="buyerPaymentProof"
-                                    rows="3"
-                                    class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
-                                    placeholder="请输入付款凭证或说明，如转账单号..."
-                                ></textarea>
-                            </div>
-
-                            <!-- 2FA验证码输入（仅当用户启用2FA时显示） -->
-                            <div v-if="userHas2FA">
-                                <P2PTwoFactorInput
-                                    v-model="dialogState.twoFactorCode"
-                                    :error="dialogState.twoFactorError"
-                                    :disabled="dialogState.loading"
-                                    @complete="handleTwoFactorComplete"
-                                />
-                            </div>
-
-                            <!-- 未启用2FA的提示 -->
-                            <div v-else class="p-2.5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-md">
-                                <div class="flex items-start gap-2">
-                                    <svg class="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                    </svg>
-                                    <div class="text-sm">
-                                        <p class="font-medium text-amber-800 dark:text-amber-300">需要双重验证</p>
-                                        <p class="text-amber-700 dark:text-amber-400 mt-0.5">为保护您的资金安全，买家付款必须启用双重验证</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 警告提示 -->
-                            <div v-if="userHas2FA" class="p-2.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
-                                <div class="flex items-start gap-2">
-                                    <svg class="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                                    </svg>
-                                    <div class="text-sm">
-                                        <p class="font-medium text-red-800 dark:text-red-300">注意事项</p>
-                                        <p class="text-red-700 dark:text-red-400 mt-0.5">请确保已完成付款再点击确认，虚假付款将导致账户封禁</p>
-                                    </div>
-                                </div>
+                <!-- 警告提示 -->
+                <div v-if="userHas2FA" class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded">
+                    <div class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                        </svg>
+                        <div class="text-xs">
+                            <p class="font-medium text-red-800 dark:text-red-300">注意事项</p>
+                            <p class="text-red-700 dark:text-red-400 mt-1">
+                                请确保已完成付款再点击确认，虚假付款将导致账户封禁
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="flex flex-row justify-end px-6 py-4 bg-gray-100 dark:bg-gray-800 text-end gap-3">
-                <P2PButton
-                    variant="ghost"
-                    @click="handleDialogCancel"
-                    :disabled="dialogState.loading"
-                >
-                    返回
-                </P2PButton>
-                <P2PButton
-                    v-if="userHas2FA"
-                    variant="primary"
-                    :loading="dialogState.loading"
-                    :disabled="!dialogState.twoFactorCode || dialogState.twoFactorCode.length !== 6"
-                    @click="handleBuyerPaymentConfirm"
-                >
-                    确认已付款
-                </P2PButton>
-                <P2PButton
-                    v-else
-                    variant="warning"
-                    @click="() => router.visit('/user/profile')"
-                >
-                    前往启用双重验证
-                </P2PButton>
-            </div>
-        </Modal>
+        </P2PDialog>
 
         <!-- 卖家确认收款专用对话框（含2FA验证） -->
-        <Modal
+        <P2PDialog
             :show="dialogState.pendingAction === 'mark_seller_received' && dialogState.show"
-            max-width="md"
-            :closeable="true"
+            title="确认收款"
+            :subtitle="`请确认您已收到买家付款 ¥${parseFloat(order.fiat_amount).toFixed(2)}`"
+            icon-color="emerald"
+            :requires-agreement="userHas2FA"
+            :agreement-disabled="userHas2FA && (!dialogState.twoFactorCode || dialogState.twoFactorCode.length !== 6)"
+            :agreement-text="userHas2FA ? (dialogState.twoFactorCode && dialogState.twoFactorCode.length === 6 ? '我确认已收到款项，同意释放托管的加密货币给买家' : '请先输入6位验证码') : ''"
+            :confirm-text="userHas2FA ? '确认收款' : '前往启用双重验证'"
+            cancel-text="返回"
+            :persistent="dialogState.loading"
+            @confirm="userHas2FA ? handleSellerReceivedConfirm() : router.visit('/user/profile#tab-2fa')"
             @close="handleDialogCancel"
         >
-            <div class="bg-white dark:bg-gray-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <!-- 图标居中 -->
-                <div class="mx-auto flex items-center justify-center size-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30">
-                    <svg class="size-6 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+            <div class="space-y-3">
+                <!-- 2FA验证码输入（仅当用户启用2FA时显示） -->
+                <div v-if="userHas2FA">
+                    <P2PTwoFactorInput
+                        v-model="dialogState.twoFactorCode"
+                        :error="dialogState.twoFactorError"
+                        :disabled="dialogState.loading"
+                        @complete="handleTwoFactorComplete"
+                    />
                 </div>
 
-                <!-- 标题和内容 -->
-                <div class="mt-3 text-center">
-                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                        确认收款
-                    </h3>
-
-                    <div class="mt-4 space-y-3 text-left">
-                        <!-- 主要提示信息 -->
-                        <p class="text-sm text-gray-600 dark:text-gray-400">
-                            请确认您已收到买家付款 <span class="font-semibold text-emerald-600 dark:text-emerald-400">¥{{ parseFloat(order.fiat_amount).toFixed(2) }}</span>
-                        </p>
-
-                        <!-- 2FA验证码输入（仅当用户启用2FA时显示） -->
-                        <div v-if="userHas2FA">
-                            <P2PTwoFactorInput
-                                v-model="dialogState.twoFactorCode"
-                                :error="dialogState.twoFactorError"
-                                :disabled="dialogState.loading"
-                                @complete="handleTwoFactorComplete"
-                            />
+                <!-- 未启用2FA的提示 -->
+                <div v-else class="p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded">
+                    <div class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                        <div class="text-xs">
+                            <p class="font-medium text-amber-800 dark:text-amber-300">需要双重验证</p>
+                            <p class="text-amber-700 dark:text-amber-400 mt-1">
+                                为保护您的资金安全，卖家确认收款必须启用双重验证
+                            </p>
                         </div>
+                    </div>
+                </div>
 
-                        <!-- 未启用2FA的提示 -->
-                        <div v-else class="p-2.5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-md">
-                            <div class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                                <div class="text-sm">
-                                    <p class="font-medium text-amber-800 dark:text-amber-300">需要双重验证</p>
-                                    <p class="text-amber-700 dark:text-amber-400 mt-0.5">为保护您的资金安全，卖家确认收款必须启用双重验证</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 警告提示 -->
-                        <div v-if="userHas2FA" class="p-2.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
-                            <div class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                                </svg>
-                                <div class="text-sm">
-                                    <p class="font-medium text-red-800 dark:text-red-300">重要提醒</p>
-                                    <p class="text-red-700 dark:text-red-400 mt-0.5">确认收款后，托管的加密货币将立即释放给买家，此操作不可撤销</p>
-                                </div>
-                            </div>
+                <!-- 警告提示 -->
+                <div v-if="userHas2FA" class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded">
+                    <div class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                        </svg>
+                        <div class="text-xs">
+                            <p class="font-medium text-red-800 dark:text-red-300">重要提醒</p>
+                            <p class="text-red-700 dark:text-red-400 mt-1">
+                                确认收款后，托管的加密货币将立即释放给买家，此操作不可撤销
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="flex flex-row justify-end px-6 py-4 bg-gray-100 dark:bg-gray-800 text-end gap-3">
-                <P2PButton
-                    variant="ghost"
-                    @click="handleDialogCancel"
-                    :disabled="dialogState.loading"
-                >
-                    返回
-                </P2PButton>
-                <P2PButton
-                    v-if="userHas2FA"
-                    variant="success"
-                    :loading="dialogState.loading"
-                    :disabled="!dialogState.twoFactorCode || dialogState.twoFactorCode.length !== 6"
-                    @click="handleSellerReceivedConfirm"
-                >
-                    确认收款
-                </P2PButton>
-                <P2PButton
-                    v-else
-                    variant="warning"
-                    @click="() => router.visit('/user/profile')"
-                >
-                    前往启用双重验证
-                </P2PButton>
-            </div>
-        </Modal>
+        </P2PDialog>
         <!-- 移动端：交易条款弹出面板 -->
         <P2PMobileDrawer
             v-model="showTradeTerms"
@@ -2426,7 +2311,7 @@ const participants = ref([]);
 // 初始化参与者列表
 const initParticipants = () => {
     const list = [];
-    
+
     // 添加商家
     if (currentOrder.value.vendor) {
         list.push({
@@ -2454,7 +2339,7 @@ const initParticipants = () => {
             is_admin: false
         });
     }
-    
+
     participants.value = list;
 };
 
@@ -2502,7 +2387,6 @@ const buyerPaymentProof = ref('');
 
 // 卖家转币相关
 const sellerTxHash = ref('');
-const sellerConfirmChecked = ref(false);
 
 // 买家确认托管相关
 const escrowChecks = ref({
@@ -2516,17 +2400,17 @@ const escrowChecks = ref({
 // 计算是否所有托管检查都完成
 const allEscrowChecksCompleted = computed(() => {
     return escrowChecks.value.txExists &&
-           escrowChecks.value.confirmations &&
-           escrowChecks.value.fromAddress &&
-           escrowChecks.value.toAddress &&
-           escrowChecks.value.amount;
+        escrowChecks.value.confirmations &&
+        escrowChecks.value.fromAddress &&
+        escrowChecks.value.toAddress &&
+        escrowChecks.value.amount;
 });
 
 // 计算交易是否已结束
 const isTradeCompleted = computed(() => {
-    return currentOrder.value.status === 'completed' || 
-           currentOrder.value.status === 'cancelled' || 
-           currentOrder.value.escrow_status === 'escrow_released';
+    return currentOrder.value.status === 'completed' ||
+        currentOrder.value.status === 'cancelled' ||
+        currentOrder.value.escrow_status === 'escrow_released';
 });
 
 // 使用真实订单数据
@@ -2775,11 +2659,9 @@ const handleReviewSuccess = (review) => {
     currentOrder.value.has_review = true;
     currentOrder.value.review = review;
     currentOrder.value.status = 'completed';
-    
+
     // 关闭弹窗
     showReviewModal.value = false;
-    
-    MessageDialog.success('感谢您的评价！');
 };
 
 const formatFileSize = (bytes) => {
@@ -2906,12 +2788,12 @@ const sendMessage = async () => {
         }
 
         // 检查对方是否在线
-        const recipientId = currentOrder.value.vendor_id === props.currentUserId 
-            ? currentOrder.value.client_id 
+        const recipientId = currentOrder.value.vendor_id === props.currentUserId
+            ? currentOrder.value.client_id
             : currentOrder.value.vendor_id;
         const recipient = participants.value.find(p => p.id === recipientId);
         const recipientOnline = recipient ? recipient.is_online : false;
-        
+
         // 发送消息
         const response = await axios.post(`/web/api/orders/${currentOrder.value.order_no}/chat/send`, {
             message: message,
@@ -3148,7 +3030,6 @@ const handleDialogCancel = () => {
     buyerPaymentProof.value = '';
     // 重置卖家转币相关状态
     sellerTxHash.value = '';
-    sellerConfirmChecked.value = false;
     // 重置托管确认相关状态
     escrowChecks.value = {
         txExists: false,
@@ -3171,7 +3052,7 @@ const handleBuyerPaymentConfirm = async () => {
     if (!props.userHas2FA) {
         // 不应该到达这里，因为按钮应该被隐藏了
         alert('买家付款必须启用双重验证');
-        router.visit('/user/profile');
+        router.visit('/user/profile#tab-2fa');
         return;
     }
 
@@ -3214,7 +3095,7 @@ const handleBuyerPaymentConfirm = async () => {
             if (error.response.data.require_2fa) {
                 dialogState.value.show = false;
                 alert('为了您的资金安全，请先在个人设置中启用双重验证');
-                router.visit('/user/profile');
+                router.visit('/user/profile#tab-2fa');
             } else {
                 dialogState.value.twoFactorError = error.response.data.message;
             }
@@ -3230,12 +3111,12 @@ const handleEscrowConfirm = async () => {
         MessageDialog.error('请确认所有检查项');
         return;
     }
-    
+
     dialogState.value.loading = true;
-    
+
     try {
         const response = await axios.post(`/web/api/orders/${currentOrder.value.id}/buyer-confirm-escrow`);
-        
+
         if (response.data.success) {
             dialogState.value.show = false;
             // 重置确认状态
@@ -3261,24 +3142,18 @@ const handleSellerPaidConfirm = async () => {
         MessageDialog.error('请输入交易哈希');
         return;
     }
-    
-    if (!sellerConfirmChecked.value) {
-        MessageDialog.error('请确认已核对地址和金额');
-        return;
-    }
-    
+
     dialogState.value.loading = true;
-    
+
     try {
         const response = await axios.post(`/web/api/orders/${currentOrder.value.id}/seller-paid`, {
             tx_hash: sellerTxHash.value.trim()
         });
-        
+
         if (response.data.success) {
             dialogState.value.show = false;
             // 重置状态
             sellerTxHash.value = '';
-            sellerConfirmChecked.value = false;
             // 刷新页面以获取最新状态
             router.reload();
         }
@@ -3293,7 +3168,7 @@ const handleSellerReceivedConfirm = async () => {
     // 必须启用2FA才能继续
     if (!props.userHas2FA) {
         alert('卖家确认收款必须启用双重验证');
-        router.visit('/user/profile');
+        router.visit('/user/profile#tab-2fa');
         return;
     }
 
@@ -3331,7 +3206,7 @@ const handleSellerReceivedConfirm = async () => {
             if (error.response.data.require_2fa) {
                 dialogState.value.show = false;
                 alert('为了您的资金安全，请先在个人设置中启用双重验证');
-                router.visit('/user/profile');
+                router.visit('/user/profile#tab-2fa');
             } else {
                 dialogState.value.twoFactorError = error.response.data.message;
             }
@@ -3559,7 +3434,7 @@ const connectWebSocket = () => {
                         exists.is_online = true;
                     }
                 }
-                
+
                 // 系统消息始终显示，普通消息只显示其他人的
                 if (e.type === 'system' || !e.user || e.user.id !== props.currentUserId) {
                     messages.value.push({
@@ -3592,13 +3467,25 @@ const connectWebSocket = () => {
                 const notification = `托管状态更新: ${e.message}`;
 
                 // 添加系统消息到聊天
-                messages.value.push({
+                const systemMessage = {
                     id: Date.now(),
                     message: notification,
                     type: 'system',
                     user: null,
                     created_at: new Date().toISOString()
-                });
+                };
+
+                // 如果是托管释放且是买家，添加评价相关标记
+                if ((e.escrow_status === 'escrow_released' || e.new_status === 'escrow_released') &&
+                    props.currentUserId === currentOrder.value.client_id) {
+                    systemMessage.show_review_button = true;
+                    // 如果已评价，修改消息文本
+                    if (currentOrder.value.has_review) {
+                        systemMessage.message = '托管已释放，交易完成，您已评价此交易';
+                    }
+                }
+
+                messages.value.push(systemMessage);
 
                 scrollToBottom();
 
@@ -3622,11 +3509,11 @@ const connectWebSocket = () => {
             .listen('.dispute.resolved', (e) => {
                 // 处理争议解除事件
                 console.log('争议已解除:', e);
-                
+
                 // 更新订单争议状态
                 currentOrder.value.is_disputed = false;
                 currentOrder.value.disputed_by = null;
-                
+
                 // 更新其他状态
                 if (e.escrow_status) {
                     currentOrder.value.escrow_status = e.escrow_status;
@@ -3634,23 +3521,25 @@ const connectWebSocket = () => {
                 if (e.status) {
                     currentOrder.value.status = e.status;
                 }
-                
+
                 // 刷新页面以更新可用操作
                 setTimeout(() => {
                     router.reload({ only: ['availableActions', 'order'] });
                 }, 1000);
-                
+
                 // 显示通知
                 showNotification('success', e.message || '争议已解除，订单恢复正常');
             });
 
         isConnected.value = true;
 
-        // 如果是重连，重新加载所有消息
+        // 总是加载最新消息，确保获取所有历史记录
+        console.log('[WebSocket] 连接成功，加载最新消息');
+        loadMessages();
+
+        // 清除断开时间标记
         if (disconnectedAt) {
             disconnectedAt = null;
-            console.log('[WebSocket] 重连成功，重新加载消息');
-            loadMessages();
         }
     } else {
         console.warn('Echo not available, retrying...');
@@ -3720,6 +3609,29 @@ const handleVisibilityChange = () => {
 onMounted(() => {
     initParticipants();
     startCountdown();
+
+    // 如果交易已完成，添加相应的系统消息
+    if (currentOrder.value.escrow_status === 'escrow_released' &&
+        props.currentUserId === currentOrder.value.client_id) {
+
+        // 检查是否已有评价相关消息
+        const hasReviewMessage = messages.value.some(msg => msg.show_review_button === true);
+
+        if (!hasReviewMessage) {
+            const reviewMessage = {
+                id: Date.now(),
+                message: currentOrder.value.has_review
+                    ? '交易已完成，您已评价此交易'
+                    : '交易已完成！请对本次交易进行评价',
+                type: 'system',
+                user: null,
+                created_at: new Date().toISOString(),
+                show_review_button: true  // 添加标记以便模板判断
+            };
+            console.log('Adding review message:', reviewMessage);
+            messages.value.push(reviewMessage);
+        }
+    }
 
     scrollToBottom();
     connectWebSocket();

@@ -20,11 +20,11 @@
                 type="text"
                 inputmode="numeric"
                 maxlength="1"
-                class="w-12 h-12 text-center text-lg font-mono font-bold rounded-lg border-2 transition-all duration-200"
+                class="w-12 h-12 text-center text-lg font-mono font-bold rounded-lg border-2 transition-all duration-200 focus:outline-none"
                 :class="[
-                    error 
-                        ? 'border-red-500 bg-red-50 dark:bg-red-900/20 text-red-900 dark:text-red-200' 
-                        : 'border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:border-emerald-500 dark:focus:border-emerald-400'
+                    error
+                        ? 'border-red-500 bg-red-50 dark:bg-red-900/20 text-red-900 dark:text-red-200'
+                        : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:border-emerald-500 dark:focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/20'
                 ]"
                 @input="handleInput(index, $event)"
                 @keydown="handleKeydown(index, $event)"
