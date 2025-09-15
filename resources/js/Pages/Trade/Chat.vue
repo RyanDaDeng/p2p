@@ -3475,8 +3475,9 @@ const connectWebSocket = () => {
 
         // 如果是重连，获取离线期间的消息
         if (disconnectedAt) {
-            fetchMissedMessages();
+            const savedDisconnectedAt = disconnectedAt;
             disconnectedAt = null;
+            fetchMissedMessages(savedDisconnectedAt);
         }
     } else {
         console.warn('Echo not available, retrying...');
@@ -3486,25 +3487,30 @@ const connectWebSocket = () => {
 
 
 // 获取离线期间的消息
-const fetchMissedMessages = async () => {
-    if (!disconnectedAt) return;
+const fetchMissedMessages = async (timestamp) => {
+    if (!timestamp) return;
 
     try {
+        console.log('[WebSocket] 获取离线消息, 从时间戳:', timestamp);
         const response = await axios.get(`/web/api/orders/${currentOrder.value.order_no}/chat/messages`, {
             params: {
-                since: Math.floor(disconnectedAt / 1000)
+                since: Math.floor(timestamp / 1000)
             }
         });
 
         if (response.data && response.data.length > 0) {
+            console.log('[WebSocket] 获取到离线消息:', response.data.length, '条');
             // 添加离线期间的消息
             response.data.forEach(msg => {
                 // 检查消息是否已存在
                 if (!messages.value.find(m => m.id === msg.id)) {
                     messages.value.push(msg);
+                    console.log('[WebSocket] 添加离线消息:', msg.message);
                 }
             });
             scrollToBottom();
+        } else {
+            console.log('[WebSocket] 没有离线消息');
         }
     } catch (error) {
         console.error('[WebSocket] 获取离线消息失败:', error);
@@ -3528,7 +3534,7 @@ const handleVisibilityChange = () => {
         }, delay);
     } else {
         // 页面显示
-        console.log('[WebSocket] 页面显示');
+        console.log('[WebSocket] 页面显示, 连接状态:', isConnected.value, '频道:', !!presenceChannel);
 
         // 取消断开计时
         if (disconnectTimer) {
@@ -3538,7 +3544,14 @@ const handleVisibilityChange = () => {
 
         // 如果未连接，重新连接
         if (!isConnected.value && !presenceChannel) {
+            console.log('[WebSocket] 检测到断开状态，重新连接...');
             connectWebSocket();
+        } else if (!isConnected.value || !presenceChannel) {
+            // 如果连接状态不一致，也重新连接
+            console.log('[WebSocket] 连接状态不一致，重新连接...');
+            connectWebSocket();
+        } else {
+            console.log('[WebSocket] 已连接，无需重连');
         }
     }
 };
