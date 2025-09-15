@@ -3473,11 +3473,11 @@ const connectWebSocket = () => {
 
         isConnected.value = true;
 
-        // 如果是重连，获取离线期间的消息
+        // 如果是重连，重新加载所有消息
         if (disconnectedAt) {
-            const savedDisconnectedAt = disconnectedAt;
             disconnectedAt = null;
-            fetchMissedMessages(savedDisconnectedAt);
+            console.log('[WebSocket] 重连成功，重新加载消息');
+            loadMessages();
         }
     } else {
         console.warn('Echo not available, retrying...');
@@ -3486,34 +3486,22 @@ const connectWebSocket = () => {
 };
 
 
-// 获取离线期间的消息
-const fetchMissedMessages = async (timestamp) => {
-    if (!timestamp) return;
-
+// 重新加载所有消息
+const loadMessages = async () => {
     try {
-        console.log('[WebSocket] 获取离线消息, 从时间戳:', timestamp);
-        const response = await axios.get(`/web/api/orders/${currentOrder.value.order_no}/chat/messages`, {
-            params: {
-                since: Math.floor(timestamp / 1000)
-            }
-        });
+        console.log('[WebSocket] 重新加载所有消息');
+        const response = await axios.get(`/web/api/orders/${currentOrder.value.order_no}/chat/messages`);
 
         if (response.data && response.data.length > 0) {
-            console.log('[WebSocket] 获取到离线消息:', response.data.length, '条');
-            // 添加离线期间的消息
-            response.data.forEach(msg => {
-                // 检查消息是否已存在
-                if (!messages.value.find(m => m.id === msg.id)) {
-                    messages.value.push(msg);
-                    console.log('[WebSocket] 添加离线消息:', msg.message);
-                }
-            });
+            console.log('[WebSocket] 加载消息成功:', response.data.length, '条');
+            // 替换所有消息
+            messages.value = response.data;
             scrollToBottom();
         } else {
-            console.log('[WebSocket] 没有离线消息');
+            console.log('[WebSocket] 没有消息');
         }
     } catch (error) {
-        console.error('[WebSocket] 获取离线消息失败:', error);
+        console.error('[WebSocket] 加载消息失败:', error);
     }
 };
 
