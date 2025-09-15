@@ -4,7 +4,7 @@
         <div class="bg-gradient-to-b from-gray-100 to-gray-50 dark:from-slate-900 dark:to-slate-800 border-b border-gray-200 dark:border-slate-700">
             <div class="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
                 <!-- 安全横幅 + Crypto Price Bar 合并 -->
-                <div class="bg-white/50 dark:bg-slate-900/30 rounded-lg p-2 sm:p-2.5 mb-3">
+                <div class="bg-white/70 dark:bg-slate-900/30 rounded-lg p-2 sm:p-2.5 mb-3">
                     <div v-if="cryptoPrices.loading" class="flex items-center justify-center gap-2 text-xs text-gray-500 dark:text-slate-400">
                         <svg class="animate-spin h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -88,7 +88,7 @@
                 <!-- 桌面端一行显示 -->
                 <div class="hidden sm:flex flex-wrap items-center gap-1.5">
                     <!-- 买卖切换 -->
-                    <div class="flex items-center bg-white dark:bg-slate-900/50 rounded-lg p-1 border border-gray-200 dark:border-slate-700">
+                    <div class="flex items-center bg-white/80 dark:bg-slate-900/50 rounded-lg p-1 border border-gray-200 dark:border-slate-700">
                         <span class="text-xs text-gray-600 dark:text-slate-400 px-2">我想要</span>
                         <P2PButton
                             @click="filters.tradeType = 'buy'"
@@ -170,7 +170,7 @@
                 <div class="sm:hidden space-y-2">
                     <!-- 第一行：买卖切换和只看在线 -->
                     <div class="flex items-center justify-between gap-2">
-                        <div class="flex items-center bg-white dark:bg-slate-900/50 rounded-lg p-1 border border-gray-200 dark:border-slate-700">
+                        <div class="flex items-center bg-white/80 dark:bg-slate-900/50 rounded-lg p-1 border border-gray-200 dark:border-slate-700">
                             <span class="text-xs text-gray-600 dark:text-slate-400 px-2">我想要</span>
                             <P2PButton
                                 @click="filters.tradeType = 'buy'"
@@ -253,12 +253,12 @@
         </div>
 
         <!-- 主交易区域 -->
-        <div class="min-h-screen bg-white dark:bg-slate-950">
+        <div class="min-h-screen bg-gray-50 dark:bg-slate-950">
             <div class="mx-auto max-w-7xl px-2 sm:px-4 py-4 lg:px-8">
                 <!-- 卡片列表控制栏 -->
                 <div class="mb-4">
                     <!-- 认证商家筛选 -->
-                    <label class="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2.5 sm:py-2 bg-white dark:bg-slate-900/50 rounded-lg border border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600 cursor-pointer transition-colors">
+                    <label class="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2.5 sm:py-2 bg-white/80 dark:bg-slate-900/50 rounded-lg border border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600 cursor-pointer transition-colors">
                         <input
                             type="checkbox"
                             v-model="filters.onlyVerified"
@@ -316,9 +316,20 @@
                                             v-if="listing.seller.avatar || listing.seller.profile_photo_url"
                                             :src="listing.seller.avatar || listing.seller.profile_photo_url"
                                             :alt="listing.seller.name"
-                                            class="h-12 w-12 rounded-full object-cover border-2 border-gray-200 dark:border-slate-700"
+                                            :class="[
+                                                'h-12 w-12 rounded-full object-cover border-2',
+                                                isUserOnline(listing.seller.lastSeen)
+                                                    ? 'border-emerald-500'
+                                                    : 'border-gray-200 dark:border-slate-700'
+                                            ]"
                                         />
-                                        <div v-else class="h-12 w-12 rounded-full bg-gradient-to-br from-blue-600 to-blue-800 dark:from-blue-500 dark:to-blue-700 flex items-center justify-center">
+                                        <div v-else
+                                             :class="[
+                                                'h-12 w-12 rounded-full bg-gradient-to-br from-blue-600 to-blue-800 dark:from-blue-500 dark:to-blue-700 flex items-center justify-center border-2',
+                                                isUserOnline(listing.seller.lastSeen)
+                                                    ? 'border-emerald-500'
+                                                    : 'border-gray-200 dark:border-slate-700'
+                                             ]">
                                             <span class="text-white font-bold text-lg">
                                                 {{ listing.seller.name?.[0]?.toUpperCase() || 'U' }}
                                             </span>
@@ -518,8 +529,19 @@
                                         <img v-if="listing.seller.profile_photo_url"
                                              :src="listing.seller.profile_photo_url"
                                              :alt="listing.seller.name"
-                                             class="h-10 w-10 rounded-full object-cover cursor-pointer hover:ring-2 hover:ring-emerald-500 transition-all">
-                                        <div v-else class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-800 dark:from-blue-500 dark:to-blue-700 flex items-center justify-center cursor-pointer hover:ring-2 hover:ring-emerald-500 transition-all">
+                                             :class="[
+                                                'h-10 w-10 rounded-full object-cover cursor-pointer transition-all hover:ring-2 hover:ring-emerald-500',
+                                                isUserOnline(listing.seller.lastSeen)
+                                                    ? 'border-2 border-emerald-500'
+                                                    : 'border-0'
+                                             ]">
+                                        <div v-else
+                                             :class="[
+                                                'h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-800 dark:from-blue-500 dark:to-blue-700 flex items-center justify-center cursor-pointer transition-all hover:ring-2 hover:ring-emerald-500',
+                                                isUserOnline(listing.seller.lastSeen)
+                                                    ? 'border-2 border-emerald-500'
+                                                    : 'border-0'
+                                             ]">
                                             <span class="text-white font-bold text-sm">
                                                 {{ listing.seller.name?.[0]?.toUpperCase() || 'U' }}
                                             </span>
@@ -1115,6 +1137,17 @@ const cryptocurrencyOptions = computed(() => {
 
 
 // Helper function to get cryptocurrency label from key
+
+// Helper function to check if user is online (within 5 minutes)
+const isUserOnline = (lastSeen) => {
+    if (!lastSeen) return false;
+
+    const date = new Date(lastSeen);
+    const now = new Date();
+    const diffMinutes = Math.floor((now - date) / 60000);
+
+    return diffMinutes < 5;
+};
 
 // Helper function to format last seen time
 const formatLastSeen = (lastSeen) => {
