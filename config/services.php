@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'fireblocks' => [
+        'webhook_token' => env('FIREBLOCKS_WEBHOOK_TOKEN', 'pp91Kya701A1D4DPVWmtoSwT0zxpIiFF1DiVErH4'),
+    ],
+
 ];

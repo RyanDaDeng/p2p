@@ -13,8 +13,10 @@ class FireblocksWebhookWebController extends Controller
     public function receivePayment(Request $request)
     {
         $log = Log::channel('fireblocks');
+        $payload = $request->json();
 
-        $log->info($request->json());
-        return response('success');
+        $log->info('Processing webhook payload', $payload);
+
+        return response()->json(['status' => 'success'], 200);
     }
 }
