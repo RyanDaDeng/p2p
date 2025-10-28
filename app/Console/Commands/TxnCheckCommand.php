@@ -14,7 +14,7 @@ class TxnCheckCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:address-check-command';
+    protected $signature = 'app:txn-check-command';
 
     /**
      * The console command description.
