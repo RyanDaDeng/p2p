@@ -61,6 +61,7 @@ class TxnCheckCommand extends Command
             } else {
                 $res = self::checkSendOrder(
                     $payload['status'],
+                    $payload['third_party_order_no'],
                     $payload['fireblocks_tx_id'],
                     $payload['source_address'],
                     $payload['destination_address'],
@@ -110,10 +111,11 @@ class TxnCheckCommand extends Command
 
 
     public static function checkSendOrder(
-        $status, $fireblocksTxnId, $sourceAddress, $destinationAddress
+        $status, $clientId, $fireblocksTxnId, $sourceAddress, $destinationAddress
     ){
         if ($status == 'COMPLETED'){
             $order = Order::query()
+                ->where('third_party_order_no', $clientId)
                 ->where('release_tx_id', $fireblocksTxnId)
                 ->where('status', 'trading')
                 ->where('escrow_status', 'seller_received')
