@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('address');
             $table->boolean('is_verified')->default(true);
             $table->timestamps();
-            
-            // Unique constraint to prevent address theft  
-            $table->unique(['currency_key', 'address']);
+
+            // Unique constraint to prevent address theft
+//            $table->unique(['currency_key', 'address']);
             $table->index(['user_id', 'currency_key']);
         });
     }

@@ -121,6 +121,8 @@ class ChatController extends Controller
                 'escrow_address' => $order->escrow_address,
                 'seller_address' => $order->seller_address,
                 'escrow_tx_hash' => $order->escrow_tx_hash,
+                'escrow_released_at' => $order->escrow_released_at,
+                'release_tx_hash' => $order->release_tx_hash,
                 'payment_methods' => $order->payment_methods,
                 'created_at' => $order->created_at->toISOString(),
                 'vendor_confirmed_at' => $order->vendor_confirmed_at,

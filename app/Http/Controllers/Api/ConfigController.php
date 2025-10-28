@@ -14,8 +14,8 @@ class ConfigController extends ApiController
      */
     public function index(Request $request)
     {
-        $cacheKey = "config_data";
-        
+        $cacheKey = "config_1data";
+
         $data = Cache::remember($cacheKey, 3600, function() {
             return [
                 'cryptocurrencies' => $this->getCryptocurrencies(),
@@ -24,18 +24,20 @@ class ConfigController extends ApiController
                 'countries' => $this->getCountries()
             ];
         });
-        
+
         return $this->sendSuccess($data);
     }
-    
-    
+
+
     /**
      * Get formatted cryptocurrencies
      */
     private function getCryptocurrencies()
     {
-        $cryptos = config('cryptocurrencies.supported', []);
-        
+        $isSandbox = config('fireblocks.sandbox');
+
+        $cryptos = $isSandbox ? config('cryptocurrencies.test', []) : config('cryptocurrencies.supported', []);
+
         $result = [];
         foreach ($cryptos as $key => $crypto) {
             $result[] = [
@@ -45,10 +47,10 @@ class ConfigController extends ApiController
                 'network' => $crypto['network']
             ];
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Get formatted payment methods with categories
      */
@@ -56,14 +58,14 @@ class ConfigController extends ApiController
     {
         return config('payment_methods.categories', []);
     }
-    
+
     /**
      * Get formatted fiat currencies
      */
     private function getFiatCurrencies()
     {
         $currencies = config('fiat_currencies.supported', []);
-        
+
         $result = [];
         foreach ($currencies as $code => $currency) {
             $result[] = [
@@ -74,17 +76,17 @@ class ConfigController extends ApiController
                 'decimal_places' => $currency['decimal_places']
             ];
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Get formatted countries
      */
     private function getCountries()
     {
         $countries = config('countries.supported', []);
-        
+
         $result = [];
         foreach ($countries as $code => $country) {
             $result[] = [
@@ -94,7 +96,7 @@ class ConfigController extends ApiController
                 'flag' => $country['flag']
             ];
         }
-        
+
         return $result;
     }
 }

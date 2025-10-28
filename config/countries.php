@@ -11,7 +11,8 @@ return [
             'name_zh' => '中国',
             'flag' => '🇨🇳',
             'currency' => 'CNY',
-            'language' => 'zh-CN'
+            'language' => 'zh-CN',
+            'phone_code' => '+86'
         ],
         'us' => [
             'code' => 'us',
@@ -19,7 +20,8 @@ return [
             'name_zh' => '美国',
             'flag' => '🇺🇸',
             'currency' => 'USD',
-            'language' => 'en-US'
+            'language' => 'en-US',
+            'phone_code' => '+1'
         ],
         'uk' => [
             'code' => 'uk',
@@ -27,7 +29,8 @@ return [
             'name_zh' => '英国',
             'flag' => '🇬🇧',
             'currency' => 'GBP',
-            'language' => 'en-GB'
+            'language' => 'en-GB',
+            'phone_code' => '+44'
         ],
         'sg' => [
             'code' => 'sg',
@@ -35,7 +38,8 @@ return [
             'name_zh' => '新加坡',
             'flag' => '🇸🇬',
             'currency' => 'SGD',
-            'language' => 'en-SG'
+            'language' => 'en-SG',
+            'phone_code' => '+65'
         ],
         'hk' => [
             'code' => 'hk',
@@ -43,7 +47,8 @@ return [
             'name_zh' => '香港',
             'flag' => '🇭🇰',
             'currency' => 'HKD',
-            'language' => 'zh-HK'
+            'language' => 'zh-HK',
+            'phone_code' => '+852'
         ],
         'jp' => [
             'code' => 'jp',
@@ -51,7 +56,8 @@ return [
             'name_zh' => '日本',
             'flag' => '🇯🇵',
             'currency' => 'JPY',
-            'language' => 'ja-JP'
+            'language' => 'ja-JP',
+            'phone_code' => '+81'
         ],
         'kr' => [
             'code' => 'kr',
@@ -59,7 +65,8 @@ return [
             'name_zh' => '韩国',
             'flag' => '🇰🇷',
             'currency' => 'KRW',
-            'language' => 'ko-KR'
+            'language' => 'ko-KR',
+            'phone_code' => '+82'
         ],
         'au' => [
             'code' => 'au',
@@ -67,7 +74,8 @@ return [
             'name_zh' => '澳大利亚',
             'flag' => '🇦🇺',
             'currency' => 'AUD',
-            'language' => 'en-AU'
+            'language' => 'en-AU',
+            'phone_code' => '+61'
         ],
         'ca' => [
             'code' => 'ca',
@@ -75,7 +83,8 @@ return [
             'name_zh' => '加拿大',
             'flag' => '🇨🇦',
             'currency' => 'CAD',
-            'language' => 'en-CA'
+            'language' => 'en-CA',
+            'phone_code' => '+1'
         ],
         'de' => [
             'code' => 'de',
@@ -83,7 +92,8 @@ return [
             'name_zh' => '德国',
             'flag' => '🇩🇪',
             'currency' => 'EUR',
-            'language' => 'de-DE'
+            'language' => 'de-DE',
+            'phone_code' => '+49'
         ],
         'fr' => [
             'code' => 'fr',
@@ -91,7 +101,8 @@ return [
             'name_zh' => '法国',
             'flag' => '🇫🇷',
             'currency' => 'EUR',
-            'language' => 'fr-FR'
+            'language' => 'fr-FR',
+            'phone_code' => '+33'
         ],
         'in' => [
             'code' => 'in',
@@ -99,7 +110,8 @@ return [
             'name_zh' => '印度',
             'flag' => '🇮🇳',
             'currency' => 'INR',
-            'language' => 'hi-IN'
+            'language' => 'hi-IN',
+            'phone_code' => '+91'
         ],
         'ru' => [
             'code' => 'ru',
@@ -107,7 +119,8 @@ return [
             'name_zh' => '俄罗斯',
             'flag' => '🇷🇺',
             'currency' => 'RUB',
-            'language' => 'ru-RU'
+            'language' => 'ru-RU',
+            'phone_code' => '+7'
         ],
         'br' => [
             'code' => 'br',
@@ -115,7 +128,8 @@ return [
             'name_zh' => '巴西',
             'flag' => '🇧🇷',
             'currency' => 'BRL',
-            'language' => 'pt-BR'
+            'language' => 'pt-BR',
+            'phone_code' => '+55'
         ],
         'mx' => [
             'code' => 'mx',
@@ -123,7 +137,8 @@ return [
             'name_zh' => '墨西哥',
             'flag' => '🇲🇽',
             'currency' => 'MXN',
-            'language' => 'es-MX'
+            'language' => 'es-MX',
+            'phone_code' => '+52'
         ],
         'ae' => [
             'code' => 'ae',
@@ -131,7 +146,8 @@ return [
             'name_zh' => '阿联酋',
             'flag' => '🇦🇪',
             'currency' => 'AED',
-            'language' => 'ar-AE'
+            'language' => 'ar-AE',
+            'phone_code' => '+971'
         ],
         'tw' => [
             'code' => 'tw',
@@ -139,7 +155,8 @@ return [
             'name_zh' => '台湾',
             'flag' => '🇹🇼',
             'currency' => 'TWD',
-            'language' => 'zh-TW'
+            'language' => 'zh-TW',
+            'phone_code' => '+886'
         ],
         'th' => [
             'code' => 'th',
@@ -147,7 +164,8 @@ return [
             'name_zh' => '泰国',
             'flag' => '🇹🇭',
             'currency' => 'THB',
-            'language' => 'th-TH'
+            'language' => 'th-TH',
+            'phone_code' => '+66'
         ],
         'vn' => [
             'code' => 'vn',
@@ -155,7 +173,8 @@ return [
             'name_zh' => '越南',
             'flag' => '🇻🇳',
             'currency' => 'VND',
-            'language' => 'vi-VN'
+            'language' => 'vi-VN',
+            'phone_code' => '+84'
         ],
         'ph' => [
             'code' => 'ph',
@@ -163,7 +182,8 @@ return [
             'name_zh' => '菲律宾',
             'flag' => '🇵🇭',
             'currency' => 'PHP',
-            'language' => 'en-PH'
+            'language' => 'en-PH',
+            'phone_code' => '+63'
         ]
     ]
 ];

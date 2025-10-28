@@ -18,36 +18,36 @@ class EscrowService
     {
         return DB::transaction(function() use ($orderId) {
             $order = Order::findOrFail($orderId);
-            
+
             // 验证权限
             if ($order->vendor_id !== auth()->id()) {
                 throw new Exception('无权操作此订单');
             }
-            
+
             // 验证订单是否已取消
             if ($order->status === 'cancelled') {
                 throw new Exception('订单已取消，无法操作');
             }
-            
+
             // 验证是否有争议
             if ($order->is_disputed) {
                 throw new Exception('订单存在争议，无法操作');
             }
-            
+
             // 验证状态
             if ($order->escrow_status !== 'order_initiated') {
                 throw new Exception('订单状态不正确');
             }
-            
+
             // 生成托管地址（这里简化处理，实际需要调用钱包服务）
             $escrowAddress = $this->generateEscrowAddress($order);
-            
+
             $order->update([
                 'escrow_status' => 'vendor_confirmed',
                 'vendor_confirmed_at' => now(),
                 'escrow_address' => $escrowAddress
             ]);
-            
+
             // 记录日志
             EscrowLog::log(
                 $order->id,
@@ -57,7 +57,7 @@ class EscrowService
                 ['escrow_address' => $escrowAddress],
                 '商家已确认订单'
             );
-            
+
             // 广播状态变更事件
             broadcast(new EscrowStatusUpdated(
                 $order,
@@ -65,17 +65,17 @@ class EscrowService
                 'vendor_confirmed',
                 '商家已确认订单，请卖家转币到托管地址'
             ));
-            
+
             // 发送系统消息
             ChatController::sendSystemMessage(
                 $order->id,
                 '商家已确认订单，请卖家转币到托管地址: ' . $escrowAddress
             );
-            
+
             return $order;
         });
     }
-    
+
     /**
      * 卖家标记已转币
      */
@@ -83,38 +83,38 @@ class EscrowService
     {
         return DB::transaction(function() use ($orderId, $txHash) {
             $order = Order::findOrFail($orderId);
-            
+
             // 验证权限
             if ($order->seller_id !== auth()->id()) {
                 throw new Exception('无权操作此订单');
             }
-            
+
             // 验证订单是否已取消
             if ($order->status === 'cancelled') {
                 throw new Exception('订单已取消，无法操作');
             }
-            
+
             // 验证是否有争议
             if ($order->is_disputed) {
                 throw new Exception('订单存在争议，无法操作');
             }
-            
+
             // 验证状态
             if ($order->escrow_status !== 'vendor_confirmed') {
                 throw new Exception('请等待商家确认');
             }
-            
+
             // 验证交易哈希
             if (empty($txHash)) {
                 throw new Exception('请提供交易哈希');
             }
-            
+
             $order->update([
                 'escrow_status' => 'seller_paid',
                 'seller_paid_at' => now(),
                 'escrow_tx_hash' => $txHash
             ]);
-            
+
             // 记录日志
             EscrowLog::log(
                 $order->id,
@@ -128,7 +128,7 @@ class EscrowService
                 ],
                 '卖家已标记转币'
             );
-            
+
             // 广播状态变更事件
             broadcast(new EscrowStatusUpdated(
                 $order,
@@ -136,57 +136,53 @@ class EscrowService
                 'seller_paid',
                 '卖家已转币，等待系统确认'
             ));
-            
+
             // 发送系统消息
             ChatController::sendSystemMessage(
                 $order->id,
                 '卖家已转币到托管，交易哈希: ' . $txHash . '，系统正在确认中...'
             );
-            
+
             // 触发区块链监控（这里简化处理）
             $this->startBlockchainMonitor($order);
-            
+
             return $order;
         });
     }
-    
+
     /**
      * 系统确认托管到账
      */
-    public function confirmEscrowReceived($orderId, $confirmations = 1)
+    public function confirmEscrowReceived($orderId, $data)
     {
-        return DB::transaction(function() use ($orderId, $confirmations) {
+        return DB::transaction(function() use ($orderId, $data) {
             $order = Order::findOrFail($orderId);
-            
+
             // 验证订单是否已取消
             if ($order->status === 'cancelled') {
                 throw new Exception('订单已取消，无法操作');
             }
-            
+
             // 验证状态
             if ($order->escrow_status !== 'seller_paid') {
                 return $order; // 幂等处理
             }
-            
+
             $order->update([
                 'escrow_status' => 'escrow_received',
                 'escrow_received_at' => now()
             ]);
-            
+
             // 记录日志
             EscrowLog::systemLog(
                 $order->id,
                 'escrow_confirmed',
                 'seller_paid',
                 'escrow_received',
-                [
-                    'confirmations' => $confirmations,
-                    'verified_amount' => $order->crypto_amount,
-                    'tx_hash' => $order->escrow_tx_hash
-                ],
+                $data,
                 '系统已确认托管到账'
             );
-            
+
             // 广播状态变更事件
             broadcast(new EscrowStatusUpdated(
                 $order,
@@ -194,17 +190,17 @@ class EscrowService
                 'escrow_received',
                 '托管已确认到账，买家可以付款了'
             ));
-            
+
             // 发送系统消息
             ChatController::sendSystemMessage(
                 $order->id,
                 '✅ 托管已确认到账！请买家二次确认。'
             );
-            
+
             return $order;
         });
     }
-    
+
     /**
      * 买家确认托管到账
      */
@@ -212,32 +208,32 @@ class EscrowService
     {
         return DB::transaction(function() use ($orderId) {
             $order = Order::findOrFail($orderId);
-            
+
             // 验证权限
             if ($order->buyer_id !== auth()->id()) {
                 throw new Exception('无权操作此订单');
             }
-            
+
             // 验证订单是否已取消
             if ($order->status === 'cancelled') {
                 throw new Exception('订单已取消，无法操作');
             }
-            
+
             // 验证是否有争议
             if ($order->is_disputed) {
                 throw new Exception('订单存在争议，无法操作');
             }
-            
+
             // 验证状态 - 必须是系统已确认托管到账
             if ($order->escrow_status !== 'escrow_received') {
                 throw new Exception('请等待系统确认托管到账');
             }
-            
+
             $order->update([
                 'escrow_status' => 'buyer_confirmed_escrow',
                 'buyer_confirmed_escrow_at' => now()
             ]);
-            
+
             // 记录日志
             EscrowLog::log(
                 $order->id,
@@ -250,7 +246,7 @@ class EscrowService
                 ],
                 '买家已确认托管到账'
             );
-            
+
             // 广播状态变更事件
             broadcast(new EscrowStatusUpdated(
                 $order,
@@ -258,17 +254,17 @@ class EscrowService
                 'buyer_confirmed_escrow',
                 '买家已确认托管到账，请继续付款'
             ));
-            
+
             // 发送系统消息
             ChatController::sendSystemMessage(
                 $order->id,
                 '✅ 买家已确认托管到账，请继续向卖家付款'
             );
-            
+
             return $order;
         });
     }
-    
+
     /**
      * 买家标记已付款
      */
@@ -276,32 +272,32 @@ class EscrowService
     {
         return DB::transaction(function() use ($orderId, $paymentProof) {
             $order = Order::findOrFail($orderId);
-            
+
             // 验证权限
             if ($order->buyer_id !== auth()->id()) {
                 throw new Exception('无权操作此订单');
             }
-            
+
             // 验证订单是否已取消
             if ($order->status === 'cancelled') {
                 throw new Exception('订单已取消，无法操作');
             }
-            
+
             // 验证是否有争议
             if ($order->is_disputed) {
                 throw new Exception('订单存在争议，无法操作');
             }
-            
+
             // 验证状态
             if ($order->escrow_status !== 'buyer_confirmed_escrow') {
                 throw new Exception('请先确认托管到账');
             }
-            
+
             $order->update([
                 'escrow_status' => 'buyer_paid',
                 'buyer_paid_at' => now()
             ]);
-            
+
             // 记录日志
             EscrowLog::log(
                 $order->id,
@@ -315,7 +311,7 @@ class EscrowService
                 ],
                 '买家已标记付款'
             );
-            
+
             // 广播状态变更事件
             broadcast(new EscrowStatusUpdated(
                 $order,
@@ -323,17 +319,17 @@ class EscrowService
                 'buyer_paid',
                 '买家已付款，请卖家确认收款'
             ));
-            
+
             // 发送系统消息
             ChatController::sendSystemMessage(
                 $order->id,
                 '买家已付款，请卖家确认收款'
             );
-            
+
             return $order;
         });
     }
-    
+
     /**
      * 卖家确认收款
      */
@@ -341,32 +337,32 @@ class EscrowService
     {
         return DB::transaction(function() use ($orderId) {
             $order = Order::findOrFail($orderId);
-            
+
             // 验证权限
             if ($order->seller_id !== auth()->id()) {
                 throw new Exception('无权操作此订单');
             }
-            
+
             // 验证订单是否已取消
             if ($order->status === 'cancelled') {
                 throw new Exception('订单已取消，无法操作');
             }
-            
+
             // 验证是否有争议
             if ($order->is_disputed) {
                 throw new Exception('订单存在争议，无法操作');
             }
-            
+
             // 验证状态
             if ($order->escrow_status !== 'buyer_paid') {
                 throw new Exception('买家还未付款');
             }
-            
+
             $order->update([
                 'escrow_status' => 'seller_received',
                 'seller_received_at' => now()
             ]);
-            
+
             // 记录日志
             EscrowLog::log(
                 $order->id,
@@ -379,7 +375,7 @@ class EscrowService
                 ],
                 '卖家已确认收款'
             );
-            
+
             // 广播状态变更事件
             broadcast(new EscrowStatusUpdated(
                 $order,
@@ -387,40 +383,73 @@ class EscrowService
                 'seller_received',
                 '卖家已确认收款，正在释放托管'
             ));
-            
+
             // 发送系统消息
             ChatController::sendSystemMessage(
                 $order->id,
                 '卖家已确认收款，系统正在释放托管...'
             );
-            
-            // 触发自动释放
-            $this->releaseEscrow($order);
-            
+
+//            // 触发自动释放
+            $isSandbox = config('fireblocks.sandbox');
+
+            if (!$isSandbox){
+                $this->releaseEscrow($order);
+            }
+
             return $order;
         });
     }
-    
+
     /**
      * 释放托管
      */
-    public function releaseEscrow($order)
+    public function releaseEscrow(Order $order)
     {
         return DB::transaction(function() use ($order) {
-            // 如果已经是字符串ID，重新获取订单
-            if (!($order instanceof Order)) {
-                $order = Order::findOrFail($order);
-            }
-            
             // 验证状态
             if ($order->escrow_status !== 'seller_received') {
                 throw new Exception('状态不正确，无法释放托管');
             }
-            
-            // 这里应该调用区块链服务进行实际的币释放
-            // $releaseTxHash = $this->blockchainService->releaseFunds($order);
-            $releaseTxHash = 'mock_release_tx_' . uniqid(); // 模拟交易哈希
-            
+
+            // 调用区块链服务进行实际的币释放
+            $isSandbox = config('fireblocks.sandbox');
+
+            $userId = $isSandbox ? 'AUS_TEST'.$order->buyer_id : 'AUS_PROD'.$order->buyer_id;
+            $assetId = $isSandbox ? config('fireblocks.assets.test.' . $order->currency_key)
+                : config('fireblocks.assets.prod.' . $order->currency_key);
+
+            $service = new FireBlocksService();
+
+            $amount = round((float)$order->crypto_amount - (float)$order->fee,8);
+
+            if ($amount > 0){
+                $res = $service->applyPayment(
+                    $order->order_no,
+                    $userId,
+                    $order->buy_address,
+                    $assetId,
+                    round((float)$order->crypto_amount - (float)$order->fee , 8)
+                );
+                if ($res['success']) {
+                    $order->release_tx_id = $res['transaction_id'];
+                    $order->save();
+                } else {
+                    // todo 有未知的转账，需要提醒TG
+                }
+            } else {
+                // todo 金额过小需要提醒TG
+            }
+
+            return $order;
+        });
+    }
+
+    public function escrowReleased($orderId, $releaseTxHash, $data){
+        return DB::transaction(function() use ($orderId, $releaseTxHash, $data) {
+
+            $order = Order::findOrFail($orderId);
+
             $order->update([
                 'escrow_status' => 'escrow_released',
                 'escrow_released_at' => now(),
@@ -428,21 +457,17 @@ class EscrowService
                 'status' => 'completed',
                 'completed_at' => now()
             ]);
-            
+
             // 记录日志
             EscrowLog::systemLog(
                 $order->id,
                 'escrow_released',
                 'seller_received',
                 'escrow_released',
-                [
-                    'release_tx_hash' => $releaseTxHash,
-                    'released_amount' => $order->crypto_amount,
-                    'released_to' => $order->buyer_id
-                ],
+                $data,
                 '托管已释放，交易完成'
             );
-            
+
             // 广播状态变更事件
             broadcast(new EscrowStatusUpdated(
                 $order,
@@ -450,30 +475,26 @@ class EscrowService
                 'escrow_released',
                 '交易完成！托管已释放给买家'
             ));
-            
+
             // 发送系统消息
             ChatController::sendSystemMessage(
                 $order->id,
                 '🎉 交易完成！托管已释放给买家，感谢使用我们的平台！'
             );
-            
-            return $order;
         });
     }
-    
     /**
      * 生成托管地址（模拟）
      */
     private function generateEscrowAddress($order)
     {
-        // 实际项目中这里应该调用钱包服务生成真实地址
-        // 这里只是模拟
-        $prefix = strtolower($order->crypto_currency);
-        $unique = substr(md5($order->id . time()), 0, 32);
-        
-        return $prefix . '_escrow_' . $unique;
+
+        $currencyKey = $order->currency_key;
+        $isSandbox = config('fireblocks.sandbox');
+
+        return $isSandbox ? config('fireblocks.escrow.test.'. $currencyKey) : config('fireblocks.escrow.prod.'. $currencyKey);
     }
-    
+
     /**
      * 启动区块链监控（模拟）
      */
@@ -483,15 +504,15 @@ class EscrowService
         // 1. 调用区块链API监控地址
         // 2. 设置定时任务检查交易
         // 3. 确认后调用 confirmEscrowReceived
-        
+
         // 这里模拟5秒后自动确认
         // 实际项目可以使用队列延迟任务
         // dispatch(new CheckEscrowTransaction($order))->delay(now()->addSeconds(5));
-        
+
         // 为了演示，这里直接确认
         // $this->confirmEscrowReceived($order->id);
     }
-    
+
     /**
      * 标记托管未收到（重置到等待卖家转币状态）
      */
@@ -499,21 +520,21 @@ class EscrowService
     {
         return DB::transaction(function() use ($orderId) {
             $order = Order::findOrFail($orderId);
-            
+
             // 验证状态
             if ($order->escrow_status !== 'seller_paid') {
                 throw new Exception('只能在等待托管确认状态下标记未收到');
             }
-            
+
             $oldTxHash = $order->escrow_tx_hash;
-            
+
             // 重置到vendor_confirmed状态，清除交易哈希
             $order->update([
                 'escrow_status' => 'vendor_confirmed',
                 'escrow_tx_hash' => null,
                 'seller_paid_at' => null
             ]);
-            
+
             // 记录日志
             EscrowLog::systemLog(
                 $order->id,
@@ -526,7 +547,7 @@ class EscrowService
                 ],
                 '托管未收到资金，请重新转币'
             );
-            
+
             // 广播状态变更事件
             broadcast(new EscrowStatusUpdated(
                 $order,
@@ -534,17 +555,17 @@ class EscrowService
                 'vendor_confirmed',
                 '托管未收到资金，请卖家重新转币到托管地址'
             ));
-            
+
             // 发送系统消息
             ChatController::sendSystemMessage(
                 $order->id,
                 '❌ 托管未收到资金，请卖家重新转币到托管地址: ' . $order->escrow_address
             );
-            
+
             return $order;
         });
     }
-    
+
     /**
      * 获取托管状态详情
      */
@@ -553,12 +574,12 @@ class EscrowService
         $order = Order::with(['escrowLogs' => function($query) {
             $query->orderBy('created_at', 'desc');
         }])->findOrFail($orderId);
-        
+
         // 验证权限
         if (!$order->isParticipant(auth()->id())) {
             throw new Exception('无权访问此订单');
         }
-        
+
         $statusInfo = [
             'order_initiated' => [
                 'label' => '等待商家确认',
@@ -601,7 +622,7 @@ class EscrowService
                 'progress' => 100
             ]
         ];
-        
+
         return [
             'current_status' => $order->escrow_status,
             'status_info' => $statusInfo[$order->escrow_status] ?? null,

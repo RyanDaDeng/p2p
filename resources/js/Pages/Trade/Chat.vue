@@ -248,7 +248,15 @@
                                             卖家转币到托管
                                         </p>
                                         <p class="text-xs text-gray-500 dark:text-gray-400">
-                                            {{ order.seller_paid_at ? formatTime(order.seller_paid_at) : '等待卖家转币' }}
+                                            {{ order.seller_paid_at ? formatTime(order.seller_paid_at) : '等待卖家转入' }}
+                                        </p>
+                                        <!-- 显示托管地址 -->
+                                        <p v-if="order.escrow_address" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
+                                            托管: {{ order.escrow_address }}
+                                        </p>
+                                        <!-- 显示交易哈希 -->
+                                        <p v-if="order.escrow_tx_hash" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
+                                            TX: {{ order.escrow_tx_hash }}
                                         </p>
                                         <!-- 卖家转币按钮 -->
                                         <div v-if="order.escrow_status === 'vendor_confirmed' && availableActions.includes('mark_seller_paid')" class="mt-2">
@@ -286,30 +294,6 @@
                                         <p class="text-xs text-gray-500 dark:text-gray-400">
                                             {{ order.escrow_received_at ? formatTime(order.escrow_received_at) : '系统确认中' }}
                                         </p>
-                                        <!-- 模拟托管确认按钮（仅测试环境） -->
-                                        <div v-if="order.escrow_status === 'seller_paid'" class="mt-2 space-y-2">
-                                            <div class="flex gap-2">
-                                                <P2PButton
-                                                    @click="mockEscrowStatus('received')"
-                                                    variant="success"
-                                                    size="xs"
-                                                    fullWidth
-                                                >
-                                                    模拟已收到
-                                                </P2PButton>
-                                                <P2PButton
-                                                    @click="mockEscrowStatus('not_received')"
-                                                    variant="danger"
-                                                    size="xs"
-                                                    fullWidth
-                                                >
-                                                    模拟未收到
-                                                </P2PButton>
-                                            </div>
-                                            <p class="text-xs text-amber-600 dark:text-amber-400 text-center">
-                                                🧪 测试模式
-                                            </p>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -441,7 +425,11 @@
                                             托管释放
                                         </p>
                                         <p class="text-xs text-gray-500 dark:text-gray-400">
-                                            {{ order.escrow_released_at ? formatTime(order.escrow_released_at) : '平台释放币给买家' }}
+                                            {{ order.escrow_released_at ? formatTime(order.escrow_released_at) : (order.escrow_status === 'seller_received' ? '处理中...' : '待完成') }}
+                                        </p>
+                                        <!-- 显示释放交易哈希 -->
+                                        <p v-if="order.release_tx_hash" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
+                                            TX: {{ order.release_tx_hash }}
                                         </p>
                                     </div>
                                 </div>
@@ -496,6 +484,11 @@
                             <div v-if="order.seller_address" class="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
                                 <span class="text-xs text-gray-500 dark:text-gray-400 block mb-1">卖家地址</span>
                                 <p class="font-mono text-sm text-gray-900 dark:text-gray-200 break-all">{{ order.seller_address }}</p>
+                            </div>
+                            <!-- 托管地址 -->
+                            <div v-if="order.escrow_address" class="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
+                                <span class="text-xs text-gray-500 dark:text-gray-400 block mb-1">托管地址</span>
+                                <p class="font-mono text-sm text-blue-600 dark:text-blue-400 break-all">{{ order.escrow_address }}</p>
                             </div>
                         </div>
 
@@ -602,7 +595,11 @@
                                                 卖家转币到托管
                                             </p>
                                             <p class="text-xs" :class="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
-                                                {{ order.seller_paid_at ? formatTime(order.seller_paid_at) : (order.escrow_status === 'vendor_confirmed' ? '等待中...' : '待完成') }}
+                                                {{ order.seller_paid_at ? formatTime(order.seller_paid_at) : (order.escrow_status === 'vendor_confirmed' ? '等待卖家转入' : '待完成') }}
+                                            </p>
+                                            <!-- 显示托管地址 -->
+                                            <p v-if="order.escrow_address" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
+                                                托管: {{ order.escrow_address }}
                                             </p>
                                             <!-- 显示交易哈希 -->
                                             <p v-if="order.escrow_tx_hash" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
@@ -644,36 +641,6 @@
                                                 {{ order.escrow_received_at ? formatTime(order.escrow_received_at) : (order.escrow_status === 'seller_paid' ? '系统确认中...' : '待完成') }}
                                             </p>
                                         </div>
-                                    </div>
-                                    <!-- 模拟托管确认按钮（仅测试环境） -->
-                                    <div v-if="order.escrow_status === 'seller_paid'" class="ml-11 mt-2 space-y-2">
-                                        <div class="flex gap-2">
-                                            <P2PButton
-                                                @click="mockEscrowStatus('received')"
-                                                variant="success"
-                                                size="sm"
-                                                fullWidth
-                                            >
-                                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                </svg>
-                                                模拟已收到
-                                            </P2PButton>
-                                            <P2PButton
-                                                @click="mockEscrowStatus('not_received')"
-                                                variant="danger"
-                                                size="sm"
-                                                fullWidth
-                                            >
-                                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                </svg>
-                                                模拟未收到
-                                            </P2PButton>
-                                        </div>
-                                        <p class="text-xs text-amber-600 dark:text-amber-400 text-center">
-                                            🧪 测试模式：模拟区块链确认
-                                        </p>
                                     </div>
                                 </div>
 
@@ -806,6 +773,10 @@
                                             <p class="text-xs" :class="['seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
                                                 {{ order.escrow_released_at ? formatTime(order.escrow_released_at) : (order.escrow_status === 'seller_received' ? '处理中...' : '待完成') }}
                                             </p>
+                                            <!-- 显示释放交易哈希 -->
+                                            <p v-if="order.release_tx_hash" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
+                                                TX: {{ order.release_tx_hash }}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -854,6 +825,13 @@
                                     <span class="text-sm text-gray-500 dark:text-gray-400">卖家地址</span>
                                     <span class="text-sm font-medium text-gray-900 dark:text-gray-200 text-right break-all max-w-[180px]">
                                         {{ order.seller_address }}
+                                    </span>
+                                </div>
+                                <!-- 托管地址 -->
+                                <div v-if="order.escrow_address" class="flex justify-between items-start pt-3 border-t border-gray-100 dark:border-gray-800">
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">托管地址</span>
+                                    <span class="text-sm font-medium text-blue-600 dark:text-blue-400 text-right break-all max-w-[180px]">
+                                        {{ order.escrow_address }}
                                     </span>
                                 </div>
                             </div>
@@ -1829,7 +1807,7 @@
                                 {{ currentOrder.seller_address }}
                             </p>
                         </div>
-                        <div v-if="currentOrder.escrow_address">
+                        <div>
                             <label class="text-xs text-gray-500 dark:text-gray-400">托管地址</label>
                             <p class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all mt-1">
                                 {{ currentOrder.escrow_address }}
@@ -1916,7 +1894,7 @@
                             />
                             <label class="ml-2 text-sm text-gray-700 dark:text-gray-300">
                                 目标地址与托管地址完全一致
-                                <span class="block font-mono text-xs text-blue-600 dark:text-blue-400 break-all mt-1">{{ currentOrder.escrow_address || '托管地址待分配' }}</span>
+                                <span class="block font-mono text-xs text-blue-600 dark:text-blue-400 break-all mt-1">{{ currentOrder.escrow_address }}</span>
                             </label>
                         </div>
 
@@ -1987,30 +1965,21 @@
                 <div v-if="currentOrder.seller_address" class="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
                     <div class="space-y-2">
                         <div>
-                            <label class="text-xs text-gray-500 dark:text-gray-400">您的地址</label>
+                            <label class="text-xs text-gray-500 dark:text-gray-400">您的地址（来源地址）</label>
                             <p class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all mt-1">
                                 {{ currentOrder.seller_address }}
+                            </p>
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500 dark:text-gray-400">托管地址（转入地址）</label>
+                            <p class="font-mono text-xs text-blue-600 dark:text-blue-400 break-all mt-1">
+                                {{ currentOrder.escrow_address }}
                             </p>
                         </div>
                         <div>
                             <label class="text-xs text-gray-500 dark:text-gray-400">转币金额</label>
                             <p class="text-lg font-bold text-emerald-600 dark:text-emerald-400">
                                 {{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 托管地址说明 -->
-                <div class="p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded">
-                    <div class="flex items-start gap-2">
-                        <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                        </svg>
-                        <div class="text-xs">
-                            <p class="font-medium text-blue-800 dark:text-blue-300">托管地址提示</p>
-                            <p class="text-blue-700 dark:text-blue-400 mt-1">
-                                托管地址功能正在开发中，请先将币转到您自己的地址保管
                             </p>
                         </div>
                     </div>
@@ -3239,49 +3208,6 @@ const copyToClipboard = async (text) => {
             console.error('复制失败:', err);
         }
         document.body.removeChild(textArea);
-    }
-};
-
-// 模拟托管状态（测试用）
-const mockEscrowStatus = async (status) => {
-    try {
-        if (status === 'received') {
-            // 调用模拟确认托管到账的API
-            const response = await axios.post(`/web/api/orders/${props.order.id}/mock-escrow-received`);
-
-            if (response.data.success) {
-                // 发送系统消息
-                const msgResponse = await axios.post(`/web/api/orders/${props.order.order_no}/chat/send`, {
-                    message: '✅ [测试模式] 托管已确认到账！买家现在可以付款了'
-                });
-
-                if (msgResponse.data) {
-                    messages.value.push({
-                        ...msgResponse.data,
-                        type: 'system'
-                    });
-                    scrollToBottom();
-                }
-
-                // 延迟刷新页面
-                setTimeout(() => {
-                    router.reload();
-                }, 1000);
-            }
-        } else if (status === 'not_received') {
-            // 调用模拟托管未收到的API
-            const response = await axios.post(`/web/api/orders/${props.order.id}/mock-escrow-not-received`);
-
-            if (response.data.success) {
-                // 延迟刷新页面以显示状态变化
-                setTimeout(() => {
-                    router.reload();
-                }, 1000);
-            }
-        }
-    } catch (error) {
-        console.error('模拟托管状态失败:', error);
-        // 错误已由全局axios拦截器处理
     }
 };
 

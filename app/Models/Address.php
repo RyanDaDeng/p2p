@@ -4,11 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Address extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
+    const PENDING_STATUS = 0;
+    const REGISTERED_STATUS = 1;
+    const DECLINED_STATUS = 2;
+    const UNKNOWN_STATUS = -1;
+
+    const FAILURE_STATUS = -2;
     protected $fillable = [
         'user_id',
         'chain',
@@ -18,6 +25,11 @@ class Address extends Model
         'chain_label',
         'address',
         'is_verified',
+        'fireblocks_status',
+        'fireblocks_status_ref',
+        'fireblocks_data',
+        'fireblocks_report',
+        'status'
     ];
 
     protected $casts = [

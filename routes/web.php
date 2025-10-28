@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\EscrowService;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,6 +27,89 @@ Route::get('/terms', function () {
 
 Route::get('/privacy', function () {
     return view('privacy');
+});
+
+Route::get('/test-fireblocks', function () {
+//    $service = new \App\Services\FireBlocksService();
+
+//    dd($service->complianceAddressCheck(
+//        'AUSTEST1',
+//        'TRX_TEST',
+//        'TMm1VD3QQoKRaxXLdybar7g152CZobN55Y',
+//        ''
+//    ));
+//
+//    dd($service->getVaultAssets());
+//    dd($service->checkStatus(
+//        'a7bc2d2a-6a67-4338-8a8c-136b1f0fa4e7',
+//    ));
+//    dd($service->checkInFireblocks(
+//        'AUSUSER00004',
+//        'ETH_TEST5',
+//        '0x327a6bEC5b0B26CB62D64Fc607570Dd1474eE5D0',
+//        'TEST'
+//    ));
+//    dd($service->registerAddress(
+//        'AUSPROD4',
+//        'TRX_TEST',
+//        'TQ35KGLMwSmYN64FBryvZS1asTDbVueQJb',
+//        ''
+//    ));
+
+//    DD($service->transactionDetail(
+//        '97118ed5-7517-40ef-920f-13040a5cecc8',
+//        'ETH_TEST5',
+//    ));
+
+//    dd($service->applyPayment(
+//        'TEST001',
+//        'AUSPROD1',
+//        'TMm1VD3QQoKRaxXLdybar7g152CZobN55Y',
+//        'TRX_TEST',
+//        '80'
+//    ));
+
+//    dd($service->searchTransaction(
+//        'TQ35KGLMwSmYN64FBryvZS1asTDbVueQJb',
+//        'TUxYnLQWxPms3hE4JAYedxxJD77LdbsE99',
+//    ));
+
+
+//    $res = \App\Http\Controllers\Webhook\FireblocksWebhookWebController::checkOrder(
+//        'COMPLETED',
+//        '716bae90e686e7754e4d3b52ce4ff7efba66bbb0b152f039463898722b498203',
+//        'TQ35KGLMwSmYN64FBryvZS1asTDbVueQJb',
+//        'TUxYnLQWxPms3hE4JAYedxxJD77LdbsE99',
+//        '100.000'
+//    );
+//
+//    if ($res !== false) {
+//        $escrowService = new EscrowService();
+//        $escrowService->confirmEscrowReceived($res, []);
+//        dd(3);
+//    } else {
+//        // todo 有未知的转账，需要提醒TG
+//        DD(2);
+//    }
+
+
+
+    $res = \App\Http\Controllers\Webhook\FireblocksWebhookWebController::checkSendOrder(
+        'COMPLETED',
+        'c115d81e-278e-491e-a7fd-ec8696dc637f',
+        'TUxYnLQWxPms3hE4JAYedxxJD77LdbsE99',
+        'TMm1VD3QQoKRaxXLdybar7g152CZobN55Y',
+    );
+
+    if ($res !== false) {
+        $escrowService = new EscrowService();
+        $escrowService->escrowReleased($res,'111', []);
+        dd(3);
+    } else {
+        // todo 有未知的转账，需要提醒TG
+        DD(2);
+    }
+    return view('trade-flow-guide');
 });
 
 Route::get('/trade-flow-guide', function () {
@@ -63,6 +147,7 @@ Route::middleware([])->namespace('App\Http\Controllers\Web')->name('web.')->grou
     Route::get('/profile', 'AppRouteController@profile')->name('profile')->middleware('auth');
     Route::get('/notifications', 'AppRouteController@notifications')->name('notifications')->middleware('auth');
     Route::get('/notifications/settings', 'AppRouteController@notificationSettings')->name('notifications.settings')->middleware('auth');
+    Route::get('/notifications/phone-settings', 'AppRouteController@phoneNotificationSettings')->name('notifications.phone-settings')->middleware('auth');
 });
 
 // Chat route (using the new controller)
@@ -131,8 +216,8 @@ Route::middleware(['auth'])->prefix('web/api')->group(function () {
     Route::get('/orders/{id}/escrow-logs', [OrderController::class, 'escrowLogs']);
 
     // Mock Routes (仅用于测试)
-    Route::post('/orders/{id}/mock-escrow-received', [OrderController::class, 'mockEscrowReceived']);
-    Route::post('/orders/{id}/mock-escrow-not-received', [OrderController::class, 'mockEscrowNotReceived']);
+//    Route::post('/orders/{id}/mock-escrow-received', [OrderController::class, 'mockEscrowReceived']);
+//    Route::post('/orders/{id}/mock-escrow-not-received', [OrderController::class, 'mockEscrowNotReceived']);
 
     // Chat Routes (订单聊天)
     Route::get('/orders/{orderNo}/chat/messages', [ChatController::class, 'getMessages']);
@@ -151,8 +236,21 @@ Route::middleware(['auth'])->prefix('web/api')->group(function () {
     // Address Routes (地址管理)
     Route::get('/addresses', [AddressController::class, 'index']);
     Route::post('/addresses', [AddressController::class, 'store']);
+    Route::delete('/addresses/{id}', [AddressController::class, 'destroy']);
 
     // Notification Routes (通知管理)
     Route::get('/notifications', [NotificationController::class, 'index']);
+
+    // Phone Verification Routes (手机验证)
+    Route::post('/phone-verification/send', [\App\Http\Controllers\Api\PhoneVerificationController::class, 'sendVerificationCode']);
+    Route::post('/phone-verification/verify', [\App\Http\Controllers\Api\PhoneVerificationController::class, 'verifyCode']);
+    Route::get('/phone-verification/status', [\App\Http\Controllers\Api\PhoneVerificationController::class, 'getStatus']);
+
+    // Phone Notification Settings (手机通知设置)
+    Route::get('/notifications/phone-settings', [\App\Http\Controllers\Api\PhoneNotificationController::class, 'getSettings']);
+    Route::post('/notifications/phone-settings', [\App\Http\Controllers\Api\PhoneNotificationController::class, 'saveSettings']);
+    Route::get('/notifications/phone-settings/status', [\App\Http\Controllers\Api\PhoneNotificationController::class, 'getStatus']);
+    Route::post('/notifications/phone-settings/toggle', [\App\Http\Controllers\Api\PhoneNotificationController::class, 'toggleNotifications']);
+    Route::post('/notifications/test-sms', [\App\Http\Controllers\Api\PhoneNotificationController::class, 'sendTestSMS']);
 
 });

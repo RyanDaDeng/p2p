@@ -40,6 +40,9 @@ class User extends Authenticatable
         'total_reviews',
         'telegram_chat_id',
         'response_time',
+        'phone_number',
+        'phone_verified_at',
+        'phone_notifications_enabled',
     ];
 
     /**
@@ -79,6 +82,8 @@ class User extends Authenticatable
             'last_seen' => 'datetime',
             'avg_rating' => 'decimal:2',
             'total_reviews' => 'integer',
+            'phone_verified_at' => 'datetime',
+            'phone_notifications_enabled' => 'boolean',
         ];
     }
     

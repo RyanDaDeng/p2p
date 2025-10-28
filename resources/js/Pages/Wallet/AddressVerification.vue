@@ -43,9 +43,9 @@
                         <p class="font-semibold mb-1">重要提示</p>
                         <ul class="space-y-1 text-xs">
                             <li>• 每个地址只能被一个用户使用，防止地址冒用</li>
-                            <li>• 地址一旦添加后无法删除，请谨慎添加</li>
                             <li>• 请确保地址准确无误，错误的地址可能导致资金损失</li>
-                            <li>• 如果钱包地址在30天内没有任何关联订单将会被自动移除</li>
+                            <li>• 如果状态是待验证，请等待五分钟检查，系统正在检查合规状态</li>
+                            <li>• 如果未通过验证你可以删除，重新提交新地址。一旦成功验证，你将无法移除</li>
                         </ul>
                     </div>
                 </div>
@@ -56,15 +56,28 @@
                 <div v-for="address in userAddresses" :key="address.id"
                      class="bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 p-4">
                     <!-- Currency Header -->
-                    <div class="mb-3 flex items-center gap-3">
-                        <component :is="getCryptoIcon(address.currency_key)" :size="32" />
+                    <div class="mb-3 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <component :is="getCryptoIcon(address.currency_key)" :size="32" />
+                            <div>
+                                <div class="font-semibold text-gray-900 dark:text-gray-100">
+                                    {{ address.currency }}
+                                </div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">
+                                    {{ address.chain_label || address.network || getChainLabel(address.chain) }}
+                                </div>
+                            </div>
+                        </div>
                         <div>
-                            <div class="font-semibold text-gray-900 dark:text-gray-100">
-                                {{ address.currency }}
-                            </div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">
-                                {{ address.chain_label || address.network || getChainLabel(address.chain) }}
-                            </div>
+                            <span :class="[
+                                'px-2 py-1 text-xs font-medium rounded',
+                                address.status === 1 ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400' :
+                                address.status === 0 ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400' :
+                                address.status === 2 ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400' :
+                                'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-400'
+                            ]">
+                                {{ getStatusText(address.status) }}
+                            </span>
                         </div>
                     </div>
 
@@ -77,10 +90,20 @@
                     </div>
 
                     <!-- Actions -->
-                    <div class="flex items-center justify-end">
+                    <div class="flex items-center justify-between">
                         <div class="text-xs text-gray-500 dark:text-gray-400">
                             添加于 {{ formatDate(address.created_at) }}
                         </div>
+                        <button
+                            v-if="canDelete(address)"
+                            @click="confirmDelete(address)"
+                            class="px-3 py-1.5 text-xs font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors cursor-pointer flex items-center gap-1"
+                        >
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                            删除
+                        </button>
                     </div>
                 </div>
             </div>
@@ -236,6 +259,52 @@
                 </div>
             </div>
         </P2PModal>
+
+        <!-- Delete Confirmation Modal -->
+        <P2PModal :show="showDeleteModal" max-width="sm" @close="cancelDelete">
+            <div class="p-6">
+                <div class="flex items-center justify-center w-12 h-12 mx-auto bg-red-100 dark:bg-red-900/30 rounded-full mb-4">
+                    <svg class="w-6 h-6 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                </div>
+
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 text-center mb-2">
+                    确认删除地址
+                </h3>
+
+                <p class="text-sm text-gray-600 dark:text-gray-400 text-center mb-4">
+                    您确定要删除这个地址吗？此操作无法撤销。
+                </p>
+
+                <div v-if="addressToDelete" class="bg-gray-50 dark:bg-gray-800 rounded p-3 mb-6">
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">地址</div>
+                    <div class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all">
+                        {{ addressToDelete.address }}
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button
+                        @click="cancelDelete"
+                        class="flex-1 px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                    >
+                        取消
+                    </button>
+                    <button
+                        @click="deleteAddress"
+                        :disabled="deleting"
+                        class="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center"
+                    >
+                        <svg v-if="deleting" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        {{ deleting ? '删除中...' : '确认删除' }}
+                    </button>
+                </div>
+            </div>
+        </P2PModal>
     </P2PAppLayout>
 </template>
 
@@ -273,6 +342,9 @@ const props = defineProps({
 const userAddresses = ref(props.addresses);
 const showAddModal = ref(false);
 const saving = ref(false);
+const showDeleteModal = ref(false);
+const deleting = ref(false);
+const addressToDelete = ref(null);
 
 // Form State
 const selectedCurrency = ref(null);
@@ -365,6 +437,25 @@ const formatDate = (dateString) => {
     return date.toLocaleDateString('zh-CN');
 };
 
+const getStatusText = (status) => {
+    switch(status) {
+        case 0:
+            return '待验证';
+        case 1:
+            return '已验证';
+        case 2:
+            return '已拒绝';
+        case -1:
+            return '检测失败';
+        default:
+            return '未知';
+    }
+};
+
+const canDelete = (address) => {
+    return address.status !== 0 && address.status !== 1;
+};
+
 const closeAddModal = () => {
     showAddModal.value = false;
     selectedCurrency.value = null;
@@ -381,24 +472,14 @@ const saveAddress = async () => {
             currency_key: selectedCurrency.value.key,
             address: addressInput.value.trim()
         });
-
-        if (response.data.success) {
-            userAddresses.value.unshift(response.data.data.address);
-            MessageDialog.success('地址添加成功');
-            closeAddModal();
-        } else {
-            MessageDialog.error(response.data.message || '添加失败');
-        }
+        userAddresses.value.unshift(response.data.data.address);
+        closeAddModal();
+        await loadAddresses();
     } catch (error) {
         console.error('Save address error:', error);
-        if (error.response?.status === 422 && error.response?.data?.message?.includes('已存在')) {
-            MessageDialog.error('该地址已被其他用户使用');
-        } else {
-            MessageDialog.error(error.response?.data?.message || '添加失败');
-        }
-    } finally {
-        saving.value = false;
     }
+
+    saving.value = false;
 };
 
 // Load addresses on mount
@@ -409,11 +490,36 @@ onMounted(() => {
 const loadAddresses = async () => {
     try {
         const response = await axios.get('/web/api/addresses');
-        if (response.data.success) {
-            userAddresses.value = response.data.data.addresses;
-        }
+        userAddresses.value = response.data.data.addresses;
     } catch (error) {
         console.error('Load addresses error:', error);
     }
+};
+
+const confirmDelete = (address) => {
+    addressToDelete.value = address;
+    showDeleteModal.value = true;
+};
+
+const cancelDelete = () => {
+    showDeleteModal.value = false;
+    addressToDelete.value = null;
+};
+
+const deleteAddress = async () => {
+    if (!addressToDelete.value) return;
+
+    deleting.value = true;
+
+    try {
+        await axios.delete(`/web/api/addresses/${addressToDelete.value.id}`);
+        userAddresses.value = userAddresses.value.filter(a => a.id !== addressToDelete.value.id);
+        cancelDelete();
+        await loadAddresses();
+    } catch (error) {
+        console.error('Delete address error:', error);
+    }
+
+    deleting.value = false;
 };
 </script>

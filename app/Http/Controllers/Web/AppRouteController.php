@@ -405,4 +405,9 @@ class AppRouteController extends Controller
     {
         return Inertia::render('Notifications/Settings');
     }
+
+    public function phoneNotificationSettings(Request $request): Response
+    {
+        return Inertia::render('Notifications/PhoneSettings');
+    }
 }

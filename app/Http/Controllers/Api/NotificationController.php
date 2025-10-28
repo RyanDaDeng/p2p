@@ -13,9 +13,18 @@ class NotificationController extends ApiController
      */
     public function index(Request $request)
     {
-        $notifications = Notification::with('order')
-            ->where('user_id', auth()->id())
-            ->orderBy('created_at', 'desc')
+        $query = Notification::with('order')
+            ->where('user_id', auth()->id());
+
+        // Apply filter
+        $filter = $request->get('filter', 'all');
+        if ($filter === 'read') {
+            $query->where('is_read', true);
+        } elseif ($filter === 'unread') {
+            $query->where('is_read', false);
+        }
+
+        $notifications = $query->orderBy('created_at', 'desc')
             ->paginate(20);
 
         return response()->json($notifications);

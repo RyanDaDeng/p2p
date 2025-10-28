@@ -60,6 +60,22 @@ This is a **P2P Cryptocurrency Trading Platform** built with Laravel 12 and Vue 
 <div class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
 ```
 
+**Scoped Styles in Vue Components (Tailwind CSS v4)**:
+When using Tailwind utilities in `<style scoped>` blocks, you MUST use the `@reference` directive:
+```css
+<style scoped>
+@import "tailwindcss";
+@reference {
+    @tailwind utilities;
+}
+
+/* Then use theme() function instead of @apply */
+.custom-class {
+    background: theme(colors.gray.100);
+}
+</style>
+```
+
 ## 📱 Responsive Design Specifications
 
 ### Desktop Experience

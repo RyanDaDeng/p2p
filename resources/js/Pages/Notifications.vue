@@ -8,6 +8,37 @@
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">查看您的通知消息</p>
                 </div>
 
+                <!-- 筛选标签 -->
+                <div class="mb-4 flex gap-2">
+                    <button @click="setFilter('all')"
+                            :class="[
+                                'px-4 py-2 text-sm font-medium rounded transition-colors cursor-pointer',
+                                currentFilter === 'all'
+                                    ? 'bg-emerald-600 text-white'
+                                    : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800'
+                            ]">
+                        全部
+                    </button>
+                    <button @click="setFilter('unread')"
+                            :class="[
+                                'px-4 py-2 text-sm font-medium rounded transition-colors cursor-pointer',
+                                currentFilter === 'unread'
+                                    ? 'bg-emerald-600 text-white'
+                                    : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800'
+                            ]">
+                        未读
+                    </button>
+                    <button @click="setFilter('read')"
+                            :class="[
+                                'px-4 py-2 text-sm font-medium rounded transition-colors cursor-pointer',
+                                currentFilter === 'read'
+                                    ? 'bg-emerald-600 text-white'
+                                    : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800'
+                            ]">
+                        已读
+                    </button>
+                </div>
+
                 <!-- 通知列表 -->
                 <div v-if="notifications.length > 0" class="bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 divide-y divide-gray-200 dark:divide-gray-800 overflow-hidden">
                     <div v-for="notification in notifications" :key="notification.id"
@@ -113,6 +144,7 @@ import axios from 'axios';
 const notifications = ref([]);
 const currentPage = ref(1);
 const totalPages = ref(1);
+const currentFilter = ref('all');
 
 const formatTime = (timestamp) => {
     if (!timestamp) return '';
@@ -150,7 +182,10 @@ const formatTime = (timestamp) => {
 const loadNotifications = async (page = 1) => {
     try {
         const response = await axios.get('/web/api/notifications', {
-            params: { page }
+            params: {
+                page,
+                filter: currentFilter.value
+            }
         });
 
         notifications.value = response.data.data;
@@ -164,6 +199,12 @@ const loadNotifications = async (page = 1) => {
 const changePage = async (page) => {
     if (page < 1 || page > totalPages.value) return;
     await loadNotifications(page);
+};
+
+const setFilter = async (filter) => {
+    currentFilter.value = filter;
+    currentPage.value = 1; // Reset to first page when filter changes
+    await loadNotifications(1);
 };
 
 onMounted(() => {

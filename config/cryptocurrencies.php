@@ -9,7 +9,16 @@ return [
             'icon' => '₮',
             'chain' => 'ethereum',
             'chain_label' => 'Ethereum (ERC-20)',
-            'network' => 'ERC-20'
+            'network' => 'ERC-20',
+        ],
+        'trc-trx' => [
+            'key' => 'trc-trx',
+            'currency' => 'TRX',
+            'label' => 'TRX',
+            'icon' => '',
+            'chain' => 'tron',
+            'chain_label' => 'Tron (TRC-20)',
+            'network' => 'TRC-20',
         ],
         'trc-usdt' => [
             'key' => 'trc-usdt',
@@ -18,7 +27,7 @@ return [
             'icon' => '₮',
             'chain' => 'tron',
             'chain_label' => 'Tron (TRC-20)',
-            'network' => 'TRC-20'
+            'network' => 'TRC-20',
         ],
         'bep-usdt' => [
             'key' => 'bep-usdt',
@@ -27,7 +36,7 @@ return [
             'icon' => '₮',
             'chain' => 'bsc',
             'chain_label' => 'BSC (BEP-20)',
-            'network' => 'BEP-20'
+            'network' => 'BEP-20',
         ],
         'erc-usdc' => [
             'key' => 'erc-usdc',
@@ -36,7 +45,7 @@ return [
             'icon' => '$',
             'chain' => 'ethereum',
             'chain_label' => 'Ethereum (ERC-20)',
-            'network' => 'ERC-20'
+            'network' => 'ERC-20',
         ],
         'bep-usdc' => [
             'key' => 'bep-usdc',
@@ -45,7 +54,7 @@ return [
             'icon' => '$',
             'chain' => 'bsc',
             'chain_label' => 'BSC (BEP-20)',
-            'network' => 'BEP-20'
+            'network' => 'BEP-20',
         ],
         'btc' => [
             'key' => 'btc',
@@ -54,7 +63,7 @@ return [
             'icon' => '₿',
             'chain' => 'bitcoin',
             'chain_label' => 'Bitcoin Network',
-            'network' => 'Bitcoin'
+            'network' => 'Bitcoin',
         ],
         'eth' => [
             'key' => 'eth',
@@ -63,7 +72,18 @@ return [
             'icon' => 'Ξ',
             'chain' => 'ethereum',
             'chain_label' => 'Ethereum Network',
-            'network' => 'Ethereum'
+            'network' => 'Ethereum',
         ]
+    ],
+    'test' => [
+        'trc-trx' => [
+            'key' => 'trc-trx',
+            'currency' => 'TRX',
+            'label' => 'TRX',
+            'icon' => '',
+            'chain' => 'tron',
+            'chain_label' => 'Tron (TRC-20)',
+            'network' => 'TRC-20',
+        ],
     ]
 ];
