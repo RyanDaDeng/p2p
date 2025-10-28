@@ -212,9 +212,9 @@ class FireBlocksService
 
     public function applyPayment( $clientId,
                                       $payeeId,
-                                      $address,
-                                      $asset,
-                                      $quantity,
+                                  string $address,
+                                  string $asset,
+                                      string $quantity,
                                       $tag = null){
         $token = $this->getToken();
         return Http::baseUrl($this->api)

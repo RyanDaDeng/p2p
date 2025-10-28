@@ -434,7 +434,7 @@ class EscrowService
                     $userId,
                     $order->buyer_address,
                     $assetId,
-                    $amount
+                    (string) $amount
                 );
                 $log->info('Applying payment result: ', $res);
 
