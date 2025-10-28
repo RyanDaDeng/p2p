@@ -307,7 +307,7 @@
                                             托管确认到账
                                         </p>
                                         <p class="text-xs text-gray-500 dark:text-gray-400">
-                                            {{ order.escrow_received_at ? formatTime(order.escrow_received_at) : '系统确认中' }}
+                                            {{ order.escrow_received_at ? formatTime(order.escrow_received_at) : '系统确认中，注意：如果链上已到账，但是系统长时间还未确认，请联系官方Telegram。' }}
                                         </p>
                                     </div>
                                 </div>
@@ -440,7 +440,7 @@
                                             托管释放
                                         </p>
                                         <p class="text-xs text-gray-500 dark:text-gray-400">
-                                            {{ order.escrow_released_at ? formatTime(order.escrow_released_at) : (order.escrow_status === 'seller_received' ? '处理中...注意：如果链上已到账，但是系统长时间还未确认，请联系官方Telegram。' : '待完成') }}
+                                            {{ order.escrow_released_at ? formatTime(order.escrow_released_at) : (order.escrow_status === 'seller_received' ? '处理中...如果处理时间超过一小时无反应，请联系官方Telegram。' : '待完成') }}
                                         </p>
                                         <!-- 显示释放交易哈希 -->
                                         <p v-if="order.release_tx_hash" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
