@@ -31,6 +31,7 @@ class TxnCheckCommand extends Command
         $transactions = FireblocksTransaction::query()
             ->whereNull('order_id')
             ->where('is_checked',false)
+            ->where('status','COMPLETED')
             ->get();
 
         foreach ($transactions as $transaction){
