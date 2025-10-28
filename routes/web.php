@@ -30,7 +30,7 @@ Route::get('/privacy', function () {
 });
 
 Route::get('/test-fireblocks', function () {
-//    $service = new \App\Services\FireBlocksService();
+    $service = new \App\Services\FireBlocksService();
 
 //    dd($service->complianceAddressCheck(
 //        'AUSTEST1',
@@ -57,8 +57,8 @@ Route::get('/test-fireblocks', function () {
 //    ));
 
 //    DD($service->transactionDetail(
-//        '97118ed5-7517-40ef-920f-13040a5cecc8',
-//        'ETH_TEST5',
+//        '88ded7f7-52cb-4164-85b4-eedc8a7f9dd8',
+//        'TRX_TEST',
 //    ));
 
 //    dd($service->applyPayment(
@@ -72,6 +72,8 @@ Route::get('/test-fireblocks', function () {
 //    dd($service->searchTransaction(
 //        'TQ35KGLMwSmYN64FBryvZS1asTDbVueQJb',
 //        'TUxYnLQWxPms3hE4JAYedxxJD77LdbsE99',
+//        'TRX_TEST',
+//        '94bb5f1db817cb35ae170ad491241bc23e8d2e233d96899c4bfa19911fd9488b'
 //    ));
 
 
