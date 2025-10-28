@@ -8,6 +8,7 @@ use App\Events\EscrowStatusUpdated;
 use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class EscrowService
 {
@@ -401,7 +402,8 @@ class EscrowService
      */
     public function releaseEscrow(Order $order)
     {
-        return DB::transaction(function() use ($order) {
+        $log = Log::channel('fireblocks');
+        return DB::transaction(function() use ($order, $log) {
             // 验证状态
             if ($order->escrow_status !== 'seller_received') {
                 throw new Exception('状态不正确，无法释放托管');
@@ -426,7 +428,9 @@ class EscrowService
                     $assetId,
                     round((float)$order->crypto_amount - (float)$order->fee , 8)
                 );
-                if ($res['success']) {
+                $log->info('Applying payment: ', $res);
+
+                if (isset($res['success']) && $res['success'] == true) {
                     $order->release_tx_id = $res['transaction_id'];
                     $order->save();
                 } else {
