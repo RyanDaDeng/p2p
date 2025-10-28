@@ -422,11 +422,11 @@ class EscrowService
 
             if ($amount > 0){
                 $log->info('Applying payment input: ', [
-                    'order_no' => $order->order_no,
-                    'user_id' => $userId,
-                    'buy_address' => $order->buyer_address,
-                    'asset_id' => $assetId,
-                    'amount' => (string) $amount,
+                    'third_party_order_no' => $order->order_no,
+                    'payee_id' => $userId,
+                    'address' => $order->buyer_address,
+                    'asset' => $assetId,
+                    'quantity' => (string) $amount,
                 ]);
 
                 $res = $service->applyPayment(
