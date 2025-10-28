@@ -424,7 +424,7 @@ class EscrowService
                 $log->info('Applying payment input: ', [
                     'order_no' => $order->order_no,
                     'user_id' => $userId,
-                    'buy_address' => $order->buy_address,
+                    'buy_address' => $order->buyer_address,
                     'asset_id' => $assetId,
                     'amount' => $amount,
                 ]);
@@ -432,11 +432,11 @@ class EscrowService
                 $res = $service->applyPayment(
                     $order->order_no,
                     $userId,
-                    $order->buy_address,
+                    $order->buyer_address,
                     $assetId,
                     $amount
                 );
-                $log->info('Applying payment: ', $res);
+                $log->info('Applying payment result: ', $res);
 
                 if (isset($res['success']) && $res['success'] == true) {
                     $order->release_tx_id = $res['transaction_id'];
