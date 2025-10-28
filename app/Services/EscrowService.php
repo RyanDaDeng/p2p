@@ -436,9 +436,9 @@ class EscrowService
                     $assetId,
                     (string) $amount
                 );
-                $log->info('Applying payment result: ', $res);
 
-                if (isset($res['success']) && $res['success'] == true) {
+                if (!empty($res) && isset($res['success']) && $res['success'] == true) {
+                    $log->info('Applying payment result: ', $res);
                     $order->release_tx_id = $res['transaction_id'];
                     $order->save();
                 } else {
