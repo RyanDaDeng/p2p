@@ -426,7 +426,7 @@ class EscrowService
                     'user_id' => $userId,
                     'buy_address' => $order->buyer_address,
                     'asset_id' => $assetId,
-                    'amount' => $amount,
+                    'amount' => (string) $amount,
                 ]);
 
                 $res = $service->applyPayment(
