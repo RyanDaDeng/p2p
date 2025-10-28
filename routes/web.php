@@ -30,7 +30,10 @@ Route::get('/privacy', function () {
 });
 
 Route::get('/test-fireblocks', function () {
-    $service = new \App\Services\FireBlocksService();
+//    $escrowService = new EscrowService();
+//    $res = $escrowService->confirmEscrowReceived(45, []);
+//dd($res);
+//    $service = new \App\Services\FireBlocksService();
 
 //    dd($service->complianceAddressCheck(
 //        'AUSTEST1',
@@ -50,9 +53,9 @@ Route::get('/test-fireblocks', function () {
 //        'TEST'
 //    ));
 //    dd($service->registerAddress(
-//        'AUS_TEST1',
+//        'AUS_TEST2',
 //        'TRX_TEST',
-//        'TMm1VD3QQoKRaxXLdybar7g152CZobN55Y',
+//        'TQ35KGLMwSmYN64FBryvZS1asTDbVueQJb',
 //        ''
 //    ));
 

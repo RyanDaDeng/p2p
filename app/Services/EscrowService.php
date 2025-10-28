@@ -62,7 +62,7 @@ class EscrowService
 
             // 广播状态变更事件
             broadcast(new EscrowStatusUpdated(
-                $order,
+                $order->refresh(),
                 'order_initiated',
                 'vendor_confirmed',
                 '商家已确认订单，请卖家转币到托管地址'

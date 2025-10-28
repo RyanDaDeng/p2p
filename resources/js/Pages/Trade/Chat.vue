@@ -42,7 +42,7 @@
                         <p class="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
                             订单 #{{ order.order_no }}
                         </p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                          <p class="text-xs text-gray-400 dark:text-gray-600">
                             {{ participants.filter(p => p.is_online).length }}/{{ participants.length }} 在房间
                         </p>
                     </div>
@@ -187,7 +187,7 @@
                                     </div>
                                     <div class="flex-1 pb-3">
                                         <p class="text-sm font-medium text-gray-900 dark:text-gray-100">订单创建</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ order.created_at ? formatTime(order.created_at) : '已完成' }}</p>
+                                          <p class="text-xs text-gray-400 dark:text-gray-600">{{ order.created_at ? formatTime(order.created_at) : '已完成' }}</p>
                                         <!-- 商家确认按钮 -->
                                         <div v-if="order.escrow_status === 'order_initiated' && availableActions.includes('vendor_confirm')" class="mt-2">
                                             <P2PButton
@@ -221,7 +221,7 @@
                                         <p class="text-sm font-medium" :class="['vendor_confirmed', 'seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-300'">
                                             商家确认
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                          <p class="text-xs text-gray-400 dark:text-gray-600">
                                             {{ order.vendor_confirmed_at ? formatTime(order.vendor_confirmed_at) : '等待商家确认订单' }}
                                         </p>
                                     </div>
@@ -247,7 +247,7 @@
                                         <p class="text-sm font-medium" :class="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-300'">
                                             卖家转币到托管
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                          <p class="text-xs text-gray-400 dark:text-gray-600">
                                             {{ order.seller_paid_at ? formatTime(order.seller_paid_at) : '等待卖家转入' }}
                                         </p>
                                         <!-- 转币说明 -->
@@ -306,7 +306,7 @@
                                         <p class="text-sm font-medium" :class="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-300'">
                                             托管确认到账
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                          <p class="text-xs text-gray-400 dark:text-gray-600">
                                             {{ order.escrow_received_at ? formatTime(order.escrow_received_at) : '系统确认中，注意：如果链上已到账，但是系统长时间还未确认，请联系官方Telegram。' }}
                                         </p>
                                     </div>
@@ -332,7 +332,7 @@
                                         <p class="text-sm font-medium" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-300'">
                                             买家确认托管到账
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                          <p class="text-xs text-gray-400 dark:text-gray-600">
                                             {{ order.buyer_confirmed_escrow_at ? formatTime(order.buyer_confirmed_escrow_at) : '等待买家确认' }}
                                         </p>
                                         <!-- 买家确认托管按钮 -->
@@ -368,7 +368,7 @@
                                         <p class="text-sm font-medium" :class="['buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-300'">
                                             买家付款
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                          <p class="text-xs text-gray-400 dark:text-gray-600">
                                             {{ order.buyer_paid_at ? formatTime(order.buyer_paid_at) : '等待买家付款' }}
                                         </p>
                                         <!-- 买家付款按钮 -->
@@ -404,7 +404,7 @@
                                         <p class="text-sm font-medium" :class="['buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-300'">
                                             卖家确认收款
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                          <p class="text-xs text-gray-400 dark:text-gray-600">
                                             {{ order.seller_received_at ? formatTime(order.seller_received_at) : '等待卖家确认' }}
                                         </p>
                                         <!-- 卖家确认收款按钮 -->
@@ -439,7 +439,7 @@
                                         <p class="text-sm font-medium" :class="['seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-300'">
                                             托管释放
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                          <p class="text-xs text-gray-400 dark:text-gray-600">
                                             {{ order.escrow_released_at ? formatTime(order.escrow_released_at) : (order.escrow_status === 'seller_received' ? '处理中...如果处理时间超过一小时无反应，请联系官方Telegram。' : '待完成') }}
                                         </p>
                                         <!-- 显示释放交易哈希 -->
@@ -550,7 +550,7 @@
                                         </div>
                                         <div class="flex-1">
                                             <p class="text-sm font-medium text-gray-900 dark:text-gray-100">订单创建</p>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ order.created_at ? formatTime(order.created_at) : '已完成' }}</p>
+                                              <p class="text-xs text-gray-400 dark:text-gray-600">{{ order.created_at ? formatTime(order.created_at) : '已完成' }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -573,7 +573,7 @@
                                             <p class="text-sm font-medium" :class="['vendor_confirmed', 'seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'">
                                                 商家确认
                                             </p>
-                                            <p class="text-xs" :class="['vendor_confirmed', 'seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
+                                              <p class="text-xs text-gray-400 dark:text-gray-600">
                                                 {{ order.vendor_confirmed_at ? formatTime(order.vendor_confirmed_at) : (order.escrow_status === 'order_initiated' ? '等待中...' : '待完成') }}
                                             </p>
                                         </div>
@@ -609,11 +609,11 @@
                                             <p class="text-sm font-medium" :class="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'">
                                                 卖家转币到托管
                                             </p>
-                                            <p class="text-xs" :class="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
+                                              <p class="text-xs text-gray-400 dark:text-gray-600">
                                                 {{ order.seller_paid_at ? formatTime(order.seller_paid_at) : (order.escrow_status === 'vendor_confirmed' ? '等待卖家转入' : '待完成') }}
                                             </p>
                                             <!-- 转币说明 -->
-                                            <div class="mt-2 p-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded text-xs space-y-1">
+                                            <div v-if="order.escrow_address" class="mt-2 p-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded text-xs space-y-1">
                                                 <p class="text-gray-700 dark:text-gray-300 font-medium">请卖家转币：</p>
                                                 <div class="space-y-0.5">
                                                     <p class="text-gray-600 dark:text-gray-400">
@@ -665,7 +665,7 @@
                                             <p class="text-sm font-medium" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'">
                                                 托管确认到账
                                             </p>
-                                            <p class="text-xs" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
+                                              <p class="text-xs text-gray-400 dark:text-gray-600">
                                                 {{ order.escrow_received_at ? formatTime(order.escrow_received_at) : (order.escrow_status === 'seller_paid' ? '系统确认中...' : '待完成') }}
                                             </p>
                                         </div>
@@ -690,7 +690,7 @@
                                             <p class="text-sm font-medium" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'">
                                                 买家确认托管到账
                                             </p>
-                                            <p class="text-xs" :class="['escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
+                                              <p class="text-xs text-gray-400 dark:text-gray-600">
                                                 {{ order.buyer_confirmed_escrow_at ? formatTime(order.buyer_confirmed_escrow_at) : (order.escrow_status === 'escrow_received' ? '等待确认...' : '待完成') }}
                                             </p>
                                         </div>
@@ -726,7 +726,7 @@
                                             <p class="text-sm font-medium" :class="['buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'">
                                                 买家付款
                                             </p>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                              <p class="text-xs text-gray-400 dark:text-gray-600">
                                                 {{ order.buyer_paid_at ? formatTime(order.buyer_paid_at) : (order.escrow_status === 'buyer_confirmed_escrow' ? '等待中...' : '待完成') }}
                                             </p>
                                         </div>
@@ -762,7 +762,7 @@
                                             <p class="text-sm font-medium" :class="['buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'">
                                                 卖家确认收款
                                             </p>
-                                            <p class="text-xs" :class="['buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
+                                              <p class="text-xs text-gray-400 dark:text-gray-600">
                                                 {{ order.seller_received_at ? formatTime(order.seller_received_at) : (order.escrow_status === 'buyer_paid' ? '等待中...' : '待完成') }}
                                             </p>
                                         </div>
@@ -798,7 +798,7 @@
                                             <p class="text-sm font-medium" :class="['seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'">
                                                 托管释放
                                             </p>
-                                            <p class="text-xs" :class="['seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
+                                              <p class="text-xs text-gray-400 dark:text-gray-600">
                                                 {{ order.escrow_released_at ? formatTime(order.escrow_released_at) : (order.escrow_status === 'seller_received' ? '处理中...' : '待完成') }}
                                             </p>
                                             <!-- 显示释放交易哈希 -->
@@ -904,7 +904,7 @@
                                                         <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">({{ participants.length }}人)</span>
                                                     </p>
                                                 </div>
-                                                <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                  <p class="text-xs text-gray-400 dark:text-gray-600">
                                                 <span v-for="(participant, index) in participants" :key="participant.id">
                                                     <span :class="[
                                                         participant.is_online ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-400 dark:text-gray-500',
@@ -1015,7 +1015,7 @@
                                             <!-- 评价按钮或已评价状态 - 交易完成时显示 -->
                                             <div v-if="msg.show_review_button">
                                                 <!-- 未评价 - 显示评价按钮 -->
-                                                <div v-if="!currentOrder.has_review"
+                                                <div v-if="!order.has_review"
                                                      class="mt-3 p-3 bg-amber-50 dark:bg-amber-900/20 rounded border border-amber-200 dark:border-amber-800 max-w-sm">
                                                     <div class="flex flex-col items-center gap-2">
                                                         <div class="flex items-center gap-2">
@@ -1132,7 +1132,7 @@
                                         <div class="animate-spin h-8 w-8 border-4 border-blue-600 border-t-transparent rounded-full"></div>
                                         <div>
                                             <p class="text-sm font-medium text-gray-900 dark:text-gray-200">正在压缩图片...</p>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">优化图片大小以快速上传</p>
+                                              <p class="text-xs text-gray-400 dark:text-gray-600">优化图片大小以快速上传</p>
                                         </div>
                                     </div>
                                     <!-- 文件预览 -->
@@ -1153,7 +1153,7 @@
                                         <!-- 文件信息 -->
                                         <div class="flex-1">
                                             <p class="text-sm font-medium text-gray-900 dark:text-gray-200">{{ selectedFile.name }}</p>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ formatFileSize(selectedFile.size) }}</p>
+                                              <p class="text-xs text-gray-400 dark:text-gray-600">{{ formatFileSize(selectedFile.size) }}</p>
                                         </div>
                                         <!-- 移除按钮 -->
                                         <button @click="removeFile"
@@ -1464,7 +1464,7 @@
                                         <!-- 移动端评价按钮或已评价状态 - 交易完成时显示 -->
                                         <div v-if="msg.show_review_button">
                                             <!-- 未评价 - 显示评价按钮 -->
-                                            <div v-if="!currentOrder.has_review"
+                                            <div v-if="!order.has_review"
                                                  class="mt-3 p-3 bg-amber-50 dark:bg-amber-900/20 rounded border border-amber-200 dark:border-amber-800 max-w-sm">
                                                 <div class="flex flex-col items-center gap-2">
                                                     <div class="flex items-center gap-2">
@@ -1586,7 +1586,7 @@
                                     </div>
                                     <div class="flex-1 min-w-0">
                                         <p class="text-sm font-medium text-gray-900 dark:text-gray-200">正在压缩图片...</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">优化中</p>
+                                          <p class="text-xs text-gray-400 dark:text-gray-600">优化中</p>
                                     </div>
                                 </div>
                                 <!-- 文件预览 -->
@@ -1606,7 +1606,7 @@
                                     </div>
                                     <div class="flex-1 min-w-0">
                                         <p class="text-sm font-medium text-gray-900 dark:text-gray-200 truncate">{{ selectedFile.name }}</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ formatFileSize(selectedFile.size) }}</p>
+                                          <p class="text-xs text-gray-400 dark:text-gray-600">{{ formatFileSize(selectedFile.size) }}</p>
                                     </div>
                                     <button @click="removeFile"
                                             type="button"
@@ -1831,28 +1831,28 @@
                 <!-- 交易信息显示 -->
                 <div class="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
                     <div class="space-y-2">
-                        <div v-if="currentOrder.seller_address">
+                        <div v-if="order.seller_address">
                             <label class="text-xs text-gray-500 dark:text-gray-400">来源地址（卖家）</label>
                             <p class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all mt-1">
-                                {{ currentOrder.seller_address }}
+                                {{ order.seller_address }}
                             </p>
                         </div>
                         <div>
                             <label class="text-xs text-gray-500 dark:text-gray-400">托管地址</label>
                             <p class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all mt-1">
-                                {{ currentOrder.escrow_address }}
+                                {{ order.escrow_address }}
                             </p>
                         </div>
                         <div>
                             <label class="text-xs text-gray-500 dark:text-gray-400">交易金额</label>
                             <p class="text-lg font-bold text-emerald-600 dark:text-emerald-400">
-                                {{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}
+                                {{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}
                             </p>
                         </div>
-                        <div v-if="currentOrder.escrow_tx_hash">
+                        <div v-if="order.escrow_tx_hash">
                             <label class="text-xs text-gray-500 dark:text-gray-400">交易哈希</label>
                             <p class="font-mono text-xs text-blue-600 dark:text-blue-400 break-all mt-1">
-                                {{ currentOrder.escrow_tx_hash }}
+                                {{ order.escrow_tx_hash }}
                             </p>
                         </div>
                     </div>
@@ -1911,7 +1911,7 @@
                             />
                             <label class="ml-2 text-sm text-gray-700 dark:text-gray-300">
                                 来源地址与卖家地址完全一致
-                                <span class="block font-mono text-xs text-blue-600 dark:text-blue-400 break-all mt-1">{{ currentOrder.seller_address || '无卖家地址' }}</span>
+                                <span class="block font-mono text-xs text-blue-600 dark:text-blue-400 break-all mt-1">{{ order.seller_address || '无卖家地址' }}</span>
                             </label>
                         </div>
 
@@ -1924,7 +1924,7 @@
                             />
                             <label class="ml-2 text-sm text-gray-700 dark:text-gray-300">
                                 目标地址与托管地址完全一致
-                                <span class="block font-mono text-xs text-blue-600 dark:text-blue-400 break-all mt-1">{{ currentOrder.escrow_address }}</span>
+                                <span class="block font-mono text-xs text-blue-600 dark:text-blue-400 break-all mt-1">{{ order.escrow_address }}</span>
                             </label>
                         </div>
 
@@ -1936,7 +1936,7 @@
                                 :disabled="dialogState.loading"
                             />
                             <label class="ml-2 text-sm text-gray-700 dark:text-gray-300">
-                                交易金额为 <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}</span>，完全正确
+                                交易金额为 <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}</span>，完全正确
                             </label>
                         </div>
                     </div>
@@ -1993,24 +1993,24 @@
                 </div>
 
                 <!-- 您的地址显示 -->
-                <div v-if="currentOrder.seller_address" class="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                <div v-if="order.seller_address" class="p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
                     <div class="space-y-2">
                         <div>
                             <label class="text-xs text-gray-500 dark:text-gray-400">您的地址（来源地址）</label>
                             <p class="font-mono text-xs text-gray-900 dark:text-gray-100 break-all mt-1">
-                                {{ currentOrder.seller_address }}
+                                {{ order.seller_address }}
                             </p>
                         </div>
                         <div>
                             <label class="text-xs text-gray-500 dark:text-gray-400">托管地址（转入地址）</label>
                             <p class="font-mono text-xs text-blue-600 dark:text-blue-400 break-all mt-1">
-                                {{ currentOrder.escrow_address }}
+                                {{ order.escrow_address }}
                             </p>
                         </div>
                         <div>
                             <label class="text-xs text-gray-500 dark:text-gray-400">转币金额</label>
                             <p class="text-lg font-bold text-emerald-600 dark:text-emerald-400">
-                                {{ parseFloat(currentOrder.crypto_amount).toFixed(4) }} {{ currentOrder.currency_label || currentOrder.currency_key || currentOrder.crypto_currency }}
+                                {{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}
                             </p>
                         </div>
                     </div>
@@ -2211,13 +2211,13 @@
     <!-- 评价弹窗 -->
     <ReviewModal
         v-model="showReviewModal"
-        :order-id="currentOrder.id"
-        :order-no="currentOrder.order_no"
-        :vendor-name="currentOrder.vendor?.name || '商家'"
-        :fiat-amount="currentOrder.fiat_amount"
-        :fiat-currency="currentOrder.fiat_currency"
-        :crypto-amount="currentOrder.crypto_amount"
-        :crypto-currency="currentOrder.currency_key || currentOrder.crypto_currency"
+        :order-id="order.id"
+        :order-no="order.order_no"
+        :vendor-name="order.vendor?.name || '商家'"
+        :fiat-amount="order.fiat_amount"
+        :fiat-currency="order.fiat_currency"
+        :crypto-amount="order.crypto_amount"
+        :crypto-currency="order.currency_key || order.crypto_currency"
         @success="handleReviewSuccess"
     />
 </template>
