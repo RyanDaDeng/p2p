@@ -10,3 +10,5 @@ use Illuminate\Support\Facades\Schedule;
 
 
 Schedule::command(\App\Console\Commands\AddressCheckCommand::class)->everyTenSeconds()->withoutOverlapping();
+
+Schedule::command(\App\Console\Commands\TxnCheckCommand::class)->everyFiveSeconds()->withoutOverlapping();
