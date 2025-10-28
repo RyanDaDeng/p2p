@@ -77,7 +77,7 @@ class AddressController extends ApiController
         }
 
         try {
-            $fireBlocksUserRef = 'AUS' .$prefix . $userId;
+            $fireBlocksUserRef = 'AUS_' .$prefix . $userId;
             // check compliance from 3rd party
             $res = $fireBlocksService->complianceAddressCheck(
                 $fireBlocksUserRef,

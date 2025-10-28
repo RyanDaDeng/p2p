@@ -74,9 +74,7 @@ class FireBlocksService
     private function getAssetTest($key): ?string
     {
         switch($key){
-            case 'erc-usdt':
-                return 'ETH_TEST5';
-            case 'trc-usdt':
+            case 'trc-trx':
                 return 'TRX_TEST';
             default:
                 return null;
