@@ -266,6 +266,9 @@
                                                     <span class="inline-block w-12">金额:</span>
                                                     <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}</span>
                                                 </p>
+                                                <p v-if="order.escrow_tx_hash" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
+                                                    交易哈希: {{ order.escrow_tx_hash }}
+                                                </p>
                                             </div>
                                         </div>
                                         <!-- 显示交易哈希 -->
@@ -437,11 +440,11 @@
                                             托管释放
                                         </p>
                                         <p class="text-xs text-gray-500 dark:text-gray-400">
-                                            {{ order.escrow_released_at ? formatTime(order.escrow_released_at) : (order.escrow_status === 'seller_received' ? '处理中...' : '待完成') }}
+                                            {{ order.escrow_released_at ? formatTime(order.escrow_released_at) : (order.escrow_status === 'seller_received' ? '处理中...注意：如果链上已到账，但是系统长时间还未确认，请联系官方Telegram。' : '待完成') }}
                                         </p>
                                         <!-- 显示释放交易哈希 -->
                                         <p v-if="order.release_tx_hash" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
-                                            TX: {{ order.release_tx_hash }}
+                                            交易哈希: {{ order.release_tx_hash }}
                                         </p>
                                     </div>
                                 </div>
@@ -625,6 +628,9 @@
                                                         <span class="inline-block w-12">金额:</span>
                                                         <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}</span>
                                                     </p>
+                                                    <p v-if="order.escrow_tx_hash" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
+                                                        交易哈希: {{ order.escrow_tx_hash }}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -797,7 +803,7 @@
                                             </p>
                                             <!-- 显示释放交易哈希 -->
                                             <p v-if="order.release_tx_hash" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
-                                                TX: {{ order.release_tx_hash }}
+                                                交易哈希: {{ order.release_tx_hash }}
                                             </p>
                                         </div>
                                     </div>

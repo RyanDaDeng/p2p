@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Services\OrderService;
 use App\Services\EscrowService;
 use App\Services\ResponseTimeService;
@@ -171,6 +172,14 @@ class OrderController extends Controller
         ]);
 
         try {
+            //todo 检查index
+            if (Order::query()->where('escorw_tx_hash', $request->tx_hash)->exists()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => '该HASH已经被使用过了！'
+                ], 400);
+            }
+
             $order = $this->escrowService->sellerMarkPaid($id, $request->tx_hash);
 
             return response()->json([

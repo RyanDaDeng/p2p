@@ -185,13 +185,17 @@ class FireBlocksService
     public function searchTransaction(
         $source,
         $destination,
+        $assetId,
+        $txHash
     ){
         $token = $this->getToken();
         return Http::baseUrl($this->api)
             ->withToken($token)
             ->post('/transactions/search', [
+                'asset_id' => $assetId,
                 'source_address' => $source,
                 'destination_address' => $destination,
+                'tx_hash' => $txHash,
             ])
             ->json();
     }
@@ -203,7 +207,7 @@ class FireBlocksService
         $token = $this->getToken();
         return Http::baseUrl($this->api)
             ->withToken($token)
-            ->post('/transaction/detail', [
+            ->post('/transactions/detail', [
                 'fireblocks_tx_id' => $fireBlocksTxId,
                 'currency' => $currency,
             ])
