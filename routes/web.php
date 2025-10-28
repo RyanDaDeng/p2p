@@ -50,9 +50,9 @@ Route::get('/test-fireblocks', function () {
 //        'TEST'
 //    ));
 //    dd($service->registerAddress(
-//        'AUSPROD4',
+//        'AUS_TEST1',
 //        'TRX_TEST',
-//        'TQ35KGLMwSmYN64FBryvZS1asTDbVueQJb',
+//        'TMm1VD3QQoKRaxXLdybar7g152CZobN55Y',
 //        ''
 //    ));
 
@@ -62,11 +62,11 @@ Route::get('/test-fireblocks', function () {
 //    ));
 
 //    dd($service->applyPayment(
-//        'TEST001',
+//        'T202510283290',
 //        'AUSPROD1',
 //        'TMm1VD3QQoKRaxXLdybar7g152CZobN55Y',
 //        'TRX_TEST',
-//        '80'
+//        '99'
 //    ));
 
 //    dd($service->searchTransaction(

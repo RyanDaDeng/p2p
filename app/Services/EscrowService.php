@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Address;
 use App\Models\Order;
 use App\Models\EscrowLog;
 use App\Events\EscrowStatusUpdated;
@@ -412,7 +413,7 @@ class EscrowService
             // 调用区块链服务进行实际的币释放
             $isSandbox = config('fireblocks.sandbox');
 
-            $userId = $isSandbox ? 'AUS_TEST'.$order->buyer_id : 'AUS_PROD'.$order->buyer_id;
+            $userId = Address::generateFireBlocksUserId($order->buyer_id);
             $assetId = $isSandbox ? config('fireblocks.assets.test.' . $order->currency_key)
                 : config('fireblocks.assets.prod.' . $order->currency_key);
 
@@ -430,14 +431,14 @@ class EscrowService
                 ]);
 
                 $res = $service->applyPayment(
-                    $order->order_no,
-                    $userId,
-                    $order->buyer_address,
-                    $assetId,
+                    (string) $order->order_no,
+                    (string) $userId,
+                    (string) $order->buyer_address,
+                    (string) $assetId,
                     (string) $amount
                 );
 
-                if (!empty($res) && isset($res['success']) && $res['success'] == true) {
+                if (!empty($res) && isset($res['success']) && $res['success']) {
                     $log->info('Applying payment result: ', $res);
                     $order->release_tx_id = $res['transaction_id'];
                     $order->save();

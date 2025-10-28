@@ -66,7 +66,7 @@ class AddressController extends ApiController
             ], 422);
         }
 
-        $prefix = config('fireblocks.sandbox') === true ? 'TEST' : 'PROD';
+
         $assetId = $fireBlocksService->getAssetId($validated['currency_key']);
 
         if(empty($assetId)){
@@ -77,7 +77,7 @@ class AddressController extends ApiController
         }
 
         try {
-            $fireBlocksUserRef = 'AUS_' .$prefix . $userId;
+            $fireBlocksUserRef = Address::generateFireBlocksUserId($userId);
             // check compliance from 3rd party
             $res = $fireBlocksService->complianceAddressCheck(
                 $fireBlocksUserRef,

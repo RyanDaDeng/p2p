@@ -40,4 +40,9 @@ class Address extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public static function generateFireBlocksUserId($userId){
+        $prefix = config('fireblocks.sandbox') === true ? 'TEST' : 'PROD';
+        return 'AUS_' .$prefix . $userId;
+    }
 }
