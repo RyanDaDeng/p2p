@@ -390,12 +390,7 @@ class EscrowService
                 '卖家已确认收款，系统正在释放托管...'
             );
 
-//            // 触发自动释放
-            $isSandbox = config('fireblocks.sandbox');
-
-            if (!$isSandbox){
-                $this->releaseEscrow($order);
-            }
+            $this->releaseEscrow($order);
 
             return $order;
         });
