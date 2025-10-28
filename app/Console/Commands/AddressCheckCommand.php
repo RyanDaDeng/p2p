@@ -30,16 +30,26 @@ class AddressCheckCommand extends Command
     public function handle()
     {
         //
-        $data = Address::query()->where('status', Address::PENDING_STATUS)->get();
+        $data = Address::query()
+            ->where('status', Address::PENDING_STATUS)
+            ->get();
         $service = new \App\Services\FireBlocksService();
 
         foreach ($data as $datum){
-            if(empty($datum->fireblocks_status_ref)){
+            $datum->last_checked = Carbon::now()->format('Y-m-d H:i:s');
+
+            if(empty($datum->fireblocks_status_ref) && $datum->fireblocks_status == FireBlocksService::REJECTED_STATUS){
+                $datum->status = Address::DECLINED_STATUS;
+                $datum->save();
                 continue;
             }
+
+            if (empty($datum->fireblocks_status_ref)) {
+                continue;
+            }
+
             $res = $service->checkStatus($datum->fireblocks_status_ref);
 
-            $datum->last_checked = Carbon::now()->format('Y-m-d H:i:s');
             if (
                 $res['success'] === true
             ) {
