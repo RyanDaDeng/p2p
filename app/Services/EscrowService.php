@@ -421,12 +421,20 @@ class EscrowService
             $amount = round((float)$order->crypto_amount - (float)$order->fee,8);
 
             if ($amount > 0){
+                $log->info('Applying payment input: ', [
+                    'order_no' => $order->order_no,
+                    'user_id' => $userId,
+                    'buy_address' => $order->buy_address,
+                    'asset_id' => $assetId,
+                    'amount' => $amount,
+                ]);
+
                 $res = $service->applyPayment(
                     $order->order_no,
                     $userId,
                     $order->buy_address,
                     $assetId,
-                    round((float)$order->crypto_amount - (float)$order->fee , 8)
+                    $amount
                 );
                 $log->info('Applying payment: ', $res);
 
