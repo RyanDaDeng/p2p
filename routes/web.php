@@ -75,7 +75,8 @@ Route::get('/test-fireblocks', function () {
 //    ));
 
 
-//    $res = \App\Http\Controllers\Webhook\FireblocksWebhookWebController::checkOrder(
+    // receive
+//    $res = \App\Http\Controllers\Webhook\FireblocksWebhookWebController::checkReceiveOrder(
 //        'COMPLETED',
 //        '716bae90e686e7754e4d3b52ce4ff7efba66bbb0b152f039463898722b498203',
 //        'TQ35KGLMwSmYN64FBryvZS1asTDbVueQJb',
@@ -93,22 +94,22 @@ Route::get('/test-fireblocks', function () {
 //    }
 
 
-
-    $res = \App\Http\Controllers\Webhook\FireblocksWebhookWebController::checkSendOrder(
-        'COMPLETED',
-        'c115d81e-278e-491e-a7fd-ec8696dc637f',
-        'TUxYnLQWxPms3hE4JAYedxxJD77LdbsE99',
-        'TMm1VD3QQoKRaxXLdybar7g152CZobN55Y',
-    );
-
-    if ($res !== false) {
-        $escrowService = new EscrowService();
-        $escrowService->escrowReleased($res,'111', []);
-        dd(3);
-    } else {
-        // todo 有未知的转账，需要提醒TG
-        DD(2);
-    }
+//send
+//    $res = \App\Http\Controllers\Webhook\FireblocksWebhookWebController::checkSendOrder(
+//        'COMPLETED',
+//        'c115d81e-278e-491e-a7fd-ec8696dc637f',
+//        'TUxYnLQWxPms3hE4JAYedxxJD77LdbsE99',
+//        'TMm1VD3QQoKRaxXLdybar7g152CZobN55Y',
+//    );
+//
+//    if ($res !== false) {
+//        $escrowService = new EscrowService();
+//        $escrowService->escrowReleased($res,'111', []);
+//        dd(3);
+//    } else {
+//        // todo 有未知的转账，需要提醒TG
+//        DD(2);
+//    }
     return view('trade-flow-guide');
 });
 

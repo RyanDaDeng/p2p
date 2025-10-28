@@ -251,13 +251,25 @@
                                             {{ order.seller_paid_at ? formatTime(order.seller_paid_at) : '等待卖家转入' }}
                                         </p>
                                         <!-- 转币说明 -->
-                                        <p class="text-xs text-gray-700 dark:text-gray-300 mt-1">
-                                            请卖家使用 <span class="font-mono text-blue-600 dark:text-blue-400">{{ order.seller_address }}</span> 给 <span class="font-mono text-blue-600 dark:text-blue-400">{{ order.escrow_address }}</span> 发送 <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}</span>
-                                        </p>
+                                        <div class="mt-2 p-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded text-xs space-y-1">
+                                            <p class="text-gray-700 dark:text-gray-300 font-medium">请卖家转币：</p>
+                                            <div class="space-y-0.5">
+                                                <p class="text-gray-600 dark:text-gray-400">
+                                                    <span class="inline-block w-12">从:</span>
+                                                    <span class="font-mono text-blue-600 dark:text-blue-400 break-all">{{ order.seller_address }}</span>
+                                                </p>
+                                                <p class="text-gray-600 dark:text-gray-400">
+                                                    <span class="inline-block w-12">到:</span>
+                                                    <span class="font-mono text-blue-600 dark:text-blue-400 break-all">{{ order.escrow_address }}</span>
+                                                </p>
+                                                <p class="text-gray-600 dark:text-gray-400">
+                                                    <span class="inline-block w-12">金额:</span>
+                                                    <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
                                         <!-- 显示交易哈希 -->
-                                        <p v-if="order.escrow_tx_hash" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
-                                            TX: {{ order.escrow_tx_hash }}
-                                        </p>
+
                                         <!-- 卖家转币按钮 -->
                                         <div v-if="order.escrow_status === 'vendor_confirmed' && availableActions.includes('mark_seller_paid')" class="mt-2">
                                             <P2PButton
@@ -598,13 +610,23 @@
                                                 {{ order.seller_paid_at ? formatTime(order.seller_paid_at) : (order.escrow_status === 'vendor_confirmed' ? '等待卖家转入' : '待完成') }}
                                             </p>
                                             <!-- 转币说明 -->
-                                            <p class="text-xs text-gray-700 dark:text-gray-300 mt-1">
-                                                请卖家使用 <span class="font-mono text-blue-600 dark:text-blue-400">{{ order.seller_address }}</span> 给 <span class="font-mono text-blue-600 dark:text-blue-400">{{ order.escrow_address }}</span> 发送 <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}</span>
-                                            </p>
-                                            <!-- 显示交易哈希 -->
-                                            <p v-if="order.escrow_tx_hash" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
-                                                TX: {{ order.escrow_tx_hash }}
-                                            </p>
+                                            <div class="mt-2 p-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded text-xs space-y-1">
+                                                <p class="text-gray-700 dark:text-gray-300 font-medium">请卖家转币：</p>
+                                                <div class="space-y-0.5">
+                                                    <p class="text-gray-600 dark:text-gray-400">
+                                                        <span class="inline-block w-12">从:</span>
+                                                        <span class="font-mono text-blue-600 dark:text-blue-400 break-all">{{ order.seller_address }}</span>
+                                                    </p>
+                                                    <p class="text-gray-600 dark:text-gray-400">
+                                                        <span class="inline-block w-12">到:</span>
+                                                        <span class="font-mono text-blue-600 dark:text-blue-400 break-all">{{ order.escrow_address }}</span>
+                                                    </p>
+                                                    <p class="text-gray-600 dark:text-gray-400">
+                                                        <span class="inline-block w-12">金额:</span>
+                                                        <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}</span>
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- 卖家转币按钮 -->
