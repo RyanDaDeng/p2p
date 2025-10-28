@@ -173,7 +173,7 @@ class OrderController extends Controller
 
         try {
             //todo 检查index
-            if (Order::query()->where('escorw_tx_hash', $request->tx_hash)->exists()) {
+            if (Order::query()->where('escrow_tx_hash', $request->tx_hash)->exists()) {
                 return response()->json([
                     'success' => false,
                     'message' => '该HASH已经被使用过了！'
