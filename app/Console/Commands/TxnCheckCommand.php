@@ -115,7 +115,7 @@ class TxnCheckCommand extends Command
     ){
         if ($status == 'COMPLETED'){
             $order = Order::query()
-                ->where('third_party_order_no', $clientId)
+                ->where('order_no', $clientId)
                 ->where('release_tx_id', $fireblocksTxnId)
                 ->where('status', 'trading')
                 ->where('escrow_status', 'seller_received')
