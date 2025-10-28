@@ -66,7 +66,7 @@ class AddressController extends ApiController
             ], 422);
         }
 
-        $prefix = config('sandbox') === true ? 'TEST' : 'PROD';
+        $prefix = config('fireblocks.sandbox') === true ? 'TEST' : 'PROD';
         $assetId = $fireBlocksService->getAssetId($validated['currency_key']);
 
         if(empty($assetId)){
