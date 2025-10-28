@@ -18,11 +18,12 @@ class FireblocksWebhookWebController extends Controller
         try {
             $payload = $request->all();
             $log->info('IP', [$request->ip()]);
+            $log->info('Processing webhook payload', $payload);
 
             $side = $this->getSide($payload['fireblocks_tx_id']);
 
             if($side === 'in'){
-                $log->info('Processing RECEIVE webhook payload', $payload);
+                $log->info('---- RECEIVE SIDE ----');
                 $res = self::checkReceiveOrder(
                     $payload['status'],
                     $payload['tx_hash'],
@@ -38,7 +39,7 @@ class FireblocksWebhookWebController extends Controller
                     // todo 有未知的转账，需要提醒TG
                 }
             } else {
-                $log->info('Processing SEND webhook payload', $payload);
+                $log->info('---- SENDING SIDE ----');
                 $res = self::checkSendOrder(
                     $payload['status'],
                     $payload['fireblocks_tx_id'],

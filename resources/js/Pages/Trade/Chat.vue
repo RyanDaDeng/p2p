@@ -250,9 +250,9 @@
                                         <p class="text-xs text-gray-500 dark:text-gray-400">
                                             {{ order.seller_paid_at ? formatTime(order.seller_paid_at) : '等待卖家转入' }}
                                         </p>
-                                        <!-- 显示托管地址 -->
-                                        <p v-if="order.escrow_address" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
-                                            托管: {{ order.escrow_address }}
+                                        <!-- 转币说明 -->
+                                        <p class="text-xs text-gray-700 dark:text-gray-300 mt-1">
+                                            请卖家使用 <span class="font-mono text-blue-600 dark:text-blue-400">{{ order.seller_address }}</span> 给 <span class="font-mono text-blue-600 dark:text-blue-400">{{ order.escrow_address }}</span> 发送 <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}</span>
                                         </p>
                                         <!-- 显示交易哈希 -->
                                         <p v-if="order.escrow_tx_hash" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
@@ -597,9 +597,9 @@
                                             <p class="text-xs" :class="['seller_paid', 'escrow_received', 'buyer_confirmed_escrow', 'buyer_paid', 'seller_received', 'escrow_released'].includes(order.escrow_status) ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-600'">
                                                 {{ order.seller_paid_at ? formatTime(order.seller_paid_at) : (order.escrow_status === 'vendor_confirmed' ? '等待卖家转入' : '待完成') }}
                                             </p>
-                                            <!-- 显示托管地址 -->
-                                            <p v-if="order.escrow_address" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
-                                                托管: {{ order.escrow_address }}
+                                            <!-- 转币说明 -->
+                                            <p class="text-xs text-gray-700 dark:text-gray-300 mt-1">
+                                                请卖家使用 <span class="font-mono text-blue-600 dark:text-blue-400">{{ order.seller_address }}</span> 给 <span class="font-mono text-blue-600 dark:text-blue-400">{{ order.escrow_address }}</span> 发送 <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ parseFloat(order.crypto_amount).toFixed(4) }} {{ order.currency_label || order.currency_key || order.crypto_currency }}</span>
                                             </p>
                                             <!-- 显示交易哈希 -->
                                             <p v-if="order.escrow_tx_hash" class="text-xs text-blue-600 dark:text-blue-400 font-mono break-all mt-1">
@@ -1759,6 +1759,7 @@
             :title="dialogState.title"
             :confirm-text="dialogState.confirmText"
             :cancel-text="dialogState.cancelText"
+            :loading="dialogState.loading"
             @confirm="() => handleDialogConfirm(dialogState.inputValue)"
             @close="handleDialogCancel"
         >
@@ -1793,6 +1794,7 @@
             :agreement-text="allEscrowChecksCompleted ? '我已核对所有信息无误，确认托管已到账' : '请先勾选上方所有确认项'"
             confirm-text="确认托管到账"
             cancel-text="返回检查"
+            :loading="dialogState.loading"
             :persistent="dialogState.loading"
             @confirm="handleEscrowConfirm"
             @close="handleDialogCancel"
@@ -1939,6 +1941,7 @@
             agreement-text="我已仔细核对金额和地址，确认转币信息无误"
             confirm-text="确认已转币"
             cancel-text="返回"
+            :loading="dialogState.loading"
             :persistent="dialogState.loading"
             @confirm="handleSellerPaidConfirm"
             @close="handleDialogCancel"
@@ -2017,6 +2020,7 @@
             :agreement-text="userHas2FA ? (dialogState.twoFactorCode && dialogState.twoFactorCode.length === 6 ? '我确认已完成付款，理解虚假付款将导致账户封禁' : '请先输入6位验证码') : ''"
             :confirm-text="userHas2FA ? '确认已付款' : '前往启用双重验证'"
             cancel-text="返回"
+            :loading="dialogState.loading"
             :persistent="dialogState.loading"
             @confirm="userHas2FA ? handleBuyerPaymentConfirm() : router.visit('/user/profile#tab-2fa')"
             @close="handleDialogCancel"
@@ -2089,6 +2093,7 @@
             :agreement-text="userHas2FA ? (dialogState.twoFactorCode && dialogState.twoFactorCode.length === 6 ? '我确认已收到款项，同意释放托管的加密货币给买家' : '请先输入6位验证码') : ''"
             :confirm-text="userHas2FA ? '确认收款' : '前往启用双重验证'"
             cancel-text="返回"
+            :loading="dialogState.loading"
             :persistent="dialogState.loading"
             @confirm="userHas2FA ? handleSellerReceivedConfirm() : router.visit('/user/profile#tab-2fa')"
             @close="handleDialogCancel"
