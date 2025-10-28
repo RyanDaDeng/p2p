@@ -443,6 +443,7 @@ class EscrowService
                     $order->release_tx_id = $res['transaction_id'];
                     $order->save();
                 } else {
+                    $log->info('Applying payment result: ', $res);
                     // todo 有未知的转账，需要提醒TG
                 }
             } else {
