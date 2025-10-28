@@ -73,11 +73,11 @@ class ChatController extends Controller
                     'message' => $message->message,
                     'type' => $message->type,
                     'attachment' => $message->attachment,
-                    'user' => [
-                        'id' => $message->user->id,
+                    'user' => $message->user ? [
+                        'id' =>  $message->user->id,
                         'name' => $message->user->name,
                         'profile_photo_url' => $message->user->profile_photo_url,
-                    ],
+                    ] : [],
                     'created_at' => $message->created_at->toISOString(),
                 ];
             });
