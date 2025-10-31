@@ -42,7 +42,7 @@ class Address extends Model
     }
 
     public static function generateFireBlocksUserId($userId){
-        $prefix = config('fireblocks.sandbox') === true ? 'TEST' : 'PROD';
+        $prefix = config('fireblocks.sandbox') === true ? 'LOCALSAND' : 'PROD';
         return 'AUS_' .$prefix . $userId;
     }
 }
